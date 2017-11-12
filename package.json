@@ -1,0 +1,16 @@
+{
+  "name": "vitasenior",
+  "version": "1.0.0",
+  "description": "Box Vita Senior",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js"
+  },
+  "author": "Nelson Gomes",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
+  }
+}
