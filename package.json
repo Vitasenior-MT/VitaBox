@@ -9,6 +9,7 @@
   "author": "Nelson Gomes",
   "license": "ISC",
   "dependencies": {
+    "byline": "^5.0.0",
     "colors": "^1.1.2",
     "express": "^4.16.2",
     "socket.io": "^2.0.4"
