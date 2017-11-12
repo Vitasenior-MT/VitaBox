@@ -36,6 +36,22 @@ $(document).ready(function(){
 			 $("#btn-menu-" + (key - 48)).click();
 		}
 	});
+
+	socket.on("ready", function(data){
+		console.log("ready", data);
+	});
+
+	socket.on("status", function(data){
+		console.log("status", data);
+	});
+
+	socket.on("datakey", function(data){
+		console.log("datakey", data)
+	});
+
+	socket.on("error", function(data){
+		console.log("error", data);
+	});
 });
 
 var checkIndexSelk = function(){
