@@ -50,7 +50,7 @@ $(document).ready(function(){
 
 		var key = data.code;
 
-		if(key === 3) {
+		if(key === '3') {
 			var SelElent = checkIndexSelk();			
 			if(SelElent.index === 0){
 				$(SelElent.elements[SelElent.size]).click();
@@ -58,7 +58,7 @@ $(document).ready(function(){
 				$(SelElent.elements[SelElent.index - 1]).click();			
 			}			
 		}		
-		if(key === 4) {
+		if(key === '4') {
 			var SelElent = checkIndexSelk();			
 			if(SelElent.index === SelElent.size){
 				$(SelElent.elements[0]).click();
@@ -67,8 +67,8 @@ $(document).ready(function(){
 			}						
 		}
 		
-		if(key >= 1 && key <= 5){
-			 $("#btn-menu-" + (key)).click();
+		if((key * 1) >= 21 && (key * 1) <= 25){
+			 $("#btn-menu-" + (key - 20)).click();
 		}
 
 	});
