@@ -12,6 +12,7 @@
     "byline": "^5.0.0",
     "colors": "^1.1.2",
     "express": "^4.16.2",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "text-to-speech-js": "^1.1.7"
   }
 }

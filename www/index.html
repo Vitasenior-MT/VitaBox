@@ -1,10 +1,10 @@
 <!doctype html>
 
 <html lang="en">
-	<head>
+	<head>		
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-		<title>The HTML5 Herald</title>
+		<title>Vita Sénior - Box -</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 		<!-- Bootstrap CSS -->
@@ -19,22 +19,83 @@
 
 	<body>
 		<div class="container-fluid">
-			<div class="row mt-5 menu-bar">
-				<div class="col-2">
-					<button id="btn-menu-1" type="button" class="btn btn-info btn-lg btn-block btn-menu">Button 1</button>
-				</div> <!-- end col -->
-				<div class="col-2">
-					<button id="btn-menu-2" type="button" class="btn btn-success btn-lg btn-block btn-menu">Button 2</button>
-				</div> <!-- end col -->
-				<div class="col-2">
-					<button id="btn-menu-3" type="button" class="btn btn-success btn-lg btn-block btn-menu">Button 3</button>
-				</div> <!-- end col -->
-				<div class="col-2">
-					<button id="btn-menu-4" type="button" class="btn btn-success btn-lg btn-block btn-menu">Button 4</button>
-				</div> <!-- end col -->
-				<div class="col-2">
-					<button id="btn-menu-5" type="button" class="btn btn-success btn-lg btn-block btn-menu">Button 5</button>
-				</div> <!-- end col -->
+			<nav class="navbar fixed-top navbar-dark">
+				<div class="row menu-bar">
+					<div class="col-1">
+						<img src="./img/images/favicon-32x32.png" class="img-fluid" alt="">
+					</div>
+					<div class="col-2">
+						<button id="btn-menu-1" type="button" class="btn btn-info btn-block btn-menu">Button 1</button>
+					</div> <!-- end col -->
+					<div class="col-2">
+						<button id="btn-menu-2" type="button" class="btn btn-success btn-block btn-menu">Button 2</button>
+					</div> <!-- end col -->
+					<div class="col-2">
+						<button id="btn-menu-3" type="button" class="btn btn-success btn-block btn-menu">Button 3</button>
+					</div> <!-- end col -->
+					<div class="col-2">
+						<button id="btn-menu-4" type="button" class="btn btn-success btn-block btn-menu">Button 4</button>
+					</div> <!-- end col -->
+					<div class="col-2">
+						<button id="btn-menu-5" type="button" class="btn btn-success btn-block btn-menu">Button 5</button>
+					</div> <!-- end col -->
+					<div class="col-1 d-flex justify-content-end">
+						<button id="swapArchived" class="btn btn-outline-info btn-sm showArchieved">
+						    <img src="./img/som_on_24.png" class="img-fluid img-thumbnail" alt="">
+						</button>
+						<!-- <img src="./img/images/favicon-32x32.png" class="img-fluid" alt=""> -->
+					</div>
+				</div><!-- end row -->  
+			</nav>
+			<div class="row mt-5 containers tab-content">
+				<div id="container-1" role="tabpanel" class="col-12 container-tab tab-pane active show">
+					<div class="jumbotron jumbotron-fluid">
+						<div class="container">
+							<h1 class="display-3">Container 1</h1>
+							<img src="./img/logo.png" class="col-6 img-fluid img-thumbnail" alt="">
+						</div>
+					</div>
+				</div>
+				<div id="container-2" role="tabpanel" class="col-12 container-tab tab-pane fade">
+					<div class="jumbotron jumbotron-fluid">
+						<div class="container">
+							<h1 class="display-3">Container 2 - ResponsiVeVoice.js</h1>
+							<p class="text-justify text-read">
+								A população mundial está a envelhecer a um ritmo alarmante. Na Europa, 5% da população tem mais de 80 anos e estima-se que este número venha a triplicar nos próximos 20 anos. Este envelhecimento populacional trará consigo um novo conjunto de desafíos sociais e económicos para o panorama da prestação de cuidados. O Nourish Sensors, resultado deste projecto de tese de mestrado, constitui um sistema de tele-monitorização cujo o objectivo é auxiliar o idoso a manter uma vida activa e independente através da instalação de sensores na sua habitação. Estes sensores permitem inferir o ritmo circadiano do utente assim como coleccionar dados que farão parte de um sistema inteligente de geração de alarmes automáticos através da detecção de situações de emergência.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div id="container-3" role="tabpanel" class="col-12 container-tab tab-pane fade">
+					<div class="jumbotron jumbotron-fluid">
+						<div class="container">
+							<h1 class="display-3">Container 3 - SpeechSynthesisUtterance</h1>
+							<p class="text-justify text-read">
+								A população mundial está a envelhecer a um ritmo alarmante. Na Europa, 5% da população tem mais de 80 anos e estima-se que este número venha a triplicar nos próximos 20 anos. Este envelhecimento populacional trará consigo um novo conjunto de desafíos sociais e económicos para o panorama da prestação de cuidados. O Nourish Sensors, resultado deste projecto de tese de mestrado, constitui um sistema de tele-monitorização cujo o objectivo é auxiliar o idoso a manter uma vida activa e independente através da instalação de sensores na sua habitação. Estes sensores permitem inferir o ritmo circadiano do utente assim como coleccionar dados que farão parte de um sistema inteligente de geração de alarmes automáticos através da detecção de situações de emergência.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div id="container-4" role="tabpanel" class="col-12 container-tab tab-pane fade">
+					<div class="jumbotron jumbotron-fluid">
+						<div class="container">
+							<h1 class="display-3">Container 4 - artyom.window.js</h1>
+							<p class="text-justify text-read">
+								A população mundial está a envelhecer a um ritmo alarmante. Na Europa, 5% da população tem mais de 80 anos e estima-se que este número venha a triplicar nos próximos 20 anos. Este envelhecimento populacional trará consigo um novo conjunto de desafíos sociais e económicos para o panorama da prestação de cuidados. O Nourish Sensors, resultado deste projecto de tese de mestrado, constitui um sistema de tele-monitorização cujo o objectivo é auxiliar o idoso a manter uma vida activa e independente através da instalação de sensores na sua habitação. Estes sensores permitem inferir o ritmo circadiano do utente assim como coleccionar dados que farão parte de um sistema inteligente de geração de alarmes automáticos através da detecção de situações de emergência.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div id="container-5" role="tabpanel" class="col-12 container-tab tab-pane fade">
+					<div class="jumbotron jumbotron-fluid">
+						<div class="container">
+							<h1 class="display-3">Container 5 - voicerss-tts.min.js</h1>
+							<p class="text-justify text-read">
+								A população mundial está a envelhecer a um ritmo alarmante. Na Europa, 5% da população tem mais de 80 anos e estima-se que este número venha a triplicar nos próximos 20 anos. Este envelhecimento populacional trará consigo um novo conjunto de desafíos sociais e económicos para o panorama da prestação de cuidados. O Nourish Sensors, resultado deste projecto de tese de mestrado, constitui um sistema de tele-monitorização cujo o objectivo é auxiliar o idoso a manter uma vida activa e independente através da instalação de sensores na sua habitação. Estes sensores permitem inferir o ritmo circadiano do utente assim como coleccionar dados que farão parte de um sistema inteligente de geração de alarmes automáticos através da detecção de situações de emergência.
+							</p>
+						</div>
+					</div>
+				</div>
 			</div><!-- end row -->  
 		</div> <!-- End container-fluid -->
 		
@@ -44,6 +105,11 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 		<script src="/socket.io/socket.io.js"></script>
+
+		<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+
+		<script src="./js/artyom.window.js"></script>
+		<script src="./js/voicerss-tts.min.js"></script>
 
 		<script src="./js/script.js"></script>
 	</body>
