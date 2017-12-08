@@ -11,6 +11,9 @@
   "dependencies": {
     "byline": "^5.0.0",
     "colors": "^1.1.2",
+    "deasync-promise": "^1.0.1",
+    "death": "^1.1.0",
+    "event-stream": "^3.3.4",
     "express": "^4.16.2",
     "socket.io": "^2.0.4",
     "text-to-speech-js": "^1.1.7"
