@@ -28,6 +28,13 @@ $(document).ready(function(){
 		$el.find('img').attr("src").indexOf("on") >= 0 ? sound = true : sound = false;
 	});
 
+	$('#selectOpt').change(function(e){
+		var optionSelected = $("option:selected", this);
+    	var valueSelected = this.value;
+    	console.log(optionSelected, valueSelected);
+    	$("#selected-text-input").val(this.value);
+	});
+
 		
 	$("body").keypress(function(e){			
 		socket.emit('keypress', e.which);		
