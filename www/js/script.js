@@ -37,7 +37,7 @@ $(document).ready(function(){
 
 	$("#rumCommandCec").click(function(){
 		if ($("#selected-text-input").val().trim() !== "") {
-			var command = $("#selected-text-input").val().trim():
+			var command = $("#selected-text-input").val().trim();
 			console.log(command);
 			socket.emit('execCommandCEC', command);			
 		}
