@@ -35,6 +35,13 @@ $(document).ready(function(){
     	$("#selected-text-input").val(this.value);
 	});
 
+	$("#rumCommandCec").click(function(){
+		if ($("#selected-text-input").val().trim() !== "") {
+			console.log($("#selected-text-input").val().trim());
+			socket.emit('execCommandCEC', "e.which");			
+		}
+	});
+
 		
 	$("body").keypress(function(e){			
 		socket.emit('keypress', e.which);		
