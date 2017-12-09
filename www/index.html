@@ -65,11 +65,28 @@
                                     <label for="selectOpt" class="col-4 col-form-label">Action</label>
                                     <div class="col-8">
                                     	<select class="custom-select form-control" id="selectOpt">
-									      <option value=""></option>
-									      <!-- <option value="">Tv Off</option> -->
-									      <option value="tx 3f:04">Tv On Use "tx"</option>
-									      <option value="tx 3f:36">Tv Off Use "tx"</option>
-										  </select>
+										      <option value=""></option>
+
+										      <option value="tx 30:9F">Get CEC Version</option>
+										      <option value="tx 30:8F">Give Device Power Status</option>
+										      <option value="tx 30:8C">Give Device Vendor ID</option>
+										      <option value="tx 30:83">Give Physical Address</option>
+										      <option value="tx 3f:85">Request Active Source</option>
+
+
+										      <option value="tx 3f:04">Tv On Use "tx"</option>
+										      <option value="tx 3f:36">Tv Off Use "tx"</option>
+
+										      <option value="tx 30:0D">Text View On</option>
+
+										      <option value="tx 3f:72:00">'Set System Audio Mode' Tv Audio ON Use "tx"</option>
+										      <option value="tx 3f:72:01">'Set System Audio Mode' Tv Audio Off Use "tx"</option>
+
+										      <option value="tx 30:7E:00">'System Audio Mode Status' Tv Audio ON Use "tx"</option>
+										      <option value="tx 30:7E:01">'System Audio Mode Status' Tv Audio Off Use "tx"</option>
+
+										</select>
+
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +100,17 @@
                             </div>
                         </div>
 
-                        <img src="./img/logo.png" class="col-6 img-fluid img-thumbnail" alt="">
+
+
+
+                        <div class="row">
+                            <div class="col-12">
+                            	<label for="outputTextarea">OutPut</label>
+    							<textarea class="form-control" id="outputTextarea" rows="10"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- <img src="./img/logo.png" class="col-6 img-fluid img-thumbnail" alt=""> -->
                     </div>
                 </div>
             </div>
