@@ -31,16 +31,20 @@ $(document).ready(function(){
 	$('#selectOpt').change(function(e){
 		var optionSelected = $("option:selected", this);
     	var valueSelected = this.value;
-    	console.log(optionSelected, valueSelected);
+    	// console.log(optionSelected, valueSelected);
     	$("#selected-text-input").val(this.value);
 	});
 
 	$("#rumCommandCec").click(function(){
 		if ($("#selected-text-input").val().trim() !== "") {
 			var command = $("#selected-text-input").val().trim();
-			console.log(command);
+			// console.log(command);
 			socket.emit('execCommandCEC', command);			
 		}
+	});
+
+	$("#rumSendMsg").click(function(){
+		socket.emit('rumSendMsg', $("#msg-text-input").val());	
 	});
 
 	socket.on('hdmistatus', function(data){
@@ -50,12 +54,9 @@ $(document).ready(function(){
 	socket.on('msgOutput', function(output){
 		console.log("output", output);
 		$('#outputTextarea').val(function(i, text) {
-		    return text + output;
+		    return text + output + "\n";
 		});
-
 		$('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);
-		// $('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);​​​
-
 	});
 
 
