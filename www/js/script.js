@@ -154,7 +154,7 @@ $(document).ready(function(){
 
 var appendToTextArea = function(msg) {
 	$('#outputTextarea').val(function(i, text) {
-	    return text + JSON.stringify(msg, undefined, 2) + "\n------------------------------------------\n";
+	    return text + JSON.stringify(msg, undefined, 2) + "\n----------------------------\n";
 	});
 	$('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);
 };;
