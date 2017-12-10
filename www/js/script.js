@@ -51,7 +51,7 @@ $(document).ready(function(){
 		$('#outputTextarea').val(function(i, text) {
 		    return text + output;
 		});
-		$('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);​​​
+		// $('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);​​​
 		
 	});
 
