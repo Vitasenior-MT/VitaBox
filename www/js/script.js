@@ -44,7 +44,15 @@ $(document).ready(function(){
 	});
 
 	$("#rumSendMsg").click(function(){
-		socket.emit('rumSendMsg', $("#msg-text-input").val());	
+		var msg = $("#msg-text-input").val().trim();
+		if (msg.length <= 13 & msg !== "") {
+			socket.emit('rumSendMsg', { 
+				msg: $("#msg-text-input").val(),
+				optmsg: $("#selectOptMsg option:selected").val()
+			});
+		} else {
+			alert("Mensagem vazia ou com um comprimento superior a 13 carateres.");
+		}
 	});
 
 	socket.on('hdmistatus', function(data){
