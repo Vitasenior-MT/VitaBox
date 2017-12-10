@@ -55,6 +55,12 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#rumSendMsgtx").click(function(){
+		if ($("#msg-text-input-tx").val().trim() |== "") {
+			socket.emit('runTxCmd', $("#msg-text-input-tx").val().trim());
+		}
+	});
+
 	socket.on('hdmistatus', function(data){
 		console.log("Data", data);
 		appendToTextArea(data);
@@ -62,11 +68,6 @@ $(document).ready(function(){
 
 	socket.on('msgOutput', function(output){
 		appendToTextArea(output);
-		// console.log("output", output);
-		// $('#outputTextarea').val(function(i, text) {
-		//     return text + output + "\n";
-		// });
-		// $('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);
 	});
 
 
