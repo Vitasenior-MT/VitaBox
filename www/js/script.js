@@ -56,7 +56,7 @@ $(document).ready(function(){
 	});
 
 	$("#rumSendMsgtx").click(function(){
-		if ($("#msg-text-input-tx").val().trim() |== "") {
+		if ($("#msg-text-input-tx").val().trim() !== "") {
 			socket.emit('runTxCmd', $("#msg-text-input-tx").val().trim());
 		}
 	});
