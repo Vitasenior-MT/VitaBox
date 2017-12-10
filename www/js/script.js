@@ -57,6 +57,11 @@ $(document).ready(function(){
 
 	socket.on('hdmistatus', function(data){
 		console.log("Data", data);
+
+		$('#outputTextarea').val(function(i, text) {
+		    return text + JSON.stringify(data, undefined, 2) + "\n";
+		});
+		$('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);
 	});
 
 	socket.on('msgOutput', function(output){
@@ -104,11 +109,6 @@ $(document).ready(function(){
 
 	socket.on("status", function(data){
 		console.log("status", data);
-
-		$('#outputTextarea').val(function(i, text) {
-		    return text + JSON.stringify(data, undefined, 2) + "\n";
-		});
-		$('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);
 
 	});
 
