@@ -48,11 +48,14 @@ $(document).ready(function(){
 	});
 
 	socket.on('msgOutput', function(output){
+		console.log("output", output);
 		$('#outputTextarea').val(function(i, text) {
 		    return text + output;
 		});
+
+		$('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);
 		// $('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);​​​
-		
+
 	});
 
 
