@@ -57,19 +57,16 @@ $(document).ready(function(){
 
 	socket.on('hdmistatus', function(data){
 		console.log("Data", data);
-
-		$('#outputTextarea').val(function(i, text) {
-		    return text + JSON.stringify(data, undefined, 2) + "\n";
-		});
-		$('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);
+		appendToTextArea(data);
 	});
 
 	socket.on('msgOutput', function(output){
+		appendToTextArea(output);
 		// console.log("output", output);
-		$('#outputTextarea').val(function(i, text) {
-		    return text + output + "\n";
-		});
-		$('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);
+		// $('#outputTextarea').val(function(i, text) {
+		//     return text + output + "\n";
+		// });
+		// $('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);
 	});
 
 
@@ -153,6 +150,13 @@ $(document).ready(function(){
 		};
 	}
 });
+
+var appendToTextArea = function(msg) {
+	$('#outputTextarea').val(function(i, text) {
+	    return text + JSON.stringify(msg, undefined, 2) + "\n";
+	});
+	$('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);
+};;
 
 var checkIndexSelk = function(){
 	var allbtn = $(".btn-menu");
