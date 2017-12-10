@@ -43,7 +43,19 @@ $(document).ready(function(){
 		}
 	});
 
-		
+	socket.on('hdmistatus', function(data){
+		console.log("Data", data);
+	});
+
+	socket.on('msgOutput', function(output){
+		$('#outputTextarea').val(function(i, text) {
+		    return text + output;
+		});
+		$('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);​​​
+	});
+
+
+
 	$("body").keypress(function(e){			
 		socket.emit('keypress', e.which);		
 	});
