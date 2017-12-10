@@ -52,6 +52,7 @@ $(document).ready(function(){
 		    return text + output;
 		});
 		$('#outputTextarea').scrollTop($('#outputTextarea')[0].scrollHeight);​​​
+		
 	});
 
 
