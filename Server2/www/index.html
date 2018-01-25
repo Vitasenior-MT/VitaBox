@@ -1,0 +1,85 @@
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+		<title>The HTML5 Herald</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="./css/styles.css">
+
+		<!--[if lt IE 9]>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row mt-5 menu-bar">
+				<div class="col-3">
+					<button id="btn-menu-1" type="button" class="btn btn-info btn-lg btn-block">POST Single Value</button>
+				</div> <!-- end col -->
+				<div class="col-3">
+					<button id="btn-menu-2" type="button" class="btn btn-success btn-lg btn-block">Start Loop POST</button>
+				</div> <!-- end col -->
+				<div class="col-3">
+					<button id="btn-menu-3" type="button" class="btn btn-success btn-lg btn-block">Strop Loop POST</button>
+				</div> <!-- end col -->
+
+			</div><!-- end row -->
+			<div class="jumbotron">
+				<h5 class="display-3">Teste insert values</h5>
+				<div class="form-group row">
+				  <label for="example-text-input-1" class="col-1 col-form-label">ID</label>
+				  <div class="col-2">
+				    <input class="form-control" type="text" value="123456789" id="example-text-input-1">
+				  </div>
+				</div>
+				<div class="form-group row">
+				  <label for="example-text-input-2" class="col-1 col-form-label">Local</label>
+				  <div class="col-2">
+				    <input class="form-control" type="text" value="Sala" id="example-text-input-2">
+				  </div>
+				</div>
+				<hr>
+				<div class="form-group row">
+				  <label for="example-text-input" class="col-1 col-form-label"></label>
+				  <div class="col-1">
+				    <label class="">sensortype</label>
+				  </div>
+				  <div class="col-1">
+				    <label class="">sensorvalue</label>
+				  </div>
+					<div class="col-5">
+						<button id="btn-new-row" type="button" class="btn btn-success">Add New Row</button>
+							<button id="btn-rem-row" type="button" class="btn btn-danger">Remove New Row</button>
+				</div>
+				</div>
+				<div id="sensores-val">
+					<div id="row-1" class="form-group row">
+					  <label for="sensor-val-1" class="col-1 col-form-label">Item</label>
+					  <div class="col-1">
+					    <input class="form-control" type="text" value="temp" id="sensor-type-1">
+					  </div>
+						:
+					  <div class="col-1">
+					    <input class="form-control" type="text" value="25" id="sensor-val-1">
+				  </div>,
+				</div>
+				</div>
+			</div>
+		</div> <!-- End container-fluid -->
+
+
+		<!-- jQuery first, then Tether, then Bootstrap JS. -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+		<script src="./js/script.js"></script>
+	</body>
+</html>
