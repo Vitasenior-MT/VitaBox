@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueSocketio from 'vue-socket.io'
+import resource from 'vue-resource'
 
 // Plugins
 import GlobalComponents from './globalComponents'
@@ -24,6 +25,7 @@ Vue.use(GlobalComponents)
 Vue.use(GlobalDirectives)
 Vue.use(Notifications)
 Vue.use(SideBar)
+Vue.use(resource)
 Vue.use(VueSocketio, location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : ''))
 
 // configure router

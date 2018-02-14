@@ -142,15 +142,6 @@
       $route: function (newRoute, oldRoute) {
         this.findActiveLink()
       }
-    },
-    sockets: {
-      connect: (val) => {
-        if (val) {
-          console.log('socket connected -> val: ', val)
-        } else {
-          console.log('socket connected')
-        }
-      }
     }
   }
 
