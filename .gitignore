@@ -36,7 +36,7 @@ build/Release
 node_modules/
 jspm_packages/
 ServerSendDataSensor/node_modules/
-..vagrant
+.vagrant
 public/node_modules/
 .log
 
