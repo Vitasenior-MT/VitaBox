@@ -5,13 +5,13 @@
         <div slot="header">
           <i :class="warningCard.headerIcon"></i> {{warningCard.headerText}}
         </div>
-        <div v-if="warningCard.sensors.length > 0" class="warning-card-padding-left" slot="content" v-for="sensor in warningCard.sensors" :key="sensor.id">
+        <div v-if="warningCard.sensors.length > 0" class="warning-card-padding" slot="content" v-for="sensor in warningCard.sensors" :key="sensor.id">
           <h4>{{sensor.sensor}}</h4>
           <p v-if="sensor.avg >= sensor.threshold" class="warning-card-critical">Media: {{sensor.avg}} - Limite:{{sensor.threshold}}</p>
           <p v-else-if="sensor.avg >= (sensor.threshold - (sensor.threshold * 0.1))" class="warning-card-warning">Media: {{sensor.avg}} - Limite:{{sensor.threshold}}</p>
           <p v-else-if="sensor.avg < (sensor.threshold - (sensor.threshold * 0.1))" class="warning-card-good">Media: {{sensor.avg}} - Limite:{{sensor.threshold}}</p>
         </div>
-        <div v-if="warningCard.sensors.length === 0" class="warning-card-padding-left" slot="content">
+        <div v-if="warningCard.sensors.length === 0" class="warning-card-padding" slot="content">
           <h4>Empty</h4>
         </div>
         <div slot="footer">
@@ -30,10 +30,7 @@ export default {
   sockets: {
     vitaWarning: function(data) {
       console.log("Receive alert on Tab: ", data);
-      clearInterval(this.setInterval);
-      this.setInterval = setInterval(() => {
-        this.updateSensors();
-      }, 10000);
+      this.updateSensor(data);
     }
   },
   data() {
@@ -46,6 +43,22 @@ export default {
     window.unload = this.leaving;
   },
   methods: {
+    dateFormat() {
+      let date = new Date();
+      return (
+        date.getDate() +
+        "/" +
+        date.getMonth() +
+        "/" +
+        date.getFullYear() +
+        " " +
+        (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) +
+        ":" +
+        (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) +
+        ":" +
+        (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds())
+      );
+    },
     getSensorValues(sensortype, locationId, limit, index, i) {
       console.log(sensortype, locationId, limit);
       this.$http
@@ -57,15 +70,7 @@ export default {
               console.log("avg--> ", response.data);
               this.warningCards[index].sensors[i].avg = data.avg;
               this.warningCards[index].sensors[i].threshold = data.threshold;
-              let date = new Date();
-              let dateFormat =
-                date.getDate() + "/" +
-                date.getMonth() + "/" +
-                date.getFullYear() + " " +
-                date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours() + ":" +
-                date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes() + ":" +
-                date.getSeconds() < 10 ? ('0' + date.getgetSecondsHours()) : date.getSeconds();
-              this.warningCards[index].footerText = dateFormat;
+              this.warningCards[index].footerText = this.dateFormat();
             }
           } else {
             console.log("Receive error");
@@ -104,6 +109,29 @@ export default {
         for (var i in warnings.sensors) {
           let data = warnings.sensors[i];
           this.getSensorValues(data.sensor, warnings.locationId, 10, index, i);
+        }
+      }
+    },
+    updateSensor(data) {
+      for (var index in this.warningCards) {
+        let warnings = this.warningCards[index];
+        console.log("data.location");
+        console.log(data.location);
+        console.log(warnings.headerText);
+        console.log(data.location === warnings.headerText);
+        if (data.location === warnings.headerText) {
+          for (var i in warnings.sensors) {
+            let data = warnings.sensors[i];
+            if (data.warning_type === data.sensor) {
+              console.log(data.warning_type);
+              console.log(data.sensor);
+              console.log(data.warning_type === data.sensor);
+              this.warningCards[index].sensors[i].avg = data.avg;
+              this.warningCards[index].sensors[i].threshold = data.threshold;
+              this.warningCards[index].footerText = this.dateFormat();
+              return;
+            }
+          }
         }
       }
     }
@@ -186,8 +214,8 @@ export default {
   margin: 0 5px 0 0;
 }
 
-.warning-card-padding-left {
-  padding-left: 3%;
+.warning-card-padding {
+  padding: 0 3% 0 3%;
 }
 
 .warning-card-critical {

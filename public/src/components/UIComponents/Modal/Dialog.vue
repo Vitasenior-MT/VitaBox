@@ -14,10 +14,10 @@
     @closed="$emit('closed', $event)">
     <card-style>
       <div class="icon-big text-center" :class="`icon-${cardStyle.type}`" slot="header">
-        <icon name="warning" :scale="20"></icon>
+        <img src="static/img/vitabox/warning.svg">
       </div>
       <div class="center" slot="content">
-        <p>{{cardStyle.title}}</p>
+        <b>{{cardStyle.title}}</b>
       </div>
     </card-style>
   </modal>
@@ -111,14 +111,16 @@ export default {
 
 .center {
   text-align: center;
-  min-height: 64px;
-  line-height: 64px;
+  min-height: 150px;
+  line-height: 150px;
 }
 
 /* If the text has multiple lines, add the following: */
-.center p {
+.center b {
   line-height: 1.5;
   display: inline-block;
   vertical-align: middle;
+  color: red;
+  font-size: 45px;
 }
 </style>
