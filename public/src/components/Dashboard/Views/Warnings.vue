@@ -43,6 +43,19 @@ export default {
     window.unload = this.leaving;
   },
   methods: {
+    sortBy: function(arr, property) {
+      console.log(arr, property);
+      return arr.sort(function(a, b) {
+        console.log("aaaaaaa ", a, b);
+        if (a[property].toUpperCase() < b[property].toUpperCase()) {
+          return -1;
+        } else if (a[property].toUpperCase() > b[property].toUpperCase()) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    },
     dateFormat() {
       let date = new Date();
       return (
@@ -72,6 +85,7 @@ export default {
               this.warningCards[index].sensors[i].threshold = data.threshold;
               this.warningCards[index].footerText = this.dateFormat();
             }
+            //this.sortBy(this.warningCards, "footerText");
           } else {
             console.log("Receive error");
           }
@@ -122,6 +136,7 @@ export default {
               this.warningCards[index].sensors[i].avg = data.avg;
               this.warningCards[index].sensors[i].threshold = data.threshold;
               this.warningCards[index].footerText = this.dateFormat();
+              this.sortBy(this.warningCards, "footerText");
               return;
             }
           }

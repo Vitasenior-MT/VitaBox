@@ -49,24 +49,10 @@ export default {
     return {
       cardStyle: {
         type: "warning",
-        icon: "ti-server",
-        title: "Warning!!!",
-        multiMessage: [],
-        messageModel: [],
-        headerText: "Updated now",
-        headerIcon: "ti-reload",
-        footerText: "Updated now",
-        footerIcon: "ti-reload"
+        title: "Warning!!!"
       },
       params: {}
     };
-  },
-  beforeMount() {
-    Dialog.event.$on("sendData", data => {
-      console.log("inside of the dialog: ---> ", data);
-      //this.cardStyle.multiMessage = data.multiMessage;
-      //this.cardStyle.messageModel = data.messageModel;
-    });
   }
 };
 </script>

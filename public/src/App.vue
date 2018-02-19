@@ -9,7 +9,6 @@
 export default {
   sockets: {
     vitaWarning: function(data) {
-      console.log("Receive alert", data);
       this.$modal.show("dialog", data);
     },
     hideModal() {
