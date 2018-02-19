@@ -30,6 +30,10 @@ export default {
   sockets: {
     vitaWarning: function(data) {
       console.log("Receive alert on Tab: ", data);
+      clearInterval(this.setInterval);
+      this.setInterval = setInterval(() => {
+        this.updateSensors();
+      }, 10000);
     }
   },
   data() {
@@ -55,17 +59,12 @@ export default {
               this.warningCards[index].sensors[i].threshold = data.threshold;
               let date = new Date();
               let dateFormat =
-                date.getDate() +
-                "/" +
-                date.getMonth() +
-                "/" +
-                date.getFullYear() +
-                " " +
-                date.getHours() +
-                ":" +
-                date.getMinutes() +
-                ":" +
-                date.getSeconds();
+                date.getDate() + "/" +
+                date.getMonth() + "/" +
+                date.getFullYear() + " " +
+                date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours() + ":" +
+                date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes() + ":" +
+                date.getSeconds() < 10 ? ('0' + date.getgetSecondsHours()) : date.getSeconds();
               this.warningCards[index].footerText = dateFormat;
             }
           } else {
@@ -107,10 +106,6 @@ export default {
           this.getSensorValues(data.sensor, warnings.locationId, 10, index, i);
         }
       }
-    },
-    leaving: function() {
-      console.log("suuuuuuuuuuuuuuuuup");
-      clearInterval(this.setInterval);
     }
   },
   beforeCreate() {
@@ -134,7 +129,7 @@ export default {
           clearInterval(this.setInterval);
           this.setInterval = setInterval(() => {
             this.updateSensors();
-          }, 5000);
+          }, 10000);
         } else {
           console.log("Receive error");
         }

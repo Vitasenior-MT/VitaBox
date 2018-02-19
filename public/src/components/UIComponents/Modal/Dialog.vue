@@ -14,7 +14,7 @@
     @closed="$emit('closed', $event)">
     <card-style>
       <div class="icon-big text-center" :class="`icon-${cardStyle.type}`" slot="header">
-        <icon name="static/img/svg/warning.svg" :scale="20"></icon>
+        <icon name="warning" :scale="20"></icon>
       </div>
       <div class="center" slot="content">
         <p>{{cardStyle.title}}</p>
@@ -47,7 +47,6 @@ export default {
   },
   data() {
     return {
-      WarningIcon,
       cardStyle: {
         type: "warning",
         icon: "ti-server",
@@ -65,8 +64,8 @@ export default {
   beforeMount() {
     Dialog.event.$on("sendData", data => {
       console.log("inside of the dialog: ---> ", data);
-      this.cardStyle.multiMessage = data.multiMessage;
-      this.cardStyle.messageModel = data.messageModel;
+      //this.cardStyle.multiMessage = data.multiMessage;
+      //this.cardStyle.messageModel = data.messageModel;
     });
   }
 };
