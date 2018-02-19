@@ -115,17 +115,10 @@ export default {
     updateSensor(data) {
       for (var index in this.warningCards) {
         let warnings = this.warningCards[index];
-        console.log("data.location");
-        console.log(data.location);
-        console.log(warnings.headerText);
-        console.log(data.location === warnings.headerText);
         if (data.location === warnings.headerText) {
           for (var i in warnings.sensors) {
-            let data = warnings.sensors[i];
-            if (data.warning_type === data.sensor) {
-              console.log(data.warning_type);
-              console.log(data.sensor);
-              console.log(data.warning_type === data.sensor);
+            let sensor = warnings.sensors[i];
+            if (data.warning_type === sensor.sensor) {
               this.warningCards[index].sensors[i].avg = data.avg;
               this.warningCards[index].sensors[i].threshold = data.threshold;
               this.warningCards[index].footerText = this.dateFormat();
