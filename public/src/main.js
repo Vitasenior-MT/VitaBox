@@ -8,6 +8,8 @@ import GlobalComponents from './globalComponents'
 import GlobalDirectives from './globalDirectives'
 import Notifications from './components/UIComponents/NotificationPlugin'
 import SideBar from './components/UIComponents/SidebarPlugin'
+import VModal from './components/UIComponents/Modal'
+import Icon from 'vue-svg-icon/Icon.vue'
 import App from './App'
 
 // router setup
@@ -25,6 +27,8 @@ Vue.use(GlobalComponents)
 Vue.use(GlobalDirectives)
 Vue.use(Notifications)
 Vue.use(SideBar)
+Vue.use(VModal, { dialog: true })
+Vue.component('icon', Icon);
 Vue.use(resource)
 Vue.use(VueSocketio, location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : ''))
 
@@ -50,9 +54,6 @@ new Vue({
     Chartist: Chartist
   },
   mounted () {
-    this.$socket.on('seq-num', (data) => {
-      console.log('Receive alert', data)
-    })
     this.$socket.on('hdmistatus', (data) => {
       console.log('Receive hdmistatus', data)
     })

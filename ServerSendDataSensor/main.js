@@ -5,7 +5,7 @@ var cp = require('child_process'),
 var Main = function () {
   var args = {
       port: 9090,
-			remoteserver: "localhost",
+			remoteserver: "192.168.1.63",
 			remoteport: 8080
     };
     // inicia p script e envia as configuracores do ficheiro ini
