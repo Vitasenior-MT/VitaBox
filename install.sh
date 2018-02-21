@@ -13,12 +13,25 @@ sudo ln -s /opt/nodejs/bin/npm /usr/bin/npm
 sudo cp nodeAutostart.service /etc/systemd/system/nodeAutostart.service
 sudo systemctl enable nodeAutostart.service
 sudo systemctl start nodeAutostart.service
-sudo systemctl stop nodeAutostart.service
+#sudo systemctl stop nodeAutostart.service
 
 #3. Chromium config and autostart
 sudo echo "@sh /home/pi/Desktop/VitaBox/autoStartChrome.sh" >> /home/pi/.config/lxsession/LXDE-pi/autostart
 sudo sed -i -e 's/\r$//' autoStartChrome.sh
 sudo chmod +x autoStartChrome.sh
+
+#3. sensors config and autostart
+git clone https://github.com/contiki-os/contiki.git
+make TARGET=zoul --directory /home/pi/contiki/examples/ipv6/rpl-border-router/ savetarget
+make --directory /home/pi/contiki/examples/ipv6/rpl-border-router/ border-router.upload && make --directory /home/pi/contiki/examples/ipv6/rpl-border-router/ connect-router
+sudo echo "@sh /home/pi/Desktop/VitaBox/autoStartBorderRouter.sh" >> /home/pi/.config/lxsession/LXDE-pi/autostart
+sudo sed -i -e 's/\r$//' autoStartBorderRouter.sh
+sudo chmod +x autoStartBorderRouter.sh
+
+sudo cp boardListener.service /etc/systemd/system/boardListener.service
+sudo systemctl enable boardListener.service
+sudo systemctl start boardListener.service
+#sudo systemctl stop boardListener.service
 
 #4. Installers
 npm install

@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="content">
-      <div class="header">
+      <div>
         <slot name="header"></slot>
       </div>
       <hr/>
