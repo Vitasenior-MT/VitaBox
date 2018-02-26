@@ -12,19 +12,20 @@ server.on('listening', function () {
 server.on('message', function (message, remote) {
     console.log(remote.address + ':' + remote.port + ' - ' + message);
     let jsonO = JSON.parse((message + "").replace(new RegExp("'", 'g'), '\"'));
-    console.log('----> ', jsonO[0]);
-    console.log('----> ', jsonO[jsonO[0]]);
-    /*var data = {
-        id: 123456789,
+    console.log('----> ', jsonO);
+    console.log('----> ', jsonO.MOTE);
+    var data = {
+        id: remote.address,
         values: [
             {
-                sensortype: 'temp',
-                sensorvalue: jsonO.temp
+                sensortype: jsonO.MOTE.sensor.sensortype,
+                sensorvalue: jsonO.MOTE.sensor.sensorvalue
             }
         ],
         local: 'WC'
     };
-    var jsonObject = JSON.stringify(jsonO);
+    console.log(data);
+    /*var jsonObject = JSON.stringify(jsonO);
 
     var options = {
         host: config.remoteserver,

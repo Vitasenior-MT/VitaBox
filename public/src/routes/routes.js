@@ -12,6 +12,7 @@ import Maps from 'src/components/Dashboard/Views/Maps.vue'
 import Typography from 'src/components/Dashboard/Views/Typography.vue'
 import TableList from 'src/components/Dashboard/Views/TableList.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
+import Warnings2 from 'src/components/Dashboard/Views/Warnings2.vue'
 import VidOnly from 'src/components/Dashboard/Views/VidOnly.vue'
 
 const routes = [
@@ -69,6 +70,11 @@ const routes = [
         path: 'warnings',
         name: 'warnings',
         component: Warnings
+      },
+      {
+        path: 'warnings2',
+        name: 'warnings2',
+        component: Warnings2
       },
       {
         path: 'vid-only',

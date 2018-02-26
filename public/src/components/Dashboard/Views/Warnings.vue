@@ -20,10 +20,21 @@ export default {
   data() {
     return {
       warningCards: [],
-      setInterval: null,
+      setInterval: null
     };
   },
   methods: {
+    findCritLvl: function(avg, threshold) {
+      if (avg >= threshold) {
+        return 2;
+      } else if (avg >= threshold - threshold * 0.1) {
+        return 1;
+      } else if (avg < threshold - threshold * 0.1) {
+        return 0;
+      } else {
+        return -1;
+      }
+    },
     sortArr: function(sortKey) {
       let green = this.sliceArr(sortKey, 0);
       let orange = this.sliceArr(sortKey, 1);
@@ -58,9 +69,11 @@ export default {
     dateFormat() {
       let date = new Date();
       return (
-        date.getDate() +
+        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
         "/" +
-        date.getMonth() +
+        (date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1) +
         "/" +
         date.getFullYear() +
         " " +
@@ -160,8 +173,8 @@ export default {
           if (data.warning_type === this.warningCards[index].sensor) {
             this.warningCards[index].avg = data.avg;
             this.warningCards[index].threshold = data.threshold;
-            //TODO: alterar para a data da bd
-            this.warningCards[index].footerText = this.dateFormat();
+            this.warningCards[index].footerText = this.dateFormat(data.avgLastUpdate);
+            this.warningCards[index].critLvl = this.findCritLvl(data.avg, data.threshold);
             this.sortArr(this.warningCards);
             return;
           }
@@ -171,19 +184,23 @@ export default {
   },
   beforeCreate() {
     this.$http
-      .get("/api/places/all")
+      .get("/api/sensor/allSensorsInfo")
       .then(response => {
-        if (response.data.status === true) {
-          for (var i in response.data.data) {
-            this.getSensorFromPlace(response.data.data[i]);
-          }
-          clearInterval(this.setInterval);
-          this.setInterval = setInterval(() => {
-            this.updateSensors();
-          }, 10000);
-        } else {
-          console.log("Receive error");
+        var datasensores = response.data.data;
+        for (var index in datasensores) {
+          let data = datasensores[index];
+          this.warningCards.push({
+            headerText: data.location,
+            headerIcon: "ti-reload",
+            footerText: this.dateFormat(data.avgLastUpdate),
+            footerIcon: "ti-reload",
+            sensor: data.sensortype,
+            avg: data.avg,
+            threshold: data.threshold,
+            critLvl: this.findCritLvl(data.avg, data.threshold)
+          });
         }
+        this.sortArr(this.warningCards);
       })
       .catch(error => {
         console.log(error);
@@ -192,4 +209,5 @@ export default {
 };
 </script>
 <style>
+
 </style>
