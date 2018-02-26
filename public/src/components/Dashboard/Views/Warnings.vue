@@ -1,60 +1,7 @@
 <template>
-  <div class="col-md-12 warning-card-grid-two-column">
-    <div class="warning-card-margin" v-for="warningCard in warningCards" :key="warningCard.id">
-      <warning-card>
-        <div class="row" slot="header">
-          <div class="col-xs-5">
-            <div class="col-xs-5">
-              <img src="static/img/vitabox/temp.svg" width="40" height="40">
-            </div>
-            <div class="col-xs-5 big-text">
-             <b>{{warningCard.sensor}}</b>
-            </div>
-          </div>
-          <b class="col-xs-5 big-text">{{warningCard.headerText}}</b>
-        </div>
-        <div class="warning-card-padding" slot="content">
-          <div v-if="warningCard.red" class="row padding-8-per">
-            <div class="warning-card-critical circle-avg col-xs-5">
-              <div class="column">
-                <p class="circle-avg-text">{{warningCard.avg}}º</p>
-                <p class="circle-avg-text-under">Media</p>
-              </div>
-            </div>
-            <div class="circle-limit col-xs-4">
-              <p class="circle-limit-text">{{warningCard.threshold}}º</p>
-              <p class="circle-limit-text-under">Limite</p>
-            </div>
-          </div>
-          <div v-else-if="warningCard.yellow" class="row padding-8-per">
-            <div class="warning-card-warning circle-avg col-xs-5">
-              <div class="column">
-                <p class="circle-avg-text">{{warningCard.avg}}º</p>
-                <p class="circle-avg-text-under">Media</p>
-              </div>
-            </div>
-            <div class="circle-limit col-xs-4">
-              <p class="circle-limit-text">{{warningCard.threshold}}º</p>
-              <p class="circle-limit-text-under">Limite</p>
-            </div>
-          </div>
-          <div v-else-if="warningCard.green" class="row padding-8-per">
-            <div class="warning-card-good circle-avg col-xs-5">
-              <div class="column">
-                <p class="circle-avg-text">{{warningCard.avg}}º</p>
-                <p class="circle-avg-text-under">Media</p>
-              </div>
-            </div>
-            <div class="circle-limit col-xs-4">
-              <p class="circle-limit-text">{{warningCard.threshold}}º</p>
-              <p class="circle-limit-text-under">Limite</p>
-            </div>
-          </div>
-        </div>
-        <div slot="footer">
-          <i :class="warningCard.footerIcon"></i> {{warningCard.footerText}}
-        </div>
-      </warning-card>
+  <div class="col-sm-12 row">
+    <div class="col-sm-4" v-for="warningCard in warningCards" :key="warningCard.id">
+      <warning-card :data="warningCard" ></warning-card>
     </div>
   </div>
 </template>
@@ -73,11 +20,8 @@ export default {
   data() {
     return {
       warningCards: [],
-      setInterval: null
+      setInterval: null,
     };
-  },
-  ready: function() {
-    window.unload = this.leaving;
   },
   methods: {
     sortArr: function(sortKey) {
@@ -216,6 +160,7 @@ export default {
           if (data.warning_type === this.warningCards[index].sensor) {
             this.warningCards[index].avg = data.avg;
             this.warningCards[index].threshold = data.threshold;
+            //TODO: alterar para a data da bd
             this.warningCards[index].footerText = this.dateFormat();
             this.sortArr(this.warningCards);
             return;
@@ -247,103 +192,4 @@ export default {
 };
 </script>
 <style>
-.v-overlay-left {
-  position: fixed;
-  box-sizing: border-box;
-  left: 0;
-  top: 0;
-  width: 260px;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.2);
-  z-index: 999;
-  opacity: 1;
-}
-
-.v-overlay-top {
-  position: fixed;
-  box-sizing: border-box;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 75px;
-  background: rgba(0, 0, 0, 0.2);
-  z-index: 999;
-  opacity: 1;
-}
-
-.v-overlay-bottom {
-  position: fixed;
-  box-sizing: border-box;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 89px;
-  background: rgba(0, 0, 0, 0.2);
-  z-index: 999;
-  opacity: 1;
-}
-
-.warning-card-grid-two-column {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.warning-card-margin {
-  margin: 0 5px 0 0;
-}
-
-.warning-card-padding {
-  padding: 0 3% 0 3%;
-}
-
-.warning-card-critical {
-  border: 15px solid red;
-}
-
-.warning-card-warning {
-  border: 15px solid orangered;
-}
-
-.warning-card-good {
-  border: 15px solid green;
-}
-
-.big-text {
-  font-size: 27px;
-  text-align: center;
-}
-
-.circle-avg {
-  padding-right: 38% !important;
-  width: 40%;
-  border-radius: 50%;
-}
-
-.circle-avg-text {
-  font-size: 70px;
-}
-
-.circle-avg-text-under {
-  font-size: 20px;
-  margin: -23px 0 0 25px;
-}
-
-.circle-limit {
-  width: 23%;
-  border-radius: 50%;
-  border: 10px solid black;
-}
-
-.circle-limit-text {
-  font-size: 35px;
-}
-
-.circle-limit-text-under {
-  font-size: 12px;
-  margin: -10px 0 4px 8px;
-}
-
-.padding-8-per {
-  padding-left: 8%;
-}
 </style>
