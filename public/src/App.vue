@@ -9,10 +9,14 @@
 export default {
   sockets: {
     vitaWarning: function(data) {
+      let self = this;
       this.$modal.show("dialog", data);
+      setTimeout(function() {
+        self.$modal.hide("dialog");
+      }, 3000);
     },
     hideModal() {
-      this.$modal.hide("dialog");
+      //this.$modal.hide("dialog");
     }
   }
 };

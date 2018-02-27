@@ -1,7 +1,7 @@
 <template>
   <div class="col-sm-12 row">
-    <div class="col-sm-4" v-for="warningCard in warningCards" :key="warningCard.id">
-      <warning-card :data="warningCard" ></warning-card>
+    <div class="col-sm-4" width="301" height="283" v-for="warningCard in warningCards" :key="warningCard.id">
+      <warning-card :data="warningCard"></warning-card>
     </div>
   </div>
 </template>
@@ -15,6 +15,21 @@ export default {
     vitaWarning: function(data) {
       console.log("Receive alert on Tab: ", data);
       this.updateSensor(data);
+    },
+    updateAllSensors() {
+      for (var index in this.warningCards) {
+        this.warningCards[index].avg = data.avg.toFixed();
+        this.warningCards[index].threshold = data.threshold;
+        this.warningCards[index].footerText = this.dateFormat(
+          data.avgLastUpdate
+        );
+        this.warningCards[index].critLvl = this.findCritLvl(
+          data.avg,
+          data.threshold
+        );
+      }
+      this.sortArr(this.warningCards);
+      return;
     }
   },
   data() {
@@ -84,97 +99,19 @@ export default {
         (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds())
       );
     },
-    getSensorValues(sensortype, locationId, limit, index) {
-      this.$http
-        .get("/api/sensor/" + sensortype + "/" + locationId + "/" + limit)
-        .then(response => {
-          if (response.data.status === true) {
-            let data = response.data.data;
-            if (data) {
-              this.warningCards[index].avg = data.avg;
-              this.warningCards[index].threshold = data.threshold;
-              this.warningCards[index].green =
-                data.avg < data.threshold - data.threshold * 0.1;
-              this.warningCards[index].yellow =
-                data.avg >= data.threshold - data.threshold * 0.1;
-              this.warningCards[index].red = data.avg >= data.threshold;
-              if (this.warningCards[index].red) {
-                this.warningCards[index].critLvl = 2;
-                this.warningCards[index].footerText = this.dateFormat();
-              } else if (this.warningCards[index].yellow) {
-                this.warningCards[index].critLvl = 1;
-                this.warningCards[index].footerText = this.dateFormat();
-              } else if (this.warningCards[index].green) {
-                this.warningCards[index].critLvl = 0;
-                this.warningCards[index].footerText = this.dateFormat();
-              } else {
-                this.warningCards[index].critLvl = -1;
-              }
-            }
-            //this.sortBy(this.warningCards, "footerText");
-          } else {
-            console.log("Receive error");
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    getSensorFromPlace(location) {
-      console.log(location);
-      this.$http
-        .get("/api/sensor/" + location._id)
-        .then(response => {
-          if (response.data.status === true) {
-            for (var i in response.data.data) {
-              let data = response.data.data[i];
-              this.warningCards.push({
-                locationId: location._id,
-                headerText: location.name,
-                headerIcon: "ti-reload",
-                footerText: location.name,
-                footerIcon: "ti-reload",
-                sensor: data,
-                avg: "",
-                threshold: "",
-                green: "",
-                yellow: "",
-                red: "",
-                critLvl: ""
-              });
-              this.getSensorValues(
-                data,
-                location._id,
-                10,
-                this.warningCards.length - 1
-              );
-            }
-          } else {
-            console.log("Receive error");
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    updateSensors() {
-      for (var index in this.warningCards) {
-        this.getSensorValues(
-          this.warningCards[index].sensor,
-          this.warningCards[index].locationId,
-          10,
-          index
-        );
-      }
-    },
     updateSensor(data) {
       for (var index in this.warningCards) {
         if (data.location === this.warningCards[index].headerText) {
           if (data.warning_type === this.warningCards[index].sensor) {
-            this.warningCards[index].avg = data.avg;
+            this.warningCards[index].avg = data.avg.toFixed();
             this.warningCards[index].threshold = data.threshold;
-            this.warningCards[index].footerText = this.dateFormat(data.avgLastUpdate);
-            this.warningCards[index].critLvl = this.findCritLvl(data.avg, data.threshold);
+            this.warningCards[index].footerText = this.dateFormat(
+              data.avgLastUpdate
+            );
+            this.warningCards[index].critLvl = this.findCritLvl(
+              data.avg,
+              data.threshold
+            );
             this.sortArr(this.warningCards);
             return;
           }
@@ -191,11 +128,10 @@ export default {
           let data = datasensores[index];
           this.warningCards.push({
             headerText: data.location,
-            headerIcon: "ti-reload",
             footerText: this.dateFormat(data.avgLastUpdate),
             footerIcon: "ti-reload",
             sensor: data.sensortype,
-            avg: data.avg,
+            avg: data.avg.toFixed(),
             threshold: data.threshold,
             critLvl: this.findCritLvl(data.avg, data.threshold)
           });

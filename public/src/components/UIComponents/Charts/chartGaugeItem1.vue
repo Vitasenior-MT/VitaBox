@@ -30,10 +30,7 @@
     props: ['chartid', 'valueChart', 'labelChart', 'chartmax', 'symbol'],
     mounted () {
       this.$nextTick(() => {
-        var self = this
-        setTimeout(() => {
-          self.chart = new JustGage({id: self.chartid, defaults: self.options})
-        }, 1)
+        this.chart = new JustGage({id: this.chartid, defaults: this.options});
       })
     }
   }
