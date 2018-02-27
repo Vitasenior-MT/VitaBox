@@ -1,12 +1,7 @@
 <template>
   <modal 
     name="dialog"
-    height="auto"
-    :classes="['vue-dialog', this.params.class]"
-    :width="width"
-    :pivot-y="0.3"
-    :adaptive="true"
-    :clickToClose="clickToClose"
+    :classes="['size-100', this.params.class]"
     :transition="transition"
     @before-open="beforeOpened"
     @before-close="beforeClosed"
@@ -14,9 +9,9 @@
     @closed="$emit('closed', $event)">
     <card-style>
       <div class="icon-big text-center" :class="`icon-${cardStyle.type}`" slot="header">
-        <img src="static/img/vitabox/warning.svg">
+        <img src="static/img/vitabox/warning.svg" class="size-img">
       </div>
-      <div class="center" slot="content">
+      <div class="center font-size-b" slot="content">
         <b>{{cardStyle.title}}</b>
       </div>
     </card-style>
@@ -49,7 +44,7 @@ export default {
     return {
       cardStyle: {
         type: "warning",
-        title: "Warning!!!"
+        title: "Warning"
       },
       params: {}
     };
@@ -108,5 +103,24 @@ export default {
   vertical-align: middle;
   color: red;
   font-size: 45px;
+}
+
+.background-opacity {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  height: 100%
+}
+
+.size-100 {
+  width: 100%;
+  height: 100%;
+}
+
+.size-img {
+  width: 40%;
+  height: 50%;
+}
+
+.font-size-b b {
+  font-size: 70px !important;
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
-  <div class="card">
+  <div class="background-opacity">
     <div class="content">
       <div class="row">
-        <div class="col-xs-5">
+        <div class="col-xs-12">
           <slot name="header"></slot>
         </div>
-        <div class="col-xs-7">
+        <div class="col-xs-12">
           <slot name="content"></slot>
         </div>
       </div>
