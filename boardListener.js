@@ -13,19 +13,29 @@ server.on('message', function (message, remote) {
     console.log(remote.address + ':' + remote.port + ' - ' + message);
     let jsonO = JSON.parse((message + "").replace(new RegExp("'", 'g'), '\"'));
     console.log('----> ', jsonO);
-    console.log('----> ', jsonO.MOTE);
+
     var data = {
         id: remote.address,
-        values: [
+        sensores: [
             {
-                sensortype: jsonO.MOTE.sensor.sensortype,
-                sensorvalue: jsonO.MOTE.sensor.sensorvalue
+                sensortype: 'temp',
+                sensorvalue: jsonO.MOTE.temp
+            },
+            {
+                sensortype: 'co2',
+                sensorvalue: jsonO.MOTE.co2
+            },
+            {
+                sensortype: 'humi',
+                sensorvalue: jsonO.MOTE.humi
             }
         ],
         local: 'WC'
     };
-    console.log(data);
-    /*var jsonObject = JSON.stringify(jsonO);
+
+    console.log('-----> ', data);
+    var jsonObject = JSON.stringify(data);
+    console.log('-----> ', jsonObject);
 
     var options = {
         host: config.remoteserver,
@@ -38,7 +48,7 @@ server.on('message', function (message, remote) {
         }
     };
 
-    console.log(options);
+    console.log('-----> ', options);
     try {
         var req = http.request(options, function (res) {
             console.log('STATUS: ' + res.statusCode);
@@ -58,7 +68,7 @@ server.on('message', function (message, remote) {
         });
     } catch (e) {
         console.log("Erro ao tentar ligar ao servidor remoto!!!", e)
-    }*/
+    }
 });
 
 server.bind(config.port, config.host);

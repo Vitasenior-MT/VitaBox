@@ -3290,153 +3290,10 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.fixed-size {
+  width: 303px !important;
+  height: 331px !important;
+}
 
 .margin-5 {
   margin: 0 0 0 15%;
@@ -3451,18 +3308,25 @@
 
 .circle-avg {
   padding-right: 38% !important;
-  width: 40%;
+  width: 142px !important;
+  height: 136px !important;
   border-radius: 50%;
 }
-.circle-avg-text {
+.circle-avg-70-text {
   font-size: 70px;
+}
+.circle-avg-50-text {
+  font-size: 50px;
+  padding-top: 5px;
+  margin-bottom: 0;
 }
 .circle-avg-text-under {
   font-size: 20px;
   margin: -30px 0 0 13px;
 }
 .circle-limit {
-  width: 23%;
+  width: 85px !important;
+  height: 78px !important;
   border-radius: 50%;
   border: 10px solid black;
 }
@@ -13475,4 +13339,4 @@ textarea.form-control {
     -ms-overflow-style: -ms-autohiding-scrollbar;
     -webkit-overflow-scrolling: touch; } }
 
-/*# sourceMappingURL=app.658c8b46d11ef1991c1ca02e6eb00f55.css.map*/
+/*# sourceMappingURL=app.190d9b0715ba3829a7d3b6ab67d32da6.css.map*/

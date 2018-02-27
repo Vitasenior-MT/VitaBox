@@ -1,6 +1,6 @@
 <template>
   <div class="col-sm-12 row">
-    <div class="col-sm-4" width="301" height="283" v-for="warningCard in warningCards" :key="warningCard.id">
+    <div class="col-sm-4 fixed-size" v-for="warningCard in warningCards" :key="warningCard.id">
       <warning-card :data="warningCard"></warning-card>
     </div>
   </div>
@@ -146,4 +146,8 @@ export default {
 </script>
 <style>
 
+.fixed-size {
+  width: 303px !important;
+  height: 331px !important;
+}
 </style>
