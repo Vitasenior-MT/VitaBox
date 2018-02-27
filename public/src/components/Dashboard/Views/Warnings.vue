@@ -29,7 +29,6 @@ export default {
         );
       }
       this.sortArr(this.warningCards);
-      return;
     }
   },
   data() {
@@ -145,7 +144,6 @@ export default {
 };
 </script>
 <style>
-
 .fixed-size {
   width: 303px !important;
   height: 331px !important;

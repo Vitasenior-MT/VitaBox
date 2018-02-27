@@ -1,28 +1,28 @@
 <template>
-  <modal 
-    name="dialog"
-    :classes="['size-100', this.params.class]"
-    :transition="transition"
-    @before-open="beforeOpened"
-    @before-close="beforeClosed"
-    @opened="$emit('opened', $event)"
-    @closed="$emit('closed', $event)">
+  <modal
+    name='dialog'
+    :classes='['size-100', this.params.class]'
+    :transition='transition'
+    @before-open='beforeOpened'
+    @before-close='beforeClosed'
+    @opened='$emit('opened', $event)'
+    @closed='$emit('closed', $event)'>
     <card-style>
-      <div class="icon-big text-center" :class="`icon-${cardStyle.type}`" slot="header">
-        <img src="static/img/vitabox/warning.svg" class="size-img">
+      <div class='icon-big text-center' :class='`icon-${cardStyle.type}`' slot='header'>
+        <img src='static/img/vitabox/warning.svg' class='size-img'>
       </div>
-      <div class="center font-size-b" slot="content">
+      <div class='center font-size-b' slot='content'>
         <b>{{cardStyle.title}}</b>
       </div>
     </card-style>
   </modal>
 </template>
 <script>
-import CardStyle from "components/UIComponents/Modal/CardStyle.vue";
-import Dialog from "./index";
+import CardStyle from 'components/UIComponents/Modal/CardStyle.vue'
+import Dialog from './index'
 
 export default {
-  name: "Dialog",
+  name: 'Dialog',
   props: {
     width: {
       type: [Number, String],
@@ -34,22 +34,22 @@ export default {
     },
     transition: {
       type: String,
-      default: "fade"
+      default: 'fade'
     }
   },
   components: {
     CardStyle
   },
-  data() {
+  data () {
     return {
       cardStyle: {
-        type: "warning",
-        title: "Warning"
+        type: 'warning',
+        title: 'Warning'
       },
       params: {}
-    };
+    }
   }
-};
+}
 </script>
 <style>
 .vue-dialog div {

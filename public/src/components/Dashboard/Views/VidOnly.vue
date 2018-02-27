@@ -9,11 +9,11 @@
 </template>
 <script>
 export default {
-  data() {
-    return {};
+  data () {
+    return {}
   },
-  mounted() {}
-};
+  mounted () {}
+}
 </script>
 <style>
 .video {

@@ -6,9 +6,9 @@
 </template>
 <script>
 export default {
-  props: ["space", "value", "type", "warning", "circleType"],
-  name: "circle-data"
-};
+  props: ['space', 'value', 'type', 'warning', 'circleType'],
+  name: 'circle-data'
+}
 </script>
 <style>
 .circle-avg {

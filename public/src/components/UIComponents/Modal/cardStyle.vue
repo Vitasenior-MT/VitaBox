@@ -10,13 +10,13 @@
         </div>
       </div>
     </div>
-  
+
   </div>
 </template>
 <script>
 export default {
-  name: "card-style"
-};
+  name: 'card-style'
+}
 </script>
 <style>
 </style>

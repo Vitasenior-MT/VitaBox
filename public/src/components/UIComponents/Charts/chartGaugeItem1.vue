@@ -30,7 +30,7 @@
     props: ['chartid', 'valueChart', 'labelChart', 'chartmax', 'symbol'],
     mounted () {
       this.$nextTick(() => {
-        this.chart = new JustGage({id: this.chartid, defaults: this.options});
+        this.chart = new JustGage({id: this.chartid, defaults: this.options})
       })
     }
   }
