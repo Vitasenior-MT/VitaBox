@@ -1,17 +1,17 @@
 <template>
-  <div :class="sidebarClasses"
-  :data-background-color="backgroundColor"
-  :data-active-color="activeColor">
+  <div :class='sidebarClasses'
+  :data-background-color='backgroundColor'
+  :data-active-color='activeColor'>
     <!--
-            Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black | darkblue"
-            Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
+            Tip 1: you can change the color of the sidebar's background using: data-background-color='white | black | darkblue'
+            Tip 2: you can change the color of the active button using the data-active-color='primary | info | success | warning | danger'
         -->
     <!-- -->
-    <div class="sidebar-wrapper" id="style-3">
-      <div class="logo">
-        <a href="#" class="simple-text">
-            <div class="logo-img">
-                <img src="static/img/vue-logo.png" alt="">
+    <div class='sidebar-wrapper' id='style-3'>
+      <div class='logo'>
+        <a href='#' class='simple-text'>
+            <div class='logo-img'>
+                <img src='static/img/vue-logo.png' alt=''>
             </div>
           VitaSénior - VitaBox
         </a>
@@ -19,55 +19,55 @@
       <slot>
 
       </slot>
-      <ul :class="navClasses">
+      <ul :class='navClasses'>
         <!--By default vue-router adds an active class to each route link. This way the links are colored when clicked-->
-        <router-link v-for="(link,index) in sidebarLinks" :to="link.path" tag="li" :ref="link.name" :key="link.name + index">
+        <router-link v-for='(link,index) in sidebarLinks' :to='link.path' tag='li' :ref='link.name' :key='link.name + index'>
           <a>
-            <i :class="link.icon"></i>
+            <i :class='link.icon'></i>
 
             <p>{{link.name}}
             </p>
           </a>
         </router-link>
       </ul>
-      <moving-arrow :move-y="arrowMovePx">
+      <moving-arrow :move-y='arrowMovePx'>
 
       </moving-arrow>
     </div>
   </div>
 </template>
 <script>
-import MovingArrow from "./MovingArrow.vue";
+import MovingArrow from './MovingArrow.vue'
 export default {
   props: {
     type: {
       type: String,
-      default: "sidebar",
+      default: 'sidebar',
       validator: value => {
-        let acceptedValues = ["sidebar", "navbar"];
-        return acceptedValues.indexOf(value) !== -1;
+        let acceptedValues = ['sidebar', 'navbar']
+        return acceptedValues.indexOf(value) !== -1
       }
     },
     backgroundColor: {
       type: String,
-      default: "black",
+      default: 'black',
       validator: value => {
-        let acceptedValues = ["white", "black", "darkblue"];
-        return acceptedValues.indexOf(value) !== -1;
+        let acceptedValues = ['white', 'black', 'darkblue']
+        return acceptedValues.indexOf(value) !== -1
       }
     },
     activeColor: {
       type: String,
-      default: "success",
+      default: 'success',
       validator: value => {
         let acceptedValues = [
-          "primary",
-          "info",
-          "success",
-          "warning",
-          "danger"
-        ];
-        return acceptedValues.indexOf(value) !== -1;
+          'primary',
+          'info',
+          'success',
+          'warning',
+          'danger'
+        ]
+        return acceptedValues.indexOf(value) !== -1
       }
     },
     sidebarLinks: {
@@ -79,29 +79,29 @@ export default {
     MovingArrow
   },
   computed: {
-    sidebarClasses() {
-      if (this.type === "sidebar") {
-        return "sidebar";
+    sidebarClasses () {
+      if (this.type === 'sidebar') {
+        return 'sidebar'
       } else {
-        return "collapse navbar-collapse off-canvas-sidebar";
+        return 'collapse navbar-collapse off-canvas-sidebar'
       }
     },
-    navClasses() {
-      if (this.type === "sidebar") {
-        return "nav";
+    navClasses () {
+      if (this.type === 'sidebar') {
+        return 'nav'
       } else {
-        return "nav navbar-nav";
+        return 'nav navbar-nav'
       }
     },
     /**
      * Styles to animate the arrow near the current active sidebar link
      * @returns {{transform: string}}
      */
-    arrowMovePx() {
-      return this.linkHeight * this.activeLinkIndex;
+    arrowMovePx () {
+      return this.linkHeight * this.activeLinkIndex
     }
   },
-  data() {
+  data () {
     return {
       linkHeight: 60,
       activeLinkIndex: 0,
@@ -109,53 +109,57 @@ export default {
       windowWidth: 0,
       isWindows: false,
       hasAutoHeight: false
-    };
+    }
   },
   methods: {
-    findActiveLink() {
+    findActiveLink () {
       this.sidebarLinks.find((element, index) => {
-        let found = element.path === this.$route.path;
+        let found = element.path === this.$route.path
         if (found) {
-          this.activeLinkIndex = index;
+          this.activeLinkIndex = index
         }
-        return found;
-      });
+        return found
+      })
     }
   },
   sockets: {
-    vitaWarning: function(data) {
-      console.log("/vitabox/warnings" !== this.$route.path);
-      console.log(this.$route.path);
-      if ("/vitabox/warnings" !== this.$route.path) {
-        let sideBar = this.sidebarLinks;
+    vitaWarning: function (data) {
+      console.log('/vitabox/warnings', this.$route.path)
+      console.log(this.$route.path)
+      if (this.$route.path !== '/vitabox/warnings') {
+        let sideBar = this.sidebarLinks
         for (var index in sideBar) {
-          console.log(sideBar[index].name);
-          console.log(sideBar[index].name === "Warnings");
-          if (sideBar[index].name === "Warnings") {
-            this.activeLinkIndex = index;
-            this.$router.push({ path: sideBar[index].path });
-            return;
+          console.log(sideBar[index].name)
+          console.log(sideBar[index].name === 'Warnings')
+          if (sideBar[index].name === 'Warnings') {
+            this.activeLinkIndex = index
+            this.$router.push({ path: sideBar[index].path })
+            return
           }
         }
       }
     }
   },
-  mounted() {
-    this.findActiveLink();
-    this.$socket.on("changeMenu", signal => {
-      let index = this.activeLinkIndex + 1 * signal;
-      let sideBar = this.sidebarLinks;
-      index < 0 ? (index = sideBar.length - 1) : index;
-      index > sideBar.length - 1 ? (index = 0) : index;
-      this.$router.push({ path: sideBar[index].path });
-    });
+  mounted () {
+    this.findActiveLink()
+    this.$socket.on('changeMenu', signal => {
+      let index = this.activeLinkIndex + 1 * signal
+      let sideBar = this.sidebarLinks
+      if (index < 0) {
+        index = sideBar.length - 1
+      }
+      if (index > sideBar.length - 1) {
+        index = 0
+      }
+      this.$router.push({ path: sideBar[index].path })
+    })
   },
   watch: {
-    $route: function(newRoute, oldRoute) {
-      this.findActiveLink();
+    $route: function (newRoute, oldRoute) {
+      this.findActiveLink()
     }
   }
-};
+}
 </script>
 <style>
 

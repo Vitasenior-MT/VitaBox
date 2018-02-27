@@ -15,11 +15,11 @@
       <hr/>
       <div class="row">
         <div class="margin-5">
-          <circle-data 
+          <circle-data
           :space="5" :type="'Media'" :value="this.data.avg" :circleType="'circle-avg'"
           :warning="'warning-card-' + this.data.critLvl">
           </circle-data>
-          <circle-data 
+          <circle-data
           :space="4" :type="'Limite'" :value="this.data.threshold"
           :circleType="'circle-limit'" :warning="'N/A'">
           </circle-data>
@@ -33,17 +33,17 @@
   </div>
 </template>
 <script>
-import CircleData from "components/UIComponents/Cards/CircleData.vue";
+import CircleData from 'components/UIComponents/Cards/CircleData.vue'
 export default {
   components: {
     CircleData
   },
-  data() {
-    return {};
+  data () {
+    return {}
   },
-  props: ["data"],
-  name: "warning-card"
-};
+  props: ['data'],
+  name: 'warning-card'
+}
 </script>
 <style>
 .margin-5 {
