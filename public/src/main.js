@@ -38,7 +38,7 @@ const router = new VueRouter({
 
 // global library setup
 Object.defineProperty(Vue.prototype, '$Chartist', {
-  get () {
+  get() {
     return this.$root.Chartist
   }
 })
@@ -51,7 +51,7 @@ new Vue({
   data: {
     Chartist: Chartist
   },
-  mounted () {
+  mounted() {
     this.$socket.on('hdmistatus', (data) => {
       console.log('Receive hdmistatus', data)
     })

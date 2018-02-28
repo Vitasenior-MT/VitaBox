@@ -17,7 +17,7 @@
 --media-cache-size=1 \
 --disable-translate \
 --incognito \
-"http://localhost:8088"
+"http://localhost:8080"
 
 ##Commands to run
 #cd /home/pi/.config/lxsession/LXDE-pi/

@@ -24,8 +24,8 @@ export default {
 
 .circle-avg-50-text {
   font-size: 50px;
-  padding-top: 5px;
-  margin-bottom: 0;
+  margin-top: 10px;
+  margin-bottom: 26px;
 }
 
 .circle-avg-text-under {
