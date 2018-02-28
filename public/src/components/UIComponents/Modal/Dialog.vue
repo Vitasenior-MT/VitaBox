@@ -18,11 +18,10 @@
   </modal>
 </template>
 <script>
-import CardStyle from "components/UIComponents/Modal/CardStyle.vue";
-import Dialog from "./index";
+import CardStyle from 'components/UIComponents/Modal/CardStyle.vue'
 
 export default {
-  name: "Dialog",
+  name: 'Dialog',
   props: {
     width: {
       type: [Number, String],
@@ -34,22 +33,22 @@ export default {
     },
     transition: {
       type: String,
-      default: "fade"
+      default: 'fade'
     }
   },
   components: {
     CardStyle
   },
-  data() {
+  data () {
     return {
       cardStyle: {
-        type: "warning",
-        title: "Aviso"
+        type: 'warning',
+        title: 'Aviso'
       },
       params: {}
-    };
+    }
   }
-};
+}
 </script>
 <style>
 .vue-dialog div {
