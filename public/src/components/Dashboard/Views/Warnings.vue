@@ -62,9 +62,11 @@ export default {
     },
     sortBy: function(sortKey, property) {
       return sortKey.sort(function(a, b) {
-        if (a[property].toUpperCase() < b[property].toUpperCase()) {
+        let timeA = new Date(Date.parse(a[property]) / 1000).getTime();
+        let timeB = new Date(Date.parse(b[property]) / 1000).getTime();
+        if (timeA < timeB) {
           return -1;
-        } else if (a[property].toUpperCase() > b[property].toUpperCase()) {
+        } else if (timeA >= timeB) {
           return 1;
         } else {
           return 0;
@@ -83,11 +85,11 @@ export default {
     dateFormat() {
       let date = new Date();
       return (
-        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
-        "/" +
         (date.getMonth() + 1 < 10
           ? "0" + (date.getMonth() + 1)
           : date.getMonth() + 1) +
+        "/" +
+        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
         "/" +
         date.getFullYear() +
         " " +
@@ -112,7 +114,7 @@ export default {
               data.threshold
             );
             this.sortArr(this.warningCards);
-            return;
+            break;
           }
         }
       }
