@@ -38,6 +38,7 @@ jspm_packages/
 ServerSendDataSensor/node_modules/
 ..vagrant
 public/node_modules/
+public/dist/
 .log
 
 # Typescript v1 declaration files
