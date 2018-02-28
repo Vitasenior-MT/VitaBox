@@ -61,7 +61,7 @@ export default {
       this.warningCards = red
     },
     sortBy: function (sortKey, property) {
-      return sortKey.sort(function(a, b) {
+      return sortKey.sort(function (a, b) {
         let timeA = new Date(Date.parse(a[property]) / 1000).getTime()
         let timeB = new Date(Date.parse(b[property]) / 1000).getTime()
         if (timeA < timeB) {

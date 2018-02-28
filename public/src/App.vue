@@ -7,19 +7,19 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       timeout: false
-    };
+    }
   },
-  mounted() {
+  mounted () {
     this.$socket.on('vitaWarning', data => {
       let self = this
       this.$modal.show('dialog', data)
       speechVoices.cancel()
       speechVoices.speak('Aviso!')
       if (!this.timeout) {
-        this.timeout = true;
+        this.timeout = true
         setTimeout(() => {
           self.$modal.hide('dialog')
           this.timeout = false
