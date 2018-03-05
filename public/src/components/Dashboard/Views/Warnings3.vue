@@ -1,12 +1,12 @@
 <template>
   <div class='col-sm-12 row'>
-    <div class='col-sm-4 fixed-size' v-for='warningCard in warningCards' :key='warningCard.id'>
+    <div class='col-sm-4' v-for='warningCard in warningCards' :key='warningCard.id'>
       <warning-card :data='warningCard'></warning-card>
     </div>
   </div>
 </template>
 <script>
-import WarningCard from 'components/UIComponents/Cards/WarningCard.vue'
+import WarningCard from 'components/UIComponents/Cards/WarningCard2.vue'
 export default {
   components: {
     WarningCard
@@ -146,8 +146,5 @@ export default {
 }
 </script>
 <style>
-.fixed-size {
-  width: 303px !important;
-  height: 331px !important;
-}
+
 </style>
