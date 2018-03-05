@@ -1,11 +1,11 @@
 <template>
-  <div :class="circleType + ' col-xs-' + space + ' ' + warning" class="img-properties">
+  <div :class="'circle-avg2 img-properties ' + warning">
     <img src="static/img/vitabox/temp.svg">
   </div>
 </template>
 <script>
 export default {
-  props: ["space", "value", "type", "warning", "circleType"],
+  props: ["warning"],
   name: "circle-data"
 };
 </script>
@@ -20,11 +20,11 @@ export default {
   margin-top: -35%;
 }
 
-.circle-avg {
+.circle-avg2 {
   position: relative;
-  width: 50% !important;
-  height: 0;
-  padding-bottom: 30%;
+  width: 70% !important;
+  height: 0 !important;
+  padding-bottom: 50%;
   border-radius: 50%;
 }
 

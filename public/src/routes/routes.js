@@ -14,6 +14,7 @@ import TableList from 'src/components/Dashboard/Views/TableList.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import Warnings2 from 'src/components/Dashboard/Views/Warnings2.vue'
 import Warnings3 from 'src/components/Dashboard/Views/Warnings3.vue'
+import ShowData from 'src/components/Dashboard/Views/ShowData.vue'
 import VidOnly from 'src/components/Dashboard/Views/VidOnly.vue'
 
 const routes = [
@@ -81,6 +82,11 @@ const routes = [
         path: 'warnings3',
         name: 'warnings3',
         component: Warnings3
+      },
+      {
+        path: 'show-data',
+        name: 'show-data',
+        component: ShowData
       },
       {
         path: 'vid-only',

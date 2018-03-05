@@ -1,24 +1,22 @@
 <template>
   <div class="card">
     <div class="content">
-      <div class="row">
-        <div class="col-xs-5">
-          <b class="col-xs-5 text-center font-size-27">{{data.sensor}}</b>
-        </div>
-        <b class="col-xs-5 text-center font-size-27">{{data.headerText}}</b>
+      <div class="text-center positioning">
+        <b class="font-size-27">{{data.headerText}}</b>
       </div>
-      <hr/>
       <div class="row">
-        <div class="margin-5">
-          <circle-data
-          :space="5" :type="'Media'" :value="this.data.avg" :circleType="'circle-avg'"
-          :warning="'warning-card-' + this.data.critLvl">
+        <div class="margin-25">
+          <circle-data :warning="'warning-card-' + this.data.critLvl">
           </circle-data>
         </div>
       </div>
-      <div class="footer">
+      <div class="footer row">
         <hr/>
-        <i :class="data.footerIcon"></i> {{data.footerText}}
+        <div class="col-sm-12">
+          <i :class="data.footerIcon"></i> {{data.footerText}}
+        </div>
+        <p class="col-sm-6">Media: {{data.avg}}</p>
+        <p class="col-sm-6">Limite: {{data.threshold}}</p>
       </div>
     </div>
   </div>
@@ -37,11 +35,11 @@ export default {
 };
 </script>
 <style>
-.margin-5 {
+.margin-25 {
   margin: 0 0 0 25%;
 }
 
-.font-size-27 {
-  font-size: 27px;
+.positioning {
+  margin-bottom: 5px;
 }
 </style>

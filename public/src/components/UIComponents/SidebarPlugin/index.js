@@ -59,21 +59,26 @@ const SidebarStore = {
       path: '/vitabox/warnings3'
     },
     {
+      name: 'ShowData',
+      icon: 'ti-bell',
+      path: '/vitabox/show-data'
+    },
+    {
       name: 'VidOnly',
       icon: 'ti-bell',
       path: '/vitabox/vid-only'
     }
   ],
-  displaySidebar (value) {
+  displaySidebar(value) {
     this.showSidebar = value
   }
 }
 
 const SidebarPlugin = {
 
-  install (Vue) {
+  install(Vue) {
     Vue.mixin({
-      data () {
+      data() {
         return {
           sidebarStore: SidebarStore
         }
@@ -81,7 +86,7 @@ const SidebarPlugin = {
     })
 
     Object.defineProperty(Vue.prototype, '$sidebar', {
-      get () {
+      get() {
         return this.$root.sidebarStore
       }
     })
