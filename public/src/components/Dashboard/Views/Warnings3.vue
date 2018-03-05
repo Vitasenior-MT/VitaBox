@@ -122,7 +122,7 @@ export default {
   },
   beforeCreate () {
     this.$http
-      .get('/api/sensor/allCriticalSensors')
+      .get('/api/sensor/allCriticalSensors/2')
       .then(response => {
         var datasensores = response.data.data
         for (var index in datasensores) {
