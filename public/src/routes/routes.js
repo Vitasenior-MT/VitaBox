@@ -13,6 +13,7 @@ import Typography from 'src/components/Dashboard/Views/Typography.vue'
 import TableList from 'src/components/Dashboard/Views/TableList.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import Warnings2 from 'src/components/Dashboard/Views/Warnings2.vue'
+import Warnings3 from 'src/components/Dashboard/Views/Warnings3.vue'
 import VidOnly from 'src/components/Dashboard/Views/VidOnly.vue'
 
 const routes = [
@@ -75,6 +76,11 @@ const routes = [
         path: 'warnings2',
         name: 'warnings2',
         component: Warnings2
+      },
+      {
+        path: 'warnings3',
+        name: 'warnings3',
+        component: Warnings3
       },
       {
         path: 'vid-only',

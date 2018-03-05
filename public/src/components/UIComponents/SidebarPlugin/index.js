@@ -54,6 +54,11 @@ const SidebarStore = {
       path: '/vitabox/warnings2'
     },
     {
+      name: 'Warnings3',
+      icon: 'ti-bell',
+      path: '/vitabox/warnings3'
+    },
+    {
       name: 'VidOnly',
       icon: 'ti-bell',
       path: '/vitabox/vid-only'
