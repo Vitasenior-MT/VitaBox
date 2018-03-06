@@ -66,7 +66,7 @@ export default {
                   headerText: place[index].name,
                   data: []
                 });
-                let sensor = sensors.data.data.data;
+                let sensor = sensors.data.data.sensor_location;
                 for (var i in sensor) {
                   this.warningCards[this.warningCards.length - 1].data.push({
                     headerText: sensor[i].location,
