@@ -9,41 +9,6 @@ const SidebarStore = {
       path: '/vitabox/home'
     },
     {
-      name: 'Dashboard',
-      icon: 'ti-panel',
-      path: '/vitabox/overview'
-    },
-    {
-      name: 'User Profile',
-      icon: 'ti-user',
-      path: '/vitabox/stats'
-    },
-    {
-      name: 'Table List',
-      icon: 'ti-view-list-alt',
-      path: '/vitabox/table-list'
-    },
-    {
-      name: 'Typography',
-      icon: 'ti-text',
-      path: '/vitabox/typography'
-    },
-    {
-      name: 'Icons',
-      icon: 'ti-pencil-alt2',
-      path: '/vitabox/icons'
-    },
-    {
-      name: 'Maps',
-      icon: 'ti-map',
-      path: '/vitabox/maps'
-    },
-    {
-      name: 'Notifications',
-      icon: 'ti-bell',
-      path: '/vitabox/notifications'
-    },
-    {
       name: 'Warnings',
       icon: 'ti-bell',
       path: '/vitabox/warnings'
