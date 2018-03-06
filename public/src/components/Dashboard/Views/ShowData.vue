@@ -29,44 +29,10 @@ export default {
   },
   data() {
     return {
-      warningCards: [],
-      setInterval: null
+      warningCards: []
     };
   },
   methods: {
-    sortArr: function(sortKey) {
-      let green = this.sliceArr(sortKey, 0);
-      let orange = this.sliceArr(sortKey, 1);
-      let red = this.sliceArr(sortKey, 2);
-      green = this.sortBy(green, "footerText");
-      orange = this.sortBy(orange, "footerText");
-      red = this.sortBy(red, "footerText");
-      red.push.apply(red, orange);
-      red.push.apply(red, green);
-      this.warningCards = red;
-    },
-    sortBy: function(sortKey, property) {
-      return sortKey.sort(function(a, b) {
-        let timeA = new Date(Date.parse(a[property]) / 1000).getTime();
-        let timeB = new Date(Date.parse(b[property]) / 1000).getTime();
-        if (timeA < timeB) {
-          return -1;
-        } else if (timeA >= timeB) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-    },
-    sliceArr: function(sortKey, property) {
-      let arr = [];
-      for (var i = sortKey.length - 1; i >= 0; --i) {
-        if (sortKey[i].critLvl === property) {
-          arr.push(sortKey[i]);
-        }
-      }
-      return arr;
-    },
     dateFormat() {
       let date = new Date();
       return (
@@ -92,29 +58,27 @@ export default {
       .then(responce => {
         let place = responce.body.data;
         for (var index in place) {
-          this.warningCards.push({
-                headerText: place[index].name,
-                data: []
-              });
-          console.log(place[index]);
           this.$http
             .get("/api/sensor/" + place[index].name + "/allInfo")
-            .then(data => {
-              let sensor = data.data.data.data;
-              console.log('sensor');
-              console.log(sensor);
-              for (var i in sensor) {
-                this.warningCards[index].data.push({
-                  headerText: sensor[i].location,
-                  footerText: this.dateFormat(sensor[i].avgLastUpdate),
-                  footerIcon: "ti-reload",
-                  sensor: sensor[i].sensortype,
-                  avg: sensor[i].avg.toFixed(),
-                  threshold: sensor[i].threshold,
-                  critLvl: sensor[i].critLevel
+            .then(sensors => {
+              if (sensors.data.data) {
+                this.warningCards.push({
+                  headerText: place[index].name,
+                  data: []
                 });
+                let sensor = sensors.data.data.data;
+                for (var i in sensor) {
+                  this.warningCards[this.warningCards.length - 1].data.push({
+                    headerText: sensor[i].location,
+                    footerText: this.dateFormat(sensor[i].avgLastUpdate),
+                    footerIcon: "ti-reload",
+                    sensor: sensor[i].sensortype,
+                    avg: sensor[i].avg.toFixed(),
+                    threshold: sensor[i].threshold,
+                    critLvl: sensor[i].critLevel
+                  });
+                }
               }
-              console.log(data.body.data);
             })
             .catch(error => {
               console.log(error);
