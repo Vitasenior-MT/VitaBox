@@ -82,8 +82,8 @@ export default {
       }
       return arr
     },
-    dateFormat () {
-      let date = new Date()
+    dateFormat (data) {
+      let date = new Date(data)
       return (
         (date.getMonth() + 1 < 10
           ? '0' + (date.getMonth() + 1)

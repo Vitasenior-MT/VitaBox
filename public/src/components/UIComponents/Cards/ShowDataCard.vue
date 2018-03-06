@@ -6,7 +6,7 @@
       </div>
       <div class="row">
         <div class="col-sm-4" v-for='sensor in data.data' :key='sensor.id'>
-          <div class="col-sm-12 margin-5">
+          <div class="col-sm-12 positioning">
             <show-data-circle
             :space="5" :type="'Media'" :value="sensor.avg" :circleType="'circle-avg'"
             :warning="'warning-card-' + sensor.critLvl">
