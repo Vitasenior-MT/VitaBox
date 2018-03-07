@@ -18,13 +18,17 @@
         "no-unreachable": "warn",
         "no-unused-vars": "warn",
         "constructor-super": "warn",
-        "valid-typeof": "warn"
+        "valid-typeof": "warn",
+        "semi": 0,
+        "quotes": 0,
+        "space-before-function-paren": ["warn", {
+            "anonymous": "never",
+            "named": "never",
+            "asyncArrow": "always"
+        }]
     },
-    // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
     "extends": "standard",
-    // required to lint *.vue files
     "plugins": [
         "html"
     ]
 }
-// http://eslint.org/docs/user-guide/configuring

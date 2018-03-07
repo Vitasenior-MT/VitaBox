@@ -1,4 +1,5 @@
 'use strict'
+var fs = require('fs');
 
 module.exports = {
   ServerBoardListenerConfigs: {
@@ -8,6 +9,7 @@ module.exports = {
     remoteport: 8080
   },
   ServerConfigs: {
+    key: fs.readFileSync('key.key').toString().trim(),
     port: 8080,
     host: '192.168.161.151'
   },

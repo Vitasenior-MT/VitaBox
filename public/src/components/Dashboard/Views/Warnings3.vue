@@ -33,8 +33,7 @@ export default {
   },
   data () {
     return {
-      warningCards: [],
-      setInterval: null
+      warningCards: []
     }
   },
   methods: {
