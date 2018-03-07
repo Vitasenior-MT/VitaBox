@@ -9,6 +9,12 @@
           <div class="col-md-4 row">
             <button class="btn" type="button" v-on:click="getToken">Request Token</button>
           </div>
+          <div class="col-md-4 row">
+            <button class="btn" type="button" v-on:click="postSensorData">Send Sensor Data</button>
+          </div>
+          <div class="col-md-4 row">
+            <button class="btn" type="button" v-on:click="getBoards">Get Boards</button>
+          </div>
           <div class="row">
             <div class="col-sm-12">
               <pre>{{ data | json }}</pre>
@@ -34,8 +40,14 @@ export default {
     }
   },
   methods: {
+    postSensorData(){
+      this.$socket.emit('post_sensor_data', null);
+    },
     getToken() {
       this.$socket.emit('request_token', null);
+    },
+    getBoards() {
+      this.$socket.emit('get_boards', null);
     }
   },
   beforeCreate() {}
