@@ -48,32 +48,4 @@ export default {
   font-size: 12px;
   margin: -18px 0 1px 0;
 }
-
-.warning-card-2 {
-  animation: color-me-in 3s infinite;
-}
-
-.warning-card-1 {
-  border: 15px solid orangered;
-}
-
-.warning-card-0 {
-  border: 15px solid green;
-}
-
-@keyframes color-me-in {
-  0% {
-    border: 15px solid #cc0000;
-    box-shadow: 0 0 10px 5px white;
-  }
-  /* Adding a step in the middle */
-  50% {
-    border: 15px solid #ff1a1a;
-    box-shadow: 0 0 10px 5px #ff1a1a;
-  }
-  100% {
-    border: 15px solid #cc0000;
-    box-shadow: 0 0 10px 5px white;
-  }
-}
 </style>

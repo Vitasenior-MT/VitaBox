@@ -6,7 +6,33 @@
 <script>
 export default {
   props: ["warning"],
-  name: "circle-data"
+  name: "circle-data",
+  data() {
+    return {
+      data: "circle-avg2 img-properties warning-card-2",
+      properties1: "circle-avg2 img-properties warning-card-2",
+      properties2: "circle-avg2 img-properties warning-card-21"
+    };
+  },
+  mounted() {
+    this.updateTransition();
+  },
+  methods: {
+    //TODO: adicionar uma opção de cartões ja vistos, onde cada cartão critico ja visto fica sem animação poupando cpu, sendo que os recentes(não vistos) ficam com a animação
+    updateTransition() {
+      var self = this;
+      setInterval(() => {
+        Array.prototype.forEach.call(
+          document.getElementsByClassName(self.data),
+          function(element) {
+            element.className === self.properties2
+              ? (element.className = self.data = self.properties1)
+              : (element.className = self.data = self.properties2);
+          }
+        );
+      }, 5000);
+    }
+  }
 };
 </script>
 <style>
@@ -29,7 +55,19 @@ export default {
 }
 
 .warning-card-2 {
-  animation: color-me-in 3s infinite;
+  transition-property: border box-shadow;
+  transition-timing-function: linear;
+  transition-duration: 3s;
+  border: 15px solid #cc0000;
+  box-shadow: 0 0 10px 5px white;
+}
+
+.warning-card-21 {
+  transition-property: border box-shadow;
+  transition-duration: 3s;
+  transition-timing-function: linear;
+  border: 15px solid #ff1a1a;
+  box-shadow: 0 0 10px 5px #ff1a1a;
 }
 
 .warning-card-1 {

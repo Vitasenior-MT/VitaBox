@@ -1,8 +1,32 @@
 <template>
   <div class="row">
+    <video class="video" autoplay src="../small.mp4" loop></video>
     <div class="col-md-12">
       <div class="card">
-          <video class="video" controls autoplay src="../small.mp4" loop></video>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
       </div>
     </div>
   </div>
@@ -17,7 +41,10 @@ export default {
 </script>
 <style>
 .video {
-  width: 100% !important;
-  height: auto !important;
+   position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
 }
 </style>

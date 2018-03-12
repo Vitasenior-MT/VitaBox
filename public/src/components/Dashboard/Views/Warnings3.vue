@@ -123,7 +123,15 @@ export default {
     this.$http
       .get('/api/sensor/allCriticalSensors/2')
       .then(response => {
-        var datasensores = response.data.data
+        var datasensores = [response.data.data[0]]
+        datasensores.push(response.data.data[0])
+        datasensores.push(response.data.data[0])
+        datasensores.push(response.data.data[0])
+        datasensores.push(response.data.data[0])
+        datasensores.push(response.data.data[0])
+        datasensores.push(response.data.data[0])
+        datasensores.push(response.data.data[0])
+        console.log(datasensores);
         for (var index in datasensores) {
           let data = datasensores[index]
           this.warningCards.push({

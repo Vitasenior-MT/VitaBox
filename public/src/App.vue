@@ -22,7 +22,7 @@ export default {
         this.timeout = true
         setTimeout(() => {
           self.$modal.hide('dialog')
-          this.timeout = false
+          self.timeout = false
         }, 3000)
       }
     })
