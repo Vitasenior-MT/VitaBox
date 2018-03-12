@@ -23,17 +23,6 @@ export default {
     };
   },
   methods: {
-    findCritLvl: function(avg, threshold) {
-      if (avg >= threshold) {
-        return 2;
-      } else if (avg >= threshold - threshold * 0.1) {
-        return 1;
-      } else if (avg < threshold - threshold * 0.1) {
-        return 0;
-      } else {
-        return -1;
-      }
-    },
     dateFormat(data) {
       let date = new Date(data);
       return (
@@ -62,10 +51,7 @@ export default {
             this.warningCards[index].footerText = this.dateFormat(
               data.avgLastUpdate
             );
-            this.warningCards[index].critLvl = this.findCritLvl(
-              data.avg,
-              data.threshold
-            );
+            this.warningCards[index].critLvl = data.critLevel;
             break;
           }
         }
@@ -86,7 +72,7 @@ export default {
             avg: data.avg.toFixed(),
             avgLastUpdate: data.avgLastUpdate,
             threshold: data.threshold,
-            critLvl: this.findCritLvl(data.avg, data.threshold)
+            critLvl: data.critLevel
           });
         }
       })

@@ -33,7 +33,11 @@ sudo systemctl enable boardListener.service
 sudo systemctl start boardListener.service
 #sudo systemctl stop boardListener.service
 
-#4. Installers
+#3. config rpi boot
+sudo rm -f /boot/config.txt
+sudo cp bootConfig.txt /boot/config.txt
+
+#5. Installers
 npm install
 sudo apt-get update
 sudo apt-get upgrade

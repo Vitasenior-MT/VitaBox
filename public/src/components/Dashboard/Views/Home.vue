@@ -223,6 +223,16 @@ export default {
         )
         .then(response => {
           console.log(response);
+          this.$http
+            .post("/api/board", { data: response.body.boards })
+            .then(result => {
+              this.data = response;
+              console.log(response);
+            })
+            .catch(error => {
+              this.data = error;
+              console.log(error);
+            });
           this.data = response;
         })
         .catch(error => {
