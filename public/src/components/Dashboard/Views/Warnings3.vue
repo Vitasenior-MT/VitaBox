@@ -6,151 +6,95 @@
   </div>
 </template>
 <script>
-import WarningCard from 'components/UIComponents/Cards/WarningCard2.vue'
+import WarningCard from "components/UIComponents/Cards/WarningCard2.vue";
 export default {
   components: {
     WarningCard
   },
   sockets: {
-    vitaWarning: function (data) {
-      console.log('Receive alert on Tab: ', data)
-      this.updateSensor(data)
-    },
-    updateAllSensors (data) {
-      for (var index in this.warningCards) {
-        this.warningCards[index].avg = data.avg.toFixed()
-        this.warningCards[index].threshold = data.threshold
-        this.warningCards[index].footerText = this.dateFormat(
-          data.avgLastUpdate
-        )
-        this.warningCards[index].critLvl = this.findCritLvl(
-          data.avg,
-          data.threshold
-        )
-      }
-      this.sortArr(this.warningCards)
+    vitaWarning: function(data) {
+      console.log("Receive alert on Tab: ", data);
+      this.updateSensor(data);
     }
   },
-  data () {
+  data() {
     return {
       warningCards: []
-    }
+    };
   },
   methods: {
-    findCritLvl: function (avg, threshold) {
+    findCritLvl: function(avg, threshold) {
       if (avg >= threshold) {
-        return 2
+        return 2;
       } else if (avg >= threshold - threshold * 0.1) {
-        return 1
+        return 1;
       } else if (avg < threshold - threshold * 0.1) {
-        return 0
+        return 0;
       } else {
-        return -1
+        return -1;
       }
     },
-    sortArr: function (sortKey) {
-      let green = this.sliceArr(sortKey, 0)
-      let orange = this.sliceArr(sortKey, 1)
-      let red = this.sliceArr(sortKey, 2)
-      green = this.sortBy(green, 'footerText')
-      orange = this.sortBy(orange, 'footerText')
-      red = this.sortBy(red, 'footerText')
-      red.push.apply(red, orange)
-      red.push.apply(red, green)
-      this.warningCards = red
-    },
-    sortBy: function (sortKey, property) {
-      return sortKey.sort(function (a, b) {
-        let timeA = new Date(Date.parse(a[property]) / 1000).getTime()
-        let timeB = new Date(Date.parse(b[property]) / 1000).getTime()
-        if (timeA < timeB) {
-          return -1
-        } else if (timeA >= timeB) {
-          return 1
-        } else {
-          return 0
-        }
-      })
-    },
-    sliceArr: function (sortKey, property) {
-      let arr = []
-      for (var i = sortKey.length - 1; i >= 0; --i) {
-        if (sortKey[i].critLvl === property) {
-          arr.push(sortKey[i])
-        }
-      }
-      return arr
-    },
-    dateFormat (data) {
-      let date = new Date(data)
+    dateFormat(data) {
+      let date = new Date(data);
       return (
         (date.getMonth() + 1 < 10
-          ? '0' + (date.getMonth() + 1)
+          ? "0" + (date.getMonth() + 1)
           : date.getMonth() + 1) +
-        '/' +
-        (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
-        '/' +
+        "/" +
+        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
+        "/" +
         date.getFullYear() +
-        ' ' +
-        (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
-        ':' +
-        (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
-        ':' +
-        (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
-      )
+        " " +
+        (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) +
+        ":" +
+        (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) +
+        ":" +
+        (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds())
+      );
     },
-    updateSensor (data) {
+    updateSensor(data) {
       for (var index in this.warningCards) {
         if (data.location === this.warningCards[index].headerText) {
           if (data.warning_type === this.warningCards[index].sensor) {
-            this.warningCards[index].avg = data.avg.toFixed()
-            this.warningCards[index].threshold = data.threshold
+            this.warningCards[index].avg = data.avg.toFixed();
+            this.warningCards[index].avgLastUpdate = data.avgLastUpdate;
+            this.warningCards[index].threshold = data.threshold;
             this.warningCards[index].footerText = this.dateFormat(
               data.avgLastUpdate
-            )
+            );
             this.warningCards[index].critLvl = this.findCritLvl(
               data.avg,
               data.threshold
-            )
-            this.sortArr(this.warningCards)
-            break
+            );
+            break;
           }
         }
       }
     }
   },
-  beforeCreate () {
+  beforeCreate() {
     this.$http
-      .get('/api/sensor/allCriticalSensors/2')
+      .get("/api/sensor/allCriticalSensors/2")
       .then(response => {
-        var datasensores = [response.data.data[0]]
-        datasensores.push(response.data.data[0])
-        datasensores.push(response.data.data[0])
-        datasensores.push(response.data.data[0])
-        datasensores.push(response.data.data[0])
-        datasensores.push(response.data.data[0])
-        datasensores.push(response.data.data[0])
-        datasensores.push(response.data.data[0])
-        console.log(datasensores);
-        for (var index in datasensores) {
-          let data = datasensores[index]
+        for (var index in response.data.data) {
+          let data = response.data.data[index];
           this.warningCards.push({
             headerText: data.location,
             footerText: this.dateFormat(data.avgLastUpdate),
-            footerIcon: 'ti-reload',
+            footerIcon: "ti-reload",
             sensor: data.sensortype,
             avg: data.avg.toFixed(),
+            avgLastUpdate: data.avgLastUpdate,
             threshold: data.threshold,
             critLvl: this.findCritLvl(data.avg, data.threshold)
-          })
+          });
         }
-        this.sortArr(this.warningCards)
       })
       .catch(error => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   }
-}
+};
 </script>
 <style>
 

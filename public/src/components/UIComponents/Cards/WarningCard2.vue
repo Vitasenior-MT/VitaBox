@@ -6,7 +6,7 @@
       </div>
       <div class="row">
         <div class="margin-25">
-          <circle-data :warning="'warning-card-' + this.data.critLvl">
+          <circle-data :warning="this.dataCrit">
           </circle-data>
         </div>
       </div>
@@ -28,10 +28,18 @@ export default {
     CircleData
   },
   data() {
-    return {};
+    return {
+      dataCrit: ""
+    };
   },
   props: ["data"],
-  name: "warning-card"
+  name: "warning-card",
+  mounted() {
+    this.dataCrit =
+      new Date(this.data.avgLastUpdate).getTime() >= new Date() - 100000000
+        ? "newWarning-1"
+        : "warning-card-2";
+  }
 };
 </script>
 <style>
