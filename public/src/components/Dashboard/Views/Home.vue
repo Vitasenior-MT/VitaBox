@@ -10,9 +10,6 @@
             <button class="btn" type="button" v-on:click="getToken">Request Token</button>
           </div>
           <div class="col-md-4 row">
-            <button class="btn" type="button" v-on:click="saveRandomToken">Save Random Token</button>
-          </div>
-          <div class="col-md-4 row">
             <button class="btn" type="button" v-on:click="getTokenDB">Get Token from DB</button>
           </div>
           <div class="col-md-4 row">
@@ -58,12 +55,10 @@ export default {
       this.$http
         .get("/api/getsettingsData")
         .then(response => {
-          console.log("---< ", response);
-          this.data = response;
           this.$http
             .put(
               "http://192.168.161.151:8080/settings/vitabox",
-              { data: response },
+              { settings: response.body.data },
               {
                 headers: {
                   "Accept-Version": "1.0.0",
@@ -171,24 +166,12 @@ export default {
           console.log(error);
         });
     },
-    saveRandomToken() {
-      this.$http
-        .post("/api/token", { token: "blablabla" })
-        .then(response => {
-          this.data = response;
-        })
-        .catch(error => {
-          this.data = error;
-          console.log(error);
-        });
-      this.token = "blablabla";
-    },
     getTokenDB() {
       this.$http
         .get("/api/token")
         .then(response => {
           this.data = response;
-          this.token = response;
+          this.token = response.body.data[0].token;
         })
         .catch(error => {
           this.data = error;
