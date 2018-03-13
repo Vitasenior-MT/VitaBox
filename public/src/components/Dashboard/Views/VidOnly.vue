@@ -33,10 +33,10 @@
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {}
   },
-  mounted () {}
+  mounted() {}
 }
 </script>
 <style>
@@ -44,7 +44,7 @@ export default {
    position: fixed;
     right: 0;
     bottom: 0;
-    min-width: 100%; 
+    min-width: 100%;
     min-height: 100%;
 }
 </style>

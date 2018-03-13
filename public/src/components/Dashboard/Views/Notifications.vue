@@ -50,10 +50,10 @@
           </div>
         </div>
       </div>
-  
+
       <br>
       <br>
-  
+
       <div class="places-buttons">
         <div class="row">
           <div class="col-md-9">
@@ -83,7 +83,7 @@
           <div class="col-md-3">
             <button class="btn btn-default btn-block" @click="notifyVue('bottom', 'right')">Bottom Right</button>
           </div>
-  
+
         </div>
       </div>
     </div>
@@ -92,7 +92,7 @@
 <script>
   import PaperNotification from 'src/components/UIComponents/NotificationPlugin/Notification.vue'
   export default {
-    data () {
+    data() {
       return {
         type: ['', 'info', 'success', 'warning', 'danger'],
         notifications: {
@@ -104,7 +104,7 @@
       PaperNotification
     },
     methods: {
-      notifyVue (verticalAlign, horizontalAlign) {
+      notifyVue(verticalAlign, horizontalAlign) {
         var color = Math.floor((Math.random() * 4) + 1)
         this.$notifications.notify(
           {
@@ -120,5 +120,5 @@
 
 </script>
 <style>
-  
+
 </style>

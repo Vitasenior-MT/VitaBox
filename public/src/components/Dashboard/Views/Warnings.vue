@@ -12,11 +12,11 @@ export default {
     WarningCard
   },
   sockets: {
-    vitaWarning: function (data) {
+    vitaWarning: function(data) {
       console.log('Receive alert on Tab: ', data)
       this.updateSensor(data)
     },
-    updateAllSensors (data) {
+    updateAllSensors(data) {
       for (var index in this.warningCards) {
         this.warningCards[index].avg = data.avg.toFixed()
         this.warningCards[index].threshold = data.threshold
@@ -31,14 +31,14 @@ export default {
       this.sortArr(this.warningCards)
     }
   },
-  data () {
+  data() {
     return {
       warningCards: [],
       setInterval: null
     }
   },
   methods: {
-    findCritLvl: function (avg, threshold) {
+    findCritLvl: function(avg, threshold) {
       if (avg >= threshold) {
         return 2
       } else if (avg >= threshold - threshold * 0.1) {
@@ -49,7 +49,7 @@ export default {
         return -1
       }
     },
-    sortArr: function (sortKey) {
+    sortArr: function(sortKey) {
       let green = this.sliceArr(sortKey, 0)
       let orange = this.sliceArr(sortKey, 1)
       let red = this.sliceArr(sortKey, 2)
@@ -60,8 +60,8 @@ export default {
       red.push.apply(red, green)
       this.warningCards = red
     },
-    sortBy: function (sortKey, property) {
-      return sortKey.sort(function (a, b) {
+    sortBy: function(sortKey, property) {
+      return sortKey.sort(function(a, b) {
         let timeA = new Date(Date.parse(a[property]) / 1000).getTime()
         let timeB = new Date(Date.parse(b[property]) / 1000).getTime()
         if (timeA < timeB) {
@@ -73,7 +73,7 @@ export default {
         }
       })
     },
-    sliceArr: function (sortKey, property) {
+    sliceArr: function(sortKey, property) {
       let arr = []
       for (var i = sortKey.length - 1; i >= 0; --i) {
         if (sortKey[i].critLvl === property) {
@@ -82,7 +82,7 @@ export default {
       }
       return arr
     },
-    dateFormat (data) {
+    dateFormat(data) {
       let date = new Date(data)
       return (
         (date.getMonth() + 1 < 10
@@ -100,7 +100,7 @@ export default {
         (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
       )
     },
-    updateSensor (data) {
+    updateSensor(data) {
       for (var index in this.warningCards) {
         if (data.location === this.warningCards[index].headerText) {
           if (data.warning_type === this.warningCards[index].sensor) {
@@ -120,7 +120,7 @@ export default {
       }
     }
   },
-  beforeCreate () {
+  beforeCreate() {
     this.$http
       .get('/api/sensor/allSensorsInfo')
       .then(response => {

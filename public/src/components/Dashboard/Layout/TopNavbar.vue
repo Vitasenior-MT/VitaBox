@@ -10,30 +10,30 @@
 <script>
   export default {
     computed: {
-      routeName () {
+      routeName() {
         const {name} = this.$route
         return this.capitalizeFirstLetter(name)
       }
     },
-    data () {
+    data() {
       return {
         activeNotifications: false
       }
     },
     methods: {
-      capitalizeFirstLetter (string) {
+      capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
       },
-      toggleNotificationDropDown () {
+      toggleNotificationDropDown() {
         this.activeNotifications = !this.activeNotifications
       },
-      closeDropDown () {
+      closeDropDown() {
         this.activeNotifications = false
       },
-      toggleSidebar () {
+      toggleSidebar() {
         this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
       },
-      hideSidebar () {
+      hideSidebar() {
         this.$sidebar.displaySidebar(false)
       }
     }

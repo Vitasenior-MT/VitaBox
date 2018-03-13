@@ -20,7 +20,7 @@ export default {
       this.updateSensor(data)
     }
   },
-  data () {
+  data() {
     return {
       warningCards: []
     }
@@ -29,7 +29,7 @@ export default {
     window.unload = this.leaving
   },
   methods: {
-    dateFormat (data) {
+    dateFormat(data) {
       let date = new Date(data)
       return (
         (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '/' +
@@ -41,7 +41,7 @@ export default {
       )
     }
   },
-  beforeCreate () {
+  beforeCreate() {
     this.$http.get('/api/sensor/allSensorsinfo')
       .then(response => {
         if (response.data.status === true) {

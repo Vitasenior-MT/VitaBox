@@ -38,7 +38,7 @@ export default {
   components: {
     CircleData
   },
-  data () {
+  data() {
     return {}
   },
   props: ['data'],

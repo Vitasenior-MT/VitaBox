@@ -49,7 +49,7 @@
       ChartGauge
     },
     name: 'Warning',
-    data () {
+    data() {
       return {
         warningCard: {}
       }
@@ -60,7 +60,7 @@
         required: true
       }
     },
-    mounted () {
+    mounted() {
     }
   }
 </script>

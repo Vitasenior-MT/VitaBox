@@ -6,7 +6,7 @@ import DropDown from './components/UIComponents/Dropdown.vue'
  */
 
 const GlobalComponents = {
-  install (Vue) {
+  install(Vue) {
     Vue.component('fg-input', fgInput)
     Vue.component('drop-down', DropDown)
   }

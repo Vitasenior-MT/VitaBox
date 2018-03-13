@@ -39,7 +39,7 @@ export default {
   components: {
     CardStyle
   },
-  data () {
+  data() {
     return {
       cardStyle: {
         type: 'warning',

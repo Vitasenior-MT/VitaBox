@@ -79,14 +79,14 @@ export default {
     MovingArrow
   },
   computed: {
-    sidebarClasses () {
+    sidebarClasses() {
       if (this.type === 'sidebar') {
         return 'sidebar'
       } else {
         return 'collapse navbar-collapse off-canvas-sidebar'
       }
     },
-    navClasses () {
+    navClasses() {
       if (this.type === 'sidebar') {
         return 'nav'
       } else {
@@ -97,11 +97,11 @@ export default {
      * Styles to animate the arrow near the current active sidebar link
      * @returns {{transform: string}}
      */
-    arrowMovePx () {
+    arrowMovePx() {
       return this.linkHeight * this.activeLinkIndex
     }
   },
-  data () {
+  data() {
     return {
       linkHeight: 60,
       activeLinkIndex: 0,
@@ -112,7 +112,7 @@ export default {
     }
   },
   methods: {
-    findActiveLink () {
+    findActiveLink() {
       this.sidebarLinks.find((element, index) => {
         let found = element.path === this.$route.path
         if (found) {
@@ -123,7 +123,7 @@ export default {
     }
   },
   sockets: {
-    vitaWarning: function (data) {
+    vitaWarning: function(data) {
       console.log('/vitabox/warnings3', this.$route.path)
       console.log(this.$route.path)
       if (this.$route.path !== '/vitabox/warnings3') {
@@ -140,7 +140,7 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.findActiveLink()
     this.$socket.on('changeMenu', signal => {
       let index = this.activeLinkIndex + 1 * signal
@@ -155,7 +155,7 @@ export default {
     })
   },
   watch: {
-    $route: function (newRoute, oldRoute) {
+    $route: function(newRoute, oldRoute) {
       this.findActiveLink()
     }
   }

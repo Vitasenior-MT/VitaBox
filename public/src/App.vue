@@ -7,12 +7,12 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       timeout: false
     }
   },
-  mounted () {
+  mounted() {
     this.$socket.on('vitaWarning', data => {
       let self = this
       this.$modal.show('dialog', data)
@@ -30,4 +30,5 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+</style>

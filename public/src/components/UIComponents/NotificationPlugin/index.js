@@ -3,19 +3,18 @@ import Notifications from './Notifications.vue'
 const NotificationStore = {
   state: [], // here the notifications will be added
 
-  removeNotification (index) {
+  removeNotification(index) {
     this.state.splice(index, 1)
   },
-  notify (notification) {
+  notify(notification) {
     this.state.push(notification)
   }
 }
 
 var NotificationsPlugin = {
-
-  install (Vue) {
+  install(Vue) {
     Object.defineProperty(Vue.prototype, '$notifications', {
-      get () {
+      get() {
         return NotificationStore
       }
     })
