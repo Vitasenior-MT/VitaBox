@@ -57,7 +57,7 @@ export default {
         .then(response => {
           this.$http
             .put(
-              'http://192.168.161.151:8080/settings/vitabox',
+              'http://192.168.161.117:8080/settings/vitabox',
             {
               settings: response.body.data
             },
@@ -100,7 +100,7 @@ export default {
           }
           this.$http
             .post(
-              'http://192.168.161.151:8080/record',
+              'http://192.168.161.117:8080/record',
               { records: records },
             {
               headers: {
@@ -143,7 +143,7 @@ export default {
           }
           this.$http
             .post(
-              'http://192.168.161.151:8080/record',
+              'http://192.168.161.117:8080/record',
               { records: records },
             {
               headers: {
@@ -183,7 +183,7 @@ export default {
     getToken() {
       this.$http
         .post(
-          'http://192.168.161.151:8080/vitabox/9b1bdd00-0d07-4a70-b5b2-dbd5c7ace394/connect',
+          'http://192.168.161.117:8080/vitabox/9b1bdd00-0d07-4a70-b5b2-dbd5c7ace394/connect',
           { password: 'passvita' },
         {
           headers: {
@@ -214,7 +214,7 @@ export default {
       console.log(this.token)
       this.$http
         .get(
-          'http://192.168.161.151:8080/vitabox/9b1bdd00-0d07-4a70-b5b2-dbd5c7ace394/board',
+          'http://192.168.161.117:8080/vitabox/9b1bdd00-0d07-4a70-b5b2-dbd5c7ace394/board',
         {
           headers: {
             'Accept-Version': '1.0.0',
@@ -245,7 +245,7 @@ export default {
     getPatients() {
       this.$http
         .get(
-          'http://192.168.161.151:8080/vitabox/9b1bdd00-0d07-4a70-b5b2-dbd5c7ace394/patient',
+          'http://192.168.161.117:8080/vitabox/9b1bdd00-0d07-4a70-b5b2-dbd5c7ace394/patient',
         {
           headers: {
             'Accept-Version': '1.0.0',
