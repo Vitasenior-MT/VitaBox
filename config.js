@@ -2,11 +2,17 @@
 var fs = require('fs');
 
 module.exports = {
-  ServerBoardListenerConfigs: {
-    port: 10000,
-    host: 'fd00::1',
+  RemoteConfigs: {
     remoteserver: "192.168.161.132",
     remoteport: 8080
+  },
+  ServerBoardListenerConfigs: {
+    port: 10000,
+    host: 'fd00::1'
+  },
+  ServerSensorRegisterConfigs: {
+    port: 10001,
+    host: 'fd00::1'
   },
   ServerConfigs: {
     key: fs.readFileSync('key.key').toString().trim(),

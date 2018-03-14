@@ -182,28 +182,10 @@ export default {
     },
     getToken() {
       this.$http
-        .post(
-          'http://192.168.161.117:8080/vitabox/9b1bdd00-0d07-4a70-b5b2-dbd5c7ace394/connect',
-          { password: 'passvita' },
-        {
-          headers: {
-            'Accept-Version': '1.0.0',
-            'Content-Type': 'application/json'
-          }
-        }
-        )
+        .post('/api/requestToken')
         .then(response => {
+          console.log(response)
           this.data = response
-          this.$http
-            .post('/api/token', { token: response.body.token })
-            .then(response => {
-              this.data = response
-            })
-            .catch(error => {
-              this.data = error
-              console.log(error)
-            })
-          this.token = response.body.token
         })
         .catch(error => {
           this.data = error

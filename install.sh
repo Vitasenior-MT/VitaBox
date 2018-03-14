@@ -28,6 +28,7 @@ sudo echo "@sh /home/pi/Desktop/VitaBox/autoStartBorderRouter.sh" >> /home/pi/.c
 sudo sed -i -e 's/\r$//' autoStartBorderRouter.sh
 sudo chmod +x autoStartBorderRouter.sh
 
+# TODO:para ser eliminado
 sudo cp boardListener.service /etc/systemd/system/boardListener.service
 sudo systemctl enable boardListener.service
 sudo systemctl start boardListener.service
