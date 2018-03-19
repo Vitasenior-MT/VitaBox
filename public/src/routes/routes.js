@@ -4,6 +4,7 @@ import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 
 // Admin pages
 import Home from 'src/components/Dashboard/Views/Home.vue'
+import History from 'src/components/Dashboard/Views/History.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import Warnings2 from 'src/components/Dashboard/Views/Warnings2.vue'
 import Warnings3 from 'src/components/Dashboard/Views/Warnings3.vue'
@@ -25,6 +26,10 @@ const routes = [
         path: 'home',
         name: 'home',
         component: Home
+      },{
+        path: 'history',
+        name: 'history',
+        component: History
       },
       {
         path: 'warnings',
