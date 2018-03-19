@@ -15,7 +15,7 @@ export default {
     CardWarning
   },
   sockets: {
-    vitaWarning: (data) => {
+    vitaWarning: data => {
       console.log('Receive alert on Tab: ', data)
       this.updateSensor(data)
     }
@@ -32,20 +32,28 @@ export default {
     dateFormat(data) {
       let date = new Date(data)
       return (
-        (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '/' +
-        ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '/' +
-        date.getFullYear() + ' ' +
-        (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' +
-        (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':' +
+        (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+        '/' +
+        (date.getMonth() + 1 < 10
+          ? '0' + (date.getMonth() + 1)
+          : date.getMonth() + 1) +
+        '/' +
+        date.getFullYear() +
+        ' ' +
+        (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+        ':' +
+        (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+        ':' +
         (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
       )
     }
   },
   beforeCreate() {
-    this.$http.get('/api/sensor/allSensorsinfo')
+    this.$http
+      .get('/api/sensor/allSensorsinfo')
       .then(response => {
         if (response.data.status === true) {
-          console.log('Data', response.data.data)
+          // console.log('Data', response.data.data)
           var datasensores = response.data.data
           for (var index in datasensores) {
             this.warningCards.push({
