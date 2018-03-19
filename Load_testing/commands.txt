@@ -1,1 +1,0 @@
-vegeta attack -duration=60s -targets=targets.txt | vegeta report -reporter=plot > plot.html | vegeta report

@@ -4,18 +4,7 @@
     <!--Stats cards-->
     <div class="row">
       <div class="col-lg-3 col-sm-6" v-for="stats in statsCards" :key='stats.id'>
-        <stats-card>
-          <div class="icon-big text-center" :class="`icon-${stats.type}`" slot="header">
-            <i :class="stats.icon"></i>
-          </div>
-          <div class="numbers" slot="content">
-            <p>{{stats.title}}</p>
-            {{stats.value}}
-          </div>
-          <div class="stats" slot="footer">
-            <i :class="stats.footerIcon"></i> {{stats.footerText}}
-          </div>
-        </stats-card>
+        <user-info :data="stats" ><user-info>
       </div>
     </div>
 
@@ -41,11 +30,11 @@
   </div>
 </template>
 <script>
-import StatsCard from "components/UIComponents/Cards/StatsCard.vue";
+import UserInfo from "components/UIComponents/Cards/UserInfo.vue";
 import ChartCard from "components/UIComponents/Cards/ChartCard.vue";
 export default {
   components: {
-    StatsCard,
+    UserInfo,
     ChartCard
   },
   data() {
@@ -116,7 +105,7 @@ export default {
       return age;
     }
   },
-  mounted() {
+  beforeCreate() {
     this.$http
       .get("/api/getPatientsData")
       .then(response => {
@@ -125,9 +114,10 @@ export default {
           this.statsCards.push({
             type: "warning",
             icon: "ti-server",
-            title: data[index].name,
-            value: data[index].gender,
-            footerText: this.getAge(data[index].birthdate),
+            name: data[index].name,
+            gender: data[index].gender,
+            birthdate: data[index].birthdate,
+            age: this.getAge(data[index].birthdate),
             footerIcon: "ti-reload"
           });
         }

@@ -1,96 +1,106 @@
 <template>
-  <div class='col-sm-12 row'>
-    <div class='col-sm-12' v-for='warningCard in warningCards' :key='warningCard.id'>
-      <show-data-card :data='warningCard'></show-data-card>
+  <div>
+    <div class="row">
+      <div class="col-lg-6" v-for="warningCard in CardsSensors" :key="warningCard.id">
+        <CardWarning3 :key="warningCard.id + '-all'" :warningCard="warningCard">
+        </CardWarning3>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import ShowDataCard from "components/UIComponents/Cards/ShowDataCard.vue";
+import CardWarning3 from 'components/UIComponents/Cards/CardWarning3.vue'
 export default {
   components: {
-    ShowDataCard
+    CardWarning3
   },
   sockets: {
-    updateAllSensors(data) {
-      for (var index in this.warningCards) {
-        this.warningCards[index].avg = data.avg.toFixed();
-        this.warningCards[index].threshold = data.threshold;
-        this.warningCards[index].footerText = this.dateFormat(
-          data.avgLastUpdate
-        );
-        this.warningCards[index].critLvl = this.findCritLvl(
-          data.avg,
-          data.threshold
-        );
+    avgSensorUpdate: function(data) {
+      for (let index in this.CardsSensors) {
+        if (this.CardsSensors[index].id === data.idSensor) {
+          for (let index2 in this.CardsSensors[index].sensors) {
+            if (this.CardsSensors[index].sensors[index2].sensortype === data.sensortype
+            ) {
+              this.CardsSensors[index].sensors[index2].avg = data.avg
+              this.CardsSensors[index].sensors[index2].avglastupdate = this.dateFormat(data.avglastupdate)
+              this.CardsSensors[index].sensors[index2].threshold = data.threshold
+            }
+          }
+        }
       }
-      this.sortArr(this.warningCards);
     }
   },
   data() {
     return {
-      warningCards: []
-    };
+      CardsSensors: []
+    }
+  },
+  ready: () => {
+    window.unload = this.leaving
   },
   methods: {
     dateFormat(data) {
-      let date = new Date(data);
+      let date = new Date(data)
       return (
+        (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+        '/' +
         (date.getMonth() + 1 < 10
-          ? "0" + (date.getMonth() + 1)
+          ? '0' + (date.getMonth() + 1)
           : date.getMonth() + 1) +
-        "/" +
-        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
-        "/" +
+        '/' +
         date.getFullYear() +
-        " " +
-        (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) +
-        ":" +
-        (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) +
-        ":" +
-        (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds())
-      );
+        ' ' +
+        (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+        ':' +
+        (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+        ':' +
+        (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+      )
+    },
+    sortArrayByLength(arr, ascYN) {
+      arr.sort(function(a, b) {
+        // sort array by length of text
+        if (ascYN) {
+          return a.sensors.length - b.sensors.length // ASC -> a - b
+        } else {
+          return b.sensors.length - a.sensors.length // DESC -> b - a
+        }
+      })
     }
   },
   beforeCreate() {
     this.$http
-      .get("/api/places/all")
-      .then(responce => {
-        let place = responce.body.data;
-        for (var index in place) {
-          this.$http
-            .get("/api/sensor/" + place[index].name + "/allInfo")
-            .then(sensors => {
-              if (sensors.data.data) {
-                this.warningCards.push({
-                  headerText: place[index].name,
-                  data: []
-                });
-                let sensor = sensors.data.data.sensor_location;
-                for (var i in sensor) {
-                  this.warningCards[this.warningCards.length - 1].data.push({
-                    headerText: sensor[i].location,
-                    footerText: this.dateFormat(sensor[i].avgLastUpdate),
-                    footerIcon: "ti-reload",
-                    sensor: sensor[i].sensortype,
-                    avg: sensor[i].avg.toFixed(),
-                    threshold: sensor[i].threshold,
-                    critLvl: sensor[i].critLevel
-                  });
-                }
-              }
+      .get('/api/sensor/allPlaceSensorsInfo')
+      .then(response => {
+        if (response.data.status === true) {
+          var datasensores = response.data.data
+          for (var index in datasensores) {
+            this.CardsSensors.push({
+              id: datasensores[index].id,
+              location: datasensores[index].location,
+              sensors: []
             })
-            .catch(error => {
-              console.log(error);
-            });
+            for (let i in datasensores[index].values) {
+              this.CardsSensors[index].sensors.push({
+                idchar: 'id-' + datasensores[index].id + '-' + datasensores[index].values[i].sensortype,
+                avg: Math.round(datasensores[index].values[i].avg * 100) / 100,
+                avglastupdate: this.dateFormat(datasensores[index].values[i].avgLastUpdate
+                ),
+                sensortype: datasensores[index].values[i].sensortype,
+                threshold: datasensores[index].values[i].threshold
+              })
+            }
+          }
+          this.sortArrayByLength(this.CardsSensors, true)
+        } else {
+          console.log('Receive error', response.data)
         }
       })
       .catch(error => {
-        console.log(error);
-      });
+        console.log(error)
+      })
   }
-};
+}
 </script>
 <style>
-
 </style>
