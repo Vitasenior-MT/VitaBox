@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <video class="video" autoplay src="../../../jelly.mp4" loop></video>
+    <video class="video" autoplay src="../jelly.mp4" loop></video>
     <div class="col-md-12">
       <div class="card">
         <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
