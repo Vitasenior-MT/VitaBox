@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <video class="video" autoplay src="../small.mp4" loop></video>
+    <video class="video" autoplay src="../../../jelly.mp4" loop></video>
     <div class="col-md-12">
       <div class="card">
         <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
@@ -42,7 +42,6 @@ export default {
 <style>
 .video {
    position: fixed;
-    right: 0;
     bottom: 0;
     min-width: 100%;
     min-height: 100%;

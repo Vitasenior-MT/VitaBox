@@ -116,7 +116,7 @@ export default {
             icon: "ti-server",
             name: data[index].name,
             gender: data[index].gender,
-            birthdate: data[index].birthdate,
+            birthdate: this.dateFormat(data[index].birthdate),
             age: this.getAge(data[index].birthdate),
             footerIcon: "ti-reload"
           });
