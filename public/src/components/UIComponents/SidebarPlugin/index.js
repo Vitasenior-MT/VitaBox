@@ -14,6 +14,11 @@ const SidebarStore = {
       path: '/vitabox/history'
     },
     {
+      name: 'Wizard',
+      icon: 'ti-home',
+      path: '/vitabox/wizard'
+    },
+    {
       name: 'Warnings',
       icon: 'ti-bell',
       path: '/vitabox/warnings'
