@@ -11,11 +11,11 @@ export default {
         if (this.data.isLastStep) {
           alert("Done");
         } else {
-          this.data.nextTab();
+          this.data.prevTab();
         }
       }
       if (controll === "right") {
-        this.data.prevTab();
+        this.data.nextTab();
       }
     }
   }
