@@ -10,9 +10,6 @@
             <button class="btn" type="button" v-on:click="getToken">Request Token</button>
           </div>
           <div class="col-md-4 row">
-            <button class="btn" type="button" v-on:click="getTokenDB">Get Token from DB</button>
-          </div>
-          <div class="col-md-4 row">
             <button class="btn" type="button" v-on:click="postSettings">Send Vitabox Settings</button>
           </div>
           <div class="col-md-4 row">
@@ -66,18 +63,6 @@ export default {
         .then(response => {
           this.data = response;
           console.log(response);
-        })
-        .catch(error => {
-          this.data = error;
-          console.log(error);
-        });
-    },
-    getTokenDB() {
-      this.$http
-        .get("/api/token")
-        .then(response => {
-          this.data = response;
-          this.token = response.body.data[0].token;
         })
         .catch(error => {
           this.data = error;

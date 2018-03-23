@@ -17,12 +17,13 @@ export default {
   sockets: {
     avgSensorUpdate: function(data) {
       for (let index in this.CardsSensors) {
-        if (this.CardsSensors[index].id === data.idSensor) {
+        if (this.CardsSensors[index].id === data.id) {
           for (let index2 in this.CardsSensors[index].sensors) {
-            if (this.CardsSensors[index].sensors[index2].sensortype === data.sensortype
-            ) {
-              this.CardsSensors[index].sensors[index2].avg = data.avg
-              this.CardsSensors[index].sensors[index2].avglastupdate = this.dateFormat(data.avglastupdate)
+            if (this.CardsSensors[index].sensors[index2].sensortype === data.sensortype) {
+              this.CardsSensors[index].sensors[index2].idchar = 'id-' + data.id + '-' + data.sensortype
+              this.CardsSensors[index].sensors[index2].avg = Math.round(data.avg * 100) / 100
+              this.CardsSensors[index].sensors[index2].avglastupdate = this.dateFormat(data.avgLastUpdate)
+              this.CardsSensors[index].sensors[index2].sensortype = data.sensortype
               this.CardsSensors[index].sensors[index2].threshold = data.threshold
             }
           }
@@ -34,9 +35,6 @@ export default {
     return {
       CardsSensors: []
     }
-  },
-  ready: () => {
-    window.unload = this.leaving
   },
   methods: {
     dateFormat(data) {
@@ -87,7 +85,7 @@ export default {
                 avglastupdate: this.dateFormat(datasensores[index].values[i].avgLastUpdate
                 ),
                 sensortype: datasensores[index].values[i].sensortype,
-                threshold: datasensores[index].values[i].threshold
+                threshold: datasensores[index].values[i].threshold.max_possible
               })
             }
           }

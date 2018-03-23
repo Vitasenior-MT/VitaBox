@@ -18,6 +18,7 @@ import routes from './routes/routes'
 
 // library imports
 import Chartist from 'chartist'
+import { EventBus } from './event-bus.js';
 import 'bootstrap/dist/css/bootstrap.css'
 import './assets/sass/paper-dashboard.scss'
 import 'es6-promise/auto'
@@ -66,6 +67,9 @@ new Vue({
       } else {
         console.log('socket connected')
       }
+    },
+    cmd: function(cmd){
+      EventBus.$emit('cmd', cmd);
     }
   }
 })

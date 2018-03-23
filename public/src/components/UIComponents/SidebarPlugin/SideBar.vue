@@ -124,14 +124,14 @@ export default {
   },
   sockets: {
     vitaWarning: function(data) {
-      console.log('/vitabox/warnings3', this.$route.path)
+      console.log('/vitabox/warnings', this.$route.path)
       console.log(this.$route.path)
-      if (this.$route.path !== '/vitabox/warnings3') {
+      if (this.$route.path !== '/vitabox/warnings') {
         let sideBar = this.sidebarLinks
         for (var index in sideBar) {
           console.log(sideBar[index].name)
-          console.log(sideBar[index].name === 'Warnings3')
-          if (sideBar[index].name === 'Warnings3') {
+          console.log(sideBar[index].name === 'Warnings')
+          if (sideBar[index].name === 'Warnings') {
             this.activeLinkIndex = index
             this.$router.push({ path: sideBar[index].path })
             return
