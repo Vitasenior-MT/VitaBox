@@ -38,6 +38,7 @@
 </template>
 <script>
 import MovingArrow from './MovingArrow.vue'
+import { EventBus } from '../../../event-bus.js'
 export default {
   props: {
     type: {
@@ -60,13 +61,7 @@ export default {
       type: String,
       default: 'success',
       validator: value => {
-        let acceptedValues = [
-          'primary',
-          'info',
-          'success',
-          'warning',
-          'danger'
-        ]
+        let acceptedValues = ['primary', 'info', 'success', 'warning', 'danger']
         return acceptedValues.indexOf(value) !== -1
       }
     },
@@ -122,45 +117,29 @@ export default {
       })
     }
   },
-  sockets: {
-    vitaWarning: function(data) {
-      console.log('/vitabox/warnings', this.$route.path)
-      console.log(this.$route.path)
-      if (this.$route.path !== '/vitabox/warnings') {
-        let sideBar = this.sidebarLinks
-        for (var index in sideBar) {
-          console.log(sideBar[index].name)
-          console.log(sideBar[index].name === 'Warnings')
-          if (sideBar[index].name === 'Warnings') {
-            this.activeLinkIndex = index
-            this.$router.push({ path: sideBar[index].path })
-            return
-          }
-        }
-      }
-    }
-  },
   mounted() {
     this.findActiveLink()
-    this.$socket.on('changeMenu', signal => {
-      let index = this.activeLinkIndex + 1 * signal
-      let sideBar = this.sidebarLinks
-      if (index < 0) {
-        index = sideBar.length - 1
-      }
-      if (index > sideBar.length - 1) {
-        index = 0
-      }
-      this.$router.push({ path: sideBar[index].path })
-    })
   },
   watch: {
     $route: function(newRoute, oldRoute) {
       this.findActiveLink()
     }
+  },
+  beforeCreate() {
+    var self = this
+    EventBus.$on('move-sidebar', function(cmd) {
+      let index = self.activeLinkIndex + cmd
+      if (index < 0) {
+        index = self.sidebarLinks.length - 1
+      }
+      if (index > self.sidebarLinks.length - 1) {
+        index = 0
+      }
+      self.$router.push({ path: self.sidebarLinks[index].path })
+      EventBus.correntRightComponent = self.sidebarLinks[index].path
+    })
   }
 }
 </script>
 <style>
-
 </style>

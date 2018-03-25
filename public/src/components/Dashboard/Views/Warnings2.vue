@@ -111,7 +111,7 @@ export default {
               idmedia: 'chartmedia-' + index,
               idlimite: 'chartlimite-' + index,
               avg: datasensores[index].avg,
-              threshold: datasensores[index].threshold,
+              threshold: (datasensores[index].threshold === undefined ? 100 : datasensores[index].threshold),
               sensor: datasensores[index].sensortype,
               location: datasensores[index].location,
               dateupdate: this.dateFormat(datasensores[index].avgLastUpdate),

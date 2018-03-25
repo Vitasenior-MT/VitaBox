@@ -85,7 +85,7 @@ export default {
                 avglastupdate: this.dateFormat(datasensores[index].values[i].avgLastUpdate
                 ),
                 sensortype: datasensores[index].values[i].sensortype,
-                threshold: datasensores[index].values[i].threshold.max_possible
+                threshold: (datasensores[index].values[i].threshold.max_possible === undefined ? 100 : datasensores[index].values[i].threshold.max_possible)
               })
             }
           }

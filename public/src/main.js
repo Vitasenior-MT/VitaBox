@@ -48,7 +48,7 @@ Object.defineProperty(Vue.prototype, '$Chartist', {
 })
 
 /* eslint-disable no-new */
-new Vue({
+var app = new Vue({
   el: '#app',
   render: h => h(App),
   router,
@@ -56,9 +56,9 @@ new Vue({
     Chartist: Chartist
   },
   mounted() {
-    this.$socket.on('hdmistatus', (data) => {
-      console.log('Receive hdmistatus', data)
-    })
+    // EventBus.currentComponent = 'side-bar'
+  },
+  beforeCreate() {
   },
   sockets: {
     connect: (val) => {
@@ -68,8 +68,66 @@ new Vue({
         console.log('socket connected')
       }
     },
+    hdmistatus: function(data) {
+      console.log('Receive hdmistatus', data)
+    },
     cmd: function(cmd) {
-      EventBus.$emit('cmd', cmd);
+      // console.log('cmd', cmd, EventBus.currentComponent, EventBus.correntRightComponent)
+      switch (cmd) {
+        case 'up':
+          if (EventBus.currentComponent === EventBus.sidebarName) {
+            EventBus.$emit('move-sidebar', -1)
+          } else {
+            console.log("Not sidebar")
+          }
+          break;
+        case 'down':
+          if (EventBus.currentComponent === EventBus.sidebarName) {
+            EventBus.$emit('move-sidebar', 1)
+          } else {
+            console.log("Not sidebar")
+          }
+          break;
+        case 'right':
+          EventBus.currentComponent = EventBus.correntRightComponent
+          EventBus.$emit('move-components', 1)
+          break;
+        case 'left':
+          if (EventBus.currentActiveRightComp === 0) {
+            EventBus.currentComponent = EventBus.sidebarName
+          } else {
+            EventBus.$emit('move-components', -1)
+          }
+          break;
+        case 'ok_btn':
+          EventBus.$emit('move-components', 'ok_btn')
+          break;
+        default:
+          break;
+      }
     }
   }
 })
+
+// var self = this;
+window.addEventListener('keypress', function(e) {
+  e = e || window.event;
+  var charCode = e.keyCode || e.which;
+  // console.log("Key:", charCode);
+  var sendCmd = "";
+  if (charCode === 119) { // 'w'
+    sendCmd = '1';
+  } else if (charCode === 115) { // 's'
+    sendCmd = '2';
+  } else if (charCode === 97) { // 'a'
+    sendCmd = '3';
+  } else if (charCode === 100) { // 'd'
+    sendCmd = '4';
+  } else if (charCode === 13) { // 'enter'
+    sendCmd = 'd';
+  }
+  if (sendCmd !== "") {
+    app.$socket.emit('keypress', sendCmd);
+    sendCmd = "";
+  }
+});
