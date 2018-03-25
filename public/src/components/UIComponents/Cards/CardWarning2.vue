@@ -15,21 +15,13 @@
       </div>
       <div class='content'>
         <div class='row'>
-          <div class='col-xs-6'>
+          <div class='col-xs-12'>
             <ChartGauge :id="warningCard.idmedia"
             :chartid="warningCard.idmedia"
+              :typechartdonut="false"
               :valueChart="warningCard.avg"
-              :labelChart="'Média'"
+              :labelChart="''"
               :chartmax="warningCard.threshold"
-              :symbol="warningCard.symbol">
-              </ChartGauge>
-            </div>
-            <div class='col-xs-6'>
-              <ChartGauge :id="warningCard.idlimite"
-              :chartid="warningCard.idlimite"
-              :valueChart="warningCard.threshold"
-              :labelChart="'Limite'"
-              :chartmax="warningCard.threshold + 20"
               :symbol="warningCard.symbol">
               </ChartGauge>
             </div>
@@ -37,33 +29,44 @@
       </div>
       <div class='footer'>
         <hr/>
-        <i :class='warningCard.footerIcon'></i> {{warningCard.dateupdate}}
+        <div class='row'>
+          <div class='col-lg-9'>
+            <i :class='warningCard.footerIcon'> {{warningCard.dateupdate}}</i>
+          </div>
+          <div class='col-lg-3'>
+            <ChartGauge :id="warningCard.idlimite"
+              :typechartdonut="true"
+              :chartid="warningCard.idlimite"
+              :valueChart="warningCard.threshold"
+              :labelChart="''"
+              :chartmax="warningCard.threshold"
+              :symbol="warningCard.symbol">
+            </ChartGauge>
+          </div>
+        </div>
     </div>
   </div>
-</div>
 </template>
 <script>
-  import ChartGauge from 'components/UIComponents/Charts/chartGaugeItem1.vue'
-  export default {
-    components: {
-      ChartGauge
-    },
-    name: 'Warning',
-    data() {
-      return {
-        warningCard: {}
-      }
-    },
-    props: {
-      warningCard: {
-        type: Object,
-        required: true
-      }
-    },
-    mounted() {
+import ChartGauge from 'components/UIComponents/Charts/chartGaugeItem1.vue'
+export default {
+  components: {
+    ChartGauge
+  },
+  name: 'Warning',
+  data() {
+    return {
+      warningCard: {}
     }
-  }
+  },
+  props: {
+    warningCard: {
+      type: Object,
+      required: true
+    }
+  },
+  mounted() {}
+}
 </script>
 <style>
-
 </style>
