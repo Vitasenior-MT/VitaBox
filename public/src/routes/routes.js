@@ -26,11 +26,11 @@ const routes = [
         path: 'home',
         name: 'home',
         component: Home
-      },{
+      }, {
         path: 'history',
         name: 'history',
         component: History
-      },{
+      }, {
         path: 'wizard',
         name: 'wizard',
         component: Wizard

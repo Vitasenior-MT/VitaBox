@@ -68,7 +68,7 @@ new Vue({
         console.log('socket connected')
       }
     },
-    cmd: function(cmd){
+    cmd: function(cmd) {
       EventBus.$emit('cmd', cmd);
     }
   }
