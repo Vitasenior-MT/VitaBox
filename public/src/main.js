@@ -8,6 +8,9 @@ import GlobalComponents from './globalComponents'
 import GlobalDirectives from './globalDirectives'
 import Notifications from './components/UIComponents/NotificationPlugin'
 import SideBar from './components/UIComponents/SidebarPlugin'
+import VModal from './components/UIComponents/Modal'
+import VueFormWizard from 'vue-form-wizard'
+import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 import App from './App'
 
 // router setup
@@ -15,6 +18,7 @@ import routes from './routes/routes'
 
 // library imports
 import Chartist from 'chartist'
+import { EventBus } from './event-bus.js';
 import 'bootstrap/dist/css/bootstrap.css'
 import './assets/sass/paper-dashboard.scss'
 import 'es6-promise/auto'
@@ -25,6 +29,8 @@ Vue.use(GlobalComponents)
 Vue.use(GlobalDirectives)
 Vue.use(Notifications)
 Vue.use(SideBar)
+Vue.use(VModal, { dialog: true })
+Vue.use(VueFormWizard)
 Vue.use(resource)
 Vue.use(VueSocketio, location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : ''))
 
@@ -36,7 +42,7 @@ const router = new VueRouter({
 
 // global library setup
 Object.defineProperty(Vue.prototype, '$Chartist', {
-  get () {
+  get() {
     return this.$root.Chartist
   }
 })
@@ -49,10 +55,7 @@ new Vue({
   data: {
     Chartist: Chartist
   },
-  mounted () {
-    this.$socket.on('seq-num', (data) => {
-      console.log('Receive alert', data)
-    })
+  mounted() {
     this.$socket.on('hdmistatus', (data) => {
       console.log('Receive hdmistatus', data)
     })
@@ -64,6 +67,9 @@ new Vue({
       } else {
         console.log('socket connected')
       }
+    },
+    cmd: function(cmd) {
+      EventBus.$emit('cmd', cmd);
     }
   }
 })

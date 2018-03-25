@@ -31,7 +31,7 @@
       DashboardContent
     },
     methods: {
-      toggleSidebar () {
+      toggleSidebar() {
         if (this.$sidebar.showSidebar) {
           this.$sidebar.displaySidebar(false)
         }

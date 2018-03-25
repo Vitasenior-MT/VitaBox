@@ -1,0 +1,41 @@
+[Unit]
+Description=VitaBox
+Requires=After=mongodb       # Requires the mysql service to run first
+
+[Service]
+ExecStart=/usr/bin/node /home/pi/Desktop/VitaBox/main.js
+##Required on some systems
+WorkingDirectory=/home/pi/Desktop/VitaBox
+Restart=always
+##Restart service after 10 seconds if node service crashes
+RestartSec=10
+##Output to syslog
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=VitaBox
+
+[Install]
+WantedBy=multi-user.target
+
+##Commands to run
+# sudo nano /etc/systemd/system/nodeAutostart.service
+# sudo systemctl enable nodeAutostart.service
+# sudo systemctl stop nodeAutostart.service
+# sudo systemctl start nodeAutostart.service
+## Clean syslog
+#sudo dd if=/dev/null of=/var/log/syslog
+##to get the last 25 lines of the syslog file
+#tail -25 /var/log/syslog
+##force update of the node
+#wget https://nodejs.org/dist/v8.9.2/node-v8.9.2-linux-armv6l.tar.gz
+#sudo mv node-v8.9.2-linux-armv6l.tar.gz /opt
+#cd /opt
+#sudo tar -xzf node-v8.9.2-linux-armv6l.tar.gz
+#sudo mv node-v8.9.2-linux-armv6l nodejs
+#sudo rm node-v8.9.2-linux-armv6l.tar.gz
+#sudo rm node
+#sudo ln -s /opt/nodejs/bin/node /usr/bin/node
+#sudo ln -s /opt/nodejs/bin/npm /usr/bin/npm
+##Disable screen saver
+# sudo apt-get install xscreensaver
+# Go to preference ---> screensaver.

@@ -1,0 +1,4 @@
+tem de ser feito dentro da dir GNUwin32/bin
+___: Auth
+private:	openssl genrsa -aes256 -out private.pem 2048
+public:		openssl rsa -in private.pem -outform PEM -pubout -out public.pem

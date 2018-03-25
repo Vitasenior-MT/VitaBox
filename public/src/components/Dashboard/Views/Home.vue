@@ -1,113 +1,126 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <div class="card">
+      <div class="card col-md-12">
         <div class="header">
           <h4 class="title">Teste consulta de valores</h4>
         </div>
-        <div class="content">
+        <div class="content col-md-12">
+          <div class="col-md-4 row">
+            <button class="btn" type="button" v-on:click="getToken">Request Token</button>
+          </div>
+          <div class="col-md-4 row">
+            <button class="btn" type="button" v-on:click="postSettings">Send Vitabox Settings</button>
+          </div>
+          <div class="col-md-4 row">
+            <button class="btn" type="button" v-on:click="postSensorData">Send Sensor Data</button>
+          </div>
+          <div class="col-md-4 row">
+            <button class="btn" type="button" v-on:click="getBoards">Get Boards</button>
+          </div>
+          <div class="col-md-4 row">
+            <button class="btn" type="button" v-on:click="getPatients">Get Patients</button>
+          </div>
+          <div class="col-md-4 row">
+            <button class="btn" type="button" v-on:click="getSettings">Get Settings</button>
+          </div>
           <div class="row">
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="selectOpt" class="col-3 col-form-label">Localização</label>
-                  <select v-model="selected" @change="getSensorFromPlace()" class="custom-select form-control" id="selectOpt">
-                    <option v-for="place in places" v-bind:value="place.value">
-                      {{ place.local }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label for="selectOpt2" class="col-3 col-form-label">Sensor</label>
-                    <select v-model="selectedSensor" @change="getSensorValues()" class="custom-select form-control" id="selectOpt2">
-                      <option v-for="sensor in sensors" v-bind:value="sensor">
-                        {{ sensor }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <hr>
-                  <p>Data Time {{ datatime }}</p>
-                  <hr>
-                  <p>Data Values {{ datavalues }}</p>
-                  <hr>
-                </div>
+            <div class="col-sm-12">
+              <pre>{{ data | json }}</pre>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-  export default {
-    components: {},
-    selected: {},
-    selectedSensor: {},
-    data () {
-      return {
-        places: [],
-        sensors: [],
-        datatime: [],
-        datavalues: []
+export default {
+  data() {
+    return {
+      token: null,
+      data: {
+        debug: true
       }
+    };
+  },
+  methods: {
+    postSettings() {
+      this.$http
+        .post("/api/postSettings")
+        .then(response => {
+          console.log(response);
+          this.data = response;
+        })
+        .catch(error => {
+          console.log("----> ", error);
+          this.data = error;
+        });
     },
-    computed: {},
-    beforeCreate () {
-      this.$http.get('/api/places/all')
-      .then((response) => {
-        if (response.data.status === true) {
-          for (var i in response.data.data) {
-            this.places.push({
-              local: response.data.data[i].name,
-              value: response.data.data[i]._id
-            })
-          }
-        } else {
-          console.log('Receive error')
-        }
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    postSensorData() {
+      this.$http
+        .post("/api/postSensorData")
+        .then(response => {
+          this.data = response;
+          console.log(response);
+        })
+        .catch(error => {
+          this.data = error;
+          console.log(error);
+        });
     },
-    created () {},
-    methods: {
-      getSensorFromPlace () {
-        this.selectedSensor = null
-        this.datatime = []
-        this.datavalues = []
-        this.$http.get('/api/sensor/' + this.selected)
-        .then((response) => {
-          if (response.data.status === true) {
-            this.sensors = response.data.data
-          } else {
-            console.log('Receive error')
-          }
+    getToken() {
+      this.$http
+        .post("/api/requestToken")
+        .then(response => {
+          console.log(response);
+          this.data = response;
         })
-        .catch((error) => {
-          console.log(error)
+        .catch(error => {
+          this.data = error;
+          console.log(error);
+        });
+    },
+    getBoards() {
+      console.log(this.token);
+      this.$http
+        .get("/api/getBoards")
+        .then(response => {
+          console.log(response);
+          this.data = response;
         })
-      },
-      getSensorValues () {
-        this.$http.get('/api/sensor/' + this.selected + '/' + this.selectedSensor)
-        .then((response) => {
-          if (response.data.status === true) {
-            if (response.data.data) {
-              this.datatime = response.data.data.time
-              this.datavalues = response.data.data.value
-            }
-          } else {
-            console.log('Receive error')
-          }
+        .catch(error => {
+          this.data = error;
+          console.log(error);
+        });
+    },
+    getPatients() {
+      this.$http
+        .get("/api/getPatients")
+        .then(response => {
+          console.log(response);
+          this.data = response;
         })
-        .catch((error) => {
-          console.log(error)
+        .catch(error => {
+          this.data = error;
+          console.log(error);
+        });
+    },
+    getSettings() {
+      this.$http
+        .get("/api/getSettings")
+        .then(response => {
+          console.log(response);
+          this.data = response;
         })
-      }
+        .catch(error => {
+          this.data = error;
+          console.log(error);
+        });
     }
-  }
+  },
+  beforeCreate() {}
+};
 </script>
 <style>
 

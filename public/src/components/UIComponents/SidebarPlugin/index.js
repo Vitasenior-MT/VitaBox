@@ -9,51 +9,46 @@ const SidebarStore = {
       path: '/vitabox/home'
     },
     {
-      name: 'Dashboard',
-      icon: 'ti-panel',
-      path: '/vitabox/overview'
+      name: 'History',
+      icon: 'ti-home',
+      path: '/vitabox/history'
     },
     {
-      name: 'User Profile',
-      icon: 'ti-user',
-      path: '/vitabox/stats'
+      name: 'Wizard',
+      icon: 'ti-home',
+      path: '/vitabox/wizard'
     },
     {
-      name: 'Table List',
-      icon: 'ti-view-list-alt',
-      path: '/vitabox/table-list'
-    },
-    {
-      name: 'Typography',
-      icon: 'ti-text',
-      path: '/vitabox/typography'
-    },
-    {
-      name: 'Icons',
-      icon: 'ti-pencil-alt2',
-      path: '/vitabox/icons'
-    },
-    {
-      name: 'Maps',
-      icon: 'ti-map',
-      path: '/vitabox/maps'
-    },
-    {
-      name: 'Notifications',
+      name: 'Warnings',
       icon: 'ti-bell',
-      path: '/vitabox/notifications'
+      path: '/vitabox/warnings'
+    },
+    {
+      name: 'Warnings2',
+      icon: 'ti-bell',
+      path: '/vitabox/warnings2'
+    },
+    {
+      name: 'ShowData',
+      icon: 'ti-bell',
+      path: '/vitabox/show-data'
+    },
+    {
+      name: 'VidOnly',
+      icon: 'ti-bell',
+      path: '/vitabox/vid-only'
     }
   ],
-  displaySidebar (value) {
+  displaySidebar(value) {
     this.showSidebar = value
   }
 }
 
 const SidebarPlugin = {
 
-  install (Vue) {
+  install(Vue) {
     Vue.mixin({
-      data () {
+      data() {
         return {
           sidebarStore: SidebarStore
         }
@@ -61,7 +56,7 @@ const SidebarPlugin = {
     })
 
     Object.defineProperty(Vue.prototype, '$sidebar', {
-      get () {
+      get() {
         return this.$root.sidebarStore
       }
     })

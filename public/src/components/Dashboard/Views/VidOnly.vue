@@ -1,0 +1,49 @@
+<template>
+  <div class="row">
+    <video class="video" autoplay src="./static/jelly.mp4" loop></video>
+    <div class="col-md-12">
+      <div class="card">
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+        <p>OLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {}
+  },
+  mounted() {}
+}
+</script>
+<style>
+.video {
+   position: fixed;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+</style>

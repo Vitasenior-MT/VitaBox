@@ -4,13 +4,12 @@ import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 
 // Admin pages
 import Home from 'src/components/Dashboard/Views/Home.vue'
-import Overview from 'src/components/Dashboard/Views/Overview.vue'
-import UserProfile from 'src/components/Dashboard/Views/UserProfile.vue'
-import Notifications from 'src/components/Dashboard/Views/Notifications.vue'
-import Icons from 'src/components/Dashboard/Views/Icons.vue'
-import Maps from 'src/components/Dashboard/Views/Maps.vue'
-import Typography from 'src/components/Dashboard/Views/Typography.vue'
-import TableList from 'src/components/Dashboard/Views/TableList.vue'
+import History from 'src/components/Dashboard/Views/History.vue'
+import Wizard from 'src/components/Dashboard/Views/Wizard.vue'
+import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
+import Warnings2 from 'src/components/Dashboard/Views/Warnings2.vue'
+import ShowData from 'src/components/Dashboard/Views/ShowData.vue'
+import VidOnly from 'src/components/Dashboard/Views/VidOnly.vue'
 
 const routes = [
   {
@@ -27,41 +26,34 @@ const routes = [
         path: 'home',
         name: 'home',
         component: Home
+      }, {
+        path: 'history',
+        name: 'history',
+        component: History
+      }, {
+        path: 'wizard',
+        name: 'wizard',
+        component: Wizard
       },
       {
-        path: 'overview',
-        name: 'overview',
-        component: Overview
+        path: 'warnings',
+        name: 'warnings',
+        component: Warnings
       },
       {
-        path: 'stats',
-        name: 'stats',
-        component: UserProfile
+        path: 'warnings2',
+        name: 'warnings2',
+        component: Warnings2
       },
       {
-        path: 'notifications',
-        name: 'notifications',
-        component: Notifications
+        path: 'show-data',
+        name: 'show-data',
+        component: ShowData
       },
       {
-        path: 'icons',
-        name: 'icons',
-        component: Icons
-      },
-      {
-        path: 'maps',
-        name: 'maps',
-        component: Maps
-      },
-      {
-        path: 'typography',
-        name: 'typography',
-        component: Typography
-      },
-      {
-        path: 'table-list',
-        name: 'table-list',
-        component: TableList
+        path: 'vid-only',
+        name: 'vid-only',
+        component: VidOnly
       }
     ]
   },
