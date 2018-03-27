@@ -1,5 +1,5 @@
 <template>
-  <div class='card'>
+  <div class='card btn-warning control-remote'>
     <div class='content'>
         <div class='row'>
           <div class="col-md-12">

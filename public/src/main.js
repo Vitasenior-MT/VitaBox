@@ -56,7 +56,6 @@ var app = new Vue({
     Chartist: Chartist
   },
   mounted() {
-    // EventBus.currentComponent = 'side-bar'
   },
   beforeCreate() {
   },
@@ -72,7 +71,6 @@ var app = new Vue({
       console.log('Receive hdmistatus', data)
     },
     cmd: function(cmd) {
-      // console.log('cmd', cmd, EventBus.currentComponent, EventBus.correntRightComponent)
       switch (cmd) {
         case 'up':
           if (EventBus.currentComponent === EventBus.sidebarName) {
@@ -95,6 +93,9 @@ var app = new Vue({
         case 'left':
           if (EventBus.currentActiveRightComp === 0) {
             EventBus.currentComponent = EventBus.sidebarName
+            if (!EventBus.firstRightEvent) {
+              EventBus.$emit('move-components', -1)
+            }
           } else {
             EventBus.$emit('move-components', -1)
           }

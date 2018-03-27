@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row">
+    <div class="row container-data-sensors">
       <div class="col-lg-4 col-sm-6" v-for="warningCard in warningCards" :key="warningCard.id">
         <CardWarning :key="warningCard.id" :warningCard="warningCard">
         </CardWarning>
@@ -23,7 +23,8 @@ export default {
   },
   data() {
     return {
-      warningCards: []
+      warningCards: [],
+      elementControl: []
     }
   },
   methods: {
@@ -90,16 +91,50 @@ export default {
           }
         }
       }
+    },
+    controlEventsBus() {
+      var self = this
+      EventBus.$on('move-components', function(cmd) {
+        if (cmd === 'ok_btn') {
+          console.log("'Ok btn")
+          self.elementControl[EventBus.currentActiveRightComp].click()
+        } else {
+          if (EventBus.firstRightEvent) {
+            cmd = 0
+            EventBus.firstRightEvent = false
+          }
+          self.elementControl[EventBus.currentActiveRightComp].classList.remove(
+            'btn-fill'
+          )
+          EventBus.currentActiveRightComp += cmd
+          if (EventBus.currentActiveRightComp >= self.elementControl.length) {
+            EventBus.currentActiveRightComp = 0
+          }
+          if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
+            self.elementControl[0].blur()
+            EventBus.firstRightEvent = true
+            EventBus.currentActiveRightComp = 0
+            console.log('if', cmd, EventBus.currentActiveRightComp)
+            return
+          }
+          // self.elementControl[EventBus.currentActiveRightComp].focus()
+          let elem = self.elementControl[EventBus.currentActiveRightComp]
+          elem.focus()
+          elem.classList.add('btn-fill')
+          EventBus.scrollScreen(elem)
+        }
+      })
     }
   },
   beforeDestroy() {
-    EventBus.$off('cmd')
+    EventBus.$off('move-components')
+  },
+  created() {
+    this.elementControl = document.getElementsByClassName('control-remote')
+    this.controlEventsBus()
+    console.log('Remotes', this.elementControl)
   },
   beforeCreate() {
-    EventBus.$on('cmd', function(cmd) {
-      console.log(cmd)
-    })
-
     this.$http
       .get('/api/sensor/allSensorsinfo')
       .then(response => {
@@ -111,7 +146,10 @@ export default {
               idmedia: 'chartmedia-' + index,
               idlimite: 'chartlimite-' + index,
               avg: datasensores[index].avg,
-              threshold: (datasensores[index].threshold === undefined ? 100 : datasensores[index].threshold),
+              threshold:
+                datasensores[index].threshold === undefined
+                  ? 100
+                  : datasensores[index].threshold,
               sensor: datasensores[index].sensortype,
               location: datasensores[index].location,
               dateupdate: this.dateFormat(datasensores[index].avgLastUpdate),

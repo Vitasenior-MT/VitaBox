@@ -122,9 +122,20 @@ export default {
         console.log("'Ok btn")
         self.elementControl[EventBus.currentActiveRightComp].click()
       } else {
+        if (EventBus.firstRightEvent) {
+          cmd = 0
+          EventBus.firstRightEvent = false
+        }
         EventBus.currentActiveRightComp += cmd
-        if (EventBus.currentActiveRightComp === self.elementControl.length) {
+        if (EventBus.currentActiveRightComp >= self.elementControl.length) {
           EventBus.currentActiveRightComp = 0
+        }
+        if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
+          self.elementControl[0].blur()
+          EventBus.firstRightEvent = true
+          EventBus.currentActiveRightComp = 0
+          console.log("if", cmd, EventBus.currentActiveRightComp)
+          return
         }
         console.log(cmd, EventBus.currentActiveRightComp)
         // console.log(self.elementControl[EventBus.currentActiveRightComp])

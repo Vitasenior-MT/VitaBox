@@ -10,6 +10,7 @@
 </template>
 <script>
 import CardWarning3 from 'components/UIComponents/Cards/CardWarning3.vue'
+import { EventBus } from '../../../event-bus.js'
 export default {
   components: {
     CardWarning3
@@ -33,7 +34,8 @@ export default {
   },
   data() {
     return {
-      CardsSensors: []
+      CardsSensors: [],
+      elementControl: []
     }
   },
   methods: {
@@ -62,6 +64,37 @@ export default {
           return a.sensors.length - b.sensors.length // ASC -> a - b
         } else {
           return b.sensors.length - a.sensors.length // DESC -> b - a
+        }
+      })
+    },
+    controlEventsBus() {
+      var self = this
+      EventBus.$on('move-components', function(cmd) {
+        if (cmd === 'ok_btn') {
+          console.log("'Ok btn")
+          self.elementControl[EventBus.currentActiveRightComp].click()
+        } else {
+          if (EventBus.firstRightEvent) {
+            cmd = 0
+            EventBus.firstRightEvent = false
+          }
+          self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+          EventBus.currentActiveRightComp += cmd
+          if (EventBus.currentActiveRightComp >= self.elementControl.length) {
+            EventBus.currentActiveRightComp = 0
+          }
+          if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
+            self.elementControl[0].blur()
+            EventBus.firstRightEvent = true
+            EventBus.currentActiveRightComp = 0
+            console.log('if', cmd, EventBus.currentActiveRightComp)
+            return
+          }
+          console.log(cmd, EventBus.currentActiveRightComp)
+          let elem = self.elementControl[EventBus.currentActiveRightComp]
+          elem.focus()
+          elem.classList.add('btn-fill')
+          EventBus.scrollScreen(elem)
         }
       })
     }
@@ -97,6 +130,14 @@ export default {
       .catch(error => {
         console.log(error)
       })
+  },
+  beforeDestroy() {
+    EventBus.$off('move-components')
+  },
+  created() {
+    this.elementControl = document.getElementsByClassName('control-remote')
+    this.controlEventsBus()
+    console.log('Remotes', this.elementControl)
   }
 }
 </script>

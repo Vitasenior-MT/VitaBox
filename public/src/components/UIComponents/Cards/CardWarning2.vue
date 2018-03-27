@@ -1,5 +1,5 @@
 <template>
-  <div class='card'>
+  <div class='card btn btn-info control-remote'>
     <div class='content'>
       <div class='row'>
         <div class='col-lg-2'>

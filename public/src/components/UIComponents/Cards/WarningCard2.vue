@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card btn control-remote">
     <div class="content">
       <div class="text-center positioning">
         <b class="font-size-27">{{data.headerText}}</b>
