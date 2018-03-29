@@ -77,6 +77,7 @@ var app = new Vue({
             EventBus.$emit('move-sidebar', -1)
           } else {
             console.log("Not sidebar")
+            EventBus.$emit('move-components', 'up')
           }
           break;
         case 'down':
@@ -84,6 +85,7 @@ var app = new Vue({
             EventBus.$emit('move-sidebar', 1)
           } else {
             console.log("Not sidebar")
+            EventBus.$emit('move-components', 'down')
           }
           break;
         case 'right':
@@ -124,7 +126,7 @@ window.addEventListener('keypress', function(e) {
     sendCmd = '3';
   } else if (charCode === 100) { // 'd'
     sendCmd = '4';
-  } else if (charCode === 13) { // 'enter'
+  } else if (charCode === 122) { // 'z'
     sendCmd = 'd';
   }
   if (sendCmd !== "") {

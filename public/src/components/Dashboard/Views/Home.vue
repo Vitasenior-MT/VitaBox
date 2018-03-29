@@ -107,41 +107,48 @@ export default {
           this.data = error
           console.log(error)
         })
+    },
+    controlEventsBus() {
+      var self = this
+      EventBus.$on('move-components', function(cmd) {
+        if (cmd === 'ok_btn') {
+          console.log("'Ok btn")
+          self.elementControl[EventBus.currentActiveRightComp].click()
+        } else {
+          if (EventBus.firstRightEvent) {
+            cmd = 0
+            EventBus.firstRightEvent = false
+          }
+          self.elementControl[EventBus.currentActiveRightComp].classList.remove(
+            'btn-fill'
+          )
+          EventBus.currentActiveRightComp += cmd
+          if (EventBus.currentActiveRightComp >= self.elementControl.length) {
+            EventBus.currentActiveRightComp = 0
+          }
+          if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
+            self.elementControl[0].blur()
+            EventBus.firstRightEvent = true
+            EventBus.currentActiveRightComp = 0
+            console.log('if', cmd, EventBus.currentActiveRightComp)
+            return
+          }
+          // self.elementControl[EventBus.currentActiveRightComp].focus()
+          let elem = self.elementControl[EventBus.currentActiveRightComp]
+          elem.focus()
+          elem.classList.add('btn-fill')
+          EventBus.scrollScreen(elem)
+        }
+      })
     }
   },
   created() {
     this.elementControl = document.getElementsByClassName('control-remote')
+    this.controlEventsBus()
+    console.log('Remotes', this.elementControl)
   },
   beforeDestroy() {
     EventBus.$off('move-components')
-  },
-  beforeCreate() {
-    var self = this
-    EventBus.$on('move-components', function(cmd) {
-      if (cmd === 'ok_btn') {
-        console.log("'Ok btn")
-        self.elementControl[EventBus.currentActiveRightComp].click()
-      } else {
-        if (EventBus.firstRightEvent) {
-          cmd = 0
-          EventBus.firstRightEvent = false
-        }
-        EventBus.currentActiveRightComp += cmd
-        if (EventBus.currentActiveRightComp >= self.elementControl.length) {
-          EventBus.currentActiveRightComp = 0
-        }
-        if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
-          self.elementControl[0].blur()
-          EventBus.firstRightEvent = true
-          EventBus.currentActiveRightComp = 0
-          console.log("if", cmd, EventBus.currentActiveRightComp)
-          return
-        }
-        console.log(cmd, EventBus.currentActiveRightComp)
-        // console.log(self.elementControl[EventBus.currentActiveRightComp])
-        self.elementControl[EventBus.currentActiveRightComp].focus()
-      }
-    })
   }
 }
 </script>

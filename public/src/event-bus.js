@@ -7,21 +7,21 @@ export const EventBus = new Vue({
     correntRightComponent: '',
     currentActiveRightComp: 0,
     firstRightEvent: true,
-    scrollScreen: function (el) {
+    scrollScreen: function(el) {
       let height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
       let elemPos = el.getBoundingClientRect()
       let step = 15
 
       if ((elemPos.top + elemPos.height) > height) {
-        this.scrollAnimate(step, window.scrollY + elemPos.height)
+        // this.scrollAnimate(step, window.scrollY + elemPos.height)
+        this.scrollAnimate(step, window.scrollY + elemPos.top - 50)
       }
       if (elemPos.top < 0) {
-        this.scrollAnimate(step * -1, window.scrollY + elemPos.top - 80)
+        this.scrollAnimate(step * -1, window.scrollY + elemPos.top - 20)
       }
     },
     scrollAnimate: function(scrollStep, limit) {
       console.log("Receive", scrollStep, limit)
-      let step = scrollStep
       if (this.scrollInterval) {
         clearInterval(this.scrollInterval)
         this.scrollInterval = null

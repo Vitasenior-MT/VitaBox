@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class='col-sm-12'>
+    <div class='col-sm-12 container-data-sensors'>
       <div class='col-sm-4' v-for='warningCard in warningCards' :key='warningCard.id'>
         <warning-card :data='warningCard'></warning-card>
       </div>
@@ -90,6 +90,40 @@ export default {
         if (cmd === 'ok_btn') {
           console.log("'Ok btn")
           self.elementControl[EventBus.currentActiveRightComp].click()
+        } else if (cmd === 'up') {
+          let elem = self.elementControl[EventBus.currentActiveRightComp]
+          let content = document.getElementsByClassName('container-data-sensors')[0]
+          let numberCol = parseInt((content.clientWidth / elem.clientWidth))
+          let movepos = EventBus.currentActiveRightComp - numberCol
+          if (movepos < 0) {
+            movepos += (self.elementControl.length - 1)
+            if (movepos === (self.elementControl.length - 1) - numberCol) {
+              movepos += numberCol
+            }
+          }
+          self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+          EventBus.currentActiveRightComp = movepos
+          elem = self.elementControl[EventBus.currentActiveRightComp]
+          elem.focus()
+          elem.classList.add('btn-fill')
+          EventBus.scrollScreen(elem)
+        } else if (cmd === 'down') {
+          let elem = self.elementControl[EventBus.currentActiveRightComp]
+          let content = document.getElementsByClassName('container-data-sensors')[0]
+          let numberCol = parseInt((content.clientWidth / elem.clientWidth))
+          let movepos = EventBus.currentActiveRightComp + numberCol
+          if (movepos > (self.elementControl.length - 1)) {
+            movepos -= (self.elementControl.length - 1)
+            if (movepos === numberCol) {
+              movepos = 0
+            }
+          }
+          self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+          EventBus.currentActiveRightComp = movepos
+          elem = self.elementControl[EventBus.currentActiveRightComp]
+          elem.focus()
+          elem.classList.add('btn-fill')
+          EventBus.scrollScreen(elem)
         } else {
           if (EventBus.firstRightEvent) {
             cmd = 0
