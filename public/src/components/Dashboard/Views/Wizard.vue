@@ -22,7 +22,7 @@
 <script>
 import UserInfo from "components/UIComponents/Cards/UserInfo.vue";
 import ChartCard from "components/UIComponents/Cards/ChartCard.vue";
-import { FormWizard, TabContent } from "vue-form-wizard";
+// import { FormWizard, TabContent } from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 import WizardRemote from "components/UIComponents/WizardRemote.vue";
 export default {

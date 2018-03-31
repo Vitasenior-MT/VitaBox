@@ -76,16 +76,20 @@ var app = new Vue({
           if (EventBus.currentComponent === EventBus.sidebarName) {
             EventBus.$emit('move-sidebar', -1)
           } else {
-            console.log("Not sidebar")
-            EventBus.$emit('move-components', 'up')
+            if (EventBus.currentComponent !== EventBus.sidebarName) {
+              console.log("Not sidebar")
+              EventBus.$emit('move-components', 'up')
+            }
           }
           break;
         case 'down':
           if (EventBus.currentComponent === EventBus.sidebarName) {
             EventBus.$emit('move-sidebar', 1)
           } else {
-            console.log("Not sidebar")
-            EventBus.$emit('move-components', 'down')
+            if (EventBus.currentComponent !== EventBus.sidebarName) {
+              console.log("Not sidebar")
+              EventBus.$emit('move-components', 'down')
+            }
           }
           break;
         case 'right':
@@ -103,9 +107,12 @@ var app = new Vue({
           }
           break;
         case 'ok_btn':
-          EventBus.$emit('move-components', 'ok_btn')
+          if (EventBus.currentComponent !== EventBus.sidebarName) {
+            EventBus.$emit('move-components', 'ok_btn')
+          }
           break;
         default:
+          console.log("No event key")
           break;
       }
     }

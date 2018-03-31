@@ -23,7 +23,11 @@ export default {
   data() {
     return {
       warningCards: [],
-      elementControl: []
+      elementControl: [],
+      elem: '',
+      content: '',
+      numberCol: '',
+      movepos: ''
     }
   },
   methods: {
@@ -87,70 +91,81 @@ export default {
     controlEventsBus() {
       var self = this
       EventBus.$on('move-components', function(cmd) {
-        if (cmd === 'ok_btn') {
-          console.log("'Ok btn")
-          self.elementControl[EventBus.currentActiveRightComp].click()
-        } else if (cmd === 'up') {
-          let elem = self.elementControl[EventBus.currentActiveRightComp]
-          let content = document.getElementsByClassName('container-data-sensors')[0]
-          let numberCol = parseInt((content.clientWidth / elem.clientWidth))
-          let movepos = EventBus.currentActiveRightComp - numberCol
-          if (movepos < 0) {
-            movepos += (self.elementControl.length - 1)
-            if (movepos === (self.elementControl.length - 1) - numberCol) {
-              movepos += numberCol
+        self.elementControl = document.getElementsByClassName('control-remote')
+        switch (cmd) {
+          case 'ok_btn':
+            console.log("'Ok btn")
+            self.elementControl[EventBus.currentActiveRightComp].click()
+            break
+          case 'up':
+            self.elem = self.elementControl[EventBus.currentActiveRightComp]
+            self.content = document.getElementsByClassName('container-data-sensors')[0]
+            self.numberCol = parseInt((self.content.clientWidth / self.elem.clientWidth))
+            self.movepos = EventBus.currentActiveRightComp - self.numberCol
+            if (self.movepos < 0) {
+              self.movepos += (self.elementControl.length - 1)
+              if (self.movepos === (self.elementControl.length - 1) - self.numberCol) {
+                self.movepos += self.numberCol
+              }
             }
-          }
-          self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-          EventBus.currentActiveRightComp = movepos
-          elem = self.elementControl[EventBus.currentActiveRightComp]
-          elem.focus()
-          elem.classList.add('btn-fill')
-          EventBus.scrollScreen(elem)
-        } else if (cmd === 'down') {
-          let elem = self.elementControl[EventBus.currentActiveRightComp]
-          let content = document.getElementsByClassName('container-data-sensors')[0]
-          let numberCol = parseInt((content.clientWidth / elem.clientWidth))
-          let movepos = EventBus.currentActiveRightComp + numberCol
-          if (movepos > (self.elementControl.length - 1)) {
-            movepos -= (self.elementControl.length - 1)
-            if (movepos === numberCol) {
-              movepos = 0
+            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+            EventBus.currentActiveRightComp = self.movepos
+            self.elem = self.elementControl[EventBus.currentActiveRightComp]
+            self.elem.focus()
+            self.elem.classList.add('btn-fill')
+            EventBus.scrollScreen(self.elem)
+            break
+          case 'down':
+            self.elem = self.elementControl[EventBus.currentActiveRightComp]
+            self.content = document.getElementsByClassName('container-data-sensors')[0]
+            self.numberCol = parseInt((self.content.clientWidth / self.elem.clientWidth))
+            self.movepos = EventBus.currentActiveRightComp + self.numberCol
+            if (self.movepos > (self.elementControl.length - 1)) {
+              self.movepos -= (self.elementControl.length - 1)
+              if (self.movepos === self.numberCol) {
+                self.movepos = 0
+              }
             }
-          }
-          self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-          EventBus.currentActiveRightComp = movepos
-          elem = self.elementControl[EventBus.currentActiveRightComp]
-          elem.focus()
-          elem.classList.add('btn-fill')
-          EventBus.scrollScreen(elem)
-        } else {
-          if (EventBus.firstRightEvent) {
-            cmd = 0
-            EventBus.firstRightEvent = false
-          }
-          self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-          EventBus.currentActiveRightComp += cmd
-          if (EventBus.currentActiveRightComp >= self.elementControl.length) {
+            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+            EventBus.currentActiveRightComp = self.movepos
+            self.elem = self.elementControl[EventBus.currentActiveRightComp]
+            self.elem.focus()
+            self.elem.classList.add('btn-fill')
+            EventBus.scrollScreen(self.elem)
+            break
+          case 1:
+          case -1:
+            if (EventBus.firstRightEvent) {
+              cmd = 0
+              EventBus.firstRightEvent = false
+            }
+            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+            EventBus.currentActiveRightComp += cmd
+            if (EventBus.currentActiveRightComp >= self.elementControl.length) {
+              EventBus.currentActiveRightComp = 0
+            }
+            if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
+              self.elementControl[0].blur()
+              EventBus.firstRightEvent = true
+              EventBus.currentActiveRightComp = 0
+              console.log('if', cmd, EventBus.currentActiveRightComp)
+              return
+            }
+            console.log(cmd, EventBus.currentActiveRightComp)
+            self.elem = self.elementControl[EventBus.currentActiveRightComp]
+            self.elem.focus()
+            self.elem.classList.add('btn-fill')
+            EventBus.scrollScreen(self.elem)
+            break
+          default:
+            console.log("No key available")
             EventBus.currentActiveRightComp = 0
-          }
-          if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
-            self.elementControl[0].blur()
-            EventBus.firstRightEvent = true
-            EventBus.currentActiveRightComp = 0
-            console.log('if', cmd, EventBus.currentActiveRightComp)
-            return
-          }
-          console.log(cmd, EventBus.currentActiveRightComp)
-          let elem = self.elementControl[EventBus.currentActiveRightComp]
-          elem.focus()
-          elem.classList.add('btn-fill')
-          EventBus.scrollScreen(elem)
+            break;
         }
       })
     }
   },
-  beforeCreate() {
+  created() {
     this.$http
         .get('/api/sensor/allCriticalSensors/2')
         .then(response => {
@@ -167,6 +182,7 @@ export default {
               critLvl: data.critLevel
             })
           }
+          this.controlEventsBus()
         })
         .catch(error => {
           console.log(error)
@@ -175,10 +191,8 @@ export default {
   beforeDestroy() {
     EventBus.$off('move-components')
   },
-  created() {
-    this.elementControl = document.getElementsByClassName('control-remote')
-    this.controlEventsBus()
-    console.log("Remotes", this.elementControl)
+  beforeCreate() {
+    // console.log("Remotes", this.elementControl)
   }
 }
 </script>
