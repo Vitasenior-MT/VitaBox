@@ -6,6 +6,8 @@ import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 import Home from 'src/components/Dashboard/Views/Home.vue'
 import History from 'src/components/Dashboard/Views/History.vue'
 import History2 from 'src/components/Dashboard/Views/History2.vue'
+import History3 from 'src/components/Dashboard/Views/History3.vue'
+import Exams from 'src/components/Dashboard/Views/Exams.vue'
 import Wizard from 'src/components/Dashboard/Views/Wizard.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import Warnings2 from 'src/components/Dashboard/Views/Warnings2.vue'
@@ -32,9 +34,17 @@ const routes = [
         name: 'history',
         component: History
       }, {
-        path: 'history2',
-        name: 'history2',
+        path: 'historicosensoresambientais',
+        name: 'Historico Sensores Ambientais',
         component: History2
+      }, {
+        path: 'historicosensoresambientaisv2',
+        name: 'Historico Sensores Ambientais V2',
+        component: History3
+      }, {
+        path: 'exames',
+        name: 'Exames / Diagnósticos',
+        component: Exams
       }, {
         path: 'wizard',
         name: 'wizard',
@@ -52,7 +62,7 @@ const routes = [
       },
       {
         path: 'show-data',
-        name: 'show-data',
+        name: 'Sensores distrimuidos por Divisão',
         component: ShowData
       },
       {

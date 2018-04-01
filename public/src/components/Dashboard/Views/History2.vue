@@ -1,35 +1,25 @@
 <template>
   <div>
-
-    <!--Stats cards-->
     <div class="row">
-      <div class="col-lg-3 col-sm-6" v-for="stats in statsCards" :key='stats.id'>
-        <user-info :data="stats" ><user-info>
-      </div>
-    </div>
-
-    <!--Charts-->
-
       <div class="row">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="col-md-3">
-          <div class="form-group">
-            <label for="selectOptPlace" class="col-3 col-form-label">Selecione uma Divisão</label>
-            <select v-model="selected" class="custom-select form-control btn-info control-remote" id="selectOptPlace" @click="getSensorFromPlace()">
-            </select>
+        <div class="col-xs-12">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="selectOptPlace" class="col-3 col-form-label">Selecione uma Divisão</label>
+              <select v-model="selected" class="custom-select form-control btn-info control-remote" id="selectOptPlace" @click="getSensorFromPlace()">
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="col-md-3 showSelect2">
-          <div class="form-group">
-            <label for="selectOptSensors" class="col-3 col-form-label">Selecione um Sensor</label>
-            <select v-model="selectedSensor" class="custom-select form-control btn-info control-remote" id="selectOptSensors" @click="getSensorValues()">
-            </select>
+          <div class="col-md-3 showSelect2">
+            <div class="form-group">
+              <label for="selectOptSensors" class="col-3 col-form-label">Selecione um Sensor</label>
+              <select v-model="selectedSensor" class="custom-select form-control btn-info control-remote" id="selectOptSensors" @click="getSensorValues()">
+              </select>
+            </div>
           </div>
         </div>
       </div>
-      </div>
-    <div class="row showSelect2">
+      <div class="row showSelect2">
         <chart-card ref="chartCalls" :chart-data="sensorsChart.data" :chart-options="sensorsChart.options">
           <h4 class="title" slot="title">Local <b class="titleLocal"></b> </h4>
           <span slot="subTitle">Sensor <b class="subtituloLocal"></b> </span>
@@ -43,7 +33,6 @@
           </div>
           -->
         </chart-card>
-      </div>
       </div>
     </div>
   </div>
@@ -221,14 +210,18 @@ export default {
         self.elementControl = document.getElementsByClassName('control-remote')
         switch (cmd) {
           case 'ok_btn':
-            console.log("'Ok btn")
-            if (self.dropOpen) {
-              self.unexpand(self.elementControl[EventBus.currentActiveRightComp])
-              self.elementControl[EventBus.currentActiveRightComp].options[self.optSelect].click()
-            } else {
-              self.expand(self.elementControl[EventBus.currentActiveRightComp])
+            try {
+              if (self.dropOpen) {
+                self.unexpand(self.elementControl[EventBus.currentActiveRightComp])
+                self.elementControl[EventBus.currentActiveRightComp].options[self.optSelect].click()
+              } else {
+                self.expand(self.elementControl[EventBus.currentActiveRightComp])
+              }
+              self.dropOpen = !self.dropOpen
+            } catch (e) {
+              console.log("Try catch error", e.toString())
             }
-            self.dropOpen = !self.dropOpen
+            console.log("'Ok btn")
             break
           case 'up':
             if (self.dropOpen) {
@@ -254,34 +247,38 @@ export default {
             break
           case 1:
           case -1:
-            if (self.dropOpen) {
-              self.elementControl[EventBus.currentActiveRightComp].options[self.optSelect].click()
-              self.unexpand(self.elementControl[EventBus.currentActiveRightComp])
-              self.dropOpen = false
+            try {
+              if (self.dropOpen) {
+                self.elementControl[EventBus.currentActiveRightComp].options[self.optSelect].click()
+                self.unexpand(self.elementControl[EventBus.currentActiveRightComp])
+                self.dropOpen = false
+              }
+              if (EventBus.firstRightEvent) {
+                cmd = 0
+                EventBus.firstRightEvent = false
+              }
+              self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+              EventBus.currentActiveRightComp += cmd
+              if (EventBus.currentActiveRightComp >= self.elementControl.length) {
+                EventBus.currentActiveRightComp = 0
+              }
+              if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
+                self.elementControl[0].blur()
+                EventBus.firstRightEvent = true
+                EventBus.currentActiveRightComp = 0
+                console.log('if exit', cmd, EventBus.currentActiveRightComp)
+                self.dropOpen = false
+                self.allOptions = []
+                self.optSelect = -1
+                return
+              }
+              self.elem = self.elementControl[EventBus.currentActiveRightComp]
+              self.elem.focus()
+              self.elem.classList.add('btn-fill')
+              EventBus.scrollScreen(self.elem)
+            } catch (e) {
+              console.log("Try catch error", e.toString())
             }
-            if (EventBus.firstRightEvent) {
-              cmd = 0
-              EventBus.firstRightEvent = false
-            }
-            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-            EventBus.currentActiveRightComp += cmd
-            if (EventBus.currentActiveRightComp >= self.elementControl.length) {
-              EventBus.currentActiveRightComp = 0
-            }
-            if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
-              self.elementControl[0].blur()
-              EventBus.firstRightEvent = true
-              EventBus.currentActiveRightComp = 0
-              console.log('if exit', cmd, EventBus.currentActiveRightComp)
-              self.dropOpen = false
-              self.allOptions = []
-              self.optSelect = -1
-              return
-            }
-            self.elem = self.elementControl[EventBus.currentActiveRightComp]
-            self.elem.focus()
-            self.elem.classList.add('btn-fill')
-            EventBus.scrollScreen(self.elem)
             break
           default:
             console.log("No key available")
@@ -318,6 +315,9 @@ export default {
       .catch(error => {
         console.log(error)
       })
+  },
+  beforeDestroy() {
+    EventBus.$off('move-components')
   }
 }
 </script>

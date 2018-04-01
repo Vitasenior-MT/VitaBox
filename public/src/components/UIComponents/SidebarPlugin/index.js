@@ -34,9 +34,19 @@ const SidebarStore = {
       path: '/vitabox/show-data'
     },
     {
-      name: 'Hist. Sensores Ambientais',
-      icon: 'ti-home',
-      path: '/vitabox/history2'
+      name: 'Hist. Sens. Ambientais',
+      icon: 'ti-stats-down',
+      path: '/vitabox/historicosensoresambientais'
+    },
+    {
+      name: 'Hist. Sens. Ambientais V2',
+      icon: 'ti-stats-up',
+      path: '/vitabox/historicosensoresambientaisv2'
+    },
+    {
+      name: 'Exames / Diagnósticos',
+      icon: 'ti-heart',
+      path: '/vitabox/exames'
     },
     {
       name: 'VidOnly',
