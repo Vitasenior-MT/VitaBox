@@ -80,8 +80,8 @@ export default {
   },
   data() {
     return {
-      elementControl: [],
-      dataPressArt: {
+      elementControl: [],     // Array com os elemento perencentes à class 'remote-control'
+      dataPressArt: {         // definição do ojecto para medir a pressão arterial
         id: 'pressArterial',
         val: 0,
         max: 100,
@@ -90,10 +90,13 @@ export default {
         pressmin: 0
       },
       logmsg: '',
-      testepressartrial: false
+      testepressartrial: false  // frag para mostral os elemento destinados a visualização da medição da pressão arterial
     }
   },
   sockets: {
+    /**
+     * TODO: Recebe do socket as mensagens
+    */
     bleMsg: function(data) {
       console.log('BleMsg', data)
       if (data.satus === true) {
@@ -109,10 +112,13 @@ export default {
         })
       }
     },
+    /**
+     * TODO: Recebe do socket os dasos da execução do processode medição da pressão arterial
+     */
     bleExec: function(data) {
       if (data.satus === true) {
         var val = data.data
-        console.log('bleExec', data, val.replace(/\D/g, ''))
+        // console.log('bleExec', data, val.replace(/\D/g, ''))
         if (val.length < 5) {
           this.dataPressArt.val = val.replace(/\D/g, '')
         }
@@ -127,6 +133,9 @@ export default {
         })
       }
     },
+    /**
+     * TODO: Recebe do socket os dados finais da medição
+     */
     bleExecFim: function(data) {
       if (data.satus === true) {
         console.log('bleExecFim', data)
@@ -146,6 +155,9 @@ export default {
         })
       }
     },
+    /**
+     * TODO: Recebe do socket os erros na execução do processo de medição da pressão arterial
+     */
     bleError: function(data) {
       console.log('bleError', data)
       this.$notifications.notify({
@@ -158,6 +170,9 @@ export default {
     }
   },
   methods: {
+    /**
+     * TODO: Metodo para iniciar o processo de mediação da pressão arterial
+     */
     medirpressaoarterial() {
       this.testepressartrial = true
       this.$http
@@ -170,45 +185,68 @@ export default {
           this.data = error
         })
     },
+    /**
+     * TODO: Metodo para controlar os eventos do comando remoto quando esta é a view ativa no momento
+     */
     controlEventsBus() {
       var self = this
+      /**
+       * TODO: Monitorização dos eventos do controlo remoto
+       */
       EventBus.$on('move-components', function(cmd) {
-        if (cmd === 'ok_btn') {
-          console.log("'Ok btn")
-          self.elementControl[EventBus.currentActiveRightComp].click()
-        } else {
-          if (EventBus.firstRightEvent) {
-            cmd = 0
-            EventBus.firstRightEvent = false
-          }
-          self.elementControl[EventBus.currentActiveRightComp].classList.remove(
-            'btn-fill'
-          )
-          EventBus.currentActiveRightComp += cmd
-          if (EventBus.currentActiveRightComp >= self.elementControl.length) {
-            EventBus.currentActiveRightComp = 0
-          }
-          if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
-            self.elementControl[0].blur()
-            EventBus.firstRightEvent = true
-            EventBus.currentActiveRightComp = 0
-            console.log('if', cmd, EventBus.currentActiveRightComp)
-            return
-          }
-          // self.elementControl[EventBus.currentActiveRightComp].focus()
-          let elem = self.elementControl[EventBus.currentActiveRightComp]
-          elem.focus()
-          elem.classList.add('btn-fill')
-          EventBus.scrollScreen(elem)
+        switch (cmd) {
+          // evento do 'OK'
+          case 'ok_btn':
+            console.log("'Ok btn")
+            self.elementControl[EventBus.currentActiveRightComp].click()
+            break;
+          case 1:   // tecla para a direita
+          case -1:  // tecla para a esquerda
+            // primeira vez que se entra nesta view
+            if (EventBus.firstRightEvent) {
+              cmd = 0
+              EventBus.firstRightEvent = false
+            }
+            // remove a class que sinboliza o elemento ativo
+            self.elementControl[EventBus.currentActiveRightComp].classList.remove(
+              'btn-fill'
+            )
+            // Actualiza a variavel de controlo do elemento activo
+            EventBus.currentActiveRightComp += cmd
+            // verifica se chegou ao fim do array se sim volta ao principio
+            if (EventBus.currentActiveRightComp >= self.elementControl.length) {
+              EventBus.currentActiveRightComp = 0
+            }
+            // verifica se estou na posição '0' e se foi carregado para a esquerda
+            // se sim é para sair desta view e ativar a sidebar
+            if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
+              self.elementControl[0].blur()
+              EventBus.firstRightEvent = true
+              EventBus.currentActiveRightComp = 0
+              console.log('if', cmd, EventBus.currentActiveRightComp)
+              return
+            }
+            // ativa o novo elemento adiconando a class que simboliza o elemento activo
+            let elem = self.elementControl[EventBus.currentActiveRightComp]
+            elem.focus()
+            elem.classList.add('btn-fill')
+            EventBus.scrollScreen(elem)
+            break;
+          default:
+            break;
         }
       })
     }
   },
   created() {
+    // Consulta o DOM HTML por todos os elemento pertencentes à class 'control-remote'
     this.elementControl = document.getElementsByClassName('control-remote')
     this.controlEventsBus()
     console.log('Remotes', this.elementControl)
   },
+  /**
+   * TODO: Destroi o evento das teclas do comando para esta view
+   */
   beforeDestroy() {
     EventBus.$off('move-components')
   }

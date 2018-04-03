@@ -64,17 +64,18 @@ export default {
           showPoint: false
         }
       },
-      placeselected: false,
-      places: [],
-      placeSelect: '',
-      sensors: [],
-      sensorSelect: '',
-      elementControl: [],
-      allOptions: [],
-      optSelect: -1
+      placeselected: false, // variavel de controlo para mostrar o gráfico após a seleção de uma localização
+      places: [],           // Array com os várias localizações dos sensores
+      placeSelect: '',      // local selecionado
+      sensors: [],          // array com a lista de sensores referentes à localização selecionada
+      sensorSelect: '',     // sensor selecionado
+      elementControl: []    //  Array com os elemento perencentes à class 'remote-control'
     }
   },
   methods: {
+    /**
+     * TODO: Formata a data recebida por parametro
+     */
     dateFormat(data) {
       let date = new Date(data)
       return (
@@ -93,6 +94,9 @@ export default {
         (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
       )
     },
+    /**
+     * TODO: Formata a data recebida por parametro só a hora minutos e segundos
+     */
     dateFormat2(data) {
       let date = new Date(data)
       return (
@@ -103,6 +107,10 @@ export default {
         (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
       )
     },
+    /**
+     * TODO: Metodo que efectua um ajax request utilizado a localização e o sensor
+     * se a query for iniciada a partir da localização recebe os sensores todos
+     */
     getSensorFromPlace: function(place, sensor) {
       let routeServer = ''
       if (place && sensor) {
@@ -117,6 +125,7 @@ export default {
         sensor = ''
         routeServer = '/api/sensors/' + this.placeSelect + '/' + this.sensorSelect
       }
+      // mostra a mensagem de notificação no ecrã
       this.$notifications.notify({
         message: 'Está a visuaizar o(s) sensor(es) "<b>' + this.sensorSelect + '</b>" da divisão "<b>' + this.placeSelect + '</b>".',
         icon: 'ti-bell',
@@ -124,6 +133,7 @@ export default {
         verticalAlign: 'top',
         type: 'success'
       })
+      // efectua o ajax request
       this.$http
       .get(routeServer)
       .then(res => {
@@ -132,12 +142,14 @@ export default {
           this.sensorsChart.data.labels = []
           let sensorOpt = res.data.data[0].values
           for (let index = 0; index < sensorOpt.length; index++) {
+            // só carrega os sensores se o pedido for iniciaod de uma localização
             if (place.trim() === '' || sensor.trim() === '') {
               this.sensors.push({
                 sensorName: sensorOpt[index].sensortype,
                 id: index
               })
             }
+            // constrroi os arrays com os valores da series do gráfico
             for (let index2 = 0; index2 < sensorOpt[index].value.length; index2++) {
               if (index2 === 0) {
                 this.sensorsChart.data.series[index] = []
@@ -147,6 +159,7 @@ export default {
               this.sensorsChart.data.labels.push(this.dateFormat2(sensorOpt[index].value[index2].time))
             }
           }
+          // actualiza o gráfico
           this.$refs.chartCalls.initChart()
         } else {
           console.log('Receive error')
@@ -156,16 +169,21 @@ export default {
         console.log(error)
       })
     },
+    // evento iniciado apartir de um sensor
     getSensorValues: function() {
-      console.log('sensor', this.sensors[EventBus.currentActiveRightComp - this.places.length].sensorName)
+      // console.log('sensor', this.sensors[EventBus.currentActiveRightComp - this.places.length].sensorName)
       this.sensorSelect = this.sensors[EventBus.currentActiveRightComp - this.places.length].sensorName
       this.getSensorFromPlace(this.placeSelect, this.sensorSelect)
     },
+    /**
+     * TODO: Metodo para controlar os eventos do comando remoto quando esta é a view ativa no momento
+     */
     controlEventsBus() {
       var self = this
       EventBus.$on('move-components', function(cmd) {
         self.elementControl = document.getElementsByClassName('control-remote')
         switch (cmd) {
+          // evento do 'OK'
           case 'ok_btn':
             try {
               console.log("'Ok btn")
@@ -174,37 +192,43 @@ export default {
               console.log("Try catch error", e.toString())
             }
             break
-          case 'up':
+          case 'up': // tecla para ciima
 
             break
-          case 'down':
+          case 'down': // tecla para baixo
 
             break
-          case 1:
-          case -1:
+          case 1:   // tecla para a direita
+          case -1:  // tecla para a esquerda
+            // primeira vez que se entra nesta view
             if (EventBus.firstRightEvent) {
               cmd = 0
               EventBus.firstRightEvent = false
             }
+            // remove a class que sinboliza o elemento ativo
             self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+            // Actualiza a variavel de controlo do elemento activo
             EventBus.currentActiveRightComp += cmd
+            // verifica se chegou ao fim do array se sim volta ao principio
             if (EventBus.currentActiveRightComp >= self.elementControl.length) {
               EventBus.currentActiveRightComp = 0
             }
+            // verifica se estou na posição '0' e se foi carregado para a esquerda
+            // se sim é para sair desta view e ativar a sidebar
             if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
               self.elementControl[0].blur()
               EventBus.firstRightEvent = true
               EventBus.currentActiveRightComp = 0
               console.log('if exit', cmd, EventBus.currentActiveRightComp)
               self.dropOpen = false
-              self.allOptions = []
-              self.optSelect = -1
               return
             }
+            // ativa o novo elemento adiconando a class que simboliza o elemento activo
             self.elem = self.elementControl[EventBus.currentActiveRightComp]
             self.elem.focus()
             self.elem.classList.add('btn-fill')
             EventBus.scrollScreen(self.elem)
+            // notifica o utilizador dos eventos disponiveis no elemento activo
             self.$notifications.notify({
               message: 'Precione em "<b>Ok</b>" para visualizar o gráfico dos sensores da divisão. <br>Ou<br>Utilize as cetas para a direita ou para esquerda "<b class="ti-split-h"></b>" para navegar nas odivisões e sensores diponiveis.',
               icon: 'ti-bell',
@@ -250,6 +274,9 @@ export default {
         console.log(error)
       })
   },
+  /**
+   * TODO: Destroi o evento das teclas do comando para esta view
+   */
   beforeDestroy() {
     EventBus.$off('move-components')
   }
