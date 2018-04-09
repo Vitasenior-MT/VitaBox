@@ -192,6 +192,21 @@ export default {
               console.log("Try catch error", e.toString())
             }
             break
+            // evento para sair para a sidebar
+          case 'exit':
+            // remove o preenchimento
+            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+            self.elementControl[EventBus.currentActiveRightComp].blur()
+            // atribui para que passe a seer novamento a primenra vez que entra nesta view
+            EventBus.firstRightEvent = true
+            // define como o elemento ativo seja o '0'
+            EventBus.currentActiveRightComp = 0
+            // desloca a div para o inicio
+            EventBus.scrollScreen(self.elementControl[EventBus.currentActiveRightComp])
+            // define o elemento ativo coomo sendo a barra lateral
+            EventBus.currentComponent = EventBus.sidebarName
+            console.log('if exit', cmd, EventBus.currentActiveRightComp)
+            break
           case 'up': // tecla para ciima
 
             break
@@ -216,11 +231,10 @@ export default {
             // verifica se estou na posição '0' e se foi carregado para a esquerda
             // se sim é para sair desta view e ativar a sidebar
             if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
-              self.elementControl[0].blur()
+              self.elementControl[EventBus.currentActiveRightComp].blur()
               EventBus.firstRightEvent = true
               EventBus.currentActiveRightComp = 0
               console.log('if exit', cmd, EventBus.currentActiveRightComp)
-              self.dropOpen = false
               return
             }
             // ativa o novo elemento adiconando a class que simboliza o elemento activo

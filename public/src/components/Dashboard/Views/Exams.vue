@@ -2,16 +2,26 @@
   <div class="row">
     <div class="card col-md-12">
         <div class="header">
-          <h4 class="title">Teste consulta de valores</h4>
         </div>
         <div class="content col-md-12">
           <div class="row">
-            <button class="btn control-remote" type="button" v-on:click="medirpressaoarterial">Medir Pressão Arterial &nbsp;&nbsp;&nbsp;<b class="ti-heart"></b> </button>
+            <div class="col-md-2">
+              <button class="btn btn-block control-remote" type="button" v-on:click="bloodpressure"><h2><b class="ti-heart-broken"></b></h2><h4>Pressão Arterial</h4></button>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-block control-remote" type="button" v-on:click="bodyscale"><h2><b class="ti-dashboard"></b></h2><h4>Pesar</h4></button>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-block control-remote" type="button" v-on:click="bloodglucose"><h2><b class="ti-bar-chart-alt"></b></h2><h4>Glicemia</h4></button>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-block control-remote" type="button" v-on:click="bloodtemperature"><h2><b class="ti-ruler-alt"></b></h2><h4>Temperatura</h4></button>
+            </div>
           </div>
           <div class="row">
             &nbsp;
           </div>
-          <div class="row" v-if="testepressartrial">
+          <div class="row" v-if="examEvent == 0">
             <div class="col-sm-8">
                 <h4>Modo de Utilização</h4>
                 <h5>
@@ -19,11 +29,11 @@
                 <br>
                 Aperte a bracelete em volta do braço de maneira que fique justa.
                 <br>
-                <img src='static/img/bloodpressure.png'>
+                <img src='static/img/bloodpressure.png' alt="">
                 <br>
                 Percione no botão para ligar <b class="ti-power-off"></b>.
                 <br>
-                <img src='static/img/bloodpressure.gif'>
+                <img src='static/img/bloodpressure.gif' alt="">
                 </h5>
                 <h4>Aguarde...</h4>
             </div>
@@ -53,7 +63,7 @@
                               <td><h4>{{dataPressArt.pressmin}}</h4></td>
                             </tr>
                             <tr>
-                              <td align="right"><h4><b class="ti-heart-broken"></b> Pulso Minimo:</td>
+                              <td align="right"><h4><b class="ti-pulse"></b> Pulso Minimo:</td>
                               <td><h4>{{dataPressArt.pulso}}</h4></td>
                             </tr>
                         </tbody>
@@ -61,6 +71,15 @@
                   </div>
                 </div>
             </div>
+          </div>
+          <div class="row" v-if="examEvent == 1">
+            teste1
+          </div>
+          <div class="row" v-if="examEvent == 2">
+            teste2
+          </div>
+          <div class="row" v-if="examEvent == 2">
+            teste3
           </div>
         </div>
         <div class="footer">
@@ -80,8 +99,9 @@ export default {
   },
   data() {
     return {
-      elementControl: [],     // Array com os elemento perencentes à class 'remote-control'
-      dataPressArt: {         // definição do ojecto para medir a pressão arterial
+      elementControl: [], // Array com os elemento perencentes à class 'remote-control'
+      dataPressArt: {
+        // definição do ojecto para medir a pressão arterial
         id: 'pressArterial',
         val: 0,
         max: 100,
@@ -90,13 +110,13 @@ export default {
         pressmin: 0
       },
       logmsg: '',
-      testepressartrial: false  // frag para mostral os elemento destinados a visualização da medição da pressão arterial
+      examEvent: 0 // frag para mostral os elemento destinados a visualização da medição da pressão arterial
     }
   },
   sockets: {
     /**
      * TODO: Recebe do socket as mensagens
-    */
+     */
     bleMsg: function(data) {
       console.log('BleMsg', data)
       if (data.satus === true) {
@@ -173,8 +193,7 @@ export default {
     /**
      * TODO: Metodo para iniciar o processo de mediação da pressão arterial
      */
-    medirpressaoarterial() {
-      this.testepressartrial = true
+    bloodpressure() {
       this.$http
         .get('/api/ble/pressaoarterial')
         .then(response => {
@@ -185,6 +204,18 @@ export default {
           this.data = error
         })
     },
+    /**
+     * TODO: Metodo para iniciar o processo de efetuar a pesagem
+     */
+    bodyscale() {},
+    /**
+     * TODO: Metodo para iniciar o processo de medição da glucose
+     */
+    bloodglucose() {},
+    /**
+     * TODO: Metodo para iniciar o processo de medição da temperatura
+     */
+    bloodtemperature() {},
     /**
      * TODO: Metodo para controlar os eventos do comando remoto quando esta é a view ativa no momento
      */
@@ -199,18 +230,31 @@ export default {
           case 'ok_btn':
             console.log("'Ok btn")
             self.elementControl[EventBus.currentActiveRightComp].click()
-            break;
-          case 1:   // tecla para a direita
-          case -1:  // tecla para a esquerda
+            break
+            // evento para sair para a sidebar
+          case 'exit':
+            // remove o preenchimento
+            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+            self.elementControl[EventBus.currentActiveRightComp].blur()
+            // atribui para que passe a seer novamento a primenra vez que entra nesta view
+            EventBus.firstRightEvent = true
+            // define como o elemento ativo seja o '0'
+            EventBus.currentActiveRightComp = 0
+            // desloca a div para o inicio
+            EventBus.scrollScreen(self.elementControl[EventBus.currentActiveRightComp])
+            // define o elemento ativo coomo sendo a barra lateral
+            EventBus.currentComponent = EventBus.sidebarName
+            console.log('if exit', cmd, EventBus.currentActiveRightComp)
+            break
+          case 1: // tecla para a direita
+          case -1: // tecla para a esquerda
             // primeira vez que se entra nesta view
             if (EventBus.firstRightEvent) {
               cmd = 0
               EventBus.firstRightEvent = false
             }
             // remove a class que sinboliza o elemento ativo
-            self.elementControl[EventBus.currentActiveRightComp].classList.remove(
-              'btn-fill'
-            )
+            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
             // Actualiza a variavel de controlo do elemento activo
             EventBus.currentActiveRightComp += cmd
             // verifica se chegou ao fim do array se sim volta ao principio
@@ -220,7 +264,7 @@ export default {
             // verifica se estou na posição '0' e se foi carregado para a esquerda
             // se sim é para sair desta view e ativar a sidebar
             if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
-              self.elementControl[0].blur()
+              self.elementControl[EventBus.currentActiveRightComp].blur()
               EventBus.firstRightEvent = true
               EventBus.currentActiveRightComp = 0
               console.log('if', cmd, EventBus.currentActiveRightComp)
@@ -231,9 +275,10 @@ export default {
             elem.focus()
             elem.classList.add('btn-fill')
             EventBus.scrollScreen(elem)
-            break;
+            self.examEvent = EventBus.currentActiveRightComp
+            break
           default:
-            break;
+            break
         }
       })
     }

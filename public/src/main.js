@@ -107,8 +107,9 @@ var app = new Vue({
           }
           break;
         case 'ok_btn':
+        case 'exit':
           if (EventBus.currentComponent !== EventBus.sidebarName) {
-            EventBus.$emit('move-components', 'ok_btn')
+            EventBus.$emit('move-components', cmd)
           }
           break;
         default:
@@ -134,6 +135,8 @@ window.addEventListener('keypress', function(e) {
   } else if (charCode === 100) { // 'd'
     sendCmd = '4';
   } else if (charCode === 122) { // 'z'
+    sendCmd = '0';
+  } else if (charCode === 120) { // 'x'
     sendCmd = 'd';
   }
   if (sendCmd !== "") {
