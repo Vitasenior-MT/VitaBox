@@ -264,8 +264,13 @@ export default {
               self.allOptions[self.optSelect].selected = true
             }
             break
-          case 1: // tecla para a direita
-          case -1: // tecla para a esquerda
+          case 'right': // tecla para a direita
+          case 'left': // tecla para a esquerda
+            if (cmd === 'right') {
+              cmd = 1
+            } else if (cmd === 'left') {
+              cmd = -1
+            }
             // primeira vez que se entra nesta view
             try {
               if (self.dropOpen) {

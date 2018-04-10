@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-xs-12">
         <h3>Selecione uma Divisão:</h3>
-        <button v-for="place in places" :key='place.id' class="btn btn-info space10 control-remote" type="button" v-on:click="getSensorFromPlace">{{place.local}}</button>
+        <button v-for="place in places" :key='place.id' class="btn btn-info btn-lg space10 control-remote" type="button" v-on:click="getSensorFromPlace">{{place.local}}</button>
       </div>
     </div>
     <div class="row" v-if="placeselected">
@@ -12,7 +12,7 @@
     <div class="row" v-if="placeselected">
       <div class="col-xs-12">
         <h4>Selecione um Sensor:</h4>
-        <div v-for="sensor in sensors" :key='sensor.id' class="col-xs-1">
+        <div v-for="sensor in sensors" :key='sensor.id' class="col-xs-2">
           <button class="btn btn-success btn-block control-remote" type="button" v-on:click="getSensorValues">{{sensor.sensorName}}</button>
         </div>
       </div>
@@ -68,8 +68,7 @@ export default {
       places: [],           // Array com os várias localizações dos sensores
       placeSelect: '',      // local selecionado
       sensors: [],          // array com a lista de sensores referentes à localização selecionada
-      sensorSelect: '',     // sensor selecionado
-      elementControl: []    //  Array com os elemento perencentes à class 'remote-control'
+      sensorSelect: ''     // sensor selecionado
     }
   },
   methods: {
@@ -116,7 +115,7 @@ export default {
       if (place && sensor) {
         routeServer = '/api/sensors/' + this.placeSelect + '/' + this.sensorSelect
       } else {
-        console.log("btn1", this.places[EventBus.currentActiveRightComp], this.elementControl[EventBus.currentActiveRightComp])
+        console.log("btn1", this.places[EventBus.currentActiveRightComp], EventBus.elementControl[EventBus.currentActiveRightComp])
         this.placeSelect = this.places[EventBus.currentActiveRightComp].local
         this.sensorSelect = 'all'
         this.placeselected = true
@@ -181,13 +180,13 @@ export default {
     controlEventsBus() {
       var self = this
       EventBus.$on('move-components', function(cmd) {
-        self.elementControl = document.getElementsByClassName('control-remote')
+        EventBus.elementControl = document.getElementsByClassName('control-remote')
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
             try {
               console.log("'Ok btn")
-              self.elementControl[EventBus.currentActiveRightComp].click()
+              EventBus.elementControl[EventBus.currentActiveRightComp].click()
             } catch (e) {
               console.log("Try catch error", e.toString())
             }
@@ -195,14 +194,14 @@ export default {
             // evento para sair para a sidebar
           case 'exit':
             // remove o preenchimento
-            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-            self.elementControl[EventBus.currentActiveRightComp].blur()
+            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+            EventBus.elementControl[EventBus.currentActiveRightComp].blur()
             // atribui para que passe a seer novamento a primenra vez que entra nesta view
             EventBus.firstRightEvent = true
             // define como o elemento ativo seja o '0'
             EventBus.currentActiveRightComp = 0
             // desloca a div para o inicio
-            EventBus.scrollScreen(self.elementControl[EventBus.currentActiveRightComp])
+            EventBus.scrollScreen(EventBus.elementControl[EventBus.currentActiveRightComp])
             // define o elemento ativo coomo sendo a barra lateral
             EventBus.currentComponent = EventBus.sidebarName
             console.log('if exit', cmd, EventBus.currentActiveRightComp)
@@ -213,35 +212,19 @@ export default {
           case 'down': // tecla para baixo
 
             break
-          case 1:   // tecla para a direita
-          case -1:  // tecla para a esquerda
-            // primeira vez que se entra nesta view
-            if (EventBus.firstRightEvent) {
-              cmd = 0
-              EventBus.firstRightEvent = false
-            }
-            // remove a class que sinboliza o elemento ativo
-            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-            // Actualiza a variavel de controlo do elemento activo
-            EventBus.currentActiveRightComp += cmd
-            // verifica se chegou ao fim do array se sim volta ao principio
-            if (EventBus.currentActiveRightComp >= self.elementControl.length) {
-              EventBus.currentActiveRightComp = 0
-            }
-            // verifica se estou na posição '0' e se foi carregado para a esquerda
-            // se sim é para sair desta view e ativar a sidebar
-            if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
-              self.elementControl[EventBus.currentActiveRightComp].blur()
-              EventBus.firstRightEvent = true
-              EventBus.currentActiveRightComp = 0
-              console.log('if exit', cmd, EventBus.currentActiveRightComp)
-              return
-            }
-            // ativa o novo elemento adiconando a class que simboliza o elemento activo
-            self.elem = self.elementControl[EventBus.currentActiveRightComp]
-            self.elem.focus()
-            self.elem.classList.add('btn-fill')
-            EventBus.scrollScreen(self.elem)
+          case 'right': // tecla para a direita
+            EventBus.moveLeftRightInView(1)
+            // notifica o utilizador dos eventos disponiveis no elemento activo
+            self.$notifications.notify({
+              message: 'Precione em "<b>Ok</b>" para visualizar o gráfico dos sensores da divisão. <br>Ou<br>Utilize as cetas para a direita ou para esquerda "<b class="ti-split-h"></b>" para navegar nas odivisões e sensores diponiveis.',
+              icon: 'ti-bell',
+              horizontalAlign: 'right',
+              verticalAlign: 'top',
+              type: 'success'
+            })
+            break
+          case 'left': // tecla para a esquerda
+            EventBus.moveLeftRightInView(-1)
             // notifica o utilizador dos eventos disponiveis no elemento activo
             self.$notifications.notify({
               message: 'Precione em "<b>Ok</b>" para visualizar o gráfico dos sensores da divisão. <br>Ou<br>Utilize as cetas para a direita ou para esquerda "<b class="ti-split-h"></b>" para navegar nas odivisões e sensores diponiveis.',

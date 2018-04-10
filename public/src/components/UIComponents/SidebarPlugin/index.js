@@ -4,6 +4,11 @@ const SidebarStore = {
   showSidebar: false,
   sidebarLinks: [
     {
+      name: 'Exames / Diagnósticos',
+      icon: 'ti-heart',
+      path: '/vitabox/exames'
+    },
+    {
       name: 'Home',
       icon: 'ti-home',
       path: '/vitabox/home'
@@ -42,11 +47,6 @@ const SidebarStore = {
       name: 'Hist. Sens. Ambientais V2',
       icon: 'ti-stats-up',
       path: '/vitabox/historicosensoresambientaisv2'
-    },
-    {
-      name: 'Exames / Diagnósticos',
-      icon: 'ti-heart',
-      path: '/vitabox/exames'
     },
     {
       name: 'VidOnly',

@@ -94,16 +94,16 @@ var app = new Vue({
           break;
         case 'right':
           EventBus.currentComponent = EventBus.correntRightComponent
-          EventBus.$emit('move-components', 1)
+          EventBus.$emit('move-components', cmd)
           break;
         case 'left':
           if (EventBus.currentActiveRightComp === 0) {
             EventBus.currentComponent = EventBus.sidebarName
             if (!EventBus.firstRightEvent) {
-              EventBus.$emit('move-components', -1)
+              EventBus.$emit('move-components', cmd)
             }
           } else {
-            EventBus.$emit('move-components', -1)
+            EventBus.$emit('move-components', cmd)
           }
           break;
         case 'ok_btn':
