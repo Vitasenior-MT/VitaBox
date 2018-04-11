@@ -37,8 +37,7 @@ export default {
       token: null,
       data: {
         debug: true
-      },
-      elementControl: []
+      }
     }
   },
   methods: {
@@ -123,46 +122,45 @@ export default {
         })
     },
     controlEventsBus() {
-      var self = this
+      // var self = this
       EventBus.$on('move-components', function(cmd) {
-        if (cmd === 'ok_btn') {
-          console.log("'Ok btn")
-          self.elementControl[EventBus.currentActiveRightComp].click()
-        } else {
-          if (EventBus.firstRightEvent) {
-            cmd = 0
-            EventBus.firstRightEvent = false
-          }
-          self.elementControl[EventBus.currentActiveRightComp].classList.remove(
-            'btn-fill'
-          )
-          EventBus.currentActiveRightComp += cmd
-          if (EventBus.currentActiveRightComp >= self.elementControl.length) {
-            EventBus.currentActiveRightComp = 0
-          }
-          if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
-            self.elementControl[0].blur()
+        EventBus.elementControl = document.getElementsByClassName('control-remote')
+        switch (cmd) {
+          // evento do 'OK'
+          case 'ok_btn':
+            console.log("'Ok btn")
+            EventBus.elementControl[EventBus.currentActiveRightComp].click()
+            break
+            // evento para sair para a sidebar
+          case 'exit':
+            // remove o preenchimento
+            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+            EventBus.elementControl[EventBus.currentActiveRightComp].blur()
+            // atribui para que passe a seer novamento a primenra vez que entra nesta view
             EventBus.firstRightEvent = true
+            // define como o elemento ativo seja o '0'
             EventBus.currentActiveRightComp = 0
-            console.log('if', cmd, EventBus.currentActiveRightComp)
-            return
-          }
-          // self.elementControl[EventBus.currentActiveRightComp].focus()
-          let elem = self.elementControl[EventBus.currentActiveRightComp]
-          //this.$socket.emit('ttsText', this.text)
-          console.log('**********************');
-          console.log(elem);
-          elem.focus()
-          elem.classList.add('btn-fill')
-          EventBus.scrollScreen(elem)
+            // desloca a div para o inicio
+            EventBus.scrollScreen(EventBus.elementControl[EventBus.currentActiveRightComp])
+            // define o elemento ativo coomo sendo a barra lateral
+            EventBus.currentComponent = EventBus.sidebarName
+            console.log('if exit', cmd, EventBus.currentActiveRightComp)
+            break
+          case 'right': // tecla para a direita
+            EventBus.moveLeftRightInView(1)
+            break
+          case 'left': // tecla para a esquerda
+            EventBus.moveLeftRightInView(-1)
+            break
+          default:
+            break
         }
       })
     }
   },
   created() {
-    this.elementControl = document.getElementsByClassName('control-remote')
     this.controlEventsBus()
-    console.log('Remotes', this.elementControl)
+    // console.log('Remotes', EventBus.elementControl)
   },
   beforeDestroy() {
     EventBus.$off('move-components')

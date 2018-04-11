@@ -35,7 +35,6 @@ export default {
   data() {
     return {
       CardsSensors: [],
-      elementControl: [],
       elem: '',
       content: '',
       numberCol: '',
@@ -74,71 +73,69 @@ export default {
     controlEventsBus() {
       var self = this
       EventBus.$on('move-components', function(cmd) {
-        self.elementControl = document.getElementsByClassName('control-remote')
+        EventBus.elementControl = document.getElementsByClassName('control-remote')
         switch (cmd) {
+          // evento do 'OK'
           case 'ok_btn':
-            self.elementControl[EventBus.currentActiveRightComp].click()
+            EventBus.elementControl[EventBus.currentActiveRightComp].click()
             console.log("'Ok btn")
             break
+            // evento para sair para a sidebar
+          case 'exit':
+            // remove o preenchimento
+            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+            EventBus.elementControl[EventBus.currentActiveRightComp].blur()
+            // atribui para que passe a seer novamento a primenra vez que entra nesta view
+            EventBus.firstRightEvent = true
+            // define como o elemento ativo seja o '0'
+            EventBus.currentActiveRightComp = 0
+            // desloca a div para o inicio
+            EventBus.scrollScreen(EventBus.elementControl[EventBus.currentActiveRightComp])
+            // define o elemento ativo coomo sendo a barra lateral
+            EventBus.currentComponent = EventBus.sidebarName
+            console.log('if exit', cmd, EventBus.currentActiveRightComp)
+            break
           case 'up':
-            self.elem = self.elementControl[EventBus.currentActiveRightComp]
+            self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
             self.content = document.getElementsByClassName('container-data-sensors')[0]
             self.numberCol = parseInt((self.content.clientWidth / self.elem.clientWidth))
             self.movepos = EventBus.currentActiveRightComp - self.numberCol
             if (self.movepos < 0) {
-              self.movepos += (self.elementControl.length - 1)
-              if (self.movepos === (self.elementControl.length - 1) - self.numberCol) {
+              self.movepos += (EventBus.elementControl.length - 1)
+              if (self.movepos === (EventBus.elementControl.length - 1) - self.numberCol) {
                 self.movepos += self.numberCol
               }
             }
-            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
             EventBus.currentActiveRightComp = self.movepos
-            self.elem = self.elementControl[EventBus.currentActiveRightComp]
+            self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
             self.elem.focus()
             self.elem.classList.add('btn-fill')
             EventBus.scrollScreen(self.elem)
             break
           case 'down':
-            self.elem = self.elementControl[EventBus.currentActiveRightComp]
+            self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
             self.content = document.getElementsByClassName('container-data-sensors')[0]
             self.numberCol = parseInt((self.content.clientWidth / self.elem.clientWidth))
             self.movepos = EventBus.currentActiveRightComp + self.numberCol
-            if (self.movepos > (self.elementControl.length - 1)) {
-              self.movepos -= (self.elementControl.length - 1)
+            if (self.movepos > (EventBus.elementControl.length - 1)) {
+              self.movepos -= (EventBus.elementControl.length - 1)
               if (self.movepos === self.numberCol) {
                 self.movepos = 0
               }
             }
-            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
             EventBus.currentActiveRightComp = self.movepos
-            self.elem = self.elementControl[EventBus.currentActiveRightComp]
+            self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
             self.elem.focus()
             self.elem.classList.add('btn-fill')
             EventBus.scrollScreen(self.elem)
             break
-          case 1:
-          case -1:
-            if (EventBus.firstRightEvent) {
-              cmd = 0
-              EventBus.firstRightEvent = false
-            }
-            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-            EventBus.currentActiveRightComp += cmd
-            if (EventBus.currentActiveRightComp >= self.elementControl.length) {
-              EventBus.currentActiveRightComp = 0
-            }
-            if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
-              self.elementControl[0].blur()
-              EventBus.firstRightEvent = true
-              EventBus.currentActiveRightComp = 0
-              console.log('if', cmd, EventBus.currentActiveRightComp)
-              return
-            }
-            console.log(cmd, EventBus.currentActiveRightComp)
-            self.elem = self.elementControl[EventBus.currentActiveRightComp]
-            self.elem.focus()
-            self.elem.classList.add('btn-fill')
-            EventBus.scrollScreen(self.elem)
+          case 'right': // tecla para a direita
+            EventBus.moveLeftRightInView(1)
+            break
+          case 'left': // tecla para a esquerda
+            EventBus.moveLeftRightInView(-1)
             break
           default:
             console.log("No key available")
@@ -185,7 +182,7 @@ export default {
     EventBus.$off('move-components')
   },
   beforeCreate() {
-    // console.log('Remotes', this.elementControl)
+    // console.log('Remotes', EventBus.elementControl)
   }
 }
 </script>

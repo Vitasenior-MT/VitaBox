@@ -115,21 +115,22 @@ export const app = new Vue({
           break;
         case 'right':
           EventBus.currentComponent = EventBus.correntRightComponent
-          EventBus.$emit('move-components', 1)
+          EventBus.$emit('move-components', cmd)
           break;
         case 'left':
           if (EventBus.currentActiveRightComp === 0) {
             EventBus.currentComponent = EventBus.sidebarName
             if (!EventBus.firstRightEvent) {
-              EventBus.$emit('move-components', -1)
+              EventBus.$emit('move-components', cmd)
             }
           } else {
-            EventBus.$emit('move-components', -1)
+            EventBus.$emit('move-components', cmd)
           }
           break;
         case 'ok_btn':
+        case 'exit':
           if (EventBus.currentComponent !== EventBus.sidebarName) {
-            EventBus.$emit('move-components', 'ok_btn')
+            EventBus.$emit('move-components', cmd)
           }
           break;
         default:
@@ -158,6 +159,8 @@ window.addEventListener('keypress', function (e) {
   } else if (charCode === 100) { // 'd'
     sendCmd = '4';
   } else if (charCode === 122) { // 'z'
+    sendCmd = '0';
+  } else if (charCode === 120) { // 'x'
     sendCmd = 'd';
   }
   if (sendCmd !== "") {

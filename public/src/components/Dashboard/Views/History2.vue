@@ -209,6 +209,7 @@ export default {
       EventBus.$on('move-components', function(cmd) {
         self.elementControl = document.getElementsByClassName('control-remote')
         switch (cmd) {
+          // evento do 'OK'
           case 'ok_btn':
             try {
               if (self.dropOpen) {
@@ -222,6 +223,24 @@ export default {
               console.log("Try catch error", e.toString())
             }
             console.log("'Ok btn")
+            break
+            // evento para sair para a sidebar
+          case 'exit':
+            // remove o preenchimento
+            self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+            self.elementControl[EventBus.currentActiveRightComp].blur()
+            // atribui para que passe a seer novamento a primenra vez que entra nesta view
+            EventBus.firstRightEvent = true
+            // define como o elemento ativo seja o '0'
+            EventBus.currentActiveRightComp = 0
+            // desloca a div para o inicio
+            EventBus.scrollScreen(self.elementControl[EventBus.currentActiveRightComp])
+            // define o elemento ativo coomo sendo a barra lateral
+            EventBus.currentComponent = EventBus.sidebarName
+            console.log('if exit', cmd, EventBus.currentActiveRightComp)
+            self.dropOpen = false
+            self.allOptions = []
+            self.optSelect = -1
             break
           case 'up':
             if (self.dropOpen) {
@@ -245,8 +264,14 @@ export default {
               self.allOptions[self.optSelect].selected = true
             }
             break
-          case 1:
-          case -1:
+          case 'right': // tecla para a direita
+          case 'left': // tecla para a esquerda
+            if (cmd === 'right') {
+              cmd = 1
+            } else if (cmd === 'left') {
+              cmd = -1
+            }
+            // primeira vez que se entra nesta view
             try {
               if (self.dropOpen) {
                 self.elementControl[EventBus.currentActiveRightComp].options[self.optSelect].click()
@@ -257,13 +282,18 @@ export default {
                 cmd = 0
                 EventBus.firstRightEvent = false
               }
+              // remove a class que sinboliza o elemento ativo
               self.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+              // Actualiza a variavel de controlo do elemento activo
               EventBus.currentActiveRightComp += cmd
+              // verifica se chegou ao fim do array se sim volta ao principio
               if (EventBus.currentActiveRightComp >= self.elementControl.length) {
                 EventBus.currentActiveRightComp = 0
               }
+              // verifica se estou na posição '0' e se foi carregado para a esquerda
+              // se sim é para sair desta view e ativar a sidebar
               if (EventBus.currentActiveRightComp <= -1 && cmd === -1) {
-                self.elementControl[0].blur()
+                self.elementControl[EventBus.currentActiveRightComp].blur()
                 EventBus.firstRightEvent = true
                 EventBus.currentActiveRightComp = 0
                 console.log('if exit', cmd, EventBus.currentActiveRightComp)
@@ -272,6 +302,7 @@ export default {
                 self.optSelect = -1
                 return
               }
+              // ativa o novo elemento adiconando a class que simboliza o elemento activo
               self.elem = self.elementControl[EventBus.currentActiveRightComp]
               self.elem.focus()
               self.elem.classList.add('btn-fill')
