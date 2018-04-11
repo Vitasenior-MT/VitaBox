@@ -1,6 +1,6 @@
 [Unit]
 Description=VitaBox
-Requires=After=mongodb       # Requires the mysql service to run first
+Requires=After=mongod.service       # Requires the mysql service to run first
 
 [Service]
 ExecStart=/usr/bin/node /home/pi/Desktop/VitaBox/main.js

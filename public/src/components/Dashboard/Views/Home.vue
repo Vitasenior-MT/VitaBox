@@ -3,20 +3,26 @@
     <div class="col-md-12">
       <div class="card col-md-12">
         <div class="header">
-          <h4 class="title">Teste consulta de valores</h4>
+          <h4 class="title">{{ $t("home.title") }}</h4>
         </div>
         <div class="content col-md-12">
-          <button class="btn control-remote" type="button" v-on:click="getToken">Request Token</button>
-          <button class="btn control-remote" type="button" v-on:click="postSettings">Send Vitabox Settings</button>
-          <button class="btn control-remote" type="button" v-on:click="postSensorData">Send Sensor Data</button>
-          <button class="btn control-remote" type="button" v-on:click="getBoards">Get Boards</button>
-          <button class="btn control-remote" type="button" v-on:click="getPatients">Get Patients</button>
-          <button class="btn control-remote" type="button" v-on:click="getSettings">Get Settings</button>
+          <button class="btn control-remote" type="button" v-on:click="getToken">{{ $t("home.requestToken") }}</button>
+          <button class="btn control-remote" type="button" v-on:click="postSettings">{{ $t("home.sendSettings") }}</button>
+          <button class="btn control-remote" type="button" v-on:click="postSensorData">{{ $t("home.sendSensorData") }}</button>
+          <button class="btn control-remote" type="button" v-on:click="getBoards">{{ $t("home.getBoards") }}</button>
+          <button class="btn control-remote" type="button" v-on:click="getPatients">{{ $t("home.getPatients") }}</button>
+          <button class="btn control-remote" type="button" v-on:click="getSettings">{{ $t("home.getSettings") }}</button>
+          <button class="btn control-remote" type="button" @click="setLangNew('pt')">pt</button>
+          <button class="btn control-remote" type="button" @click="setLangNew('en')">en</button>
         </div>
         <div class="row">
           <div class="col-sm-12">
             <pre>{{ data | json }}</pre>
           </div>
+        </div>
+        <div class="content col-md-12">
+          <input type="text" v-model="text" name="text" id="text">
+          <button class="btn control-remote" type="button" v-on:click="sendText">{{ $t("home.sendText") }}</button>
         </div>
       </div>
     </div>
@@ -24,6 +30,7 @@
 </template>
 <script>
 import { EventBus } from '../../../event-bus.js'
+
 export default {
   data() {
     return {
@@ -35,6 +42,13 @@ export default {
     }
   },
   methods: {
+    setLangNew: function(lang) {
+      this.$store.dispatch('setLangNew', lang)
+    },
+    sendText() {
+      console.log(this.text)
+      this.$socket.emit('ttsText', this.text)
+    },
     postSettings() {
       this.$http
         .post('/api/postSettings')
@@ -135,6 +149,9 @@ export default {
           }
           // self.elementControl[EventBus.currentActiveRightComp].focus()
           let elem = self.elementControl[EventBus.currentActiveRightComp]
+          //this.$socket.emit('ttsText', this.text)
+          console.log('**********************');
+          console.log(elem);
           elem.focus()
           elem.classList.add('btn-fill')
           EventBus.scrollScreen(elem)

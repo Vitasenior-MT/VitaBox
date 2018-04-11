@@ -4,54 +4,70 @@ const SidebarStore = {
   showSidebar: false,
   sidebarLinks: [
     {
-      name: 'Home',
+      name: 'sidebar.home.title',
       icon: 'ti-home',
-      path: '/vitabox/home'
+      path: '/vitabox/home',
+      text: 'sidebar.home.text'
     },
     {
-      name: 'History',
+      name: 'sidebar.history.title',
       icon: 'ti-home',
-      path: '/vitabox/history'
+      path: '/vitabox/history',
+      text: 'sidebar.history.text'
     },
     {
-      name: 'Wizard',
+      name: 'sidebar.wizard.title',
       icon: 'ti-home',
-      path: '/vitabox/wizard'
+      path: '/vitabox/wizard',
+      text: 'sidebar.wizard.text'
     },
     {
-      name: 'Warnings',
+      name: 'sidebar.warning.title',
       icon: 'ti-bell',
-      path: '/vitabox/warnings'
+      path: '/vitabox/warnings',
+      text: 'sidebar.warning.text'
     },
     {
-      name: 'Warnings2',
+      name: 'sidebar.warning2.title',
       icon: 'ti-bell',
-      path: '/vitabox/warnings2'
+      path: '/vitabox/warnings2',
+      text: 'sidebar.warning2.text'
     },
     {
-      name: 'ShowData',
+      name: 'sidebar.showData.title',
       icon: 'ti-bell',
-      path: '/vitabox/show-data'
+      path: '/vitabox/show-data',
+      text: 'sidebar.showData.text'
     },
     {
-      name: 'Hist. Sens. Ambientais',
+      name: 'sidebar.showData2.title',
+      icon: 'ti-bell',
+      path: '/vitabox/show-data2',
+      text: 'sidebar.showData2.text'
+    },
+    {
+      name: 'sidebar.historyEnvironmentSensor.title',
       icon: 'ti-stats-down',
-      path: '/vitabox/historicosensoresambientais'
+      path: '/vitabox/historicosensoresambientais',
+      text: 'sidebar.historyEnvironmentSensor.text'
     },
     {
-      name: 'Hist. Sens. Ambientais V2',
+      name: 'sidebar.historyEnvironmentSensor2.title',
       icon: 'ti-stats-up',
-      path: '/vitabox/historicosensoresambientaisv2'
+      path: '/vitabox/historicosensoresambientaisv2',
+      text: 'sidebar.historyEnvironmentSensor2.text'
     },
     {
-      name: 'Exames / Diagnósticos',
+      name: 'sidebar.diagnosis.title',
       icon: 'ti-heart',
-      path: '/vitabox/exames'
+      path: '/vitabox/exames',
+      text: 'sidebar.diagnosis.text'
     },
     {
-      name: 'VidOnly',
+      name: 'sidebar.video.title',
       icon: 'ti-bell',
-      path: '/vitabox/vid-only'
+      path: '/vitabox/vid-only',
+      text: 'sidebar.video.text'
     }
   ],
   displaySidebar(value) {

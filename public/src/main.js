@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueSocketio from 'vue-socket.io'
+import i18n from './lang/lang'
+import store from './store'
 import resource from 'vue-resource'
 
 // Plugins
@@ -48,8 +50,10 @@ Object.defineProperty(Vue.prototype, '$Chartist', {
 })
 
 /* eslint-disable no-new */
-var app = new Vue({
+export const app = new Vue({
   el: '#app',
+  store,
+  i18n,
   render: h => h(App),
   router,
   data: {
@@ -67,10 +71,27 @@ var app = new Vue({
         console.log('socket connected')
       }
     },
-    hdmistatus: function(data) {
+    ttsPath(path) {
+      var self = this
+      let eleId = 'audioElem'
+      if(document.getElementById(eleId)){
+        document.getElementById(eleId).remove()
+      }
+      let audio = document.createElement('audio')
+      audio.id = eleId
+      audio.style.display = 'none'
+      audio.src = './static/' + path
+      audio.autoplay = true
+      audio.onended = function () {
+        audio.remove()
+        self.$socket.emit('ttsDelete', path)
+      };
+      document.body.appendChild(audio)
+    },
+    hdmistatus: function (data) {
       console.log('Receive hdmistatus', data)
     },
-    cmd: function(cmd) {
+    cmd: function (cmd) {
       switch (cmd) {
         case 'up':
           if (EventBus.currentComponent === EventBus.sidebarName) {
@@ -119,8 +140,11 @@ var app = new Vue({
   }
 })
 
+window.store = store
+window['vue'] = app
+
 // var self = this;
-window.addEventListener('keypress', function(e) {
+window.addEventListener('keypress', function (e) {
   e = e || window.event;
   var charCode = e.keyCode || e.which;
   // console.log("Key:", charCode);

@@ -25,7 +25,7 @@
           <a>
             <i :class='link.icon'></i>
 
-            <p>{{link.name}}
+            <p>{{ $t(link.name) }}
             </p>
           </a>
         </router-link>
@@ -135,6 +135,9 @@ export default {
       if (index > self.sidebarLinks.length - 1) {
         index = 0
       }
+      this.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
+      console.log('**********************');
+      console.log(self.sidebarLinks[index]);
       self.$router.push({ path: self.sidebarLinks[index].path })
       EventBus.correntRightComponent = self.sidebarLinks[index].path
     })
