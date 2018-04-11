@@ -10,7 +10,7 @@ const locale = 'pt'
 
 const messages = {
   pt,
-  en,
+  en
 }
 
 const i18n = new VueI18n({

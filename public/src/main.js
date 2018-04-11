@@ -73,18 +73,19 @@ export const app = new Vue({
     },
     ttsPath(path) {
       var self = this
-      let eleId = 'audioElem'
-      if(document.getElementById(eleId)){
-        document.getElementById(eleId).remove()
+      let audioOld = document.getElementById('audioElem')
+      if (audioOld) {
+        self.$socket.emit('ttsDelete')
+        audioOld.remove()
       }
       let audio = document.createElement('audio')
-      audio.id = eleId
+      audio.id = 'audioElem'
       audio.style.display = 'none'
-      audio.src = './static/' + path
+      audio.src = './static/.temp/' + path
       audio.autoplay = true
       audio.onended = function () {
         audio.remove()
-        self.$socket.emit('ttsDelete', path)
+        self.$socket.emit('ttsDelete')
       };
       document.body.appendChild(audio)
     },

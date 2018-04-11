@@ -2,7 +2,7 @@ import { app } from '../main'
 import * as types from './mutation-types'
 
 export const state = {
-  lang: 'pt',
+  lang: 'pt'
 }
 
 export const mutations = {
