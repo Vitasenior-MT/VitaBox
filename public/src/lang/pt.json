@@ -2,19 +2,19 @@
     "sidebar": {
         "home": {
             "title": "casa",
-            "text": "casa"
+            "text": "Casa"
         },
         "history": {
             "title": "teste do historico",
-            "text": "não sei que fazer com esta"
+            "text": "Não sei que fazer com esta"
         },
         "wizard": {
             "title": "teste do wizard",
-            "text": "não sei que fazer com esta"
+            "text": "Não sei que fazer com esta"
         },
         "warning": {
             "title": "Aviso",
-            "text": "neste separador é exposto toda a informação crítica dos alarmes."
+            "text": "Neste separador é exposto toda a informação crítica dos alarmes."
         },
         "warning2": {
             "title": "Aviso 02",
@@ -22,23 +22,23 @@
         },
         "showData": {
             "title": "Mostra Dados",
-            "text": "mostra todos os dados dos sensores"
+            "text": "Mostra todos os dados dos sensores"
         },
         "showData2": {
             "title": "Mostra Dados 02",
-            "text": "mostra todos os dados dos sensores"
+            "text": "Mostra todos os dados dos sensores"
         },
         "historyEnvironmentSensor": {
             "title": "Hist. Sens. Ambientais",
-            "text": "histórico dos sensores ambientais"
+            "text": "Histórico dos sensores ambientais"
         },
         "historyEnvironmentSensor2": {
             "title": "Hist. Sens. Ambientais V2",
-            "text": "histórico dos sensores ambientais"
+            "text": "Histórico dos sensores ambientais"
         },
         "diagnosis": {
             "title": "Exames / Diagnósticos",
-            "text": "medir pressao arterial"
+            "text": "Medir pressão arterial"
         },
         "video": {
             "title": "Video",
