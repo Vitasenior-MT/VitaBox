@@ -24,9 +24,6 @@ sudo chmod +x autoStartChrome.sh
 git clone https://github.com/contiki-os/contiki.git
 make TARGET=zoul --directory /home/pi/contiki/examples/ipv6/rpl-border-router/ savetarget
 make --directory /home/pi/contiki/examples/ipv6/rpl-border-router/ border-router.upload && make --directory /home/pi/contiki/examples/ipv6/rpl-border-router/ connect-router
-sudo echo "@sh /home/pi/Desktop/VitaBox/autoStartBorderRouter.sh" >> /home/pi/.config/lxsession/LXDE-pi/autostart
-sudo sed -i -e 's/\r$//' autoStartBorderRouter.sh
-sudo chmod +x autoStartBorderRouter.sh
 
 #3. config rpi boot
 sudo rm -f /boot/config.txt
