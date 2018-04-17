@@ -31,17 +31,17 @@
                 <tbody>
                   <tr>
                     <td>
-                      <h5>
+                      <h3>
                         Coloque a bracelete no braço.
                         <br>
                         Aperte a bracelete em volta do braço de maneira que fique justa.
-                      </h5>
+                      </h3>
                     </td>
                     <td><img src='static/img/bloodpressure.png' alt=""></td>
                   </tr>
                   <tr>
                     <td>
-                      <h5>Percione no botão para ligar <b class="ti-power-off"></b>.</h5>
+                      <h3>Percione no botão para ligar <b class="ti-power-off"></b>.</h3>
                     </td>
                     <td>
                       <img src='static/img/bloodpressure.gif' alt="">
@@ -149,14 +149,14 @@
                 <tbody>
                   <tr>
                     <td>
-                      <h5>
-                      </h5>
+                      <h3>
+                      </h3>
                     </td>
                     <td></td>
                   </tr>
                   <tr>
                     <td>
-                      <h5></h5>
+                      <h3></h3>
                     </td>
                     <td>
                     </td>
@@ -203,14 +203,14 @@
                 <tbody>
                   <tr>
                     <td>
-                      <h5>
-                      </h5>
+                      <h3>
+                      </h3>
                     </td>
                     <td></td>
                   </tr>
                   <tr>
                     <td>
-                      <h5></h5>
+                      <h3></h3>
                     </td>
                     <td>
                     </td>
@@ -247,8 +247,8 @@
         <div class="col-md-8">
           <div class="card">
             <div class="header">
-                <h4 class="title">Modo de Utilização</h4>
-                <p class="category"></p>
+              <h4 class="title">Modo de Utilização</h4>
+              <p class="category"></p>
             </div>
             <div class="content">
               <table class="table table-Striped">
@@ -257,15 +257,15 @@
                 <tbody>
                   <tr>
                     <td>
-                      <h5>
+                      <h3>
                         Coloque o equipamento conforme mostrado na imagem ao lado.
-                      </h5>
+                      </h3>
                     </td>
                     <td><img src='static/img/bodytemp.png' alt=""></td>
                   </tr>
                   <tr>
                     <td>
-                      <h5>Percione no botão para ligar <b class="ti-power-off"></b>.</h5>
+                      <h3>Percione no botão para ligar <b class="ti-power-off"></b>.</h3>
                     </td>
                     <td>
                       <img src='static/img/bodytemp.gif' alt="">
@@ -284,58 +284,70 @@
             </div>
           </div>
         </div>
-          <div class="col-md-4">
-            <div class="card">
-              <div class="content">
-                <div class="row">
-                  <div class="col-xs-5">
-                    <div class="icon-big text-center">
-                      <i v-if="battery >= 100" class="fas fa-battery-full"></i>
-                      <i v-else-if="battery >= 75 && battery < 100" class="fas fa-battery-three-quarters"></i>
-                      <i v-else-if="battery >= 50 && battery < 75" class="fas fa-battery-half"></i>
-                      <i v-else-if="battery >= 25 && battery < 50" class="fas fa-battery-quarter"></i>
-                      <i v-else class="fas fa-battery-empty"></i>
-                    </div>
-                  </div>
-                  <div class="col-xs-7">
-                    <div class="numbers">
-                      <p>Bateria</p>
-                      {{battery}}%
-                    </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="col-xs-5">
+                  <div class="icon-big text-center">
+                    <i v-if="battery >= 100" class="fas fa-battery-full"></i>
+                    <i v-else-if="battery >= 75 && battery < 100" class="fas fa-battery-three-quarters"></i>
+                    <i v-else-if="battery >= 50 && battery < 75" class="fas fa-battery-half"></i>
+                    <i v-else-if="battery >= 25 && battery < 50" class="fas fa-battery-quarter"></i>
+                    <i v-else class="fas fa-battery-empty"></i>
                   </div>
                 </div>
-                <div class="footer">
-                  <hr/>
-                  <div class="stats" slot="footer">
+                <div class="col-xs-7">
+                  <div class="numbers">
+                    <p>Bateria</p>
+                    {{battery}}%
                   </div>
+                </div>
+              </div>
+              <div class="footer">
+                <hr/>
+                <div class="stats" slot="footer">
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card">
-              <div class="content">
-                <div class="row">
-                  <div class="col-xs-5">
-                    <div class="icon-big text-center">
-                      <i class="fas fa-thermometer"></i>
-                    </div>
-                  </div>
-                  <div class="col-xs-7">
-                    <div class="numbers">
-                      <p>Temperatura Corporal</p>
-                      {{tempCorp}}ºC
-                    </div>
+        </div>
+        <div class="col-md-4">
+          <stats-card>
+            <div class="icon-big text-center" slot="header">
+              <i class="fas fa-thermometer"></i>
+            </div>
+            <div class="numbers" slot="content">
+              <p>Temperatura Corporal</p>
+              {{tempCorp}}ºC
+            </div>
+            <div class="stats" slot="footer">
+            </div>
+          </stats-card>
+          <!--
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="col-xs-5">
+                  <div class="icon-big text-center">
+                    <i class="fas fa-thermometer"></i>
                   </div>
                 </div>
-                <div class="footer">
-                  <hr/>
-                  <div class="stats" slot="footer">
+                <div class="col-xs-7">
+                  <div class="numbers">
+                    <p>Temperatura Corporal</p>
+                    {{tempCorp}}ºC
                   </div>
                 </div>
               </div>
+              <div class="footer">
+                <hr/>
+                <div class="stats" slot="footer">
+                </div>
+              </div>
             </div>
-          </div>
+          </div> -->
+        </div>
       </div>
     </div>
     <div class="row" v-if="examEvent == 'bodypulse'">
@@ -353,15 +365,15 @@
                 <tbody>
                   <tr>
                     <td>
-                      <h5>
+                      <h3>
                         Coloque o dedo conforme apresentado na imagem ao lado.
-                      </h5>
+                      </h3>
                     </td>
                     <td><img src='static/img/pulse.png' alt=""></td>
                   </tr>
                   <tr>
                     <td>
-                      <h5>Percione no botão para ligar <b class="ti-power-off"></b>.</h5>
+                      <h3>Percione no botão para ligar <b class="ti-power-off"></b>.</h3>
                     </td>
                       <td><img src='static/img/pulse.gif' alt=""></td>
                   </tr>
@@ -378,54 +390,54 @@
             </div>
           </div>
         </div>
-          <div class="col-md-4">
-            <div class="card">
-              <div class="content">
-                <div class="row">
-                  <div class="col-xs-5">
-                    <div class="icon-big text-center">
-                      <i class="fab fa-ioxhost"></i>
-                    </div>
-                  </div>
-                  <div class="col-xs-7">
-                    <div class="numbers">
-                      <p>Oxigénio</p>
-                      {{spoVal}}%
-                    </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="col-xs-5">
+                  <div class="icon-big text-center">
+                    <i class="fab fa-ioxhost"></i>
                   </div>
                 </div>
-                <div class="footer">
-                  <hr/>
-                  <div class="stats" slot="footer">
+                <div class="col-xs-7">
+                  <div class="numbers">
+                    <p>Oxigénio</p>
+                    {{spoVal}}%
                   </div>
+                </div>
+              </div>
+              <div class="footer">
+                <hr/>
+                <div class="stats" slot="footer">
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card">
-              <div class="content">
-                <div class="row">
-                  <div class="col-xs-5">
-                    <div class="icon-big text-center">
-                      <i class="fas fa-heartbeat"></i>
-                    </div>
-                  </div>
-                  <div class="col-xs-7">
-                    <div class="numbers">
-                      <p>Pulso</p>
-                      {{pulseVal}} PPM
-                    </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="content">
+              <div class="row">
+                <div class="col-xs-5">
+                  <div class="icon-big text-center">
+                    <i class="fas fa-heartbeat"></i>
                   </div>
                 </div>
-                <div class="footer">
-                  <hr/>
-                  <div class="stats" slot="footer">
+                <div class="col-xs-7">
+                  <div class="numbers">
+                    <p>Pulso</p>
+                    {{pulseVal}} PPM
                   </div>
+                </div>
+              </div>
+              <div class="footer">
+                <hr/>
+                <div class="stats" slot="footer">
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
     <div id="loader-wrapper" v-if="execProcess">
@@ -450,10 +462,12 @@
 </template>
 <script>
 import { EventBus } from '../../../event-bus.js'
+import StatsCard from 'components/UIComponents/Cards/StatsCard.vue'
 import ChartGauge from 'components/UIComponents/Charts/chartGaugeItem1.vue'
 export default {
   components: {
-    ChartGauge
+    ChartGauge,
+    StatsCard
   },
   data() {
     return {

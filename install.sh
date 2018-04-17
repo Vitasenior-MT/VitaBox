@@ -1,3 +1,12 @@
+#---------------------------------- NG
+sudo apt-get update
+
+sudo apt-get install -y chromium-browser xscreensaver cec-utils mongodb git unclutter bluetooth bluez libbluetooth-dev libudev-dev
+
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+#-------------------------------------
 #1. Install nodejs
 wget https://nodejs.org/dist/v8.9.2/node-v8.9.2-linux-armv6l.tar.gz
 sudo tar -xzf node-v8.9.2-linux-armv6l.tar.gz
