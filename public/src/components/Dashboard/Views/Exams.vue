@@ -290,11 +290,11 @@
               <div class="row">
                 <div class="col-xs-5">
                   <div class="icon-big text-center">
-                    <i v-if="battery >= 100" class="fas fa-battery-full"></i>
-                    <i v-else-if="battery >= 75 && battery < 100" class="fas fa-battery-three-quarters"></i>
-                    <i v-else-if="battery >= 50 && battery < 75" class="fas fa-battery-half"></i>
-                    <i v-else-if="battery >= 25 && battery < 50" class="fas fa-battery-quarter"></i>
-                    <i v-else class="fas fa-battery-empty"></i>
+                    <i v-if="this.battery < 15" class="fas fa-battery-empty"></i>
+                    <i v-else-if="this.battery >= 15 && this.battery < 40" class="fas fa-battery-quarter"></i>
+                    <i v-else-if="this.battery >= 40 && this.battery < 65" class="fas fa-battery-half"></i>
+                    <i v-else-if="this.battery >= 65 && this.battery < 90" class="fas fa-battery-three-quarters"></i>
+                   <i v-else-if="this.battery >= 90" class="fas fa-battery-full"></i>
                   </div>
                 </div>
                 <div class="col-xs-7">
@@ -313,18 +313,6 @@
           </div>
         </div>
         <div class="col-md-4">
-          <stats-card>
-            <div class="icon-big text-center" slot="header">
-              <i class="fas fa-thermometer"></i>
-            </div>
-            <div class="numbers" slot="content">
-              <p>Temperatura Corporal</p>
-              {{tempCorp}}ºC
-            </div>
-            <div class="stats" slot="footer">
-            </div>
-          </stats-card>
-          <!--
           <div class="card">
             <div class="content">
               <div class="row">
@@ -346,7 +334,7 @@
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
@@ -485,7 +473,7 @@ export default {
         pressmax: 0,
         pressmin: 0
       },
-      examEvent: '', // frag para mostral os elemento destinados a visualização da medição da pressão arterial
+      examEvent: '', // frag para mostrar o elemento selecionado
       canBeShown: true,
       battery: 0,
       tempCorp: 0,
@@ -496,7 +484,7 @@ export default {
   },
   sockets: {
     bleExecFimPulse: function(data) {
-      console.log('Pulse', data)
+      // console.log('Pulse', data)
       if (data.satus === true) {
         this.spoVal = data.data.spo2
         this.pulseVal = data.data.pulse

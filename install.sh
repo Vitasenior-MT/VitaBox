@@ -1,12 +1,24 @@
 #---------------------------------- NG
 sudo apt-get update
 
-sudo apt-get install -y chromium-browser xscreensaver cec-utils mongodb git unclutter bluetooth bluez libbluetooth-dev libudev-dev
+sudo apt-get install -y chromium-browser xscreensaver cec-utils mongodb git unclutter bluetooth bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins
 
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
+sudo npm install -g node-gyp
+sudo npm install -g node-pre-gyp
 
+git clone https://github.com/nelsonmpg/VitaBox
+cd
+cd VitaBox
+npm install
+cd public
+#sudo rm -rf package-lock.json
+#npm install
+#npm run build
 #-------------------------------------
+
+
 #1. Install nodejs
 wget https://nodejs.org/dist/v8.9.2/node-v8.9.2-linux-armv6l.tar.gz
 sudo tar -xzf node-v8.9.2-linux-armv6l.tar.gz
