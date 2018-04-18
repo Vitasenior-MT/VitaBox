@@ -4,6 +4,7 @@
   "description": "Box Vita Senior",
   "main": "main.js",
   "scripts": {
+    "start": "sudo node main.js",
     "test": "node main.js"
   },
   "author": "Nelson Gomes",
