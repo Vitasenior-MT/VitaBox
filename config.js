@@ -18,7 +18,7 @@ module.exports = {
     key: fs.readFileSync('key.key').toString().trim(),
     pass: 'passvita',
     port: 8080,
-    host: '192.168.161.117'
+    host: '192.168.161.67'
   },
   serverHttp: {
     port: 8080

@@ -17,25 +17,7 @@ SyslogIdentifier=VitaBox
 [Install]
 WantedBy=multi-user.target
 
-##Commands to run
-# sudo nano /etc/systemd/system/nodeAutostart.service
-# sudo systemctl enable nodeAutostart.service
-# sudo systemctl stop nodeAutostart.service
-# sudo systemctl start nodeAutostart.service
 ## Clean syslog
 #sudo dd if=/dev/null of=/var/log/syslog
 ##to get the last 25 lines of the syslog file
 #tail -25 /var/log/syslog
-##force update of the node
-#wget https://nodejs.org/dist/v8.9.2/node-v8.9.2-linux-armv6l.tar.gz
-#sudo mv node-v8.9.2-linux-armv6l.tar.gz /opt
-#cd /opt
-#sudo tar -xzf node-v8.9.2-linux-armv6l.tar.gz
-#sudo mv node-v8.9.2-linux-armv6l nodejs
-#sudo rm node-v8.9.2-linux-armv6l.tar.gz
-#sudo rm node
-#sudo ln -s /opt/nodejs/bin/node /usr/bin/node
-#sudo ln -s /opt/nodejs/bin/npm /usr/bin/npm
-##Disable screen saver
-# sudo apt-get install xscreensaver
-# Go to preference ---> screensaver.
