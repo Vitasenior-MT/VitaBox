@@ -76,7 +76,6 @@ export const app = new Vue({
       var self = this
       let audioOld = document.getElementById('audioElem')
       if (audioOld) {
-        self.$socket.emit('ttsDelete')
         audioOld.remove()
       }
       let audio = document.createElement('audio')
@@ -96,8 +95,7 @@ export const app = new Vue({
     vitaWarning: function(data) {
       let self = this
       this.$modal.show('dialog', data)
-      // speechVoices.cancel()
-      // speechVoices.speak('Aviso!')
+      this.$socket.emit('ttsText', 'Aviso!')
       if (!this.timeout) {
         this.timeout = true
         setTimeout(() => {
