@@ -4,6 +4,10 @@ import VueSocketio from 'vue-socket.io'
 import i18n from './lang/lang'
 import store from './store'
 import resource from 'vue-resource'
+import Tooltip from 'vue-directive-tooltip'
+import 'vue-directive-tooltip/css/index.css'
+import fontawesome from '@fortawesome/fontawesome'
+import faFreeSolid from '@fortawesome/fontawesome-free-solid'
 
 // Plugins
 import GlobalComponents from './globalComponents'
@@ -32,9 +36,13 @@ Vue.use(GlobalDirectives)
 Vue.use(Notifications)
 Vue.use(SideBar)
 Vue.use(VModal, {dialog: true})
+Vue.use(Tooltip);
 Vue.use(VueFormWizard)
 Vue.use(resource)
 Vue.use(VueSocketio, location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : ''))
+
+fontawesome.library.add(faFreeSolid)
+fontawesome.dom.i2svg()
 
 // configure router
 const router = new VueRouter({
