@@ -589,6 +589,7 @@ export default {
      * TODO: Recebe do socket os erros na execução do processo de medição da pressão arterial
      */
     bleError: function(data) {
+      console.log("error", data)
       this.$notifications.notify({
         message: '<h4>' + data.data + '</h4>',
         icon: 'ti-close',
@@ -624,10 +625,22 @@ export default {
       this.tempCorp = 0
       this.spoVal = 0
       this.pulseVal = 0
+      let userid = '02d3468c-d8b7-4895-a678-71f2efa715dd'
       this.$http
-        .get('/api/ble/' + this.examEvent.toLowerCase())
+        .get('/api/ble/' + this.examEvent.toLowerCase() + '/' + userid)
         .then(response => {
-          console.log(response)
+          console.log("Data", response.data)
+          if (response.data.status === true) {
+          } else {
+            this.$notifications.notify({
+              message: '<h4>' + response.data.data + '</h4>',
+              icon: 'ti-bell',
+              horizontalAlign: 'right',
+              verticalAlign: 'top',
+              type: 'warning'
+            })
+            this.execProcess = false
+          }
         })
         .catch(error => {
           console.log('----> ', error)
