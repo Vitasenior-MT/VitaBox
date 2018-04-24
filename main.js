@@ -2,12 +2,18 @@
 require('colors');
 var cp = require('child_process'),
   fs = require('fs'),
-  config = require('./config.js');
+  config = null,
+  mode = process.env.NODE_ENV || "DEV";
 
 var Main = function () {
+  let pathCfg =  './config-' + mode.toLowerCase() + '/config.js';
+  console.log('Path Config -',pathCfg);
+  config = require(pathCfg);
+
   var args = {
     port: config.serverHttp.port,
     mongodb: config.mongodb,
+    env_dev: (mode.toLowerCase() === 'dev' ? true : false),
     boardConfig: {
       serverBoardListenerConfigs: config.ServerBoardListenerConfigs,
       serverSensorRegisterConfigs: config.ServerSensorRegisterConfigs,
