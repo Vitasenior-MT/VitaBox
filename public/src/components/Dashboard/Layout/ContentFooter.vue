@@ -4,15 +4,15 @@
       <nav class="pull-left">
         <ul>
           <li>
-            <router-link :to="{path:'/admin'}">Dashboard</router-link>
+            <a target="_blank" href="https://github.com/nelsonmpg/VitaBox">Box Vita Sénior</a>
           </li>
         </ul>
       </nav>
-      <div class="copyright pull-right">
+      <!-- <div class="copyright pull-right">
         &copy; Coded with
         ppl by
         <a target="_blank">person nº1 </a>.
-        Designed by <a target="_blank">person nº2</a>.
+        Designed by <a target="_blank">person nº2</a>. -->
       </div>
     </div>
   </footer>
