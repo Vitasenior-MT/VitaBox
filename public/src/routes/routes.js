@@ -18,10 +18,9 @@ import VidOnly from 'src/components/Dashboard/Views/VidOnly.vue'
 const routes = [
   {
     path: '/',
-    component: DashboardLayout,
-    redirect: '/vitabox/home'
-  },
-  {
+    component: Exams,
+    redirect: '/vitabox/exames'
+  }, {
     path: '/vitabox',
     component: DashboardLayout,
     redirect: '/vitabox/home',

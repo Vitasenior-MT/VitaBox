@@ -24,7 +24,6 @@
         <router-link v-for='(link,index) in sidebarLinks' :to='link.path' tag='li' :ref='link.name' :key='link.name + index'>
           <a>
             <i :class='link.icon'></i>
-
             <p>{{ $t(link.name) }}
             </p>
           </a>
@@ -136,8 +135,6 @@ export default {
         index = 0
       }
       this.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
-      console.log('**********************');
-      console.log(self.sidebarLinks[index]);
       self.$router.push({ path: self.sidebarLinks[index].path })
       EventBus.correntRightComponent = self.sidebarLinks[index].path
     })
