@@ -6,7 +6,6 @@
           <div class="content">
             <button v-tooltip.bottom="'Pecione em [OK] para selecionar o user.'" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
                 <h4><b class="ti-user"> {{ patient.name }}</b></h4>
-                <p>Idade: {{ patient.age }}<br>Genero: {{patient.gender}}</p>
             </button>
           </div>
         </div>
@@ -853,7 +852,11 @@ export default {
                   // apaga a opção de exame selecionada
                   self.examEvent = ''
                   // desloca a div para o inicio
-                  document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
+                  if (self.posPatientSelected >= 0) {
+                    document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
+                  } else {
+                    document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
+                  }
                   // limpa a lisa dos botões disponiveis para o user
                   self.btnExams = []
                   self.resetValues()

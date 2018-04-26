@@ -4,9 +4,9 @@
   "description": "Box Vita Senior",
   "main": "main.js",
   "scripts": {
-    "start": "sudo NODE_ENV=PROD node main.js",
-    "dev": "sudo NODE_ENV=DEV node main.js",
-    "prod": "sudo NODE_ENV=PROD node main.js"
+    "start": "NODE_ENV=PROD node main.js",
+    "dev": "NODE_ENV=DEV node main.js",
+    "prod": "NODE_ENV=PROD node main.js"
   },
   "author": "Nelson Gomes",
   "license": "ISC",
