@@ -20,6 +20,7 @@
     "bootstrap": "^3.3.7",
     "chartist": "^0.10.1",
     "fs": "0.0.1-security",
+    "hoek": "^5.0.3",
     "vue": "^2.3.0",
     "vue-clickaway": "^2.1.0",
     "vue-directive-tooltip": "^1.4.5",
