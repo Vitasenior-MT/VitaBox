@@ -5,7 +5,7 @@
         <div class="card clear-padding">
           <div class="content">
             <button v-tooltip.bottom="'Pecione em [OK] para selecionar o user.'" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
-                <h4><b class="ti-user"> {{ patient.name }}</b></h4>
+                <h4><b :class="patient.icon_gender"> {{ patient.name }}</b></h4>
             </button>
           </div>
         </div>
@@ -816,9 +816,7 @@ export default {
           this.patientsList.push({
             name: data[index].name,
             id: data[index].id,
-            gender: data[index].gender === 'male' ? 'Masculino' : data[index].gender === 'female' ? 'Feminino' : data[index].gender,
-            // birthdate: this.dateFormat(data[index].birthdate),
-            age: this.getAge(data[index].birthdate)
+            icon_gender: 'fas fa-' + data[index].gender.trim()
           })
         }
         // console.log("users", response);
