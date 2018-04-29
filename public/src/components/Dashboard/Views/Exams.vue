@@ -4,7 +4,7 @@
       <div class="col-md-3" v-for="patient in patientsList"  :key='patient.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button v-tooltip.bottom="'Pecione em [OK] para selecionar o user.'" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
+            <button v-tooltip.bottom="'Pessione em [OK] para selecionar o utilizador.'" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
                 <h4><b class="ti-user"> {{ patient.name }}</b></h4>
             </button>
           </div>
@@ -15,7 +15,7 @@
       <div class="col-md-2" v-for="btn in btnExams"  :key='btn.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button v-tooltip.bottom="'Pecione em [OK] para iniciar.'" class="btn btn-block btn-success control-remote" type="button" :data-type="btn.type" v-on:click="bleExecExam">
+            <button  v-tooltip.bottom="'Pessione em [OK] para selecionar o exame.'" class="btn btn-block btn-success control-remote" type="button" :data-type="btn.type" v-on:click="bleExecExam">
               <h2><b :class="btn.icon"></b></h2>
               <h5>{{ btn.nome }}</h5>
             </button>
@@ -111,16 +111,16 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" :class="bodyscaleClass">
           <stats-card>
-            <div :class="bodyscaleClass" class="icon-big text-center" slot="header">
+            <div class="icon-big text-center" slot="header">
               <i class="fas fa-tachometer-alt"></i>
+              <!-- <hr> -->
             </div>
-            <div :class="bodyscaleClass" class="numbers" slot="content">
+            <div class="numbers" slot="content">
               <p>Peso </p>
               {{dataBodyScale.weight}} Kg
-            </div>
-            <div class="stats" slot="footer">
+              <!-- <hr> -->
             </div>
           </stats-card>
         </div>
@@ -293,6 +293,34 @@
         </div>
       </div>
     </div>
+    <div class="row bandfitness" v-show="examEvent == 'bandfitness'">
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="content">
+              <h4 class="title">Modo de Utilização</h4><hr>
+              <ol>
+                <h4>
+                  Assegure-se de que possui a banda corretamente colocada no pulso.
+                </h4>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="header">
+              <h3>Medir a Glucose</h3>
+            </div>
+            <div class="content">
+              :class="bandfitnessClass" bandfitness
+            </div>
+            <div class="footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="loader-wrapper" v-show="execProcess">
       <div v-show="examEvent == 'bloodpressure'" id="loader-chart">
         <ChartGauge :id="dataPressArt.id"
@@ -303,12 +331,18 @@
           :chartmax="dataPressArt.max"
           :symbol="''">
         </ChartGauge>
-        <h4 class="text-center"><i class="fas fa-spinner fa-pulse fa-5x"></i></h4>
+        <h4 class="text-center">
+          <!-- <i class="fas fa-spinner fa-pulse fa-5x"></i> -->
+          <img src='static/img/load4.gif' alt=''>
+        </h4>
         <h1 class="text-center">Aguarde</h1>
       </div>
       <div v-show="examEvent != 'bloodpressure'" id="loader">
-        <h4><i class="fas fa-spinner fa-pulse fa-10x"></i></h4>
-        <h1>Aguarde</h1>
+        <h4 class="text-center">
+          <!-- <i class="fas fa-spinner fa-pulse fa-10x"></i> -->
+          <img src='static/img/load3.gif' alt=''>
+        </h4>
+        <h1 class="text-center">Aguarde</h1>
       </div>
     </div>
   </div>
@@ -357,6 +391,7 @@ export default {
       execProcess: false,
       bodytemperatureClass: [],
       bodypulseClass: [],
+      bandfitnessClass: [],
       bloodpressureClass: [],
       bodyscaleClass: [],
       bloodglucoseClass: [],
@@ -364,27 +399,38 @@ export default {
         {
           nome: 'Pressão Arterial',
           type: 'bloodpressure',
-          icon: 'ti-heart-broken'
+          icon: 'ti-heart-broken',
+          id: 'bloodpressure-0'
         },
         {
           nome: 'Temperatura',
           type: 'bodytemperature',
-          icon: 'fas fa-thermometer-half'
+          icon: 'fas fa-thermometer-half',
+          id: 'bodytemperature-1'
         },
         {
           nome: 'Pulsometro',
           type: 'bodypulse',
-          icon: 'ti-heart-broken'
+          icon: 'ti-heart-broken',
+          id: 'bodypulse-2'
         },
         {
           nome: 'Pesar',
           type: 'bodyscale',
-          icon: 'ti-dashboard'
+          icon: 'ti-dashboard',
+          id: 'bodyscale-3'
         },
         {
           nome: 'Glicemia',
           type: 'bloodglucose',
-          icon: 'fas fa-chart-bar'
+          icon: 'fas fa-chart-bar',
+          id: 'bloodglucose-4'
+        },
+        {
+          nome: 'Banda Fitness',
+          type: 'bandfitness',
+          icon: 'far fa-compass',
+          id: 'bandfitness-5'
         }
       ]
     }
@@ -589,6 +635,9 @@ export default {
                 case 'bloodglucose':
                   btnopt = this.btns[4]
                   break
+                case 'bandfitness':
+                  btnopt = this.btns[5]
+                  break
                 default:
                   break
               }
@@ -618,7 +667,7 @@ export default {
     },
     bleExecExam() {
       this.execProcess = true
-      console.log("Exame event", this.examEvent)
+      // console.log("Exame event", this.examEvent)
       this.resetValues()
       this.$http
         .get('/api/ble/' + this.examEvent.toLowerCase() + '/' + this.patientId)
@@ -664,6 +713,7 @@ export default {
     resetValues() {
       this.bodytemperatureClass = []
       this.bodypulseClass = []
+      this.bandfitnessClass = []
       this.bloodpressureClass = []
       this.bodyscaleClass = []
       this.bloodglucoseClass = []
@@ -769,10 +819,6 @@ export default {
                   EventBus.currentActiveRightComp = self.posPatientSelected
                   // limpa a variavel para saber que se voltar a carregar
                   self.posPatientSelected = -1
-                  // Seleciona o elemento ativo da lista dos users
-                  let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-                  elem.focus()
-                  elem.classList.add('btn-fill')
                   // apaga a opção de exame selecionada
                   self.examEvent = ''
                   // desloca a div para o inicio
@@ -840,7 +886,8 @@ export default {
   border-radius: 20px;
   border-width: 4px;
   border-style: solid;
-  border-color: black;
+  border-color: #F7931D;
+  background-color: white;
   animation: blinker 3s linear infinite;
 }
 
@@ -853,7 +900,7 @@ export default {
     background-color: white;
   }
   50% {
-    background-color: #f7931d;
+    background-color: #F05A28;
   }
 }
 #loader-wrapper {
@@ -893,10 +940,13 @@ export default {
 .clear-padding {
   border-radius: 20px !important;
 }
-.btn-fill {
+.btnUsers .btn-fill, .btnsExams .btn-fill {
   box-shadow: 3px 3px 10px black;
 }
 .on-shadow {
   box-shadow: 3px 3px 10px black inset;
+}
+body {
+  overflow: hidden;
 }
 </style>

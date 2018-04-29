@@ -11,7 +11,7 @@
       <div class='logo'>
         <a href='#' class='simple-text'>
             <div class='logo-img'>
-                <img src='static/img/vue-logo.png' alt=''>
+                <img src='static/img/logo2.gif' alt=''>
             </div>
           VitaSénior - VitaBox
         </a>
@@ -21,7 +21,10 @@
       </slot>
       <ul :class='navClasses'>
         <!--By default vue-router adds an active class to each route link. This way the links are colored when clicked-->
-        <router-link v-for='(link,index) in sidebarLinks' :to='link.path' tag='li' :ref='link.name' :key='link.name + index'>
+        <router-link v-for='(link,index) in sidebarLinks'
+        :to='link.path' tag='li'
+        :ref='link.name'
+        :key='link.name + index'>
           <a>
             <i :class='link.icon'></i>
             <p>{{ $t(link.name) }}
@@ -114,6 +117,21 @@ export default {
         }
         return found
       })
+    },
+    controlSideBar() {
+      var self = this
+      EventBus.$on('move-sidebar', function(cmd) {
+        let index = self.activeLinkIndex + cmd
+        if (index < 0) {
+          index = self.sidebarLinks.length - 1
+        }
+        if (index > self.sidebarLinks.length - 1) {
+          index = 0
+        }
+        this.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
+        self.$router.push({ path: self.sidebarLinks[index].path })
+        EventBus.correntRightComponent = self.sidebarLinks[index].path
+      })
     }
   },
   mounted() {
@@ -124,22 +142,20 @@ export default {
       this.findActiveLink()
     }
   },
-  beforeCreate() {
-    var self = this
-    EventBus.$on('move-sidebar', function(cmd) {
-      let index = self.activeLinkIndex + cmd
-      if (index < 0) {
-        index = self.sidebarLinks.length - 1
-      }
-      if (index > self.sidebarLinks.length - 1) {
-        index = 0
-      }
-      this.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
-      self.$router.push({ path: self.sidebarLinks[index].path })
-      EventBus.correntRightComponent = self.sidebarLinks[index].path
-    })
+  created() {
+    this.controlSideBar()
   }
 }
 </script>
 <style>
+.logo-img {
+  background-color:white;
+}
+.logo-img > img {
+  max-width: 37px !important;
+}
+.sidebar-wrapper .active a {
+  border: 2px solid #f7931d;
+  border-radius: 20px;
+}
 </style>
