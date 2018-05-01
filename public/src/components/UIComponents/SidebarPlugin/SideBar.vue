@@ -155,7 +155,6 @@ export default {
   max-width: 37px !important;
 }
 .sidebar-wrapper .active a {
-  border: 2px solid #f7931d;
-  border-radius: 20px;
+  border-left: 5px solid #f7931d;
 }
 </style>

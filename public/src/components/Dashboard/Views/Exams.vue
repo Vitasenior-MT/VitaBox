@@ -295,29 +295,62 @@
     </div>
     <div class="row bandfitness" v-show="examEvent == 'bandfitness'">
       <div class="col-md-12">
-        <div class="col-md-6">
+        <div class="col-md-9">
           <div class="card">
             <div class="content">
               <h4 class="title">Modo de Utilização</h4><hr>
               <ol>
                 <h4>
-                  Assegure-se de que possui a banda corretamente colocada no pulso.
+                  <li>Assegure-se de que possui a banda corretamente colocada no pulso.</li>
                 </h4>
               </ol>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="header">
-              <h3>Medir a Glucose</h3>
+        <div class="col-md-3" :class="bandfitnessClass">
+          <stats-card >
+            <div class="icon-big text-center" slot="header">
+              <span v-show="this.dataBandFitness.batterystatus.battery_level < 15">
+                <i class="fas fa-battery-empty"></i>
+              </span>
+              <span v-show="this.dataBandFitness.batterystatus.battery_level >= 15 && this.dataBandFitness.batterystatus.battery_level < 40">
+                <i class="fas fa-battery-quarter"></i>
+              </span>
+              <span v-show="this.dataBandFitness.batterystatus.battery_level >= 40 && this.dataBandFitness.batterystatus.battery_level < 65">
+                <i class="fas fa-battery-half"></i>
+              </span>
+              <span v-show="this.dataBandFitness.batterystatus.battery_level >= 65 && this.dataBandFitness.batterystatus.battery_level < 90">
+                <i class="fas fa-battery-three-quarters"></i>
+              </span>
+              <span v-show="this.dataBandFitness.batterystatus.battery_level >= 90">
+                <i class="fas fa-battery-full"></i>
+              </span>
+              <hr>
+              <i class="fas fa-capsules"></i>
+              <hr>
+              <i class="fas fa-hand-holding-heart"></i>
+              <!-- <hr>
+              <i class="fas fa-flag-checkered"></i>
+              <hr>
+              <i class="fas fa-diagnoses"></i> -->
             </div>
-            <div class="content">
-              :class="bandfitnessClass" bandfitness
+            <div class="numbers" slot="content">
+              <p>Bateria </p>
+              {{dataBandFitness.batterystatus.battery_level}}
+              <hr>
+              <p>Passos </p>
+              {{dataBandFitness.steps.steps}}
+              <hr>
+              <p>Pulso Médio </p>
+              {{dataBandFitness.heartrateavg}}
+              <!-- <hr>
+              <p>Metros percorridos por dia </p>
+              {{dataBandFitness.steps.meters}}
+              <hr>
+              <p>Calorias </p>
+              {{dataBandFitness.steps.callories}} -->
             </div>
-            <div class="footer">
-            </div>
-          </div>
+          </stats-card>
         </div>
       </div>
     </div>
@@ -358,12 +391,13 @@ export default {
   },
   data() {
     return {
+      chartData: {a: 1, b: 3, c: 5, d: 7},
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
       patientsList: [],
       patientId: '',
       btnExams: [],
-        // definição do ojecto para medir a pressão arterial
+      // definição do ojecto para medir a pressão arterial
       dataPressArt: {
         id: 'pressArterial-Chart',
         val: 0,
@@ -381,6 +415,34 @@ export default {
         visceralfat: 0,
         water: 0,
         calories: 0
+      },
+      dataBandFitness: {
+        heartrate: [],
+        heartrateavg: 0,
+        steps: {
+          steps: 0,
+          meters: 0,
+          callories: 0
+        },
+        batterystatus: {
+          battery_level: 0,
+          last_time_full: 0,
+          last_time_charged: 0,
+          charge_cycles: 0,
+          status: 0
+        },
+        time: {
+          day: 0,
+          month: 0,
+          year: 0,
+          hour: 0,
+          minute: 0,
+          second: 0
+        },
+        softwarerevision: '',
+        hardwarerevision: '',
+        serialnumber: '',
+        devicename: ''
       },
       examEvent: '', // frag para mostrar o elemento selecionado
       canBeShown: true,
@@ -436,6 +498,45 @@ export default {
     }
   },
   sockets: {
+    bleExecFimBandFitness: function(data) {
+      let resData = data.data
+      if (resData.status === true) {
+        switch (resData.exec) {
+          case "Steps":
+            this.dataBandFitness.steps = {
+              steps: resData.data.steps,
+              meters: resData.data.meters,
+              callories: resData.data.callories
+            }
+            break;
+          case 'heartrate':
+            this.dataBandFitness.heartrate.push(resData.data.heartrate)
+            console.log(this.dataBandFitness.heartrate)
+            break;
+          case "devicename":
+            this.dataBandFitness.devicename = resData.data.devicename
+            break;
+          case 'batterystatus':
+            this.dataBandFitness.batterystatus = {
+              battery_level: resData.data.battery_level,
+              last_time_full: resData.data.last_time_full,
+              last_time_charged: resData.data.last_time_charged,
+              charge_cycles: resData.data.charge_cycles,
+              status: resData.data.status
+            }
+            break;
+          case "heartrateEnd":
+            this.bandfitnessClass.push('ajustinfo')
+            this.dataBandFitness.heartrateavg = Math.round(resData.data.heartrateavg)
+            this.execProcess = false
+            break
+          default:
+            break;
+        }
+      } else {
+
+      }
+    },
     bleExecFimScale: function(data) {
       if (data.satus === true) {
         this.dataBodyScale = {
@@ -732,6 +833,34 @@ export default {
         pressmin: 0,
         pulso: 0
       }
+      this.dataBandFitness = {
+        heartrate: [],
+        heartrateavg: 0,
+        steps: {
+          steps: 0,
+          meters: 0,
+          callories: 0
+        },
+        batterystatus: {
+          battery_level: 0,
+          last_time_full: 0,
+          last_time_charged: 0,
+          charge_cycles: 0,
+          status: 0
+        },
+        time: {
+          day: 0,
+          month: 0,
+          year: 0,
+          hour: 0,
+          minute: 0,
+          second: 0
+        },
+        softwarerevision: '',
+        hardwarerevision: '',
+        serialnumber: '',
+        devicename: ''
+      }
       this.battery = 0
       this.tempCorp = 0
       this.spoVal = 0
@@ -886,7 +1015,7 @@ export default {
   border-radius: 20px;
   border-width: 4px;
   border-style: solid;
-  border-color: #F7931D;
+  border-color: #f7931d;
   background-color: white;
   animation: blinker 3s linear infinite;
 }
@@ -900,7 +1029,7 @@ export default {
     background-color: white;
   }
   50% {
-    background-color: #F05A28;
+    background-color: #f05a28;
   }
 }
 #loader-wrapper {
