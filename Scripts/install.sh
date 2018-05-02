@@ -13,7 +13,6 @@ cd
 cd VitaBox
 npm install
 cd public
-#sudo rm -rf package-lock.json
 #npm install
 #npm run build
 #-------------------------------------

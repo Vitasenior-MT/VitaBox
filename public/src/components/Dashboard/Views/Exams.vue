@@ -296,14 +296,28 @@
     <div class="row bandfitness" v-show="examEvent == 'bandfitness'">
       <div class="col-md-12">
         <div class="col-md-9">
-          <div class="card">
-            <div class="content">
-              <h4 class="title">Modo de Utilização</h4><hr>
-              <ol>
-                <h4>
-                  <li>Assegure-se de que possui a banda corretamente colocada no pulso.</li>
-                </h4>
-              </ol>
+          <div class="col-md-12">
+            <div class="card">
+              <div class="content">
+                <h4 class="title">Modo de Utilização</h4><hr>
+                <ul>
+                  <h4>
+                    <li>Assegure-se de que possui a banda corretamente colocada no pulso.</li>
+                  </h4>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="card">
+              <div class="content">
+                <h4 class="title">Pulsação</h4><hr>
+                <chart-line
+                :id="chartLineVals.id"
+                :lineChartId="chartLineVals.id"
+                :dataChart="this.dataBandFitness.heartrate"
+                :dataChartAvg="this.dataBandFitness.heartrateavg" ></chart-line>
+              </div>
             </div>
           </div>
         </div>
@@ -384,19 +398,23 @@
 import { EventBus } from '../../../event-bus.js'
 import StatsCard from 'components/UIComponents/Cards/StatsCard.vue'
 import ChartGauge from 'components/UIComponents/Charts/chartGaugeItem1.vue'
+import ChartLine from 'components/UIComponents/Charts/chartLine.vue'
 export default {
   components: {
     ChartGauge,
-    StatsCard
+    StatsCard,
+    ChartLine
   },
   data() {
     return {
-      chartData: {a: 1, b: 3, c: 5, d: 7},
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
       patientsList: [],
       patientId: '',
       btnExams: [],
+      chartLineVals: {
+        id: 'chartLine-1'
+      },
       // definição do ojecto para medir a pressão arterial
       dataPressArt: {
         id: 'pressArterial-Chart',
@@ -511,7 +529,6 @@ export default {
             break;
           case 'heartrate':
             this.dataBandFitness.heartrate.push(resData.data.heartrate)
-            console.log(this.dataBandFitness.heartrate)
             break;
           case "devicename":
             this.dataBandFitness.devicename = resData.data.devicename
