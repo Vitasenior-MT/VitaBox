@@ -76,7 +76,6 @@ export default {
   },
   watch: {
     dataChart: function(value) {
-      /*
       console.log('chartline', value)
       if (this.clearChart) {
         this.lineChart.data.datasets[0].data = []
@@ -85,7 +84,6 @@ export default {
         this.labelsPos = 0
         this.clearChart = false
       }
-      */
       this.lineChart.data.datasets[0].data.push(value[value.length - 1])
       this.lineChart.data.labels.push(this.labelsPos++)
       this.lineChart.update()
@@ -96,7 +94,7 @@ export default {
       for (let index = 1; index < this.labelsPos; index++) {
         this.lineChart.data.datasets[1].data.push(value)
       }
-      // this.clearChart = true
+      this.clearChart = true
       this.lineChart.update()
     }
   }
