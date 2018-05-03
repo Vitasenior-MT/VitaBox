@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row container-data-sensors">
-      <div class="col-lg-6" v-for="warningCard in CardsSensors" :key="warningCard.id">
+      <div class="col-lg-6" v-for="warningCard in CardsSensors" :key="warningCard.board_id">
         <CardWarning3 :key="warningCard.id + '-all'" :warningCard="warningCard">
         </CardWarning3>
       </div>
@@ -18,14 +18,14 @@ export default {
   sockets: {
     avgSensorUpdate: function(data) {
       for (let index in this.CardsSensors) {
-        if (this.CardsSensors[index].id === data.id) {
+        if (this.CardsSensors[index].board_id === data.board_id) {
           for (let index2 in this.CardsSensors[index].sensors) {
             if (this.CardsSensors[index].sensors[index2].sensortype === data.sensortype) {
-              this.CardsSensors[index].sensors[index2].idchar = 'id-' + data.id + '-' + data.sensortype
+              this.CardsSensors[index].sensors[index2].idchar = 'id-' + data.board_id + '-' + data.sensortype
               this.CardsSensors[index].sensors[index2].avg = Math.round(data.avg * 100) / 100
               this.CardsSensors[index].sensors[index2].avglastupdate = this.dateFormat(data.avgLastUpdate)
               this.CardsSensors[index].sensors[index2].sensortype = data.sensortype
-              this.CardsSensors[index].sensors[index2].threshold = data.threshold
+              this.CardsSensors[index].sensors[index2].threshold_max_possible = data.threshold_max_possible
             }
           }
         }
@@ -156,18 +156,18 @@ export default {
           var datasensores = response.data.data
           for (var index in datasensores) {
             this.CardsSensors.push({
-              id: datasensores[index].values[0].id,
+              board_id: datasensores[index].values[0].board_id,
               location: datasensores[index]._id,
               sensors: []
             })
             for (let i in datasensores[index].values) {
               this.CardsSensors[index].sensors.push({
-                idchar: 'id-' + datasensores[index].values[i].id + '-' + datasensores[index].values[i].sensortype,
+                idchar: 'id-' + datasensores[index].values[i].board_id + '-' + datasensores[index].values[i].sensortype,
                 avg: Math.round(datasensores[index].values[i].avg * 100) / 100,
                 avglastupdate: this.dateFormat(datasensores[index].values[i].avgLastUpdate
                 ),
                 sensortype: datasensores[index].values[i].sensortype,
-                threshold: (datasensores[index].values[i].threshold.max_possible === undefined ? 100 : datasensores[index].values[i].threshold.max_possible)
+                threshold: (datasensores[index].values[i].threshold_max_possible === undefined ? 100 : datasensores[index].values[i].threshold_max_possible)
               })
             }
           }

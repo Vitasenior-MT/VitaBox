@@ -11,7 +11,7 @@
     <!--Charts-->
     <div class="row">
 
-      <div class="col-xs-12">
+      <div class="col-xs-12" v-if="loaded">
         <chart-card :chart-data="usersChart.data" :chart-options="usersChart.options">
           <h4 class="title" slot="title">Users behavior</h4>
           <span slot="subTitle"> 24 Hours performance</span>
@@ -42,25 +42,12 @@ export default {
       statsCards: [],
       usersChart: {
         data: {
-          labels: [
-            "9:00AM",
-            "12:00AM",
-            "3:00PM",
-            "6:00PM",
-            "9:00PM",
-            "12:00PM",
-            "3:00AM",
-            "6:00AM"
-          ],
-          series: [
-            [287, 385, 490, 562, 594, 626, 698, 895, 952],
-            [67, 152, 193, 240, 387, 435, 535, 642, 744],
-            [23, 113, 67, 108, 190, 239, 307, 410, 410]
-          ]
+          labels: [],
+          series: []
         },
         options: {
           low: 0,
-          high: 1000,
+          high: 100,
           showArea: true,
           height: "245px",
           axisX: {
@@ -72,10 +59,21 @@ export default {
           showLine: true,
           showPoint: false
         }
-      }
+      },
+      loaded: false
     };
   },
   methods: {
+    dateFormat2(data) {
+      let date = new Date(data);
+      return (
+        (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) +
+        ":" +
+        (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) +
+        ":" +
+        (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds())
+      );
+    },
     dateFormat(data) {
       let date = new Date(data);
       return (
@@ -106,6 +104,7 @@ export default {
     }
   },
   beforeCreate() {
+    var self = this;
     this.$http
       .get("/api/getPatientsData")
       .then(response => {
@@ -122,6 +121,33 @@ export default {
           });
         }
         console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    this.$http
+      .get("/api/getSensorData")
+      .then(response => {
+        console.log(response);
+        this.usersChart.data.series = [];
+        this.usersChart.data.labels = [];
+        response.body.data.forEach((element, index) => {
+          let value = [];
+          let time = [];
+          element.value.forEach((values, i) => {
+            value.push(values);
+            time.push(this.dateFormat2(values.time));
+            if (i === element.value.length - 1) {
+              this.usersChart.data.series.push(value);
+              this.usersChart.data.labels.push(time);
+            }
+          });
+          if (index === response.body.data.length - 1) {
+            this.loaded = true;
+            console.log(this.usersChart.data);
+          }
+        });
       })
       .catch(error => {
         console.log(error);

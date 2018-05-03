@@ -14,11 +14,6 @@ var Main = function () {
     port: config.serverHttp.port,
     mongodb: config.mongodb,
     env_dev: (mode.toLowerCase() === 'dev' ? true : false),
-    boardConfig: {
-      serverBoardListenerConfigs: config.ServerBoardListenerConfigs,
-      serverSensorRegisterConfigs: config.ServerSensorRegisterConfigs,
-      remoteConfigs: config.RemoteConfigs
-    }
   };
   // inicia p script e envia as configuracores do ficheiro ini
   var child2 = cp.fork('./lib/server.js');
