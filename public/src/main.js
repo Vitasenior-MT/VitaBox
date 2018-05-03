@@ -7,6 +7,7 @@ import resource from 'vue-resource'
 import Tooltip from 'vue-directive-tooltip'
 import 'vue-directive-tooltip/css/index.css'
 import fontawesome from '@fortawesome/fontawesome'
+import faFreeRegular from '@fortawesome/fontawesome-free-regular'
 import faFreeSolid from '@fortawesome/fontawesome-free-solid'
 
 // Plugins
@@ -42,10 +43,11 @@ Vue.use(resource)
 Vue.use(VueSocketio, location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : ''))
 
 fontawesome.library.add(faFreeSolid)
+fontawesome.library.add(faFreeRegular)
 fontawesome.dom.i2svg()
 
 // configure router
-const router = new VueRouter({
+var router = new VueRouter({
   routes, // short for routes: routes
   linkActiveClass: 'active'
 })
@@ -154,8 +156,11 @@ export const app = new Vue({
             EventBus.$emit('move-components', cmd)
           }
           break;
+        case 'menu':
+          console.log('Testes')
+          break;
         default:
-          console.log("No event key")
+          console.log("No event key", cmd)
           break;
       }
     }
@@ -183,6 +188,8 @@ window.addEventListener('keypress', function(e) {
     sendCmd = '0';
   } else if (charCode === 120) { // 'x'
     sendCmd = 'd';
+  } else if (charCode === 113) { // 'q'
+    sendCmd = '29';
   }
   if (sendCmd !== "") {
     app.$socket.emit('keypress', sendCmd);

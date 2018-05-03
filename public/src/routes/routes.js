@@ -28,52 +28,58 @@ const routes = [
       {
         path: 'home',
         name: 'home',
-        component: Home
+        component: Home,
+        minimal: true
       }, {
         path: 'history',
         name: 'history',
-        component: History
+        component: History,
+        minimal: false
       }, {
         path: 'historicosensoresambientais',
         name: 'Historico Sensores Ambientais',
-        component: History2
+        component: History2,
+        minimal: false
       }, {
         path: 'historicosensoresambientaisv2',
         name: 'Historico Sensores Ambientais V2',
-        component: History3
+        component: History3,
+        minimal: true
       }, {
         path: 'exames',
         name: 'Exames / Diagnósticos',
-        component: Exams
+        component: Exams,
+        minimal: true
       }, {
         path: 'wizard',
         name: 'wizard',
-        component: Wizard
-      },
-      {
+        component: Wizard,
+        minimal: false
+      }, {
         path: 'warnings',
         name: 'warnings',
-        component: Warnings
-      },
-      {
+        component: Warnings,
+        minimal: false
+      }, {
         path: 'warnings2',
         name: 'warnings2',
-        component: Warnings2
-      },
-      {
+        component: Warnings2,
+        minimal: false
+      }, {
         path: 'show-data',
         name: 'Sensores distrimuidos por Divisão',
-        component: ShowData
-      },
-      {
+        component: ShowData,
+        minimal: false
+      }, {
         path: 'show-data2',
         name: 'Sensores distrimuidos por Divisão',
-        component: ShowData2
-      },
-      {
+        component: ShowData2,
+        minimal: true
+      }, {
         path: 'vid-only',
         name: 'vid-only',
-        component: VidOnly
+        component: VidOnly,
+        minimal: false
       }
     ]
   },

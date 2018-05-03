@@ -6,14 +6,15 @@
     <notifications>
 
     </notifications>
-    <div class="main-panel">
+    <div class="main-panel" id="app" style="background-color: black;opacity: 0.85">
+    <!-- <div class="main-panel" id="app"> -->
       <!-- <top-navbar></top-navbar> -->
 
       <dashboard-content @click.native="toggleSidebar">
 
       </dashboard-content>
 
-      <content-footer></content-footer>
+      <!-- <content-footer></content-footer> -->
     </div>
   </div>
 </template>
