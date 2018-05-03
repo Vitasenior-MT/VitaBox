@@ -39,7 +39,7 @@
                       <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
                     </div>
                     <div class="col-md-3">
-                      <img src='static/img/bloodpressure.png' alt="">
+                      <img src='static/img/bloodpressure.png' alt="" class="img-fit">
                     </div>
                   </div>
                   <div class="row">
@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-md-3">
                       <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                      <img src='static/img/bloodpressure.gif' alt="">
+                      <img src='static/img/bloodpressure.gif' alt="" class="img-fit">
                     </div>
                   </div>
                 </h4>
@@ -103,7 +103,7 @@
                     </div>
                     <div class="col-md-3">
                       <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                      <img src='static/img/bodyscale.png' alt="">
+                      <img src='static/img/bodyscale.png' alt="" class="img-fit">
                     </div>
                   </div>
                 </h4>
@@ -195,7 +195,7 @@
                       <li>Coloque o equipamento de acordo com a imagem ao lado.</li>
                     </div>
                     <div class="col-md-3">
-                      <img src='static/img/bodytemp.png' alt="">
+                      <img src='static/img/bodytemp.png' alt="" class="img-fit">
                     </div>
                   </div>
                   <div class="row">
@@ -211,7 +211,7 @@
                     </div>
                     <div class="col-md-2">
                       <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                      <img src='static/img/bodytemp.gif' alt="">
+                      <img src='static/img/bodytemp.gif' alt="" class="img-fit">
                     </div>
                   </div>
                 </h4>
@@ -256,7 +256,7 @@
                       <li>Coloque o equipamento no dedo conforme apresentado na imagem.</li>
                     </div>
                     <div class="col-md-3">
-                      <img src='static/img/pulse.png' alt="">
+                      <img src='static/img/pulse.png' alt="" class="img-fit">
                     </div>
                   </div>
                   <div class="row">
@@ -267,7 +267,7 @@
                       <li>Pode retirar o equipamento do dedo e o mesmo desliga-se automáticamente.</li>
                     </div>
                     <div class="col-md-3">
-                      <img src='static/img/pulse.gif' alt="">
+                      <img src='static/img/pulse.gif' alt="" class="img-fit">
                     </div>
                   </div>
                 </h4>
@@ -311,12 +311,14 @@
           <div class="col-md-12">
             <div class="card">
               <div class="content">
-                <h4 class="title">Pulsação</h4><hr>
+                <h4 class="title">Pulsação</h4>
+                <hr>
                 <chart-line
-                :id="chartLineVals.id"
-                :lineChartId="chartLineVals.id"
-                :dataChart="this.dataBandFitness.heartrate"
-                :dataChartAvg="this.dataBandFitness.heartrateavg" ></chart-line>
+                  :id="chartLineVals.id"
+                  :lineChartId="chartLineVals.id"
+                  :dataChart="this.dataBandFitness.heartrate"
+                  :dataChartAvg="this.dataBandFitness.heartrateavg" >
+                </chart-line>
               </div>
             </div>
           </div>
@@ -1094,5 +1096,9 @@ export default {
 }
 body {
   overflow-x: hidden;
+}
+.img-fit {
+  width: 100%;
+  height: auto;
 }
 </style>

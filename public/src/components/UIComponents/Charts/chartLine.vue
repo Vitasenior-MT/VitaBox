@@ -1,5 +1,5 @@
 <template>
-  <canvas height="100px" ></canvas>
+  <canvas height="80px"></canvas>
 </template>
 <script>
 import Chart from 'chart.js'
