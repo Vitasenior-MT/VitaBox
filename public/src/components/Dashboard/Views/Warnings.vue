@@ -55,10 +55,8 @@ export default {
             if (data.warning_type === this.warningCards[index].sensor) {
               this.warningCards[index].avg = data.avg.toFixed()
               this.warningCards[index].avgLastUpdate = data.avgLastUpdate
-              this.warningCards[index].threshold = data.threshold
-              this.warningCards[index].footerText = this.dateFormat(
-                data.avgLastUpdate
-              )
+              this.warningCards[index].threshold = data.threshold_max_possible
+              this.warningCards[index].footerText = this.dateFormat(data.avgLastUpdate)
               this.warningCards[index].critLvl = data.critLevel
               break
             }
@@ -77,7 +75,7 @@ export default {
                 sensor: data.sensortype,
                 avg: data.avg.toFixed(),
                 avgLastUpdate: data.avgLastUpdate,
-                threshold: data.threshold,
+                threshold: data.threshold_max_possible,
                 critLvl: data.critLevel
               })
             }
@@ -183,7 +181,7 @@ export default {
               sensor: data.sensortype,
               avg: data.avg.toFixed(),
               avgLastUpdate: data.avgLastUpdate,
-              threshold: data.threshold,
+              threshold: data.threshold_max_possible,
               critLvl: data.critLevel
             })
           }

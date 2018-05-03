@@ -185,10 +185,9 @@ export default {
   },
   created() {
     this.$http
-      .get('/api/sensor/allSensorsinfo')
+      .get('/api/sensor/allSensorsInfo')
       .then(response => {
         if (response.data.status === true) {
-          // console.log('Data', response.data.data)
           var datasensores = response.data.data
           for (var index in datasensores) {
             this.warningCards.push({
@@ -196,9 +195,9 @@ export default {
               idlimite: 'chartlimite-' + index,
               avg: datasensores[index].avg,
               threshold:
-                datasensores[index].threshold === undefined
+                datasensores[index].threshold_max_possible === undefined
                   ? 100
-                  : datasensores[index].threshold,
+                  : datasensores[index].threshold_max_possible,
               sensor: datasensores[index].sensortype,
               location: datasensores[index].location,
               dateupdate: this.dateFormat(datasensores[index].avgLastUpdate),
