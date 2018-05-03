@@ -1093,6 +1093,6 @@ export default {
   box-shadow: 3px 3px 10px black inset;
 }
 body {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 </style>
