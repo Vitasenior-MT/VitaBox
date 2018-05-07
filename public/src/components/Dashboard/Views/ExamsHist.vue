@@ -30,19 +30,23 @@
         </div>
       </div>
     </div>
-    <div class="row" v-show="defaultView == 'yes'">
+    <div class="row clear-margin" v-show="defaultView == 'yes'">
       <div class="col-lg-12 btn btn-round btn-fill">
         <div class="row">
-          <h4 class="text-center">
-            Selecione o exame e pressione em <b>[OK]</b> para visualizar o histórico.
-          </h4>
+          <div class="col-md-12">
+            <h4 class="text-center">
+              {{defaultViewDescritivo}}
+            </h4>
+          </div>
         </div>
         <div class="row">
-          <img src='static/img/logo_A.gif' alt=''>
+          <div class="col-md-12">
+            <img src='static/img/logo_A.gif' alt=''>
+          </div>
         </div>
       </div>
     </div>
-    <div class="row show-charts-history" v-show="dataCharsExists">
+    <div class="row clear-margin show-charts-history" v-show="dataCharsExists">
       <div class="col-md-12 btn btn-round btn-fill">
         <div class="row">
           <div class="col-md-12">
@@ -89,7 +93,11 @@ export default {
   },
   data() {
     return {
-      defaultView: 'no',
+      msgUser: 'Selecione e pressione me [OK] para visualizar o histórico dos exames do utilizador.',
+      msgExam: 'Selecione o exame e pressione em [OK] para visualizar o histórico.',
+      msgExit: 'Pressione para a direita para selecionar o utilizador.',
+      defaultViewDescritivo: 'Pressione para a direita para selecionar o utilizador.',
+      defaultView: 'yes',
       dataCharsExists: false,
       chartsBarAllData: {},
       chartsLineAllData: {
@@ -219,6 +227,7 @@ export default {
         })
     },
     bleGetHistoryExam() {
+      this.defaultViewDescritivo = this.msgExam
       this.defaultView = 'yes'
       this.execProcess = true
       let examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
@@ -268,6 +277,7 @@ export default {
               type: 'warning'
             })
             this.execProcess = false
+            this.defaultViewDescritivo = this.msgExam
             this.defaultView = 'yes'
           }
         })
@@ -308,6 +318,7 @@ export default {
               }
               let typeSel = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
               if (!typeSel) {
+                self.defaultViewDescritivo = self.msgExam
                 self.defaultView = 'yes'
               }
               break
@@ -316,7 +327,8 @@ export default {
               // iniicializa a variavel para selecionar a lsta do user
               self.classEvent = 'control-remote-patient'
               self.dataCharsExists = false
-              self.defaultView = 'no'
+              self.defaultViewDescritivo = self.msgUser
+              self.defaultView = 'yes'
 
               // se existir um user selecionado é porque se está na lista dos equipamentos
               if (self.posPatientSelected >= 0) {
@@ -340,6 +352,7 @@ export default {
                 EventBus.currentActiveRightComp = 0
                 // define o elemento ativo coomo sendo a barra lateral
                 EventBus.currentComponent = EventBus.sidebarName
+                self.defaultViewDescritivo = self.msgExit
                 return
               }
               // desloca a div para o inicio
@@ -353,17 +366,20 @@ export default {
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               if (self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
+                self.defaultViewDescritivo = self.msgExam
                 self.defaultView = 'yes'
               } else {
                 document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
                 self.dataCharsExists = false
-                self.defaultView = 'no'
+                self.defaultViewDescritivo = self.msgUser
+                self.defaultView = 'yes'
               }
               EventBus.moveLeftRightInView(1)
               if (self.posPatientSelected >= 0) {
                 // self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
               } else {
-                self.defaultView = 'no'
+                self.defaultViewDescritivo = self.msgUser
+                self.defaultView = 'yes'
               }
               break
             case 'left': // tecla para a esquerda
@@ -382,11 +398,13 @@ export default {
                   // desloca a div para o inicio
                   if (self.posPatientSelected >= 0) {
                     document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
+                    self.defaultViewDescritivo = self.msgExam
                     self.defaultView = 'yes'
                   } else {
                     document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
                     self.dataCharsExists = false
-                    self.defaultView = 'no'
+                    self.defaultViewDescritivo = self.msgUser
+                    self.defaultView = 'yes'
                   }
                   // limpa a lisa dos botões disponiveis para o user
                   self.btnExams = []
@@ -394,17 +412,21 @@ export default {
                   // estamos na lista dos users
                 } else {
                   EventBus.moveLeftRightInView(-1)
-                  self.defaultView = 'no'
+                  self.defaultViewDescritivo = self.msgExit
+                  self.defaultView = 'yes'
+                  return
                 }
               } else {
                 EventBus.moveLeftRightInView(-1)
+                self.defaultViewDescritivo = self.msgExam
                 self.defaultView = 'yes'
               }
               if (self.posPatientSelected >= 0) {
                 // self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
                 self.defaultView = 'yes'
               } else {
-                self.defaultView = 'no'
+                self.defaultViewDescritivo = self.msgUser
+                self.defaultView = 'yes'
               }
               break
             default:
@@ -508,6 +530,9 @@ export default {
   height: 600px;
   margin: -300px 0 0 -300px;
   z-index: 1500;
+}
+.clear-margin {
+  margin: 0 !important;
 }
 .clear-padding > div {
   padding: 0 !important;
