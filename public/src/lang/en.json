@@ -1,58 +1,62 @@
 {
-    "sidebar": {
-        "home": {
-            "title": "casa",
-            "text": "casa"
-        },
-        "history": {
-            "title": "teste do historico",
-            "text": "nao sei que fazer com esta"
-        },
-        "wizard": {
-            "title": "teste do wizard",
-            "text": "nao sei que fazer com esta"
-        },
-        "warning": {
-            "title": "Aviso",
-            "text": "Neste separador é exposto toda a informação critica dos alarmes."
-        },
-        "warning2": {
-            "title": "Aviso 02",
-            "text": "Neste separador é exposto toda a informação critica dos alarmes."
-        },
-        "showData": {
-            "title": "Mostra Dados",
-            "text": "onde mostra todos os dados dos sensores"
-        },
-        "showData2": {
-            "title": "Mostra Dados 02",
-            "text": "onde mostra todos os dados dos sensores"
-        },
-        "historyEnvironmentSensor": {
-            "title": "Hist. Sens. Ambientais",
-            "text": "historico dos sensores ambientais"
-        },
-        "historyEnvironmentSensor2": {
-            "title": "Hist. Sens. Ambientais V2",
-            "text": "historico dos sensores ambientais"
-        },
-        "diagnosis": {
-            "title": "Exames / Diagnósticos",
-            "text": "medir pressao arterial"
-        },
-        "video": {
-            "title": "Video",
-            "text": "video"
-        }
-    },
+  "sidebar": {
     "home": {
-        "title": "SandBox Area For Tests.",
-        "requestToken": "Request Token",
-        "sendSettings": "Send Vitabox Settings",
-        "sendSensorData": "Send Sensor Data",
-        "getBoards": "Get Boards",
-        "getPatients": "Get Patients",
-        "getSettings": "Get Settings",
-        "sendText": "Send Text"
+      "title": "casa",
+      "text": "casa"
+    },
+    "history": {
+      "title": "teste do historico",
+      "text": "nao sei que fazer com esta"
+    },
+    "wizard": {
+      "title": "teste do wizard",
+      "text": "nao sei que fazer com esta"
+    },
+    "warning": {
+      "title": "Aviso",
+      "text": "Neste separador é exposto toda a informação critica dos alarmes."
+    },
+    "warning2": {
+      "title": "Aviso 02",
+      "text": "Neste separador é exposto toda a informação critica dos alarmes."
+    },
+    "showData": {
+      "title": "Mostra Dados",
+      "text": "onde mostra todos os dados dos sensores"
+    },
+    "showData2": {
+      "title": "Mostra Dados 02",
+      "text": "onde mostra todos os dados dos sensores"
+    },
+    "historyEnvironmentSensor": {
+      "title": "Hist. Sens. Ambientais",
+      "text": "historico dos sensores ambientais"
+    },
+    "historyEnvironmentSensor2": {
+      "title": "Hist. Sens. Ambientais V2",
+      "text": "historico dos sensores ambientais"
+    },
+    "diagnosis": {
+      "title": "Exames / Diagnósticos",
+      "text": "medir pressao arterial"
+    },
+    "diagnosisHistory": {
+      "title": "Hist. de Diagnósticos",
+      "text": "Hist. de Diagnósticos"
+    },
+    "video": {
+      "title": "Video",
+      "text": "video"
     }
+  },
+  "home": {
+    "title": "SandBox Area For Tests.",
+    "requestToken": "Request Token",
+    "sendSettings": "Send Vitabox Settings",
+    "sendSensorData": "Send Sensor Data",
+    "getBoards": "Get Boards",
+    "getPatients": "Get Patients",
+    "getSettings": "Get Settings",
+    "sendText": "Send Text"
+  }
 }
