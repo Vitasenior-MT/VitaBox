@@ -15,7 +15,6 @@ export default {
     return {
       labelsPos: 0,
       clearChart: false,
-      color: this.getRandomColor(),
       lineChart: null,
       configChart: {
         type: 'line',
@@ -23,8 +22,8 @@ export default {
           labels: [],
           datasets: [{
             label: '',
-            borderColor: this.color,
-            pointBackgroundColor: this.color,
+            borderColor: '',
+            pointBackgroundColor: '',
             backgroundColor: 'rgba(0, 0, 0, 0)',
             data: []
           }]
@@ -40,14 +39,14 @@ export default {
           max: 150,
           legend: {
             position: 'top',
-            display: false,
+            display: true,
             labels: {
               fontSize: 18,
               padding: 20
             }
           },
           tooltips: {
-            enabled: false
+            enabled: true
           },
           scales: {
             yAxes: [{
@@ -68,20 +67,11 @@ export default {
   methods: {
     initGraphLine: function(_el) {
       var ctx = document.getElementById(_el).getContext('2d')
-      console.log("Data Set", this.dataChart)
-      this.configChart.data.datasets[0].data = this.dataChart.data
-      this.configChart.data.labels = this.dataChart.label
+      console.log("Data Sets", this.dataChart)
+      this.configChart.data = this.dataChart.data
       this.lineChart = new Chart(ctx, this.configChart)
-      this.lineChart.data.datasets = this.dataChart
+      // this.lineChart.data.datasets = this.dataChart
       this.lineChart.update()
-    },
-    getRandomColor() {
-      var letters = '0123456789ABCDEF';
-      var color = '#';
-      for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
     }
   },
   mounted() {

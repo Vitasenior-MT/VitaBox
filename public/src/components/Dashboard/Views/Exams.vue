@@ -29,6 +29,22 @@
         </div>
       </div>
     </div>
+    <div class="row clear-margin" v-show="defaultView == 'yes'">
+      <div class="col-lg-12 btn btn-round btn-fill">
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="text-center">
+              {{defaultViewDescritivo}}
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <img src='static/img/logo_A.png' alt=''>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row bloodpressure" v-show="examEvent == 'bloodpressure'">
       <div class="col-md-12">
         <div class="col-md-9">
@@ -413,6 +429,10 @@ export default {
   },
   data() {
     return {
+      msgUser: 'Selecione e pressione me [OK] para visualizar os exames disponiveis para o utilizador.',
+      msgExit: 'Pressione para a direita para selecionar o utilizador.',
+      defaultViewDescritivo: 'Pressione para a direita para selecionar o utilizador.',
+      defaultView: 'yes',
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
       patientsList: [],
@@ -916,6 +936,8 @@ export default {
             case 'ok_btn':
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
+              self.defaultView = 'no'
+              self.defaultViewDescritivo = ''
               if (!self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
               }
@@ -946,6 +968,8 @@ export default {
                 EventBus.currentActiveRightComp = 0
                 // define o elemento ativo coomo sendo a barra lateral
                 EventBus.currentComponent = EventBus.sidebarName
+                self.defaultView = 'yes'
+                self.defaultViewDescritivo = self.msgExit
                 return
               }
               // apaga a opção de exame selecionada
@@ -956,6 +980,8 @@ export default {
               // limpa a lisa dos botões disponiveis para o user
               self.btnExams = []
               self.resetValues()
+              self.defaultView = 'yes'
+              self.defaultViewDescritivo = self.msgUser
               console.log('if exit', cmd, EventBus.currentActiveRightComp)
               break
             case 'right': // tecla para a direita
@@ -969,6 +995,9 @@ export default {
               if (self.posPatientSelected >= 0) {
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
                 self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
+              } else {
+                self.defaultView = 'yes'
+                self.defaultViewDescritivo = self.msgUser
               }
               break
             case 'left': // tecla para a esquerda
@@ -992,6 +1021,8 @@ export default {
                     document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                   } else {
                     document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
+                    self.defaultView = 'yes'
+                    self.defaultViewDescritivo = self.msgUser
                   }
                   // limpa a lisa dos botões disponiveis para o user
                   self.btnExams = []
@@ -1000,6 +1031,8 @@ export default {
                   // estamos na lista dos users
                 } else {
                   EventBus.moveLeftRightInView(-1)
+                  self.defaultView = 'yes'
+                  self.defaultViewDescritivo = self.msgExit
                 }
               } else {
                 EventBus.moveLeftRightInView(-1)
@@ -1100,6 +1133,9 @@ export default {
   height: 600px;
   margin: -300px 0 0 -300px;
   z-index: 1500;
+}
+.clear-margin {
+  margin: 0 !important;
 }
 .clear-padding > div {
   padding: 0 !important;

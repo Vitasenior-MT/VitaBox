@@ -41,7 +41,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <img src='static/img/logo_A.gif' alt=''>
+            <img src='static/img/logo_A.png' alt=''>
           </div>
         </div>
       </div>
@@ -102,7 +102,7 @@ export default {
       chartsBarAllData: {},
       chartsLineAllData: {
         sizeArr: 1,
-        dataSets: []
+        charts: []
       },
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
@@ -211,7 +211,7 @@ export default {
             setTimeout(() => {
               EventBus.elementControl = document.getElementsByClassName(this.classEvent)
               EventBus.currentActiveRightComp = 0
-              // ativa o novo elemento adiconando a class que simboliza o elemento activo
+              // ativa o novo elemento adiconando a class que indica o elemento activo
               let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
               elem.focus()
               elem.classList.add('btn-fill')
@@ -230,44 +230,94 @@ export default {
       this.defaultViewDescritivo = this.msgExam
       this.defaultView = 'yes'
       this.execProcess = true
+      let dataTypeExam = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       let examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
       let examNameDes = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.examname
+      let countArrPos = -1
       this.$http
         .get('/api/sensorsble/' + this.patientId + '-' + examMac)
         .then(response => {
           if (response.data.status === true) {
-            let dataIerat = response.data.data.values
+            let dataIterat = response.data.data.values
             this.chartsBarAllData = {
-              lastUpdate: EventBus.dateFormat(dataIerat[0].value[dataIerat[0].value.length - 1].time),
+              lastUpdate: EventBus.dateFormat(dataIterat[0].value[dataIterat[0].value.length - 1].time),
               nameExam: examNameDes,
               dataCharts: []
             };
 
-            for (let index = 0; index < dataIerat.length; index++) {
+            for (let index = 0; index < dataIterat.length; index++) {
               this.chartsBarAllData.dataCharts.push({
                 key: 'chartBar-' + index,
                 dataBar: {
-                  x: dataIerat[index].sensortype,
-                  y: dataIerat[index].value[dataIerat[0].value.length - 1].value
+                  x: dataIterat[index].sensortype,
+                  y: dataIterat[index].value[dataIterat[0].value.length - 1].value
                 }
               });
-              this.chartsLineAllData.dataSets.push({
-                title: dataIerat[index].sensortype,
-                label: [],
-                data: []
-              })
-              for (let i = 0; i < dataIerat[index].value.length; i++) {
-                this.chartsLineAllData.dataSets[index].label.push(EventBus.dateFormat(dataIerat[index].value[i].time))
-                this.chartsLineAllData.dataSets[index].data.push(dataIerat[index].value[i].value);
+
+              let color = this.getRandomColor()
+              let laabeldataArr = this.getAttDataAndLabels(dataIterat[index].value)
+              switch (dataTypeExam) {
+                case 'bloodpressure':
+                  switch (dataIterat[index].sensortype) {
+                    case 'systolic':
+                      countArrPos++
+                      this.chartsLineAllData.charts.push({
+                        data: {
+                          labels: laabeldataArr[1],
+                          poschart: countArrPos,
+                          datasets: []
+                        }
+                      })
+                      break;
+                    case 'diastolic':
+                      break;
+                    case 'pulse':
+                      countArrPos++
+                      this.chartsLineAllData.charts.push({
+                        data: {
+                          labels: laabeldataArr[1],
+                          poschart: countArrPos,
+                          datasets: []
+                        }
+                      })
+                      break;
+                    default:
+                      break;
+                  }
+                  break
+                case 'bodytemperature':
+                case 'bodypulse':
+                case 'bodyscale':
+                case 'bandfitness':
+                  countArrPos++
+                  this.chartsLineAllData.charts.push({
+                    data: {
+                      labels: laabeldataArr[1],
+                      poschart: countArrPos,
+                      datasets: []
+                    }
+                  })
+                  break
+                default:
+                  break;
               }
+              this.chartsLineAllData.charts[countArrPos].data.datasets.push({
+                label: dataIterat[index].sensortype,
+                borderColor: color,
+                pointBackgroundColor: color,
+                backgroundColor: 'rgba(0, 0, 0, 0)',
+                data: laabeldataArr[0]
+              })
             }
 
-            this.chartsLineAllData.sizeArr = this.chartsLineAllData.dataSets.length
+            this.chartsLineAllData.sizeArr = this.chartsLineAllData.charts.length > 3 ? 3 : this.chartsLineAllData.charts.length
             console.log("AAA", this.chartsLineAllData)
             this.dataCharsExists = true
             this.execProcess = false
             this.defaultView = 'no'
-            document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
+            setTimeout(() => {
+              document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
+            }, 500);
           } else {
             this.$notifications.notify({
               message: '<h4>' + response.data.data + '</h4>',
@@ -285,6 +335,23 @@ export default {
           console.log('----> ', error)
           this.data = error
         })
+    },
+    getAttDataAndLabels(array) {
+      let labelArr = []
+      let dataArr = []
+      for (let i = 0; i < array.length; i++) {
+        labelArr.push(EventBus.smallDateFormat(array[i].time))
+        dataArr.push(array[i].value);
+      }
+      return [dataArr, labelArr]
+    },
+    getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
     },
     /**
      * TODO: Limpa todas as variaveis que contenham valores que são apresentados na pagina
@@ -444,7 +511,7 @@ export default {
         this.chartsBarAllData = {}
         this.chartsLineAllData = {
           sizeArr: 1,
-          dataSets: []
+          charts: []
         }
       }
     }
