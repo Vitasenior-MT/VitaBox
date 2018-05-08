@@ -15,10 +15,32 @@
       <div class="col-md-2" v-for="btn in btnExams"  :key='btn.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button  v-tooltip.bottom="'Pessione em [OK] para selecionar o exame.'" class="btn btn-block btn-success control-remote" type="button" :data-type="btn.type" v-on:click="bleExecExam">
+            <button
+              v-tooltip.bottom="'Pessione em [OK] para selecionar o exame.'"
+              class="btn btn-block btn-success control-remote"
+              type="button"
+              :data-type="btn.type"
+              :data-addrmac="btn.macAddr"
+              v-on:click="bleExecExam">
               <h2><b :class="btn.icon"></b></h2>
               <h5>{{ btn.nome }}</h5>
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clear-margin" v-show="defaultView == 'yes'">
+      <div class="col-lg-12 btn btn-round btn-fill">
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="text-center">
+              {{defaultViewDescritivo}}
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <img src='static/img/logo_A.png' alt=''>
           </div>
         </div>
       </div>
@@ -314,8 +336,8 @@
                 <h4 class="title">Pulsação</h4>
                 <hr>
                 <chart-line
-                  :id="chartLineVals.id"
-                  :lineChartId="chartLineVals.id"
+                  :id="'chartLine-1'"
+                  :lineChartId="'chartLine-1'"
                   :dataChart="this.dataBandFitness.heartrate"
                   :dataChartAvg="this.dataBandFitness.heartrateavg" >
                 </chart-line>
@@ -381,15 +403,13 @@
           :symbol="''">
         </ChartGauge>
         <h4 class="text-center">
-          <!-- <i class="fas fa-spinner fa-pulse fa-5x"></i> -->
-          <img src='static/img/load4.gif' alt=''>
+          <img src='static/img/load4_A.gif' alt=''>
         </h4>
         <h1 class="text-center">Aguarde</h1>
       </div>
       <div v-show="examEvent != 'bloodpressure'" id="loader">
         <h4 class="text-center">
-          <!-- <i class="fas fa-spinner fa-pulse fa-10x"></i> -->
-          <img src='static/img/load3.gif' alt=''>
+          <img src='static/img/load3_A.gif' alt=''>
         </h4>
         <h1 class="text-center">Aguarde</h1>
       </div>
@@ -400,7 +420,7 @@
 import { EventBus } from '../../../event-bus.js'
 import StatsCard from 'components/UIComponents/Cards/StatsCard.vue'
 import ChartGauge from 'components/UIComponents/Charts/chartGaugeItem1.vue'
-import ChartLine from 'components/UIComponents/Charts/chartLine.vue'
+import ChartLine from 'components/UIComponents/Charts/chartLineHeartRate.vue'
 export default {
   components: {
     ChartGauge,
@@ -409,14 +429,15 @@ export default {
   },
   data() {
     return {
+      msgUser: 'Selecione e pressione me [OK] para visualizar os exames disponiveis para o utilizador.',
+      msgExit: 'Pressione para a direita para selecionar o utilizador.',
+      defaultViewDescritivo: 'Pressione para a direita para selecionar o utilizador.',
+      defaultView: 'yes',
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
       patientsList: [],
       patientId: '',
       btnExams: [],
-      chartLineVals: {
-        id: 'chartLine-1'
-      },
       // definição do ojecto para medir a pressão arterial
       dataPressArt: {
         id: 'pressArterial-Chart',
@@ -465,6 +486,7 @@ export default {
         devicename: ''
       },
       examEvent: '', // frag para mostrar o elemento selecionado
+      examMac: '',
       canBeShown: true,
       battery: 0,
       tempCorp: 0,
@@ -482,37 +504,43 @@ export default {
           nome: 'Pressão Arterial',
           type: 'bloodpressure',
           icon: 'ti-heart-broken',
-          id: 'bloodpressure-0'
+          id: 'bloodpressure-0',
+          macAddr: ''
         },
         {
           nome: 'Temperatura',
           type: 'bodytemperature',
           icon: 'fas fa-thermometer-half',
-          id: 'bodytemperature-1'
+          id: 'bodytemperature-1',
+          macAddr: ''
         },
         {
           nome: 'Pulsometro',
           type: 'bodypulse',
           icon: 'ti-heart-broken',
-          id: 'bodypulse-2'
+          id: 'bodypulse-2',
+          macAddr: ''
         },
         {
           nome: 'Pesar',
           type: 'bodyscale',
           icon: 'ti-dashboard',
-          id: 'bodyscale-3'
+          id: 'bodyscale-3',
+          macAddr: ''
         },
         {
           nome: 'Glicemia',
           type: 'bloodglucose',
           icon: 'fas fa-chart-bar',
-          id: 'bloodglucose-4'
+          id: 'bloodglucose-4',
+          macAddr: ''
         },
         {
           nome: 'Banda Fitness',
           type: 'bandfitness',
           icon: 'far fa-compass',
-          id: 'bandfitness-5'
+          id: 'bandfitness-5',
+          macAddr: ''
         }
       ]
     }
@@ -736,26 +764,32 @@ export default {
         .get('/api/patient/exames/' + this.patientId)
         .then(response => {
           if (response.data.status === true) {
-            let devacesArray = response.data.data[0].device_list
+            let devacesArray = response.data.data
             for (let index = 0; index < devacesArray.length; index++) {
               let btnopt = ''
-              switch (devacesArray[index].device_type) {
+              switch (devacesArray[index].device) {
                 case 'bloodpressure':
+                  this.btns[0].macAddr = devacesArray[index].mac_addr
                   btnopt = this.btns[0]
                   break
                 case 'bodytemperature':
+                  this.btns[1].macAddr = devacesArray[index].mac_addr
                   btnopt = this.btns[1]
                   break
                 case 'bodypulse':
+                  this.btns[2].macAddr = devacesArray[index].mac_addr
                   btnopt = this.btns[2]
                   break
                 case 'bodyscale':
+                  this.btns[3].macAddr = devacesArray[index].mac_addr
                   btnopt = this.btns[3]
                   break
                 case 'bloodglucose':
+                  this.btns[4].macAddr = devacesArray[index].mac_addr
                   btnopt = this.btns[4]
                   break
                 case 'bandfitness':
+                  this.btns[5].macAddr = devacesArray[index].mac_addr
                   btnopt = this.btns[5]
                   break
                 default:
@@ -776,6 +810,7 @@ export default {
               // EventBus.scrollScreen(elem)
               elem.scrollIntoView(false)
               self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+              self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
             }, 10)
           } else {
             console.log('erro', response.data)
@@ -787,10 +822,10 @@ export default {
     },
     bleExecExam() {
       this.execProcess = true
-      // console.log("Exame event", this.examEvent)
+      console.log("Exame event", this.examEvent, this.examMac)
       this.resetValues()
       this.$http
-        .get('/api/ble/' + this.examEvent.toLowerCase() + '/' + this.patientId)
+        .get('/api/ble/' + this.examEvent.toLowerCase() + '/' + this.examMac + '/' + this.patientId)
         .then(response => {
           if (response.data.status === true) {
             document.getElementsByClassName(this.examEvent)[0].scrollIntoView(false)
@@ -901,6 +936,8 @@ export default {
             case 'ok_btn':
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
+              self.defaultView = 'no'
+              self.defaultViewDescritivo = ''
               if (!self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
               }
@@ -931,15 +968,20 @@ export default {
                 EventBus.currentActiveRightComp = 0
                 // define o elemento ativo coomo sendo a barra lateral
                 EventBus.currentComponent = EventBus.sidebarName
+                self.defaultView = 'yes'
+                self.defaultViewDescritivo = self.msgExit
                 return
               }
               // apaga a opção de exame selecionada
               self.examEvent = ''
+              self.examMac = ''
               // desloca a div para o inicio
               document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
               // limpa a lisa dos botões disponiveis para o user
               self.btnExams = []
               self.resetValues()
+              self.defaultView = 'yes'
+              self.defaultViewDescritivo = self.msgUser
               console.log('if exit', cmd, EventBus.currentActiveRightComp)
               break
             case 'right': // tecla para a direita
@@ -952,6 +994,10 @@ export default {
               EventBus.moveLeftRightInView(1)
               if (self.posPatientSelected >= 0) {
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+                self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
+              } else {
+                self.defaultView = 'yes'
+                self.defaultViewDescritivo = self.msgUser
               }
               break
             case 'left': // tecla para a esquerda
@@ -969,11 +1015,14 @@ export default {
                   self.posPatientSelected = -1
                   // apaga a opção de exame selecionada
                   self.examEvent = ''
+                  self.examMac = ''
                   // desloca a div para o inicio
                   if (self.posPatientSelected >= 0) {
                     document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                   } else {
                     document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
+                    self.defaultView = 'yes'
+                    self.defaultViewDescritivo = self.msgUser
                   }
                   // limpa a lisa dos botões disponiveis para o user
                   self.btnExams = []
@@ -982,12 +1031,15 @@ export default {
                   // estamos na lista dos users
                 } else {
                   EventBus.moveLeftRightInView(-1)
+                  self.defaultView = 'yes'
+                  self.defaultViewDescritivo = self.msgExit
                 }
               } else {
                 EventBus.moveLeftRightInView(-1)
               }
               if (self.posPatientSelected >= 0) {
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+                self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
               }
               break
             default:
@@ -1081,6 +1133,9 @@ export default {
   height: 600px;
   margin: -300px 0 0 -300px;
   z-index: 1500;
+}
+.clear-margin {
+  margin: 0 !important;
 }
 .clear-padding > div {
   padding: 0 !important;

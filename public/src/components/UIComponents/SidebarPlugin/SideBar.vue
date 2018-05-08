@@ -11,7 +11,7 @@
       <div class='logo'>
         <a href='#' class='simple-text'>
             <div class='logo-img'>
-                <img src='static/img/logo2.gif' alt=''>
+                <img src='static/img/logo2_A.gif' alt=''>
             </div>
           VitaSénior - VitaBox
         </a>

@@ -8,6 +8,7 @@ import History from 'src/components/Dashboard/Views/History.vue'
 import History2 from 'src/components/Dashboard/Views/History2.vue'
 import History3 from 'src/components/Dashboard/Views/History3.vue'
 import Exams from 'src/components/Dashboard/Views/Exams.vue'
+import ExamsHist from 'src/components/Dashboard/Views/ExamsHist.vue'
 import Wizard from 'src/components/Dashboard/Views/Wizard.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import Warnings2 from 'src/components/Dashboard/Views/Warnings2.vue'
@@ -49,6 +50,11 @@ const routes = [
         path: 'exames',
         name: 'Exames / Diagnósticos',
         component: Exams,
+        minimal: true
+      }, {
+        path: 'exameshistorico',
+        name: 'Hist. de Diagnósticos',
+        component: ExamsHist,
         minimal: true
       }, {
         path: 'wizard',

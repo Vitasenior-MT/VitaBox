@@ -10,6 +10,12 @@ const SidebarStore = {
       text: 'sidebar.diagnosis.text'
     },
     {
+      name: 'sidebar.diagnosisHistory.title',
+      icon: 'ti-time',
+      path: '/vitabox/exameshistorico',
+      text: 'sidebar.diagnosisHistory.text'
+    },
+    {
       name: 'sidebar.home.title',
       icon: 'ti-home',
       path: '/vitabox/home',
