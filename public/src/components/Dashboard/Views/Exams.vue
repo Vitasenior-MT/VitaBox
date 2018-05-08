@@ -20,7 +20,6 @@
               class="btn btn-block btn-success control-remote"
               type="button"
               :data-type="btn.type"
-              :data-addrmac="btn.macAddr"
               v-on:click="bleExecExam">
               <h2><b :class="btn.icon"></b></h2>
               <h5>{{ btn.nome }}</h5>
@@ -504,43 +503,37 @@ export default {
           nome: 'Pressão Arterial',
           type: 'bloodpressure',
           icon: 'ti-heart-broken',
-          id: 'bloodpressure-0',
-          macAddr: ''
+          id: 'bloodpressure-0'
         },
         {
           nome: 'Temperatura',
           type: 'bodytemperature',
           icon: 'fas fa-thermometer-half',
-          id: 'bodytemperature-1',
-          macAddr: ''
+          id: 'bodytemperature-1'
         },
         {
           nome: 'Pulsometro',
           type: 'bodypulse',
           icon: 'ti-heart-broken',
-          id: 'bodypulse-2',
-          macAddr: ''
+          id: 'bodypulse-2'
         },
         {
           nome: 'Pesar',
           type: 'bodyscale',
           icon: 'ti-dashboard',
-          id: 'bodyscale-3',
-          macAddr: ''
+          id: 'bodyscale-3'
         },
         {
           nome: 'Glicemia',
           type: 'bloodglucose',
           icon: 'fas fa-chart-bar',
-          id: 'bloodglucose-4',
-          macAddr: ''
+          id: 'bloodglucose-4'
         },
         {
           nome: 'Banda Fitness',
           type: 'bandfitness',
           icon: 'far fa-compass',
-          id: 'bandfitness-5',
-          macAddr: ''
+          id: 'bandfitness-5'
         }
       ]
     }
@@ -769,27 +762,21 @@ export default {
               let btnopt = ''
               switch (devacesArray[index].device) {
                 case 'bloodpressure':
-                  this.btns[0].macAddr = devacesArray[index].mac_addr
                   btnopt = this.btns[0]
                   break
                 case 'bodytemperature':
-                  this.btns[1].macAddr = devacesArray[index].mac_addr
                   btnopt = this.btns[1]
                   break
                 case 'bodypulse':
-                  this.btns[2].macAddr = devacesArray[index].mac_addr
                   btnopt = this.btns[2]
                   break
                 case 'bodyscale':
-                  this.btns[3].macAddr = devacesArray[index].mac_addr
                   btnopt = this.btns[3]
                   break
                 case 'bloodglucose':
-                  this.btns[4].macAddr = devacesArray[index].mac_addr
                   btnopt = this.btns[4]
                   break
                 case 'bandfitness':
-                  this.btns[5].macAddr = devacesArray[index].mac_addr
                   btnopt = this.btns[5]
                   break
                 default:
@@ -822,10 +809,9 @@ export default {
     },
     bleExecExam() {
       this.execProcess = true
-      console.log("Exame event", this.examEvent, this.examMac)
       this.resetValues()
       this.$http
-        .get('/api/ble/' + this.examEvent.toLowerCase() + '/' + this.examMac + '/' + this.patientId)
+        .get('/api/ble/' + this.examEvent.toLowerCase() + '/' + this.patientId)
         .then(response => {
           if (response.data.status === true) {
             document.getElementsByClassName(this.examEvent)[0].scrollIntoView(false)
@@ -1061,13 +1047,9 @@ export default {
         for (var index in data) {
           this.patientsList.push({
             name: data[index].name,
-            id: data[index].id // ,
-            // gender: data[index].gender === 'male' ? 'Masculino' : data[index].gender === 'female' ? 'Feminino' : data[index].gender,
-            // birthdate: this.dateFormat(data[index].birthdate),
-            // age: this.getAge(data[index].birthdate)
+            id: data[index].id
           })
         }
-        // console.log("users", response);
       })
       .catch(error => {
         console.log(error)
