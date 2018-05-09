@@ -531,7 +531,6 @@ export default {
             id: data[index].id
           })
         }
-        // console.log("users", response);
       })
       .catch(error => {
         console.log(error)
