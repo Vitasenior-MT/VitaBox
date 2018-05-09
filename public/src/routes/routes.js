@@ -32,16 +32,6 @@ const routes = [
         component: Home,
         minimal: true
       }, {
-        path: 'history',
-        name: 'history',
-        component: History,
-        minimal: false
-      }, {
-        path: 'historicosensoresambientais',
-        name: 'Historico Sensores Ambientais',
-        component: History2,
-        minimal: false
-      }, {
         path: 'historicosensoresambientaisv2',
         name: 'Historico Sensores Ambientais V2',
         component: History3,
@@ -56,11 +46,6 @@ const routes = [
         name: 'Hist. de Diagnósticos',
         component: ExamsHist,
         minimal: true
-      }, {
-        path: 'wizard',
-        name: 'wizard',
-        component: Wizard,
-        minimal: false
       }, {
         path: 'warnings',
         name: 'warnings',
