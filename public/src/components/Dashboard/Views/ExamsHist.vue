@@ -49,21 +49,15 @@
     <div class="row clear-margin show-charts-history" v-show="dataCharsExists">
       <div class="col-md-12 btn btn-round btn-fill">
         <div class="row">
-          <div class="col-md-12">
-            <h3 style="margin-button: 4px; margin-top: 0;"><u>{{this.chartsBarAllData.nameExam}}</u></h3>
+          <div class="col-md-12" style="padding-bottom: 10px;">
+            <h3 style="display:inline;"><u>{{this.chartsBarAllData.nameExam}}</u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</h3>
+            <h5 style="display:inline;">Ultima execução: &nbsp; <i class="ti-calendar"></i> &nbsp; {{this.chartsBarAllData.lastUpdate}}</h5>
           </div>
         </div>
         <card-chart-history-bar :dataCharts="chartsBarAllData.dataCharts"></card-chart-history-bar>
+        <hr style="margin: 0px;">
         <div class="row">
-          <div class="col-md-12">
-            <h5 style="margin: 0px;">
-              Ultima execução: &nbsp; <i class="ti-calendar"></i> &nbsp; {{this.chartsBarAllData.lastUpdate}}
-            </h5>
-          </div>
-        </div>
-        <hr>
-        <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12" style="padding-bottom: 10px;">
             <h3 style="margin: 0px;">
               Histórico
             </h3>
