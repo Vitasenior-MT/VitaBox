@@ -114,6 +114,18 @@ export const app = new Vue({
         }, 3000)
       }
     },
+    blocked: function() {
+      console.log("Blocked");
+      /*let self = this
+      this.$modal.show('dialog', data)
+      if (!this.timeout) {
+        this.timeout = true
+        setTimeout(() => {
+          self.$modal.hide('dialog')
+          self.timeout = false
+        }, 3000)
+      }*/
+    },
     cmd: function(cmd) {
       switch (cmd) {
         case 'up':
