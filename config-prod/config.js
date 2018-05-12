@@ -2,6 +2,33 @@
 var fs = require('fs');
 
 module.exports = {
+  TimersConfig: {
+    waitingTimeTillNextWarning: {
+      hour: 0,
+      min: 5,
+      sec: 0
+    },
+    waitingTimeTillCheckForCecIsAlive: {
+      hour: 0,
+      min: 0,
+      sec: 4
+    },
+    timeTillAvgOutExpiredDate: {
+      hour: 5,
+      min: 0,
+      sec: 0
+    },
+    deleteRate: {
+      hour: 5,
+      min: 0,
+      sec: 0
+    },
+    postRate: {
+      hour: 0,
+      min: 0,
+      sec: 5
+    }
+  },
   RemoteConfigs: {
     remoteserver: "192.168.161.132",
     remoteport: 8080
@@ -10,7 +37,7 @@ module.exports = {
     port: 10000,
     host: 'fd00::1'
   },
-  ServerSensorRegisterConfigs: {
+  ServerBoardRegisterConfigs: {
     port: 10001,
     host: 'fd00::1'
   },
