@@ -35,7 +35,9 @@ sudo sed -i -e 's/\r$//' autoStartChrome.sh
 sudo chmod +x autoStartChrome.sh
 
 #4. sensors config and autostart
-git clone https://github.com/contiki-os/contiki.git
+git clone https://github.com/contiki-ng/contiki-ng.git
+git submodule init
+git submodule update
 make TARGET=zoul --directory contiki/examples/ipv6/rpl-border-router/ savetarget
 make --directory contiki/examples/ipv6/rpl-border-router/ border-router.upload && make --directory contiki/examples/ipv6/rpl-border-router/ connect-router
 
