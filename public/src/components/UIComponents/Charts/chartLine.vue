@@ -9,7 +9,8 @@ export default {
   props: [
     'lineChartId',
     'chartTitle',
-    'dataChart'
+    'dataChart',
+    'defSecoundScale'
   ],
   data() {
     return {
@@ -30,13 +31,12 @@ export default {
         },
         options: {
           responsive: true,
+          // maintainAspectRatio: false,
           title: {
-            display: true,
+            display: false,
             text: this.chartTitle,
             fontSize: 18
           },
-          min: 0,
-          max: 150,
           legend: {
             position: 'top',
             display: true,
@@ -46,16 +46,21 @@ export default {
             }
           },
           tooltips: {
-            enabled: true
+            enabled: false
           },
           scales: {
             yAxes: [{
+              position: "left",
+              id: "y-axis-0",
+              type: 'linear',
               ticks: {
                 fontSize: 18
               }
             }],
             xAxes: [{
               ticks: {
+                maxRotation: 80,
+                minRotation: 80,
                 fontSize: 18
               }
             }]
@@ -66,11 +71,14 @@ export default {
   },
   methods: {
     initGraphLine: function(_el) {
-      var ctx = document.getElementById(_el).getContext('2d')
-      console.log("Data Sets", this.dataChart)
-      this.configChart.data = this.dataChart.data
+      var canvas = document.getElementById(_el)
+      var ctx = canvas.getContext('2d')
+      if (this.defSecoundScale && this.defSecoundScale !== '' && this.defSecoundScale !== undefined) {
+        this.configChart.options.scales.yAxes[0].id = "y-axis-1"
+        this.configChart.options.scales.yAxes.push(this.defSecoundScale)
+      }
       this.lineChart = new Chart(ctx, this.configChart)
-      // this.lineChart.data.datasets = this.dataChart
+      this.lineChart.data = this.dataChart.data
       this.lineChart.update()
     }
   },
@@ -78,9 +86,7 @@ export default {
     this.initGraphLine(this.lineChartId)
   },
   watch: {
-    dataChart: function(value) {
-      console.log('chartline', value)
-    }
+    dataChart: function(value) {}
   }
 }
 </script>

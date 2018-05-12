@@ -116,7 +116,7 @@ export const app = new Vue({
     },
     blocked: function() {
       console.log("Blocked");
-      /*let self = this
+      /* let self = this
       this.$modal.show('dialog', data)
       if (!this.timeout) {
         this.timeout = true
@@ -124,7 +124,7 @@ export const app = new Vue({
           self.$modal.hide('dialog')
           self.timeout = false
         }, 3000)
-      }*/
+      } */
     },
     cmd: function(cmd) {
       switch (cmd) {

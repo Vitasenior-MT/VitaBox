@@ -16,19 +16,16 @@ export default {
         type: 'bar',
         data: {
           // Data to be represented on x-axis
-          labels: [
-          ],
-          datasets: [
-            {
-              label: '',
-              backgroundColor: '#CDD452',
-              pointBackgroundColor: '#CDD452',
-              borderWidth: 1,
-              pointBorderColor: '#CDD452',
-              // Data to be represented on y-axis
-              data: []
-            }
-          ]
+          labels: [],
+          datasets: [{
+            label: '',
+            backgroundColor: '#CDD452',
+            pointBackgroundColor: '#CDD452',
+            borderWidth: 1,
+            pointBorderColor: '#CDD452',
+            // Data to be represented on y-axis
+            data: []
+          }]
         },
         options: {
           hover: {
@@ -40,7 +37,6 @@ export default {
               var chartInstance = this.chart
               var ctx = chartInstance.ctx
 
-              // ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily)
               ctx.font = Chart.helpers.fontString(16, 'bold', Chart.defaults.global.defaultFontFamily)
               ctx.textAlign = 'center'
               ctx.textBaseline = 'bottom'
@@ -53,6 +49,9 @@ export default {
                 });
               });
             }
+          },
+          tooltips: {
+            enabled: false
           },
           scales: {
             yAxes: [
@@ -89,6 +88,8 @@ export default {
   methods: {
     initGraphLine: function(_el) {
       var ctx = document.getElementById(_el).getContext('2d')
+      this.configChart.data.labels = []
+      this.configChart.data.datasets[0].data = []
       this.barChart = new Chart(ctx, this.configChart)
       this.barChart.data.labels.push(this.dataChart.x)
       this.barChart.data.datasets[0].data.push(this.dataChart.y)

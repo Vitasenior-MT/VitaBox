@@ -1,8 +1,8 @@
 <template>
-<div class="row">
+  <div class="row">
     <div class="col-md-2" v-for="chartData in this.dataCharts" :key="chartData.id">
       <div class="card">
-        <div class="content" style="height: 130px;">
+        <div class="content" style="height: 170px;">
           <chart-bar-single
             :id="chartData.key"
             :barChartId="chartData.key"

@@ -59,7 +59,7 @@
         <div class="row">
           <div class="col-md-12" style="padding-bottom: 10px;">
             <h3 style="margin: 0px;">
-              Histórico
+              Histórico - Últimos {{ lastHistRecords }} dados recolhidos.
             </h3>
           </div>
         </div>
@@ -92,6 +92,7 @@ export default {
       msgExit: 'Pressione para a direita para selecionar o utilizador.',
       defaultViewDescritivo: 'Pressione para a direita para selecionar o utilizador.',
       defaultView: 'yes',
+      lastHistRecords: 10,
       dataCharsExists: false,
       chartsBarAllData: {},
       chartsLineAllData: {
@@ -229,10 +230,10 @@ export default {
       let examNameDes = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.examname
       let countArrPos = -1
       this.$http
-        .get('/api/sensorsble/' + this.patientId + '-' + examMac)
+        .get('/api/sensorsble/' + this.patientId + '-' + examMac + '/' + this.lastHistRecords)
         .then(response => {
           if (response.data.status === true) {
-            let dataIterat = response.data.data.values
+            let dataIterat = response.data.data
             this.chartsBarAllData = {
               lastUpdate: EventBus.dateFormat(dataIterat[0].value[dataIterat[0].value.length - 1].time),
               nameExam: examNameDes,
@@ -247,13 +248,13 @@ export default {
                   y: dataIterat[index].value[dataIterat[0].value.length - 1].value
                 }
               });
-
+              let chartIDLabel = "y-axis-0"
               let color = this.getRandomColor()
               let laabeldataArr = this.getAttDataAndLabels(dataIterat[index].value)
               switch (dataTypeExam) {
                 case 'bloodpressure':
                   switch (dataIterat[index].sensortype) {
-                    case 'systolic':
+                    case 'diastolic':
                       countArrPos++
                       this.chartsLineAllData.charts.push({
                         data: {
@@ -262,9 +263,7 @@ export default {
                           datasets: []
                         }
                       })
-                      break;
-                    case 'diastolic':
-                      break;
+                      break
                     case 'pulse':
                       countArrPos++
                       this.chartsLineAllData.charts.push({
@@ -274,15 +273,40 @@ export default {
                           datasets: []
                         }
                       })
-                      break;
+                      break
                     default:
-                      break;
+                      break
+                  }
+                  break
+                case 'bandfitness':
+                  switch (dataIterat[index].sensortype) {
+                    case 'steps':
+                    case 'callories':
+                      countArrPos++
+                      chartIDLabel = "y-axis-1"
+                      this.chartsLineAllData.charts.push({
+                        data: {
+                          labels: laabeldataArr[1],
+                          secoundScale: {
+                            position: "right",
+                            id: "y-axis-0",
+                            type: 'linear',
+                            ticks: {
+                              fontSize: 18
+                            }
+                          },
+                          poschart: countArrPos,
+                          datasets: []
+                        }
+                      })
+                      break
+                    default:
+                      break
                   }
                   break
                 case 'bodytemperature':
                 case 'bodypulse':
                 case 'bodyscale':
-                case 'bandfitness':
                   countArrPos++
                   this.chartsLineAllData.charts.push({
                     data: {
@@ -298,6 +322,7 @@ export default {
               this.chartsLineAllData.charts[countArrPos].data.datasets.push({
                 label: dataIterat[index].sensortype,
                 borderColor: color,
+                yAxisID: chartIDLabel,
                 pointBackgroundColor: color,
                 backgroundColor: 'rgba(0, 0, 0, 0)',
                 data: laabeldataArr[0]
@@ -500,7 +525,7 @@ export default {
   watch: {
     defaultView: function(value) {
       console.log("change defaultView - ", value)
-      if (value === 'yes' || (!this.dataCharsExists && value === 'no')) {
+      if (value === 'yes' || (!this.dataCharsExists && value === 'yes')) {
         this.dataCharsExists = false
         this.chartsBarAllData = {}
         this.chartsLineAllData = {

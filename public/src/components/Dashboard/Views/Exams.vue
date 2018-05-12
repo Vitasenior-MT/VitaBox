@@ -44,8 +44,8 @@
         </div>
       </div>
     </div>
-    <div class="row bloodpressure" v-show="examEvent == 'bloodpressure'">
-      <div class="col-md-12">
+    <div class="row bloodpressure clear-margin" v-show="examEvent == 'bloodpressure'">
+      <div class="col-md-12 btn btn-round btn-fill">
         <div class="col-md-9">
           <div class="card">
             <div class="content">
@@ -54,17 +54,10 @@
               <ol>
                 <h4>
                   <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-9 text-justify text-div-wrap">
                       <li>Coloque a bracelete no braço.</li>
                       <li>Ajuste a bracelete conforme mostrado na imagem.</li>
                       <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                    </div>
-                    <div class="col-md-3">
-                      <img src='static/img/bloodpressure.png' alt="" class="img-fit">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-9">
                       <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar e iniciar o processo.</li>
                       <li>A luz indicadora de equipamento ligado pisca.</li>
                       <li>Após o equpamento ser detectado a luz deixa de piscar ficando sempre ligada.</li>
@@ -72,7 +65,8 @@
                       <li>Após todos os dadps aparecerem na televisão e uma correta execução o equipamento desliga-se automáticamente.</li>
                     </div>
                     <div class="col-md-3">
-                      <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                      <img src='static/img/bloodpressure.png' alt="" class="img-fit">
+                      <div class="row"><div class="col-md-12">&nbsp;<br>&nbsp;</div></div>
                       <img src='static/img/bloodpressure.gif' alt="" class="img-fit">
                     </div>
                   </div>
@@ -104,8 +98,8 @@
         </div>
       </div>
     </div>
-    <div class="row bodyscale" v-show="examEvent == 'bodyscale'">
-      <div class="col-md-12">
+    <div class="row bodyscale clear-margin" v-show="examEvent == 'bodyscale'">
+      <div class="col-md-12 btn btn-round btn-fill">
         <div class="col-md-9">
           <div class="card">
             <div class="content">
@@ -114,7 +108,7 @@
               <ol>
                 <h4>
                   <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-9 text-justify text-div-wrap">
                       <li>Coloque o equipamento numa superficie sólida, plana, de fácil aceesso, e livre de tapetes para que seja possivel efetuar uma correta execução.</li>
                       <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
                       <li>Suba para cima do equipamento.</li>
@@ -147,8 +141,8 @@
         </div>
       </div>
     </div>
-    <div class="row bloodglucose" v-show="examEvent == 'bloodglucose'">
-      <div class="col-md-12">
+    <div class="row bloodglucose clear-margin" v-show="examEvent == 'bloodglucose'">
+      <div class="col-md-12 btn btn-round btn-fill">
         <div class="col-md-8">
           <div class="card">
             <div class="header">
@@ -201,8 +195,8 @@
         </div>
       </div>
     </div>
-    <div class="row bodytemperature" v-show="examEvent == 'bodytemperature'">
-      <div class="col-md-12">
+    <div class="row bodytemperature clear-margin" v-show="examEvent == 'bodytemperature'">
+      <div class="col-md-12 btn btn-round btn-fill">
         <div class="col-md-9">
           <div class="card">
             <div class="content">
@@ -211,16 +205,9 @@
               <ol>
                 <h4>
                   <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-9 text-justify text-div-wrap">
                       <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
                       <li>Coloque o equipamento de acordo com a imagem ao lado.</li>
-                    </div>
-                    <div class="col-md-3">
-                      <img src='static/img/bodytemp.png' alt="" class="img-fit">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-10">
                       <li>Pressione no botão até que o equipamento ligue.</li>
                       <li>Quando o equipamento estiver ligado uma luz indicadora pisca.</li>
                       <li>Após a deteção do equipamento a luz indicadora apaga-se.</li>
@@ -230,8 +217,9 @@
                       <li>Pressione novamente no botão <b class="ti-power-off"></b> até que o equipamento se deslique.</li>
                       <li>É importante que o equipamento seja desligado de forma a economizar a bateria.</li>
                     </div>
-                    <div class="col-md-2">
-                      <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                    <div class="col-md-3">
+                      <img src='static/img/bodytemp.png' alt="" class="img-fit">
+                      <div class="row"><div class="col-md-12">&nbsp;<br>&nbsp;</div></div>
                       <img src='static/img/bodytemp.gif' alt="" class="img-fit">
                     </div>
                   </div>
@@ -262,8 +250,8 @@
         </div>
       </div>
     </div>
-    <div class="row bodypulse" v-show="examEvent == 'bodypulse'">
-      <div class="col-md-12">
+    <div class="row bodypulse clear-margin" v-show="examEvent == 'bodypulse'">
+      <div class="col-md-12 btn btn-round btn-fill">
         <div class="col-md-9">
           <div class="card">
             <div class="content">
@@ -272,22 +260,17 @@
               <ol>
                 <h4>
                   <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-9 text-justify text-div-wrap">
                       <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
                       <li>Coloque o equipamento no dedo conforme apresentado na imagem.</li>
-                    </div>
-                    <div class="col-md-3">
-                      <img src='static/img/pulse.png' alt="" class="img-fit">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-9">
                       <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar.</li>
                       <li>Aguarde até que todos os valores apareçam na televisão.</li>
                       <li>Quando todos os valores aparecerem, o processo encontra-se concluido.</li>
                       <li>Pode retirar o equipamento do dedo e o mesmo desliga-se automáticamente.</li>
                     </div>
                     <div class="col-md-3">
+                      <img src='static/img/pulse.png' alt="" class="img-fit">
+                      <div class="row"><div class="col-md-12">&nbsp;<br>&nbsp;</div></div>
                       <img src='static/img/pulse.gif' alt="" class="img-fit">
                     </div>
                   </div>
@@ -314,8 +297,8 @@
         </div>
       </div>
     </div>
-    <div class="row bandfitness" v-show="examEvent == 'bandfitness'">
-      <div class="col-md-12">
+    <div class="row bandfitness clear-margin" v-show="examEvent == 'bandfitness'">
+      <div class="col-md-12 btn btn-round btn-fill">
         <div class="col-md-9">
           <div class="col-md-12">
             <div class="card">
@@ -323,7 +306,7 @@
                 <h4 class="title">Modo de Utilização</h4><hr>
                 <ul>
                   <h4>
-                    <li>Assegure-se de que possui a banda corretamente colocada no pulso.</li>
+                    <li class="text-justify text-div-wrap">Assegure-se de que possui a banda corretamente colocada no pulso.</li>
                   </h4>
                 </ul>
               </div>
@@ -1138,4 +1121,7 @@ body {
   width: 100%;
   height: auto;
 }
+.text-div-wrap {
+  white-space: pre-line;
+  }
 </style>
