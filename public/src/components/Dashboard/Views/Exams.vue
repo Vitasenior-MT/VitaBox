@@ -56,18 +56,24 @@
                   <div class="row">
                     <div class="col-md-9 text-justify text-div-wrap">
                       <li>Coloque a bracelete no braço.</li>
-                      <li>Ajuste a bracelete conforme mostrado na imagem.</li>
+                      <li>Ajuste a bracelete conforme mostrado na imagem (Fig.1).</li>
                       <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                      <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar e iniciar o processo.</li>
+                      <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar e iniciar o processo (Fig.2).</li>
                       <li>A luz indicadora de equipamento ligado pisca.</li>
                       <li>Após o equpamento ser detectado a luz deixa de piscar ficando sempre ligada.</li>
                       <li>Aguarde até o processo terminar.</li>
                       <li>Após todos os dadps aparecerem na televisão e uma correta execução o equipamento desliga-se automáticamente.</li>
                     </div>
                     <div class="col-md-3">
-                      <img src='static/img/bloodpressure.png' alt="" class="img-fit">
-                      <div class="row"><div class="col-md-12">&nbsp;<br>&nbsp;</div></div>
-                      <img src='static/img/bloodpressure.gif' alt="" class="img-fit">
+                      <figure>
+                        <img src='static/img/bloodpressure.png' alt="" class="img-fit">
+                        <figcaption>Fig.1</figcaption>
+                      </figure>
+                      <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                      <figure>
+                        <img src='static/img/bloodpressure.gif' alt="" class="img-fit">
+                        <figcaption>Fig.2</figcaption>
+                      </figure>
                     </div>
                   </div>
                 </h4>
@@ -109,9 +115,9 @@
                 <h4>
                   <div class="row">
                     <div class="col-md-9 text-justify text-div-wrap">
-                      <li>Coloque o equipamento numa superficie sólida, plana, de fácil aceesso, e livre de tapetes para que seja possivel efetuar uma correta execução.</li>
+                      <li>Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta execução.</li>
                       <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                      <li>Suba para cima do equipamento.</li>
+                      <li>Para que o processo decorra com a melhor forma esteja descalço e suba para cima do equipamento.</li>
                       <li>O equipamento liga-se automáticamente.</li>
                       <li>Quando o valor obtido estabilizar o mesmo irá piscar.</li>
                       <li>Após a correta recolha dos dados o equipamento desliga-se automáticamente.</li>
@@ -207,20 +213,26 @@
                   <div class="row">
                     <div class="col-md-9 text-justify text-div-wrap">
                       <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                      <li>Coloque o equipamento de acordo com a imagem ao lado.</li>
-                      <li>Pressione no botão até que o equipamento ligue.</li>
+                      <li>Coloque o equipamento de acordo com a imagem ao lado (Fig.1).</li>
+                      <li>Pressione no botão até que o equipamento ligue (Fig.2).</li>
                       <li>Quando o equipamento estiver ligado uma luz indicadora pisca.</li>
                       <li>Após a deteção do equipamento a luz indicadora apaga-se.</li>
                       <li>Aguarde até que todos os valores apareçam na televisão.</li>
                       <li>Após a conclusão do processo a luz indicadora volta a piscar.</li>
                       <li>Pode retirar o equipamento e desliga-lo.</li>
-                      <li>Pressione novamente no botão <b class="ti-power-off"></b> até que o equipamento se deslique.</li>
+                      <li>Pressione novamente no botão <b class="ti-power-off"></b> até que o equipamento se deslique (Fig.2).</li>
                       <li>É importante que o equipamento seja desligado de forma a economizar a bateria.</li>
                     </div>
                     <div class="col-md-3">
-                      <img src='static/img/bodytemp.png' alt="" class="img-fit">
-                      <div class="row"><div class="col-md-12">&nbsp;<br>&nbsp;</div></div>
-                      <img src='static/img/bodytemp.gif' alt="" class="img-fit">
+                      <figure>
+                        <img src='static/img/bodytemp.png' alt="" class="img-fit">
+                        <figcaption>Fig.1</figcaption>
+                      </figure>
+                      <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                      <figure>
+                        <img src='static/img/bodytemp.gif' alt="" class="img-fit">
+                        <figcaption>Fig.2</figcaption>
+                      </figure>
                     </div>
                   </div>
                 </h4>
@@ -262,16 +274,22 @@
                   <div class="row">
                     <div class="col-md-9 text-justify text-div-wrap">
                       <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                      <li>Coloque o equipamento no dedo conforme apresentado na imagem.</li>
-                      <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar.</li>
+                      <li>Coloque o equipamento no dedo conforme apresentado na imagem (Fig.1).</li>
+                      <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar (Fig.2).</li>
                       <li>Aguarde até que todos os valores apareçam na televisão.</li>
                       <li>Quando todos os valores aparecerem, o processo encontra-se concluido.</li>
                       <li>Pode retirar o equipamento do dedo e o mesmo desliga-se automáticamente.</li>
                     </div>
                     <div class="col-md-3">
-                      <img src='static/img/pulse.png' alt="" class="img-fit">
-                      <div class="row"><div class="col-md-12">&nbsp;<br>&nbsp;</div></div>
-                      <img src='static/img/pulse.gif' alt="" class="img-fit">
+                      <figure>
+                        <img src='static/img/pulse.png' alt="" class="img-fit">
+                        <figcaption>Fig.1</figcaption>
+                      </figure>
+                      <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                      <figure>
+                        <img src='static/img/pulse.gif' alt="" class="img-fit">
+                        <figcaption>Fig.2</figcaption>
+                      </figure>
                     </div>
                   </div>
                 </h4>

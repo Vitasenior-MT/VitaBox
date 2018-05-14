@@ -44,6 +44,10 @@
       "title": "Hist. de Diagnósticos",
       "text": "Hist. de Diagnósticos"
     },
+    "ambienteHistory": {
+      "title": "Hist. Sen. Ambientais",
+      "text": "Hist Sensores Ambientais"
+    },
     "video": {
       "title": "Video",
       "text": "video"

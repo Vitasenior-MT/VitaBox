@@ -9,6 +9,7 @@ import Home from 'src/components/Dashboard/Views/Home.vue'
 import History3 from 'src/components/Dashboard/Views/History3.vue'
 import Exams from 'src/components/Dashboard/Views/Exams.vue'
 import ExamsHist from 'src/components/Dashboard/Views/ExamsHist.vue'
+import AmbientHist from 'src/components/Dashboard/Views/HistAmbi.vue'
 // import Wizard from 'src/components/Dashboard/Views/Wizard.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import Warnings2 from 'src/components/Dashboard/Views/Warnings2.vue'
@@ -45,6 +46,11 @@ const routes = [
         path: 'exameshistorico',
         name: 'Hist. de Diagnósticos',
         component: ExamsHist,
+        minimal: true
+      }, {
+        path: 'ambientehistorico',
+        name: 'Hist. Sen. Ambientais',
+        component: AmbientHist,
         minimal: true
       }, {
         path: 'warnings',

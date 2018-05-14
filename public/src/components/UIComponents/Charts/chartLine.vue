@@ -10,7 +10,8 @@ export default {
     'lineChartId',
     'chartTitle',
     'dataChart',
-    'defSecoundScale'
+    'defSecoundScale',
+    'callbackindex'
   ],
   data() {
     return {
@@ -43,6 +44,26 @@ export default {
             labels: {
               fontSize: 18,
               padding: 20
+            },
+            onClick: function(e, legendItem, i, chart) {
+              var index = i
+              if (!i) {
+                index = legendItem.datasetIndex;
+              }
+              var ci = null;
+              if (this.chart) {
+                ci = this.chart
+              } else {
+                ci = chart
+              }
+              var dataset = ci.data.datasets[index]
+              var meta = dataset._meta[Object.keys(dataset._meta)[Object.keys(dataset._meta).length - 1]]
+
+              // See controller.isDatasetVisible comment
+              meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
+
+              // We hid a dataset ... rerender the chart
+              ci.update();
             }
           },
           tooltips: {
@@ -86,7 +107,11 @@ export default {
     this.initGraphLine(this.lineChartId)
   },
   watch: {
-    dataChart: function(value) {}
+    callbackindex: function(value) {
+      if (value >= 0) {
+        this.lineChart.legend.options.onClick(null, null, value, this.lineChart)
+      }
+    }
   }
 }
 </script>

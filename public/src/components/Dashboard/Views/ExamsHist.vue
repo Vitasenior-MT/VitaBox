@@ -239,7 +239,8 @@ export default {
               nameExam: examNameDes,
               dataCharts: []
             };
-
+            var controlVarA = false
+            var controlVarB = false
             for (let index = 0; index < dataIterat.length; index++) {
               this.chartsBarAllData.dataCharts.push({
                 key: 'chartBar-' + index,
@@ -249,20 +250,25 @@ export default {
                 }
               });
               let chartIDLabel = "y-axis-0"
-              let color = this.getRandomColor()
-              let laabeldataArr = this.getAttDataAndLabels(dataIterat[index].value)
+              let color = EventBus.getRandomColor()
+              let laabeldataArr = this.getAllDataAndLabels(dataIterat[index].value)
+              console.log("dataTypeExam", dataTypeExam, dataIterat[index].sensortype)
               switch (dataTypeExam) {
                 case 'bloodpressure':
                   switch (dataIterat[index].sensortype) {
+                    case 'systolic':
                     case 'diastolic':
-                      countArrPos++
-                      this.chartsLineAllData.charts.push({
-                        data: {
-                          labels: laabeldataArr[1],
-                          poschart: countArrPos,
-                          datasets: []
-                        }
-                      })
+                      if (!controlVarA) {
+                        controlVarA = true
+                        countArrPos++
+                        this.chartsLineAllData.charts.push({
+                          data: {
+                            labels: laabeldataArr[1],
+                            poschart: countArrPos,
+                            datasets: []
+                          }
+                        })
+                      }
                       break
                     case 'pulse':
                       countArrPos++
@@ -280,25 +286,51 @@ export default {
                   break
                 case 'bandfitness':
                   switch (dataIterat[index].sensortype) {
-                    case 'steps':
+                    case 'heartrate':
                     case 'callories':
-                      countArrPos++
-                      chartIDLabel = "y-axis-1"
-                      this.chartsLineAllData.charts.push({
-                        data: {
-                          labels: laabeldataArr[1],
-                          secoundScale: {
-                            position: "right",
-                            id: "y-axis-0",
-                            type: 'linear',
-                            ticks: {
-                              fontSize: 18
-                            }
-                          },
-                          poschart: countArrPos,
-                          datasets: []
-                        }
-                      })
+                      if (!controlVarA) {
+                        controlVarA = true
+                        countArrPos++
+                        chartIDLabel = "y-axis-1"
+                        this.chartsLineAllData.charts.push({
+                          data: {
+                            labels: laabeldataArr[1],
+                            secoundScale: {
+                              position: "right",
+                              id: "y-axis-0",
+                              type: 'linear',
+                              ticks: {
+                                fontSize: 18
+                              }
+                            },
+                            poschart: countArrPos,
+                            datasets: []
+                          }
+                        })
+                      }
+                      break
+                    case 'meters':
+                    case 'steps':
+                      if (!controlVarB) {
+                        controlVarB = true
+                        countArrPos++
+                        chartIDLabel = "y-axis-1"
+                        this.chartsLineAllData.charts.push({
+                          data: {
+                            labels: laabeldataArr[1],
+                            secoundScale: {
+                              position: "right",
+                              id: "y-axis-0",
+                              type: 'linear',
+                              ticks: {
+                                fontSize: 18
+                              }
+                            },
+                            poschart: countArrPos,
+                            datasets: []
+                          }
+                        })
+                      }
                       break
                     default:
                       break
@@ -330,7 +362,6 @@ export default {
             }
 
             this.chartsLineAllData.sizeArr = this.chartsLineAllData.charts.length > 3 ? 3 : this.chartsLineAllData.charts.length
-            console.log("AAA", this.chartsLineAllData)
             this.dataCharsExists = true
             this.execProcess = false
             this.defaultView = 'no'
@@ -355,7 +386,7 @@ export default {
           this.data = error
         })
     },
-    getAttDataAndLabels(array) {
+    getAllDataAndLabels(array) {
       let labelArr = []
       let dataArr = []
       for (let i = 0; i < array.length; i++) {
@@ -363,14 +394,6 @@ export default {
         dataArr.push(array[i].value);
       }
       return [dataArr, labelArr]
-    },
-    getRandomColor() {
-      var letters = '0123456789ABCDEF';
-      var color = '#';
-      for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
     },
     /**
      * TODO: Limpa todas as variaveis que contenham valores que são apresentados na pagina

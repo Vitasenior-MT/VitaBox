@@ -11,9 +11,15 @@ const SidebarStore = {
     },
     {
       name: 'sidebar.diagnosisHistory.title',
-      icon: 'ti-time',
+      icon: 'ti-pie-chart',
       path: '/vitabox/exameshistorico',
       text: 'sidebar.diagnosisHistory.text'
+    },
+    {
+      name: 'sidebar.ambienteHistory.title',
+      icon: 'ti-rss-alt',
+      path: '/vitabox/ambientehistorico',
+      text: 'sidebar.ambienteHistory.text'
     },
     {
       name: 'sidebar.home.title',
