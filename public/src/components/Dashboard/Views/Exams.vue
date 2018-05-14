@@ -107,28 +107,70 @@
     <div class="row bodyscale clear-margin" v-show="examEvent == 'bodyscale'">
       <div class="col-md-12 btn btn-round btn-fill">
         <div class="col-md-9">
-          <div class="card">
-            <div class="content">
-              <h4 class="title">Modo de Utilização</h4>
-              <hr>
-              <ol>
-                <h4>
-                  <div class="row">
-                    <div class="col-md-9 text-justify text-div-wrap">
-                      <li>Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta execução.</li>
-                      <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                      <li>Para que o processo decorra com a melhor forma esteja descalço e suba para cima do equipamento.</li>
-                      <li>O equipamento liga-se automáticamente.</li>
-                      <li>Quando o valor obtido estabilizar o mesmo irá piscar.</li>
-                      <li>Após a correta recolha dos dados o equipamento desliga-se automáticamente.</li>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                      <img src='static/img/bodyscale.png' alt="" class="img-fit">
-                    </div>
-                  </div>
-                </h4>
-              </ol>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="content">
+                  <h4 class="title">Modo de Utilização</h4>
+                  <hr>
+                  <ol>
+                    <h4>
+                      <div class="row">
+                        <div class="col-md-9 text-justify text-div-wrap">
+                          <li>Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta execução.</li>
+                          <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
+                          <li>Para que o processo decorra com a melhor forma esteja descalço e suba para cima do equipamento.</li>
+                          <li>O equipamento liga-se automáticamente.</li>
+                          <li>Quando o valor obtido estabilizar o mesmo irá piscar.</li>
+                          <li>Após a correta recolha dos dados o equipamento desliga-se automáticamente.</li>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                          <img src='static/img/bodyscale.png' alt="" class="img-fit">
+                        </div>
+                      </div>
+                    </h4>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4" :class="bodyscaleClass">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-street-view"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>Body Fat</p>
+                  {{dataBodyScale.bodyfat}} %
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-4" :class="bodyscaleClass">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-street-view"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>Bone Mass</p>
+                  {{dataBodyScale.bonemass}} %
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-4" :class="bodyscaleClass">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-street-view"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>Visceral Fat</p>
+                  {{dataBodyScale.visceralfat}} %
+                </div>
+              </stats-card>
             </div>
           </div>
         </div>
@@ -136,12 +178,26 @@
           <stats-card>
             <div class="icon-big text-center" slot="header">
               <i class="fas fa-tachometer-alt"></i>
+              <hr>
+              <i class="fas fa-diagnoses"></i>
+              <hr>
+              <i class="fas fa-tint"></i>
+              <hr>
+              <i class="fas fa-child"></i>
               <!-- <hr> -->
             </div>
             <div class="numbers" slot="content">
               <p>Peso </p>
               {{dataBodyScale.weight}} Kg
-              <!-- <hr> -->
+              <hr>
+              <p>Calorias</p>
+              {{dataBodyScale.calories}} Kcal
+              <hr>
+              <p>Agua</p>
+              {{dataBodyScale.water}} %
+              <hr>
+              <p>Massa Muscular</p>
+              {{dataBodyScale.musclemass}} %
             </div>
           </stats-card>
         </div>
@@ -319,28 +375,32 @@
       <div class="col-md-12 btn btn-round btn-fill">
         <div class="col-md-9">
           <div class="col-md-12">
-            <div class="card">
-              <div class="content">
-                <h4 class="title">Modo de Utilização</h4><hr>
-                <ul>
-                  <h4>
-                    <li class="text-justify text-div-wrap">Assegure-se de que possui a banda corretamente colocada no pulso.</li>
-                  </h4>
-                </ul>
+            <div class="row">
+              <div class="card">
+                <div class="content">
+                  <h4 class="title">Modo de Utilização</h4><hr>
+                  <ul>
+                    <h4>
+                      <li class="text-justify text-div-wrap">Assegure-se de que possui a banda corretamente colocada no pulso.</li>
+                    </h4>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
           <div class="col-md-12">
-            <div class="card">
-              <div class="content">
-                <h4 class="title">Pulsação</h4>
-                <hr>
-                <chart-line
-                  :id="'chartLine-1'"
-                  :lineChartId="'chartLine-1'"
-                  :dataChart="this.dataBandFitness.heartrate"
-                  :dataChartAvg="this.dataBandFitness.heartrateavg" >
-                </chart-line>
+            <div class="row">
+              <div class="card">
+                <div class="content">
+                  <h4 class="title">Pulsação</h4>
+                  <hr>
+                  <chart-line
+                    :id="'chartLine-1'"
+                    :lineChartId="'chartLine-1'"
+                    :dataChart="this.dataBandFitness.heartrate"
+                    :dataChartAvg="this.dataBandFitness.heartrateavg" >
+                  </chart-line>
+                </div>
               </div>
             </div>
           </div>

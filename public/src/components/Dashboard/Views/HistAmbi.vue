@@ -117,6 +117,7 @@ export default {
           EventBus.elementControl[EventBus.currentActiveRightComp].setAttribute('data-select', 'false')
         }
         this.hideShowItem = dataIdBtn
+        document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
       }, 10);
     },
     getAllDataSensor() {
