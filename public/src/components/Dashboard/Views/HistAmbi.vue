@@ -121,6 +121,8 @@ export default {
       }, 10);
     },
     getAllDataSensor() {
+      this.execProcess = true
+      this.defaultView = 'yes'
       this.sensorType = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       this.posSensorSelected = EventBus.currentActiveRightComp
       // let self = this
@@ -164,6 +166,8 @@ export default {
               })
             }
             this.dataCharsExists = true
+            this.execProcess = false
+            this.defaultView = 'no'
             this.classEvent = 'control-remote'
 
             setTimeout(() => {
