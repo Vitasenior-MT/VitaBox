@@ -3,10 +3,10 @@ import DashboardLayout from '../components/Dashboard/Layout/DashboardLayout.vue'
 import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 
 // Admin pages
-import Home from 'src/components/Dashboard/Views/Home.vue'
+// import Home from 'src/components/Dashboard/Views/Home.vue'
 // import History from 'src/components/Dashboard/Views/History.vue'
 // import History2 from 'src/components/Dashboard/Views/History2.vue'
-import History3 from 'src/components/Dashboard/Views/History3.vue'
+// import History3 from 'src/components/Dashboard/Views/History3.vue'
 import Exams from 'src/components/Dashboard/Views/Exams.vue'
 import ExamsHist from 'src/components/Dashboard/Views/ExamsHist.vue'
 import AmbientHist from 'src/components/Dashboard/Views/HistAmbi.vue'
@@ -15,7 +15,7 @@ import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import Warnings2 from 'src/components/Dashboard/Views/Warnings2.vue'
 import ShowData from 'src/components/Dashboard/Views/ShowData.vue'
 import ShowData2 from 'src/components/Dashboard/Views/ShowData2.vue'
-import VidOnly from 'src/components/Dashboard/Views/VidOnly.vue'
+// import VidOnly from 'src/components/Dashboard/Views/VidOnly.vue'
 
 const routes = [
   {
