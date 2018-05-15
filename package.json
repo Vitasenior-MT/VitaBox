@@ -6,7 +6,9 @@
   "scripts": {
     "start": "NODE_ENV=PROD node main.js",
     "dev": "NODE_ENV=DEV node main.js",
-    "prod": "NODE_ENV=PROD node main.js"
+    "prod": "NODE_ENV=PROD node main.js",
+    "band-dev": "NODE_ENV=DEV node startAutoMiBand.js",
+    "band-prod": "NODE_ENV=PROD node startAutoMiBand.js"
   },
   "author": "Nelson Gomes",
   "license": "ISC",
