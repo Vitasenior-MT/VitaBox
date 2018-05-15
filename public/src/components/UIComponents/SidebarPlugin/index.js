@@ -22,12 +22,6 @@ const SidebarStore = {
       text: 'sidebar.ambienteHistory.text'
     },
     {
-      name: 'sidebar.home.title',
-      icon: 'ti-home',
-      path: '/vitabox/home',
-      text: 'sidebar.home.text'
-    },
-    {
       name: 'sidebar.warning.title',
       icon: 'ti-bell',
       path: '/vitabox/warnings',
@@ -50,18 +44,6 @@ const SidebarStore = {
       icon: 'ti-bell',
       path: '/vitabox/show-data2',
       text: 'sidebar.showData2.text'
-    },
-    {
-      name: 'sidebar.historyEnvironmentSensor2.title',
-      icon: 'ti-stats-up',
-      path: '/vitabox/historicosensoresambientaisv2',
-      text: 'sidebar.historyEnvironmentSensor2.text'
-    },
-    {
-      name: 'sidebar.video.title',
-      icon: 'ti-bell',
-      path: '/vitabox/vid-only',
-      text: 'sidebar.video.text'
     }
   ],
   displaySidebar(value) {

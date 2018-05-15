@@ -47,7 +47,6 @@ def plotData(arg1, arg2):
 	plt.legend(loc='upper left')
 	plt.gcf().autofmt_xdate()
 	plt.savefig("generatedPlots/"+arg1+"("+arg2+")"+'.png', format='png')
-	plt.show()
 	print("Done generanting " + arg1 + "(" + arg2 + ")")
 if __name__ == "__main__":
 	plotData(sys.argv[1], sys.argv[2])

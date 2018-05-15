@@ -28,16 +28,6 @@ const routes = [
     redirect: '/vitabox/home',
     children: [
       {
-        path: 'home',
-        name: 'home',
-        component: Home,
-        minimal: true
-      }, {
-        path: 'historicosensoresambientaisv2',
-        name: 'Historico Sensores Ambientais V2',
-        component: History3,
-        minimal: true
-      }, {
         path: 'exames',
         name: 'Exames / Diagnósticos',
         component: Exams,
@@ -72,11 +62,6 @@ const routes = [
         name: 'Sensores distrimuidos por Divisão',
         component: ShowData2,
         minimal: true
-      }, {
-        path: 'vid-only',
-        name: 'vid-only',
-        component: VidOnly,
-        minimal: false
       }
     ]
   },

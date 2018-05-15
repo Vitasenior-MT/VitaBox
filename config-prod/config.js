@@ -2,6 +2,16 @@
 var fs = require('fs');
 
 module.exports = {
+  ReconnectRate: {
+    hour: 0,
+    min: 0,
+    sec: 5,
+    extra: {
+      hour: 0,
+      min: 5,
+      sec: 0
+    }
+  },
   TimersConfig: {
     waitingTimeTillNextWarning: {
       hour: 0,
