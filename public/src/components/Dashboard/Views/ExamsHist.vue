@@ -368,6 +368,12 @@ export default {
             setTimeout(() => {
               document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
             }, 500);
+            setTimeout(() => {
+              document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
+            }, 500);
+            setTimeout(() => {
+              document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
+            }, 500);
           } else {
             this.$notifications.notify({
               message: '<h4>' + response.data.data + '</h4>',
