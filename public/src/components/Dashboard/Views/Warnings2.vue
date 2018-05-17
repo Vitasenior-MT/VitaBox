@@ -58,6 +58,7 @@ export default {
             this.warningCards[index].avg = data[index].avg
             this.warningCards[index].threshold = data[index].threshold
             this.warningCards[index].sensor = data[index].sensortype
+            this.warningCards[index].measure = data[index].measure
             this.warningCards[index].location = data[index].location
             this.warningCards[index].dateupdate = this.dateFormat(
               data[index].avgLastUpdate
@@ -200,6 +201,7 @@ export default {
                   : datasensores[index].threshold_max_possible,
               sensor: datasensores[index].sensortype,
               location: datasensores[index].location,
+              measure: datasensores[index].measure,
               dateupdate: this.dateFormat(datasensores[index].avgLastUpdate),
               footerIcon: 'ti-reload',
               symbol: ''

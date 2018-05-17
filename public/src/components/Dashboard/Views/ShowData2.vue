@@ -24,7 +24,7 @@ export default {
               this.CardsSensors[index].sensors[index2].idchar = 'id-' + data.board_id + '-' + data.sensortype
               this.CardsSensors[index].sensors[index2].avg = Math.round(data.avg * 100) / 100
               this.CardsSensors[index].sensors[index2].avglastupdate = this.dateFormat(data.avgLastUpdate)
-              this.CardsSensors[index].sensors[index2].sensortype = data.sensortype
+              this.CardsSensors[index].sensors[index2].sensor = data.sensortype
               this.CardsSensors[index].sensors[index2].threshold_max_possible = data.threshold_max_possible
             }
           }
@@ -164,9 +164,10 @@ export default {
               this.CardsSensors[index].sensors.push({
                 idchar: 'id-' + datasensores[index].values[i].board_id + '-' + datasensores[index].values[i].sensortype,
                 avg: Math.round(datasensores[index].values[i].avg * 100) / 100,
-                avglastupdate: this.dateFormat(datasensores[index].values[i].avgLastUpdate
+                avgLastUpdate: this.dateFormat(datasensores[index].values[i].avgLastUpdate
                 ),
-                sensortype: datasensores[index].values[i].sensortype,
+                sensor: datasensores[index].values[i].sensortype,
+                measure: datasensores[index].values[i].measure,
                 threshold: (datasensores[index].values[i].threshold_max_possible === undefined ? 100 : datasensores[index].values[i].threshold_max_possible)
               })
             }

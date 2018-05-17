@@ -7,7 +7,7 @@
         </div>
         <div class='col-lg-10'>
           <div class='numbers'>
-            <p>{{warningCard.sensor}}</p>
+            <p>{{warningCard.measure}}</p>
             {{warningCard.location}}
           </div>
          <b></b>

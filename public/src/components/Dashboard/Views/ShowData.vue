@@ -156,9 +156,10 @@ export default {
               sensors: [{
                 idchar: 'id-' + datasensores[index].board_id + '-' + datasensores[index].sensortype,
                 avg: Math.round(datasensores[index].avg * 100) / 100,
-                avglastupdate: this.dateFormat(datasensores[index].avgLastUpdate
+                avgLastUpdate: this.dateFormat(datasensores[index].avgLastUpdate
                 ),
-                sensortype: datasensores[index].sensortype,
+                sensor: datasensores[index].sensortype,
+                measure: datasensores[index].measure,
                 threshold: (datasensores[index].threshold_max_possible === undefined ? 100 : datasensores[index].threshold_max_possible)
               }]
             })
