@@ -134,26 +134,11 @@ export default {
       })
     }
   },
+  beforeDestroy() {
+    EventBus.$off('move-components')
+  },
   mounted() {
     this.findActiveLink()
-
-    EventBus.$on('changeTab', function() {
-      console.log('/vitabox/warnings', this.$route.path)
-      console.log(this.$route.path)
-      if (this.$route.path !== '/vitabox/warnings') {
-        let sideBar = this.sidebarLinks
-        for (var index in sideBar) {
-          console.log(sideBar[index])
-          console.log(sideBar[index].path)
-          console.log(sideBar[index].path === '/vitabox/warnings')
-          if (sideBar[index].path === '/vitabox/warnings') {
-            this.activeLinkIndex = index
-            this.$router.push({ path: sideBar[index].path })
-            return
-          }
-        }
-      }
-    })
   },
   watch: {
     $route: function(newRoute, oldRoute) {
@@ -161,7 +146,26 @@ export default {
     }
   },
   created() {
+    var self = this
     this.controlSideBar()
+    EventBus.$on('changeTab', function() {
+      console.log('/vitabox/warnings', self.$route.path)
+      console.log(self.$route.path)
+      if (self.$route.path !== '/vitabox/warnings') {
+        let sideBar = self.sidebarLinks
+        for (var index in sideBar) {
+          console.log(sideBar[index])
+          console.log(sideBar[index].path)
+          console.log(sideBar[index].path === '/vitabox/warnings')
+          if (sideBar[index].path === '/vitabox/warnings') {
+            self.activeLinkIndex = index
+            self.$router.push({ path: sideBar[index].path })
+            EventBus.correntRightComponent = sideBar[index].path
+            return
+          }
+        }
+      }
+    })
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row container-data-sensors">
-      <div class="col-lg-6" v-for="warningCard in CardsSensors" :key="warningCard.board_id">
+      <div class="col-lg-12" v-for="warningCard in CardsSensors" :key="warningCard.board_id">
         <CardWarning3 :key="warningCard.board_id + '-all'" :warningCard="warningCard">
         </CardWarning3>
       </div>

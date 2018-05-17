@@ -4,6 +4,7 @@ Requires=After=mongod.service       # Requires the mysql service to run first
 
 [Service]
 ExecStart=/usr/bin/node /home/pi/Desktop/VitaBox/main.js
+#ExecStart=/usr/bin/npm run prod /home/pi/Desktop/VitaBox/main.js
 ##Required on some systems
 WorkingDirectory=/home/pi/Desktop/VitaBox
 Restart=always

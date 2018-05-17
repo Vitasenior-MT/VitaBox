@@ -106,7 +106,7 @@ export const app = new Vue({
       let self = this
       this.$modal.show('dialog', data)
       //this.$socket.emit('ttsText', 'Aviso!')
-      EventBus.$emit('changeTab')
+      //EventBus.$emit('changeTab')
       if (!this.timeout) {
         this.timeout = true
         setTimeout(() => {

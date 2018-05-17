@@ -38,13 +38,13 @@ const SidebarStore = {
       icon: 'ti-bell',
       path: '/vitabox/show-data',
       text: 'sidebar.showData.text'
-    },
+    }/*,
     {
       name: 'sidebar.showData2.title',
       icon: 'ti-bell',
       path: '/vitabox/show-data2',
       text: 'sidebar.showData2.text'
-    }
+    }*/
   ],
   displaySidebar(value) {
     this.showSidebar = value

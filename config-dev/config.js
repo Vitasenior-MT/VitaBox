@@ -15,8 +15,8 @@ module.exports = {
   TimersConfig: {
     waitingTimeTillNextWarning: {
       hour: 0,
-      min: 5,
-      sec: 0
+      min: 0,
+      sec: 10
     },
     waitingTimeTillCheckForCecIsAlive: {
       hour: 0,

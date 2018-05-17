@@ -57,12 +57,12 @@ const routes = [
         name: 'Sensores distrimuidos por Divisão',
         component: ShowData,
         minimal: false
-      }, {
+      }/*, {
         path: 'show-data2',
         name: 'Sensores distrimuidos por Divisão',
         component: ShowData2,
         minimal: true
-      }
+      }*/
     ]
   },
   { path: '*', component: NotFound }
