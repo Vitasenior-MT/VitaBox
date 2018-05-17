@@ -62,7 +62,7 @@
                       <li>A luz indicadora de equipamento ligado pisca.</li>
                       <li>Após o equpamento ser detectado a luz deixa de piscar ficando sempre ligada.</li>
                       <li>Aguarde até o processo terminar.</li>
-                      <li>Após todos os dadps aparecerem na televisão e uma correta execução o equipamento desliga-se automáticamente.</li>
+                      <li>Após todos os dados aparecerem na televisão o equipamento desliga-se automaticamente.</li>
                     </div>
                     <div class="col-md-3">
                       <figure>
@@ -91,13 +91,13 @@
               <i class="ti-pulse"></i>
             </div>
             <div class="numbers" slot="content">
-              <p>Máxima </p>
+              <p>Sistólica </p>
               {{dataPressArt.pressmax}}
               <hr>
-              <p>Minima </p>
+              <p>Diastólica </p>
               {{dataPressArt.pressmin}}
               <hr>
-              <p>Pulso Minimo </p>
+              <p>Batimento <br> Cardíaco </p>
               {{dataPressArt.pulso}}
             </div>
           </stats-card>
@@ -117,12 +117,12 @@
                     <h4>
                       <div class="row">
                         <div class="col-md-9 text-justify text-div-wrap">
-                          <li>Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta execução.</li>
+                          <li>Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição.</li>
                           <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                          <li>Para que o processo decorra com a melhor forma esteja descalço e suba para cima do equipamento.</li>
-                          <li>O equipamento liga-se automáticamente.</li>
+                          <li>Descalce-se e suba para a balança.</li>
+                          <li>O equipamento liga-se automaticamente.</li>
                           <li>Quando o valor obtido estabilizar o mesmo irá piscar.</li>
-                          <li>Após a correta recolha dos dados o equipamento desliga-se automáticamente.</li>
+                          <li>Após a correta recolha dos dados o equipamento desliga-se automaticamente.</li>
                         </div>
                         <div class="col-md-3">
                           <div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -143,7 +143,7 @@
                   <!-- <hr> -->
                 </div>
                 <div class="numbers" slot="content">
-                  <p>Body Fat</p>
+                  <p>Gordura Corporal</p>
                   {{dataBodyScale.bodyfat}} %
                 </div>
               </stats-card>
@@ -155,7 +155,7 @@
                   <!-- <hr> -->
                 </div>
                 <div class="numbers" slot="content">
-                  <p>Bone Mass</p>
+                  <p>Massa Óssea</p>
                   {{dataBodyScale.bonemass}} %
                 </div>
               </stats-card>
@@ -167,7 +167,7 @@
                   <!-- <hr> -->
                 </div>
                 <div class="numbers" slot="content">
-                  <p>Visceral Fat</p>
+                  <p>Gordura Visceral</p>
                   {{dataBodyScale.visceralfat}} %
                 </div>
               </stats-card>
@@ -193,7 +193,7 @@
               <p>Calorias</p>
               {{dataBodyScale.calories}} Kcal
               <hr>
-              <p>Agua</p>
+              <p>Água</p>
               {{dataBodyScale.water}} %
               <hr>
               <p>Massa Muscular</p>
@@ -275,7 +275,7 @@
                       <li>Após a deteção do equipamento a luz indicadora apaga-se.</li>
                       <li>Aguarde até que todos os valores apareçam na televisão.</li>
                       <li>Após a conclusão do processo a luz indicadora volta a piscar.</li>
-                      <li>Pode retirar o equipamento e desliga-lo.</li>
+                      <li>Pode retirar o equipamento e desligá-lo.</li>
                       <li>Pressione novamente no botão <b class="ti-power-off"></b> até que o equipamento se deslique (Fig.2).</li>
                       <li>É importante que o equipamento seja desligado de forma a economizar a bateria.</li>
                     </div>
@@ -311,7 +311,7 @@
               <p>Bateria </p>
               {{battery}}%
               <hr>
-              <p>Temperatura Corporal </p>
+              <p>Temperatura <br> Corporal </p>
               {{tempCorp}}ºC
             </div>
           </stats-card>
@@ -334,7 +334,7 @@
                       <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar (Fig.2).</li>
                       <li>Aguarde até que todos os valores apareçam na televisão.</li>
                       <li>Quando todos os valores aparecerem, o processo encontra-se concluido.</li>
-                      <li>Pode retirar o equipamento do dedo e o mesmo desliga-se automáticamente.</li>
+                      <li>Pode retirar o equipamento do dedo e o mesmo desliga-se automaticamente.</li>
                     </div>
                     <div class="col-md-3">
                       <figure>
@@ -361,10 +361,10 @@
               <i class="fas fa-heartbeat"></i>
             </div>
             <div class="numbers" slot="content">
-              <p>Oxigénio </p>
+              <p>Oxiximetria </p>
               {{spoVal}}%
               <hr>
-              <p>Pulso </p>
+              <p>Batimento <br>Cardíaco </p>
               {{pulseVal}} PPM
             </div>
           </stats-card>
@@ -439,7 +439,7 @@
               <p>Passos </p>
               {{dataBandFitness.steps.steps}}
               <hr>
-              <p>Pulso Médio </p>
+              <p>Batimento <br> Cardíaco </p>
               {{dataBandFitness.heartrateavg}}
               <!-- <hr>
               <p>Metros percorridos por dia </p>
@@ -490,8 +490,8 @@ export default {
   data() {
     return {
       msgUser: 'Selecione e pressione me [OK] para visualizar os exames disponiveis para o utilizador.',
-      msgExit: 'Pressione para a direita para selecionar o utilizador.',
-      defaultViewDescritivo: 'Pressione para a direita para selecionar o utilizador.',
+      msgExit: 'Pressione seta direita do comando para selecionar...',
+      defaultViewDescritivo: 'Pressione seta direita do comando para selecionar...',
       defaultView: 'yes',
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
@@ -573,13 +573,13 @@ export default {
           id: 'bodytemperature-1'
         },
         {
-          nome: 'Pulsometro',
+          nome: 'Batimento Cardíaco',
           type: 'bodypulse',
           icon: 'ti-heart-broken',
           id: 'bodypulse-2'
         },
         {
-          nome: 'Pesar',
+          nome: 'Peso',
           type: 'bodyscale',
           icon: 'ti-dashboard',
           id: 'bodyscale-3'

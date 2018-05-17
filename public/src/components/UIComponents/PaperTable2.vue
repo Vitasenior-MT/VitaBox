@@ -9,13 +9,13 @@
     <div class="content table-responsive table-full-width">
       <table class="table" :class="tableClass">
         <thead>
-          <th class="text-center" v-for="column in columns">
+          <th class="text-center" v-for="column in columns" :key="column.id">
             {{column}}
           </th>
         </thead>
         <tbody>
-          <tr v-for="item in data">
-            <td class="text-center" v-for="column in columns" v-if="hasValue(item, column)">
+          <tr v-for="item in data" :key="item.id">
+            <td class="text-center" v-for="column in columns" v-if="hasValue(item, column)"  :key="column.id">
               <span v-if="itemValue(item, column) == 'temp'">
                 <img src='static/img/vitabox/temp.svg' width='40' height='40'>
               </span>

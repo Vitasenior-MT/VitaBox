@@ -23,7 +23,7 @@ export default {
   name: 'Warning',
   data() {
     return {
-      columns: ['SensorType', 'Avg', 'Threshold', 'AvgLastUpdate']
+      columns: ['Sensor', 'Média', 'Limite', 'Última Atualização']
     }
   },
   props: {

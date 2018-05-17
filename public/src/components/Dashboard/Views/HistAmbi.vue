@@ -81,9 +81,9 @@ export default {
   },
   data() {
     return {
-      msgUser: 'Selecione e pressione me [OK] para visualizar o histórico do sensor.',
-      msgExit: 'Pressione para a direita para selecionar o sensor.',
-      defaultViewDescritivo: 'Pressione para a direita para selecionar o sensor.',
+      msgUser: 'Selecione e pressione [OK] para visualizar o histórico do sensor.',
+      msgExit: 'Pressione seta direita do comando para selecionar...',
+      defaultViewDescritivo: 'Pressione seta direita do comando para selecionar...',
       defaultView: 'yes',
       classEvent: 'control-remote-sensors',
       posSensorSelected: -1,
@@ -344,8 +344,8 @@ export default {
         let data = response.data.data
         for (var index in data) {
           this.sensorList.push({
-            name: data[index],
-            type: data[index],
+            name: data[index].measure,
+            type: data[index].sensortype,
             id: index
           })
         }

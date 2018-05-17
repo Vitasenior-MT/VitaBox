@@ -87,10 +87,10 @@ export default {
   },
   data() {
     return {
-      msgUser: 'Selecione e pressione me [OK] para visualizar o histórico dos exames do utilizador.',
-      msgExam: 'Selecione o exame e pressione em [OK] para visualizar o histórico.',
-      msgExit: 'Pressione para a direita para selecionar o utilizador.',
-      defaultViewDescritivo: 'Pressione para a direita para selecionar o utilizador.',
+      msgUser: 'Selecione e pressione [OK] para visualizar o histórico dos exames do utilizador.',
+      msgExam: 'Selecione o exame e pressione [OK] para visualizar o histórico.',
+      msgExit: 'Pressione seta direita do comando para selecionar...',
+      defaultViewDescritivo: 'Pressione seta direita do comando para selecionar...',
       defaultView: 'yes',
       lastHistRecords: 10,
       dataCharsExists: false,
@@ -128,14 +128,14 @@ export default {
           macAddr: ''
         },
         {
-          nome: 'Pulsometro',
+          nome: 'Batimento Cardíaco',
           type: 'bodypulse',
           icon: 'ti-heart-broken',
           id: 'bodypulse-2',
           macAddr: ''
         },
         {
-          nome: 'Pesar',
+          nome: 'Peso',
           type: 'bodyscale',
           icon: 'ti-dashboard',
           id: 'bodyscale-3',
@@ -245,17 +245,17 @@ export default {
               this.chartsBarAllData.dataCharts.push({
                 key: 'chartBar-' + index,
                 dataBar: {
-                  x: dataIterat[index].sensortype,
+                  x: dataIterat[index].measure,
                   y: dataIterat[index].value[dataIterat[0].value.length - 1].value
                 }
               });
               let chartIDLabel = "y-axis-0"
               let color = EventBus.getRandomColor()
               let laabeldataArr = this.getAllDataAndLabels(dataIterat[index].value)
-              console.log("dataTypeExam", dataTypeExam, dataIterat[index].sensortype)
+              // console.log("dataTypeExam", dataTypeExam, dataIterat[index].measure)
               switch (dataTypeExam) {
                 case 'bloodpressure':
-                  switch (dataIterat[index].sensortype) {
+                  switch (dataIterat[index].tag) {
                     case 'systolic':
                     case 'diastolic':
                       if (!controlVarA) {
@@ -285,7 +285,7 @@ export default {
                   }
                   break
                 case 'bandfitness':
-                  switch (dataIterat[index].sensortype) {
+                  switch (dataIterat[index].tag) {
                     case 'heartrate':
                     case 'callories':
                       if (!controlVarA) {
@@ -352,7 +352,7 @@ export default {
                   break;
               }
               this.chartsLineAllData.charts[countArrPos].data.datasets.push({
-                label: dataIterat[index].sensortype,
+                label: dataIterat[index].measure,
                 borderColor: color,
                 yAxisID: chartIDLabel,
                 pointBackgroundColor: color,
@@ -365,12 +365,6 @@ export default {
             this.dataCharsExists = true
             this.execProcess = false
             this.defaultView = 'no'
-            setTimeout(() => {
-              document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
-            }, 500);
-            setTimeout(() => {
-              document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
-            }, 500);
             setTimeout(() => {
               document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
             }, 500);
