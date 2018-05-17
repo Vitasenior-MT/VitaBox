@@ -46,27 +46,6 @@
             <td class="text-center">
               <h5>{{item.avgLastUpdate}}</h5>
             </td>
-
-            <!--
-            <td class="text-center" v-for="column in columns" v-if="hasValue(item, column)"  :key="column.id">
-              Item - {{item}} <br> Column - {{column}}
-              <span v-if="itemValue(item, 'Sensor') == 'temp'">
-                <img src='static/img/vitabox/temp.svg' width='40' height='40'>
-              </span>
-              <span v-else-if="isNaN(itemValue(item, column) * 1)">
-                <h5>{{itemValue(item, column)}}</h5>
-              </span>
-              <span v-else>
-                <ChartGauge :id="itemValue(item, 'idchar') + '-' + column"
-                  :chartid="itemValue(item, 'idchar') + '-' + column"
-                    :typechartdonut="false"
-                    :valueChart="itemValue(item, column)"
-                    :labelChart="''"
-                    :chartmax="itemValue(item, column)"
-                    :symbol="''">
-                    </ChartGauge>
-              </span>
-            </td> -->
           </tr>
         </tbody>
       </table>

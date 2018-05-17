@@ -3,7 +3,9 @@
     <div class='content'>
       <div class='row'>
         <div class='col-lg-2'>
-          <img src='static/img/vitabox/temp.svg' width='40' height='40'>
+          <span v-if="warningCard.sensor == 'temp'">
+            <img src='static/img/vitabox/temp.svg' width='40' height='40'>
+          </span>
         </div>
         <div class='col-lg-10'>
           <div class='numbers'>
