@@ -29,11 +29,9 @@
           :symbol="warningCard.symbol"
         ></chart-gauge-item-ranges>
       </div>
-      <div class='footer'>
+      <div class='footer text-center'>
         <hr/>
-        <h4 class='text-center'>
           <i :class='warningCard.footerIcon'> {{warningCard.dateupdate}}</i>
-        </h4>
     </div>
   </div>
 </template>
