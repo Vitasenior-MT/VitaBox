@@ -155,7 +155,7 @@ export default {
           if (sideBar[index].path === '/vitabox/warnings') {
             self.activeLinkIndex = index
             self.$router.push({ path: sideBar[index].path })
-            //EventBus.correntRightComponent = sideBar[index].path
+            // EventBus.correntRightComponent = sideBar[index].path
             // atribui para que passe a seer novamento a primenra vez que entra nesta view
             EventBus.firstRightEvent = true
             // define como o elemento ativo seja o '0'
