@@ -298,8 +298,6 @@ export default {
                 }
               } else {
                 EventBus.moveLeftRightInView(-1)
-                self.$refs.DefaultView.setMsg(self.msgSensor)
-                self.$refs.DefaultView.show()
               }
               break
             default:
