@@ -62,6 +62,7 @@
         </div>
       </div>
     </div>
+    <!--
     <div id="loader-wrapper" v-show="execProcess">
       <div id="loader">
         <h4 class="text-center">
@@ -69,7 +70,7 @@
         </h4>
         <h1 class="text-center">Aguarde</h1>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -383,37 +384,6 @@ export default {
   50% {
     background-color: #f05a28;
   }
-}
-#loader-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
-  background-color: #000000;
-  opacity: 0.5;
-  filter: alpha(opacity=50); /* For IE8 and earlier */
-}
-#loader {
-  display: block;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  width: 30px;
-  height: 30px;
-  margin: -150px 0 0 -150px;
-  z-index: 1500;
-}
-#loader-chart {
-  display: block;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  width: 600px;
-  height: 600px;
-  margin: -300px 0 0 -300px;
-  z-index: 1500;
 }
 .clear-margin {
   margin: 0 !important;

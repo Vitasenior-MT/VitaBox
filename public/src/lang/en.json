@@ -20,6 +20,10 @@
       "title": "Aviso 02",
       "text": "Neste separador é exposto toda a informação critica dos alarmes."
     },
+    "warning3": {
+      "title": "Aviso 03",
+      "text": "Neste separador é exposto toda a informação critica dos alarmes."
+    },
     "showData": {
       "title": "Mostra Dados",
       "text": "onde mostra todos os dados dos sensores"

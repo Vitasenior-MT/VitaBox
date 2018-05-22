@@ -34,17 +34,23 @@ const SidebarStore = {
       text: 'sidebar.warning2.text'
     },
     {
+      name: 'sidebar.warning3.title',
+      icon: 'ti-bell',
+      path: '/vitabox/warnings3',
+      text: 'sidebar.warning3.text'
+    },
+    {
       name: 'sidebar.showData.title',
       icon: 'ti-bell',
       path: '/vitabox/show-data',
       text: 'sidebar.showData.text'
-    }/*,
+    } /* ,
     {
       name: 'sidebar.showData2.title',
       icon: 'ti-bell',
       path: '/vitabox/show-data2',
       text: 'sidebar.showData2.text'
-    }*/
+    } */
   ],
   displaySidebar(value) {
     this.showSidebar = value

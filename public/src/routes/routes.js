@@ -13,8 +13,9 @@ import AmbientHist from 'src/components/Dashboard/Views/HistAmbi.vue'
 // import Wizard from 'src/components/Dashboard/Views/Wizard.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import Warnings2 from 'src/components/Dashboard/Views/Warnings2.vue'
+import Warnings3 from 'src/components/Dashboard/Views/Warnings3.vue'
 import ShowData from 'src/components/Dashboard/Views/ShowData.vue'
-import ShowData2 from 'src/components/Dashboard/Views/ShowData2.vue'
+// import ShowData2 from 'src/components/Dashboard/Views/ShowData2.vue'
 // import VidOnly from 'src/components/Dashboard/Views/VidOnly.vue'
 
 const routes = [
@@ -53,16 +54,21 @@ const routes = [
         component: Warnings2,
         minimal: false
       }, {
+        path: 'warnings3',
+        name: 'warnings3',
+        component: Warnings3,
+        minimal: false
+      }, {
         path: 'show-data',
         name: 'Sensores distrimuidos por Divisão',
         component: ShowData,
         minimal: false
-      }/*, {
+      }   /*  , {
         path: 'show-data2',
         name: 'Sensores distrimuidos por Divisão',
         component: ShowData2,
         minimal: true
-      }*/
+      } */
     ]
   },
   { path: '*', component: NotFound }
