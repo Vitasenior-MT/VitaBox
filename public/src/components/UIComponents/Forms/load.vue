@@ -1,25 +1,32 @@
 <template>
-  <div id="loader-wrapper" v-show="execProcess">
-      <div id="loader">
-        <h4 class="text-center">
-          <img src='static/img/load3_A.gif' alt=''>
-        </h4>
-        <h1 class="text-center">Aguarde</h1>
-      </div>
+  <div id="loader-wrapper" v-show="this.execProcess">
+    <div id="loader">
+      <h4 class="text-center">
+        <img src='static/img/load3_A.gif' alt=''>
+      </h4>
+      <h1 class="text-center">Aguarde</h1>
     </div>
+  </div>
 </template>
 <script>
 export default {
   name: 'loading',
-  execProcess: false,
+  data() {
+    return {
+      execProcess: false
+    }
+  },
   methods: {
-       showLoading() {
-           this.execProcess = true
-       },
-       hideLoading() {
-           this.execProcess = false
-       }
-   }
+    show() {
+      this.execProcess = true
+    },
+    hide() {
+      this.execProcess = false
+    },
+    getLoadingState() {
+      return this.execProcess
+    }
+  }
 }
 </script>
 <style>
