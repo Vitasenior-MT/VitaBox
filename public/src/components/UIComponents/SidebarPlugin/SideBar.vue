@@ -128,7 +128,7 @@ export default {
         if (index > self.sidebarLinks.length - 1) {
           index = 0
         }
-        //this.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
+        this.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
         self.$router.push({ path: self.sidebarLinks[index].path })
         EventBus.correntRightComponent = self.sidebarLinks[index].path
       })
@@ -149,18 +149,20 @@ export default {
     var self = this
     this.controlSideBar()
     EventBus.$on('changeTab', function() {
-      console.log('/vitabox/warnings', self.$route.path)
-      console.log(self.$route.path)
       if (self.$route.path !== '/vitabox/warnings') {
         let sideBar = self.sidebarLinks
         for (var index in sideBar) {
-          console.log(sideBar[index])
-          console.log(sideBar[index].path)
-          console.log(sideBar[index].path === '/vitabox/warnings')
           if (sideBar[index].path === '/vitabox/warnings') {
             self.activeLinkIndex = index
             self.$router.push({ path: sideBar[index].path })
-            EventBus.correntRightComponent = sideBar[index].path
+            //EventBus.correntRightComponent = sideBar[index].path
+            // atribui para que passe a seer novamento a primenra vez que entra nesta view
+            EventBus.firstRightEvent = true
+            // define como o elemento ativo seja o '0'
+            EventBus.currentActiveRightComp = 0
+            // define o elemento ativo coomo sendo a barra lateral
+            EventBus.currentComponent = EventBus.sidebarName
+
             return
           }
         }
