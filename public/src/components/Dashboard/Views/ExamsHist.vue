@@ -5,7 +5,7 @@
         <div class="card clear-padding">
           <div class="content">
             <button v-tooltip.bottom="'Pessione em [OK] para selecionar o utilizador.'" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
-                <h5><b class="ti-user"> {{ patient.name }}</b></h5>
+                <h5 class="text-div-wrap"><b class="ti-user"> {{ patient.name }}</b></h5>
             </button>
           </div>
         </div>
@@ -24,28 +24,13 @@
               :data-addrmac="btn.macAddr"
               v-on:click="bleGetHistoryExam">
               <h5><b :class="btn.icon"></b></h5>
-              {{ btn.nome }}
+              <p class="text-div-wrap">{{ btn.nome }}</p>
             </button>
           </div>
         </div>
       </div>
     </div>
-    <div class="row clear-margin" v-show="defaultView == 'yes'">
-      <div class="col-lg-12 btn btn-round btn-fill">
-        <div class="row">
-          <div class="col-md-12">
-            <h4 class="text-center">
-              {{defaultViewDescritivo}}
-            </h4>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <img src='static/img/logo_A.png' alt=''>
-          </div>
-        </div>
-      </div>
-    </div>
+    <default-form ref="DefaultView"></default-form>
     <div class="row clear-margin show-charts-history" v-show="dataCharsExists">
       <div class="col-md-12 btn btn-round btn-fill">
         <div class="row">
@@ -66,32 +51,27 @@
         <card-chart-history-line :dataCharts="chartsLineAllData" ></card-chart-history-line>
       </div>
     </div>
-    <div id="loader-wrapper" v-show="execProcess">
-      <div id="loader">
-        <h4 class="text-center">
-          <img src='static/img/load3_A.gif' alt=''>
-        </h4>
-        <h1 class="text-center">Aguarde</h1>
-      </div>
-    </div>
+    <loading ref="loading"></loading>
   </div>
 </template>
 <script>
 import { EventBus } from '../../../event-bus.js'
 import CardChartHistoryBar from 'components/UIComponents/Cards/CardHistoryBarChart.vue'
 import CardChartHistoryLine from 'components/UIComponents/Cards/CardHistoryLineChart.vue'
+import Loading from 'components/UIComponents/Forms/load.vue'
+import DefaultForm from 'components/UIComponents/Forms/default.vue'
 export default {
   components: {
     CardChartHistoryBar,
-    CardChartHistoryLine
+    CardChartHistoryLine,
+    Loading,
+    DefaultForm
   },
   data() {
     return {
       msgUser: 'Selecione e pressione [OK] para visualizar o histórico dos exames do utilizador.',
       msgExam: 'Selecione o exame e pressione [OK] para visualizar o histórico.',
       msgExit: 'Pressione seta direita do comando para selecionar...',
-      defaultViewDescritivo: 'Pressione seta direita do comando para selecionar...',
-      defaultView: 'yes',
       lastHistRecords: 10,
       dataCharsExists: false,
       chartsBarAllData: {},
@@ -105,13 +85,6 @@ export default {
       patientId: '',
       btnExams: [],
       examMac: '',
-      execProcess: false,
-      bodytemperatureClass: [],
-      bodypulseClass: [],
-      bandfitnessClass: [],
-      bloodpressureClass: [],
-      bodyscaleClass: [],
-      bloodglucoseClass: [],
       btns: [
         {
           nome: 'Pressão Arterial',
@@ -173,26 +146,32 @@ export default {
               switch (devacesArray[index].device) {
                 case 'bloodpressure':
                   this.btns[0].macAddr = devacesArray[index].mac_addr
+                  this.btns[0].nome = devacesArray[index].name
                   btnopt = this.btns[0]
                   break
                 case 'bodytemperature':
                   this.btns[1].macAddr = devacesArray[index].mac_addr
+                  this.btns[1].nome = devacesArray[index].name
                   btnopt = this.btns[1]
                   break
                 case 'bodypulse':
                   this.btns[2].macAddr = devacesArray[index].mac_addr
+                  this.btns[2].nome = devacesArray[index].name
                   btnopt = this.btns[2]
                   break
                 case 'bodyscale':
                   this.btns[3].macAddr = devacesArray[index].mac_addr
+                  this.btns[3].nome = devacesArray[index].name
                   btnopt = this.btns[3]
                   break
                 case 'bloodglucose':
                   this.btns[4].macAddr = devacesArray[index].mac_addr
+                  this.btns[4].nome = devacesArray[index].name
                   btnopt = this.btns[4]
                   break
                 case 'bandfitness':
                   this.btns[5].macAddr = devacesArray[index].mac_addr
+                  this.btns[5].nome = devacesArray[index].name
                   btnopt = this.btns[5]
                   break
                 default:
@@ -222,9 +201,9 @@ export default {
         })
     },
     bleGetHistoryExam() {
-      this.defaultViewDescritivo = this.msgExam
-      this.defaultView = 'yes'
-      this.execProcess = true
+      this.$refs.DefaultView.setMsg(this.msgExam)
+      this.$refs.DefaultView.show()
+      this.$refs.loading.show()
       let dataTypeExam = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       let examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
       let examNameDes = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.examname
@@ -363,8 +342,8 @@ export default {
 
             this.chartsLineAllData.sizeArr = this.chartsLineAllData.charts.length > 3 ? 3 : this.chartsLineAllData.charts.length
             this.dataCharsExists = true
-            this.execProcess = false
-            this.defaultView = 'no'
+            this.$refs.loading.hide()
+            this.$refs.DefaultView.hide()
             setTimeout(() => {
               document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
             }, 500);
@@ -376,9 +355,9 @@ export default {
               verticalAlign: 'top',
               type: 'warning'
             })
-            this.execProcess = false
-            this.defaultViewDescritivo = this.msgExam
-            this.defaultView = 'yes'
+            this.$refs.loading.hide()
+            this.$refs.DefaultView.setMsg(this.msgExam)
+            this.$refs.DefaultView.show()
           }
         })
         .catch(error => {
@@ -399,12 +378,14 @@ export default {
      * TODO: Limpa todas as variaveis que contenham valores que são apresentados na pagina
      */
     resetValues() {
-      this.bodytemperatureClass = []
-      this.bodypulseClass = []
-      this.bandfitnessClass = []
-      this.bloodpressureClass = []
-      this.bodyscaleClass = []
-      this.bloodglucoseClass = []
+      if (this.dataCharsExists) {
+        this.dataCharsExists = false
+        this.chartsBarAllData = {}
+        this.chartsLineAllData = {
+          sizeArr: 1,
+          charts: []
+        }
+      }
     },
     /**
      * TODO: Metodo para controlar os eventos do comando remoto quando esta é a view ativa no momento
@@ -415,7 +396,7 @@ export default {
        * TODO: Monitorização dos eventos do controlo remoto
        */
       EventBus.$on('move-components', function(cmd) {
-        if (!self.execProcess) {
+        if (!self.$refs.loading.getLoadingState()) {
           EventBus.elementControl = document.getElementsByClassName(self.classEvent)
           switch (cmd) {
             // evento do 'OK'
@@ -427,8 +408,8 @@ export default {
               }
               let typeSel = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
               if (!typeSel) {
-                self.defaultViewDescritivo = self.msgExam
-                self.defaultView = 'yes'
+                self.$refs.DefaultView.setMsg(self.msgExam)
+                self.$refs.DefaultView.show()
               }
               break
             // evento para sair para a sidebar ou para a lista anterior
@@ -436,8 +417,9 @@ export default {
               // iniicializa a variavel para selecionar a lsta do user
               self.classEvent = 'control-remote-patient'
               self.dataCharsExists = false
-              self.defaultViewDescritivo = self.msgUser
-              self.defaultView = 'yes'
+              self.$refs.DefaultView.setMsg(self.msgUser)
+              self.$refs.DefaultView.show()
+              self.resetValues()
 
               // se existir um user selecionado é porque se está na lista dos equipamentos
               if (self.posPatientSelected >= 0) {
@@ -461,7 +443,8 @@ export default {
                 EventBus.currentActiveRightComp = 0
                 // define o elemento ativo coomo sendo a barra lateral
                 EventBus.currentComponent = EventBus.sidebarName
-                self.defaultViewDescritivo = self.msgExit
+                self.$refs.DefaultView.setMsg(self.msgExit)
+                self.$refs.DefaultView.show()
                 return
               }
               // desloca a div para o inicio
@@ -475,20 +458,23 @@ export default {
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               if (self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
-                self.defaultViewDescritivo = self.msgExam
-                self.defaultView = 'yes'
+                self.$refs.DefaultView.setMsg(self.msgExam)
+                self.$refs.DefaultView.show()
+                self.resetValues()
               } else {
                 document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
                 self.dataCharsExists = false
-                self.defaultViewDescritivo = self.msgUser
-                self.defaultView = 'yes'
+                self.$refs.DefaultView.setMsg(self.msgUser)
+                self.$refs.DefaultView.show()
+                self.resetValues()
               }
               EventBus.moveLeftRightInView(1)
               if (self.posPatientSelected >= 0) {
                 // self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
               } else {
-                self.defaultViewDescritivo = self.msgUser
-                self.defaultView = 'yes'
+                self.$refs.DefaultView.setMsg(self.msgUser)
+                self.$refs.DefaultView.show()
+                self.resetValues()
               }
               break
             case 'left': // tecla para a esquerda
@@ -507,13 +493,13 @@ export default {
                   // desloca a div para o inicio
                   if (self.posPatientSelected >= 0) {
                     document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
-                    self.defaultViewDescritivo = self.msgExam
-                    self.defaultView = 'yes'
+                    self.$refs.DefaultView.setMsg(self.msgExam)
+                    self.$refs.DefaultView.show()
                   } else {
                     document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
                     self.dataCharsExists = false
-                    self.defaultViewDescritivo = self.msgUser
-                    self.defaultView = 'yes'
+                    self.$refs.DefaultView.setMsg(self.msgUser)
+                    self.$refs.DefaultView.show()
                   }
                   // limpa a lisa dos botões disponiveis para o user
                   self.btnExams = []
@@ -521,21 +507,23 @@ export default {
                   // estamos na lista dos users
                 } else {
                   EventBus.moveLeftRightInView(-1)
-                  self.defaultViewDescritivo = self.msgExit
-                  self.defaultView = 'yes'
+                  self.$refs.DefaultView.setMsg(self.msgExit)
+                  self.$refs.DefaultView.show()
+                  self.resetValues()
                   return
                 }
               } else {
                 EventBus.moveLeftRightInView(-1)
-                self.defaultViewDescritivo = self.msgExam
-                self.defaultView = 'yes'
+                self.$refs.DefaultView.setMsg(self.msgExam)
+                self.$refs.DefaultView.show()
+                self.resetValues()
               }
               if (self.posPatientSelected >= 0) {
-                // self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
-                self.defaultView = 'yes'
+                self.$refs.DefaultView.show()
               } else {
-                self.defaultViewDescritivo = self.msgUser
-                self.defaultView = 'yes'
+                self.$refs.DefaultView.setMsg(self.msgUser)
+                self.$refs.DefaultView.show()
+                self.resetValues()
               }
               break
             default:
@@ -545,18 +533,9 @@ export default {
       })
     }
   },
-  watch: {
-    defaultView: function(value) {
-      console.log("change defaultView - ", value)
-      if (value === 'yes' || (!this.dataCharsExists && value === 'yes')) {
-        this.dataCharsExists = false
-        this.chartsBarAllData = {}
-        this.chartsLineAllData = {
-          sizeArr: 1,
-          charts: []
-        }
-      }
-    }
+  mounted() {
+    this.$refs.DefaultView.setMsg(this.msgExit)
+    this.$refs.DefaultView.show()
   },
   created() {
     // Consulta o DOM HTML por todos os elemento pertencentes à class 'control-remote'
@@ -608,37 +587,6 @@ export default {
     background-color: #f05a28;
   }
 }
-#loader-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
-  background-color: #000000;
-  opacity: 0.5;
-  filter: alpha(opacity=50); /* For IE8 and earlier */
-}
-#loader {
-  display: block;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  width: 30px;
-  height: 30px;
-  margin: -150px 0 0 -150px;
-  z-index: 1500;
-}
-#loader-chart {
-  display: block;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  width: 600px;
-  height: 600px;
-  margin: -300px 0 0 -300px;
-  z-index: 1500;
-}
 .clear-margin {
   margin: 0 !important;
 }
@@ -660,5 +608,8 @@ body {
 .img-fit {
   width: 100%;
   height: auto;
+}
+.text-div-wrap {
+  white-space: pre-line;
 }
 </style>

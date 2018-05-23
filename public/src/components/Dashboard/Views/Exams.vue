@@ -5,7 +5,7 @@
         <div class="card clear-padding">
           <div class="content">
             <button v-tooltip.bottom="'Pessione em [OK] para selecionar o utilizador.'" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
-                <h4><b class="ti-user"> {{ patient.name }}</b></h4>
+                <h4 class="text-div-wrap"><b class="ti-user"> {{ patient.name }}</b></h4>
             </button>
           </div>
         </div>
@@ -22,13 +22,14 @@
               :data-type="btn.type"
               v-on:click="bleExecExam">
               <h2><b :class="btn.icon"></b></h2>
-              <h5>{{ btn.nome }}</h5>
+              <h5 class="text-div-wrap">{{ btn.nome }}</h5>
             </button>
           </div>
         </div>
       </div>
     </div>
-    <div class="row clear-margin" v-show="defaultView == 'yes'">
+    <default-form ref="DefaultView"></default-form>
+    <!-- <div class="row clear-margin" v-show="defaultView == 'yes'">
       <div class="col-lg-12 btn btn-round btn-fill">
         <div class="row">
           <div class="col-md-12">
@@ -43,7 +44,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="row bloodpressure clear-margin" v-show="examEvent == 'bloodpressure'">
       <div class="col-md-12 btn btn-round btn-fill">
         <div class="col-md-9">
@@ -481,18 +482,18 @@ import { EventBus } from '../../../event-bus.js'
 import StatsCard from 'components/UIComponents/Cards/StatsCard.vue'
 import ChartGauge from 'components/UIComponents/Charts/chartGaugeItem1.vue'
 import ChartLine from 'components/UIComponents/Charts/chartLineHeartRate.vue'
+import DefaultForm from 'components/UIComponents/Forms/default.vue'
 export default {
   components: {
     ChartGauge,
     StatsCard,
-    ChartLine
+    ChartLine,
+    DefaultForm
   },
   data() {
     return {
-      msgUser: 'Selecione e pressione me [OK] para visualizar os exames disponiveis para o utilizador.',
+      msgUser: 'Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.',
       msgExit: 'Pressione seta direita do comando para selecionar...',
-      defaultViewDescritivo: 'Pressione seta direita do comando para selecionar...',
-      defaultView: 'yes',
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
       patientsList: [],
@@ -823,21 +824,27 @@ export default {
               let btnopt = ''
               switch (devacesArray[index].device) {
                 case 'bloodpressure':
+                  this.btns[0].nome = devacesArray[index].name
                   btnopt = this.btns[0]
                   break
                 case 'bodytemperature':
+                  this.btns[1].nome = devacesArray[index].name
                   btnopt = this.btns[1]
                   break
                 case 'bodypulse':
+                  this.btns[2].nome = devacesArray[index].name
                   btnopt = this.btns[2]
                   break
                 case 'bodyscale':
+                  this.btns[3].nome = devacesArray[index].name
                   btnopt = this.btns[3]
                   break
                 case 'bloodglucose':
+                  this.btns[4].nome = devacesArray[index].name
                   btnopt = this.btns[4]
                   break
                 case 'bandfitness':
+                  this.btns[5].nome = devacesArray[index].name
                   btnopt = this.btns[5]
                   break
                 default:
@@ -983,8 +990,7 @@ export default {
             case 'ok_btn':
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
-              self.defaultView = 'no'
-              self.defaultViewDescritivo = ''
+              self.$refs.DefaultView.hide()
               if (!self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
               }
@@ -1015,8 +1021,8 @@ export default {
                 EventBus.currentActiveRightComp = 0
                 // define o elemento ativo coomo sendo a barra lateral
                 EventBus.currentComponent = EventBus.sidebarName
-                self.defaultView = 'yes'
-                self.defaultViewDescritivo = self.msgExit
+                self.$refs.DefaultView.setMsg(self.msgExit)
+                self.$refs.DefaultView.show()
                 return
               }
               // apaga a opção de exame selecionada
@@ -1027,8 +1033,8 @@ export default {
               // limpa a lisa dos botões disponiveis para o user
               self.btnExams = []
               self.resetValues()
-              self.defaultView = 'yes'
-              self.defaultViewDescritivo = self.msgUser
+              self.$refs.DefaultView.setMsg(self.msgUser)
+              self.$refs.DefaultView.show()
               console.log('if exit', cmd, EventBus.currentActiveRightComp)
               break
             case 'right': // tecla para a direita
@@ -1043,8 +1049,8 @@ export default {
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
                 self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
               } else {
-                self.defaultView = 'yes'
-                self.defaultViewDescritivo = self.msgUser
+                self.$refs.DefaultView.setMsg(self.msgUser)
+                self.$refs.DefaultView.show()
               }
               break
             case 'left': // tecla para a esquerda
@@ -1068,8 +1074,8 @@ export default {
                     document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                   } else {
                     document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
-                    self.defaultView = 'yes'
-                    self.defaultViewDescritivo = self.msgUser
+                    self.$refs.DefaultView.setMsg(self.msgUser)
+                    self.$refs.DefaultView.show()
                   }
                   // limpa a lisa dos botões disponiveis para o user
                   self.btnExams = []
@@ -1078,8 +1084,8 @@ export default {
                   // estamos na lista dos users
                 } else {
                   EventBus.moveLeftRightInView(-1)
-                  self.defaultView = 'yes'
-                  self.defaultViewDescritivo = self.msgExit
+                  self.$refs.DefaultView.setMsg(self.msgExit)
+                  self.$refs.DefaultView.show()
                 }
               } else {
                 EventBus.moveLeftRightInView(-1)
@@ -1099,6 +1105,10 @@ export default {
   created() {
     // Consulta o DOM HTML por todos os elemento pertencentes à class 'control-remote'
     this.controlEventsBus()
+  },
+  mounted() {
+    this.$refs.DefaultView.setMsg(this.msgExit)
+    this.$refs.DefaultView.show()
   },
   beforeCreate() {
     this.$http
@@ -1201,5 +1211,5 @@ body {
 }
 .text-div-wrap {
   white-space: pre-line;
-  }
+}
 </style>

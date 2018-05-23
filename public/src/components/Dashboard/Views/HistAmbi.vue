@@ -30,22 +30,7 @@
         </div>
       </div>
     </div>
-    <div class="row clear-margin" v-show="defaultView == 'yes'">
-      <div class="col-lg-12 btn btn-round btn-fill">
-        <div class="row">
-          <div class="col-md-12">
-            <h4 class="text-center">
-              {{defaultViewDescritivo}}
-            </h4>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <img src='static/img/logo_A.png' alt=''>
-          </div>
-        </div>
-      </div>
-    </div>
+    <default-form ref="DefaultView"></default-form>
     <div class="row show-charts-history clear-margin" v-if="dataCharsExists">
       <div class="col-md-12 btn btn-round btn-fill">
         <div class="card">
@@ -62,30 +47,24 @@
         </div>
       </div>
     </div>
-    <!--
-    <div id="loader-wrapper" v-show="execProcess">
-      <div id="loader">
-        <h4 class="text-center">
-          <img src='static/img/load3_A.gif' alt=''>
-        </h4>
-        <h1 class="text-center">Aguarde</h1>
-      </div>
-    </div> -->
+    <loading ref="loading"></loading>
   </div>
 </template>
 <script>
 import { EventBus } from '../../../event-bus.js'
 import ChartLine from 'components/UIComponents/Charts/chartLine.vue'
+import Loading from 'components/UIComponents/Forms/load.vue'
+import DefaultForm from 'components/UIComponents/Forms/default.vue'
 export default {
   components: {
-    ChartLine
+    ChartLine,
+    Loading,
+    DefaultForm
   },
   data() {
     return {
-      msgUser: 'Selecione e pressione [OK] para visualizar o histórico do sensor.',
+      msgSensor: 'Selecione e pressione [OK] para visualizar o histórico do sensor.',
       msgExit: 'Pressione seta direita do comando para selecionar...',
-      defaultViewDescritivo: 'Pressione seta direita do comando para selecionar...',
-      defaultView: 'yes',
       classEvent: 'control-remote-sensors',
       posSensorSelected: -1,
       dataCharsExists: false,
@@ -122,16 +101,14 @@ export default {
       }, 10);
     },
     getAllDataSensor() {
-      this.execProcess = true
-      this.defaultView = 'yes'
+      this.$refs.loading.show()
+      this.resetValues()
       this.sensorType = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
-      this.posSensorSelected = EventBus.currentActiveRightComp
-      // let self = this
-      // console.log('Teste ok list', this.sensorType)
       this.$http
-        .get('/api/raqsensor/getdata/' + this.sensorType)
+        .get('/api/rawsensor/getdata/' + this.sensorType)
         .then(response => {
           if (response.data.status === true) {
+            this.posSensorSelected = EventBus.currentActiveRightComp
             let dataArray = response.data.data
             this.chartData = {
               data: {
@@ -145,7 +122,15 @@ export default {
                 this.chartData.data.labels = (function() {
                   let arrTime = [];
                   for (let i = 0; i < dataArray[index].time.length; i++) {
-                    arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
+                    if (i === 0) {
+                      arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
+                    } else {
+                      if (EventBus.sameDay(dataArray[index].time[i - 1], dataArray[index].time[i])) {
+                        arrTime.push(EventBus.onlyTimeFormat(dataArray[index].time[i]))
+                      } else {
+                        arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
+                      }
+                    }
                   }
                   return arrTime
                 })()
@@ -167,12 +152,12 @@ export default {
               })
             }
             this.dataCharsExists = true
-            this.execProcess = false
-            this.defaultView = 'no'
             this.classEvent = 'control-remote'
 
             setTimeout(() => {
               EventBus.elementControl = document.getElementsByClassName(this.classEvent)
+              this.$refs.loading.hide()
+              this.$refs.DefaultView.hide()
               EventBus.currentActiveRightComp = 0
               // ativa o novo elemento adiconando a class que simboliza o elemento activo
               let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
@@ -182,6 +167,10 @@ export default {
               document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
             }, 10)
           } else {
+            this.posSensorSelected = -1
+            this.$refs.loading.hide()
+            this.$refs.DefaultView.setMsg(this.msgExam)
+            this.$refs.DefaultView.show()
             this.$notifications.notify({
               message: '<h4>' + response.data.data + '</h4>',
               icon: 'ti-bell',
@@ -189,9 +178,6 @@ export default {
               verticalAlign: 'top',
               type: 'warning'
             })
-            this.execProcess = false
-            this.defaultViewDescritivo = this.msgExam
-            this.defaultView = 'yes'
           }
         })
         .catch(error => {
@@ -220,17 +206,18 @@ export default {
        * TODO: Monitorização dos eventos do controlo remoto
        */
       EventBus.$on('move-components', function(cmd) {
-        if (!self.execProcess) {
+        if (!self.$refs.loading.getLoadingState()) {
           EventBus.elementControl = document.getElementsByClassName(self.classEvent)
           switch (cmd) {
             // evento do 'OK'
             case 'ok_btn':
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
-              self.defaultView = 'no'
-              self.defaultViewDescritivo = ''
-              if (!self.posSensorSelected >= 0) {
+              self.$refs.DefaultView.hide()
+              if (self.posSensorSelected < 0) {
                 document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
+                self.$refs.DefaultView.setMsg(self.msgExam)
+                self.$refs.DefaultView.show()
               }
               break
             // evento para sair para a sidebar ou para a lista anterior
@@ -259,8 +246,8 @@ export default {
                 EventBus.currentActiveRightComp = 0
                 // define o elemento ativo coomo sendo a barra lateral
                 EventBus.currentComponent = EventBus.sidebarName
-                self.defaultView = 'yes'
-                self.defaultViewDescritivo = self.msgExit
+                self.$refs.DefaultView.setMsg(self.msgExit)
+                self.$refs.DefaultView.show()
                 return
               }
               // desloca a div para o inicio
@@ -268,8 +255,8 @@ export default {
               // limpa a lisa dos botões disponiveis para o user
               self.btnLocation = []
               self.resetValues()
-              self.defaultView = 'yes'
-              self.defaultViewDescritivo = self.msgUser
+              self.$refs.DefaultView.setMsg(self.msgSensor)
+              self.$refs.DefaultView.show()
               console.log('if exit', cmd, EventBus.currentActiveRightComp)
               break
             case 'right': // tecla para a direita
@@ -282,8 +269,8 @@ export default {
               EventBus.moveLeftRightInView(1)
               if (self.posSensorSelected >= 0) {
               } else {
-                self.defaultView = 'yes'
-                self.defaultViewDescritivo = self.msgUser
+                self.$refs.DefaultView.setMsg(self.msgSensor)
+                self.$refs.DefaultView.show()
               }
               break
             case 'left': // tecla para a esquerda
@@ -304,8 +291,8 @@ export default {
                     document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
                   } else {
                     document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
-                    self.defaultView = 'yes'
-                    self.defaultViewDescritivo = self.msgUser
+                    self.$refs.DefaultView.setMsg(self.msgSensor)
+                    self.$refs.DefaultView.show()
                   }
                   // limpa a lisa dos botões disponiveis para o user
                   self.btnLocation = []
@@ -314,8 +301,8 @@ export default {
                   // estamos na lista dos users
                 } else {
                   EventBus.moveLeftRightInView(-1)
-                  self.defaultView = 'yes'
-                  self.defaultViewDescritivo = self.msgExit
+                  self.$refs.DefaultView.setMsg(self.msgExit)
+                  self.$refs.DefaultView.show()
                 }
               } else {
                 EventBus.moveLeftRightInView(-1)
@@ -328,15 +315,12 @@ export default {
       })
     }
   },
-  watch: {
-    defaultView: function(value) {
-      if (value === 'yes') {
-        this.resetValues()
-      }
-    }
-  },
   created() {
     this.controlEventsBus()
+  },
+  mounted() {
+    this.$refs.DefaultView.setMsg(this.msgExit)
+    this.$refs.DefaultView.show()
   },
   beforeCreate() {
     this.$http
