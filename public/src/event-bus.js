@@ -104,6 +104,18 @@ export const EventBus = new Vue({
         (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
       )
     },
+    onlyTimeFormat(data) {
+      let date = new Date(data)
+      return (
+        (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' +
+        (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
+      )
+    },
+    sameDay(dA, dB) {
+      let d1 = new Date(dA)
+      let d2 = new Date(dB)
+      return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate()
+    },
     getRandomColor() {
       var letters = '0123456789ABCDEF';
       var color = '#';

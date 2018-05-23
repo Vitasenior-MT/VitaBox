@@ -5,7 +5,7 @@
         <div class="card clear-padding">
           <div class="content">
             <button v-tooltip.bottom="'Pessione em [OK] para selecionar o utilizador.'" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
-                <h5><b class="ti-user"> {{ patient.name }}</b></h5>
+                <h5 class="text-div-wrap"><b class="ti-user"> {{ patient.name }}</b></h5>
             </button>
           </div>
         </div>
@@ -24,7 +24,7 @@
               :data-addrmac="btn.macAddr"
               v-on:click="bleGetHistoryExam">
               <h5><b :class="btn.icon"></b></h5>
-              {{ btn.nome }}
+              <p class="text-div-wrap">{{ btn.nome }}</p>
             </button>
           </div>
         </div>
@@ -146,26 +146,32 @@ export default {
               switch (devacesArray[index].device) {
                 case 'bloodpressure':
                   this.btns[0].macAddr = devacesArray[index].mac_addr
+                  this.btns[0].nome = devacesArray[index].name
                   btnopt = this.btns[0]
                   break
                 case 'bodytemperature':
                   this.btns[1].macAddr = devacesArray[index].mac_addr
+                  this.btns[1].nome = devacesArray[index].name
                   btnopt = this.btns[1]
                   break
                 case 'bodypulse':
                   this.btns[2].macAddr = devacesArray[index].mac_addr
+                  this.btns[2].nome = devacesArray[index].name
                   btnopt = this.btns[2]
                   break
                 case 'bodyscale':
                   this.btns[3].macAddr = devacesArray[index].mac_addr
+                  this.btns[3].nome = devacesArray[index].name
                   btnopt = this.btns[3]
                   break
                 case 'bloodglucose':
                   this.btns[4].macAddr = devacesArray[index].mac_addr
+                  this.btns[4].nome = devacesArray[index].name
                   btnopt = this.btns[4]
                   break
                 case 'bandfitness':
                   this.btns[5].macAddr = devacesArray[index].mac_addr
+                  this.btns[5].nome = devacesArray[index].name
                   btnopt = this.btns[5]
                   break
                 default:
@@ -602,5 +608,8 @@ body {
 .img-fit {
   width: 100%;
   height: auto;
+}
+.text-div-wrap {
+  white-space: pre-line;
 }
 </style>

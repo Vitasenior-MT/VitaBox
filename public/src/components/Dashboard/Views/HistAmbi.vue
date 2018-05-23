@@ -122,7 +122,15 @@ export default {
                 this.chartData.data.labels = (function() {
                   let arrTime = [];
                   for (let i = 0; i < dataArray[index].time.length; i++) {
-                    arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
+                    if (i === 0) {
+                      arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
+                    } else {
+                      if (EventBus.sameDay(dataArray[index].time[i - 1], dataArray[index].time[i])) {
+                        arrTime.push(EventBus.onlyTimeFormat(dataArray[index].time[i]))
+                      } else {
+                        arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
+                      }
+                    }
                   }
                   return arrTime
                 })()

@@ -16,7 +16,7 @@ var Main = function () {
     TimersConfig: config.TimersConfig,
     env_dev: (false),//mode.toLowerCase() === 'dev' ? true : false),
   };
-  // inicia p script e envia as configuracores do ficheiro ini
+  // inicia p script e envia as configuracores
   var child2 = cp.fork('./lib/server.js');
   child2.send({ "serverdata": args });
 
