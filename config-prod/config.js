@@ -15,8 +15,8 @@ module.exports = {
   TimersConfig: {
     waitingTimeTillNextWarning: {
       hour: 0,
-      min: 5,
-      sec: 0
+      min: 0,
+      sec: 50
     },
     waitingTimeTillCheckForCecIsAlive: {
       hour: 0,
@@ -24,13 +24,13 @@ module.exports = {
       sec: 4
     },
     timeTillAvgOutExpiredDate: {
-      hour: 5,
-      min: 0,
+      hour: 0,
+      min: 10,
       sec: 0
     },
     deleteRate: {
-      hour: 5,
-      min: 0,
+      hour: 0,
+      min: 10,
       sec: 0
     },
     postRate: {
@@ -54,9 +54,8 @@ module.exports = {
   ServerConfigs: {
     key: fs.readFileSync('key.key').toString().trim(),
     pass: 'passvita',
-    port: 8080,
-    //host: '192.168.161.117'
-    host: '192.168.161.67'
+    port: 443,
+    host: 'vitasenior-test.eu-gb.mybluemix.net'
   },
   serverHttp: {
     port: 8080
