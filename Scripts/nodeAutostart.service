@@ -1,8 +1,9 @@
 [Unit]
 Description=VitaBox
-Requires=After=mongod.service       # Requires the mysql service to run first
+#Requires=After=mongod.service       # Requires the mongo service to run first
 
 [Service]
+Environment=NODE_ENV=PROD
 ExecStart=/usr/bin/node /home/pi/Desktop/VitaBox/main.js
 #ExecStart=/usr/bin/npm run prod /home/pi/Desktop/VitaBox/main.js
 ##Required on some systems
@@ -10,6 +11,9 @@ WorkingDirectory=/home/pi/Desktop/VitaBox
 Restart=always
 ##Restart service after 10 seconds if node service crashes
 RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=VitaBox
 
 [Install]
 WantedBy=multi-user.target

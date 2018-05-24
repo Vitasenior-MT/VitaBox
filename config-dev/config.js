@@ -16,7 +16,7 @@ module.exports = {
     waitingTimeTillNextWarning: {
       hour: 0,
       min: 0,
-      sec: 10
+      sec: 50
     },
     waitingTimeTillCheckForCecIsAlive: {
       hour: 0,
@@ -24,13 +24,13 @@ module.exports = {
       sec: 4
     },
     timeTillAvgOutExpiredDate: {
-      hour: 5,
-      min: 0,
+      hour: 0,
+      min: 10,
       sec: 0
     },
     deleteRate: {
-      hour: 5,
-      min: 0,
+      hour: 0,
+      min: 10,
       sec: 0
     },
     postRate: {

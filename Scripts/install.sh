@@ -24,6 +24,7 @@ curl -sL https://deb.nodesource.com/setup_8.9.2 | sudo -E bash -
 sudo apt-get install -y nodejs
 
 #2. Config autostart
+cd Scripts
 sudo cp nodeAutostart.service /etc/systemd/system/nodeAutostart.service
 sudo systemctl enable nodeAutostart.service
 sudo systemctl start nodeAutostart.service
