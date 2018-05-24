@@ -59,7 +59,7 @@ import { EventBus } from '../../../event-bus.js'
 import CardChartHistoryBar from 'components/UIComponents/Cards/CardHistoryBarChart.vue'
 import CardChartHistoryLine from 'components/UIComponents/Cards/CardHistoryLineChart.vue'
 import Loading from 'components/UIComponents/Forms/load.vue'
-import DefaultForm from 'components/UIComponents/Forms/default.vue'
+import DefaultForm from 'components/UIComponents/Forms/defaultform.vue'
 export default {
   components: {
     CardChartHistoryBar,
@@ -398,6 +398,13 @@ export default {
       EventBus.$on('move-components', function(cmd) {
         if (!self.$refs.loading.getLoadingState()) {
           EventBus.elementControl = document.getElementsByClassName(self.classEvent)
+          if (EventBus.elementControl.length === 0) {
+            EventBus.currentActiveRightComp = 0
+            EventBus.firstRightEvent = true
+            EventBus.elementControl = []
+            EventBus.currentComponent = EventBus.sidebarName
+            return
+          }
           switch (cmd) {
             // evento do 'OK'
             case 'ok_btn':

@@ -5,14 +5,17 @@
         <warning-card :data='warningCard'></warning-card>
       </div>
     </div>
+    <default-form ref="DefaultView"></default-form>
   </div>
 </template>
 <script>
 import WarningCard from 'components/UIComponents/Cards/WarningCard2.vue'
 import { EventBus } from '../../../event-bus.js'
+import DefaultForm from 'components/UIComponents/Forms/defaultform.vue'
 export default {
   components: {
-    WarningCard
+    WarningCard,
+    DefaultForm
   },
   sockets: {
     vitaWarning: function(data) {
@@ -22,6 +25,7 @@ export default {
   },
   data() {
     return {
+      msg: 'Sem sensores em alarme.',
       warningCards: [],
       elem: '',
       content: '',
@@ -87,8 +91,21 @@ export default {
     },
     controlEventsBus() {
       var self = this
+      if (self.warningCards.length > 0) {
+        self.$refs.DefaultView.hide()
+      }
       EventBus.$on('move-components', function(cmd) {
         EventBus.elementControl = document.getElementsByClassName('control-remote')
+        if (EventBus.elementControl.length === 0) {
+          self.$refs.DefaultView.setMsg(self.msg)
+          self.$refs.DefaultView.show()
+          EventBus.currentActiveRightComp = 0
+          EventBus.firstRightEvent = true
+          EventBus.elementControl = []
+          EventBus.currentComponent = EventBus.sidebarName
+          return
+        }
+        self.$refs.DefaultView.hide()
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
@@ -166,6 +183,12 @@ export default {
             break;
         }
       })
+    }
+  },
+  mounted() {
+    if (this.warningCards.length === 0) {
+      this.$refs.DefaultView.setMsg(this.msg)
+      this.$refs.DefaultView.show()
     }
   },
   created() {

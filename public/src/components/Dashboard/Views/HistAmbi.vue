@@ -54,7 +54,7 @@
 import { EventBus } from '../../../event-bus.js'
 import ChartLine from 'components/UIComponents/Charts/chartLine.vue'
 import Loading from 'components/UIComponents/Forms/load.vue'
-import DefaultForm from 'components/UIComponents/Forms/default.vue'
+import DefaultForm from 'components/UIComponents/Forms/defaultform.vue'
 export default {
   components: {
     ChartLine,
@@ -208,6 +208,13 @@ export default {
       EventBus.$on('move-components', function(cmd) {
         if (!self.$refs.loading.getLoadingState()) {
           EventBus.elementControl = document.getElementsByClassName(self.classEvent)
+          if (EventBus.elementControl.length === 0) {
+            EventBus.currentActiveRightComp = 0
+            EventBus.firstRightEvent = true
+            EventBus.elementControl = []
+            EventBus.currentComponent = EventBus.sidebarName
+            return
+          }
           switch (cmd) {
             // evento do 'OK'
             case 'ok_btn':
@@ -306,6 +313,11 @@ export default {
                 }
               } else {
                 EventBus.moveLeftRightInView(-1)
+                if (self.posSensorSelected >= 0) {
+                } else {
+                  self.$refs.DefaultView.setMsg(self.msgSensor)
+                  self.$refs.DefaultView.show()
+                }
               }
               break
             default:

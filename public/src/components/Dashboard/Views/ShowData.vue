@@ -6,14 +6,17 @@
         </CardWarning3>
       </div>
     </div>
+    <default-form ref="DefaultView"></default-form>
   </div>
 </template>
 <script>
 import CardWarning3 from 'components/UIComponents/Cards/CardWarning3.vue'
 import { EventBus } from '../../../event-bus.js'
+import DefaultForm from 'components/UIComponents/Forms/defaultform.vue'
 export default {
   components: {
-    CardWarning3
+    CardWarning3,
+    DefaultForm
   },
   sockets: {
     avgSensorUpdate: function(data) {
@@ -32,6 +35,7 @@ export default {
   },
   data() {
     return {
+      msg: 'Sem sensores.',
       CardsSensors: [],
       elem: '',
       content: '',
@@ -70,8 +74,21 @@ export default {
     },
     controlEventsBus() {
       var self = this
+      if (self.CardsSensors.length > 0) {
+        self.$refs.DefaultView.hide()
+      }
       EventBus.$on('move-components', function(cmd) {
         EventBus.elementControl = document.getElementsByClassName('control-remote')
+        if (EventBus.elementControl.length === 0) {
+          self.$refs.DefaultView.setMsg(self.msg)
+          self.$refs.DefaultView.show()
+          EventBus.currentActiveRightComp = 0
+          EventBus.firstRightEvent = true
+          EventBus.elementControl = []
+          EventBus.currentComponent = EventBus.sidebarName
+          return
+        }
+        self.$refs.DefaultView.hide()
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
@@ -141,6 +158,12 @@ export default {
             break;
         }
       })
+    }
+  },
+  mounted() {
+    if (this.CardsSensors.length === 0) {
+      this.$refs.DefaultView.setMsg(this.msg)
+      this.$refs.DefaultView.show()
     }
   },
   created() {

@@ -2,12 +2,14 @@ import Vue from 'vue';
 export const EventBus = new Vue({
   data: {
     scrollInterval: null,
-    sidebarName: 'side-bar',      // nome dabarra lateral
+    sidebarName: 'side-bar',      // nome da barra lateral
     currentComponent: 'side-bar', // elemeto ativo por defeito é a barra lateral
     correntRightComponent: '',    // elemento ativo do lado direito
     currentActiveRightComp: 0,    // posição do array para o elemento ativo
     firstRightEvent: true,        // validação se é a primeira vez que foi precionado a tecla para a direita para entrar na view
-    elementControl: [], // Array com os elemento perencentes à class 'remote-control'
+    elementControl: []            // Array com os elemento perencentes a uma class especifica
+  },
+  methods: {
     /**
      * TODO: Função destinada a colocar o elemento activo no momento visivel no ecrã
      * @param {elemento activo} el
