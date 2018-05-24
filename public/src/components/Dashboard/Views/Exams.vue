@@ -29,22 +29,6 @@
       </div>
     </div>
     <default-form ref="DefaultView"></default-form>
-    <!-- <div class="row clear-margin" v-show="defaultView == 'yes'">
-      <div class="col-lg-12 btn btn-round btn-fill">
-        <div class="row">
-          <div class="col-md-12">
-            <h4 class="text-center">
-              {{defaultViewDescritivo}}
-            </h4>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <img src='static/img/logo_A.png' alt=''>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <div class="row bloodpressure clear-margin" v-show="examEvent == 'bloodpressure'">
       <div class="col-md-12 btn btn-round btn-fill">
         <div class="col-md-9">

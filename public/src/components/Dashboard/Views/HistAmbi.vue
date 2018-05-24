@@ -5,7 +5,7 @@
         <div class="card clear-padding">
           <div class="content">
             <button v-tooltip.bottom="'Pessione em [OK] para selecionar o sensor.'" class="btn btn-block btn-info control-remote-sensors" type="button" :data-type="sensor.type" v-on:click="getAllDataSensor()">
-                <h5><b class="fab fa-galactic-senate"></b> {{ sensor.name }}</h5>
+                <h5 class="text-div-wrap"><b class="fab fa-galactic-senate"></b> {{ sensor.name }}</h5>
             </button>
           </div>
         </div>
