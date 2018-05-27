@@ -116,16 +116,14 @@ export const app = new Vue({
       }
     },
     blocked: function() {
-      console.log("Blocked");
-      /* let self = this
-      this.$modal.show('dialog', data)
-      if (!this.timeout) {
-        this.timeout = true
-        setTimeout(() => {
-          self.$modal.hide('dialog')
-          self.timeout = false
-        }, 3000)
-      } */
+      this.$notifications.notify({
+        message: '<h4>' + this.$t("warnings.remote.title") + '</h4>',
+        icon: 'ti-bell',
+        horizontalAlign: 'middle',
+        verticalAlign: 'top',
+        type: 'warning'
+      })
+      this.$socket.emit('ttsText', this.$t("warnings.remote.text"))
     },
     cmd: function(cmd) {
       switch (cmd) {

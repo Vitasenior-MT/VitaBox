@@ -1,11 +1,11 @@
 <template>
-  <div :class="'circle-avg2 img-properties ' + warning">
-    <img src="static/img/vitabox/temp.svg">
+  <div class="circle-avg2 img-properties newWarning-1">
+    <img :src="'static/img/vitabox/' + sensortype + '.svg'">
   </div>
 </template>
 <script>
 export default {
-  props: ["warning"],
+  props: ["sensortype"],
   name: "circle-data",
   data() {
     return {
@@ -53,11 +53,6 @@ export default {
   border-radius: 50%;
 }
 
-.warning-card-2 {
-  border: 15px solid #cc0000;
-  box-shadow: 0 0 10px 5px white;
-}
-
 .newWarning-1 {
   transition-property: border box-shadow;
   transition-timing-function: linear;
@@ -72,29 +67,5 @@ export default {
   transition-timing-function: linear;
   border: 15px solid #ff1a1a;
   box-shadow: 0 0 10px 5px #ff1a1a;
-}
-
-.warning-card-1 {
-  border: 15px solid orangered;
-}
-
-.warning-card-0 {
-  border: 15px solid green;
-}
-
-@keyframes color-me-in {
-  0% {
-    border: 15px solid #cc0000;
-    box-shadow: 0 0 10px 5px white;
-  }
-  /* Adding a step in the middle */
-  50% {
-    border: 15px solid #ff1a1a;
-    box-shadow: 0 0 10px 5px #ff1a1a;
-  }
-  100% {
-    border: 15px solid #cc0000;
-    box-shadow: 0 0 10px 5px white;
-  }
 }
 </style>

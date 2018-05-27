@@ -1,4 +1,14 @@
 {
+  "dictionary": {
+    "limit": {
+      "title": "Limite",
+      "text": ""
+    },
+    "avarage": {
+      "title": "Média",
+      "text": ""
+    }
+  },
   "sidebar": {
     "home": {
       "title": "casa",
@@ -66,5 +76,15 @@
     "getPatients": "Vai buscar os pacientes",
     "getSettings": "Vai buscar as settings",
     "sendText": "Enviar Texto"
+  },
+  "warnings": {
+    "remote": {
+      "title": "Comando da tv Bloaqueado",
+      "text": "O comando da Tv está bloaqueado, devido ao aviso, prima ok no comando para desbloquear"
+    },
+    "nosensors": {
+      "title": "Sem Sensores em estado crítico.",
+      "text": ""
+    }
   }
 }

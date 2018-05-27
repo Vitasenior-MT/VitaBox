@@ -19,21 +19,41 @@ export default {
   },
   sockets: {
     vitaWarning: function(data) {
-      console.log('Receive alert on Tab: ', data)
+      var self = this
       this.updateSensor(data)
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(()=>{
+        self.warningCards = []
+        self.$refs.DefaultView.setMsg(this.msg)
+        self.$refs.DefaultView.show()
+      }, this.timeCalculator(0, 5, 0))
     }
   },
   data() {
     return {
-      msg: 'Sem sensores em alarme.',
+      msg: this.$t("warnings.nosensors.title"),
       warningCards: [],
       elem: '',
       content: '',
       numberCol: '',
-      movepos: ''
+      movepos: '',
+      timeout: null,
     }
   },
   methods: {
+    timeCalculator: function (h, m, s) {
+      let time = 0;
+      if (h > 0) {
+        time = time + (h * 60 * 60 * 1000)
+      }
+      if (m > 0) {
+        time = time + (m * 60 * 1000)
+      }
+      if (s > 0) {
+        time = time + (s * 1000)
+      }
+      return time
+    },
     dateFormat(data) {
       let date = new Date(data)
       return (
@@ -53,7 +73,7 @@ export default {
       )
     },
     updateSensor(data) {
-      if (this.warningCards) {
+      if (this.warningCards.length > 0) {
         for (var index in this.warningCards) {
           if (data.location === this.warningCards[index].headerText) {
             if (data.warning_type === this.warningCards[index].sensor) {
@@ -83,6 +103,7 @@ export default {
                 critLvl: data.critLevel
               })
             }
+            this.$refs.DefaultView.hide()
           })
           .catch(error => {
             console.log(error)
@@ -216,9 +237,6 @@ export default {
   },
   beforeDestroy() {
     EventBus.$off('move-components')
-  },
-  beforeCreate() {
-    // console.log("Remotes", EventBus.elementControl)
   }
 }
 </script>

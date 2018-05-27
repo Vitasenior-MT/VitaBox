@@ -6,7 +6,7 @@
       </div>
       <div class="row">
         <div class="margin-25">
-          <circle-data :warning="this.dataCrit">
+          <circle-data :sensortype="data.sensor">
           </circle-data>
         </div>
       </div>
@@ -15,8 +15,8 @@
         <div class="col-sm-12">
           <i :class="data.footerIcon"></i> {{data.footerText}}
         </div>
-        <p class="col-sm-6">Media: {{data.avg}}</p>
-        <p class="col-sm-6">Limite: {{data.threshold}}</p>
+        <p class="col-sm-6">{{ $t("dictionary.avarage.title") }}: {{data.avg}}</p>
+        <p class="col-sm-6">{{ $t("dictionary.limit.title") }}: {{data.threshold}}</p>
       </div>
     </div>
   </div>
@@ -28,18 +28,11 @@ export default {
     CircleData
   },
   data() {
-    return {
-      dataCrit: ""
-    };
+    return {};
   },
   props: ["data"],
   name: "warning-card",
-  mounted() {
-    this.dataCrit =
-      new Date(this.data.avgLastUpdate).getTime() >= new Date() - 100000000
-        ? "newWarning-1"
-        : "warning-card-2";
-  }
+  mounted() {}
 };
 </script>
 <style>
