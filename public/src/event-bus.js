@@ -85,7 +85,7 @@ export const EventBus = new Vue({
       this.firstRightEvent = true
       this.elementControl = []
       this.currentComponent = EventBus.sidebarName
-      return
+      return true
     },
     dateFormat(data) {
       let date = new Date(data)

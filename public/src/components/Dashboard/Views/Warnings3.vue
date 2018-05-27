@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      msg: 'Sem sensores.',
+      msg: 'warning3.msgSensor',
       warningCards: [],
       elem: '',
       content: '',

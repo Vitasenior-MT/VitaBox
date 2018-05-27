@@ -69,9 +69,9 @@ export default {
   },
   data() {
     return {
-      msgUser: 'Selecione e pressione [OK] para visualizar o histórico dos exames do utilizador.',
-      msgExam: 'Selecione o exame e pressione [OK] para visualizar o histórico.',
-      msgExit: 'Pressione seta direita do comando para selecionar...',
+      msgUser: 'examshist.msgUser',
+      msgExam: 'examshist.msgExam',
+      msgExit: 'examshist.msgExit',
       lastHistRecords: 10,
       dataCharsExists: false,
       chartsBarAllData: {},

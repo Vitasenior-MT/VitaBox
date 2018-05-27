@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      msg: 'Sem sensores em alarme.',
+      msg: 'warning.msgSensor',
       warningCards: [],
       elem: '',
       content: '',

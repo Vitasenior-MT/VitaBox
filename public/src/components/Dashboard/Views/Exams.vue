@@ -476,8 +476,8 @@ export default {
   },
   data() {
     return {
-      msgUser: 'Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.',
-      msgExit: 'Pressione seta direita do comando para selecionar...',
+      msgUser: 'exams.msgUser',
+      msgExit: 'exams.msgExit',
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
       patientsList: [],

@@ -63,8 +63,8 @@ export default {
   },
   data() {
     return {
-      msgSensor: 'Selecione e pressione [OK] para visualizar o histórico do sensor.',
-      msgExit: 'Pressione seta direita do comando para selecionar...',
+      msgSensor: 'histambi.msgSensor',
+      msgExit: 'histambi.msgExit',
       classEvent: 'control-remote-sensors',
       posSensorSelected: -1,
       dataCharsExists: false,

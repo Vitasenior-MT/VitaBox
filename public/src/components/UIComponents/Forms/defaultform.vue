@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-12">
           <h4 class="text-center">
-            {{defaultViewDescritivo}}
+            {{ $t(defaultViewDescritivo)}}
           </h4>
         </div>
       </div>

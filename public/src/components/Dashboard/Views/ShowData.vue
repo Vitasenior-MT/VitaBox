@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      msg: 'Sem sensores.',
+      msg: 'showData.msgSensor',
       CardsSensors: [],
       elem: '',
       content: '',
