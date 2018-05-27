@@ -80,13 +80,7 @@ export default {
       EventBus.$on('move-components', function(cmd) {
         EventBus.elementControl = document.getElementsByClassName('control-remote')
         if (EventBus.elementControl.length === 0) {
-          self.$refs.DefaultView.setMsg(self.msg)
-          self.$refs.DefaultView.show()
-          EventBus.currentActiveRightComp = 0
-          EventBus.firstRightEvent = true
-          EventBus.elementControl = []
-          EventBus.currentComponent = EventBus.sidebarName
-          return
+          EventBus.setSidebar()
         }
         self.$refs.DefaultView.hide()
         switch (cmd) {
