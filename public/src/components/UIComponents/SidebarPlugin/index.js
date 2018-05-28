@@ -2,7 +2,7 @@ import Sidebar from './SideBar.vue'
 
 const mode = {
   advanced: true,
-  auto: false,
+  auto: false
 }
 
 const advanced = [

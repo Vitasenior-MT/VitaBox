@@ -191,7 +191,6 @@ export default {
       })
     }
   },
-  
   beforeDestroy() {
     // atribui para que passe a seer novamento a primenra vez que entra nesta view
     EventBus.firstRightEvent = true
@@ -211,19 +210,18 @@ export default {
     }
   },
   created() {
-    if(this.sidebarStore.mode.auto){
+    if (this.sidebarStore.mode.auto) {
       EventBus.elementControl = document.getElementsByClassName('control-remote')
       clearInterval(this.interval)
-      this.interval = setInterval(()=>{
+      this.interval = setInterval(() => {
         console.log('Auto On ')
-        if(this.warningCards.length > 0) {
+        if (this.warningCards.length > 0) {
           EventBus.moveLeftRightInView(1)
         }
       }, EventBus.timeCalculator(0, 0, 3))
-    }else{
+    } else {
       console.log('Auto Off ')
     }
-
     this.$http
       .get('/api/sensor/allSensorsInfo')
       .then(response => {

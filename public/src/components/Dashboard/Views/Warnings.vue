@@ -22,7 +22,7 @@ export default {
       var self = this
       this.updateSensor(data)
       clearTimeout(this.timeout);
-      this.timeout = setTimeout(()=>{
+      this.timeout = setTimeout(() => {
         self.warningCards = []
         self.$refs.DefaultView.setMsg(this.msg)
         self.$refs.DefaultView.show()
@@ -37,7 +37,7 @@ export default {
       content: '',
       numberCol: '',
       movepos: '',
-      timeout: null,
+      timeout: null
     }
   },
   methods: {

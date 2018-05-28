@@ -149,7 +149,6 @@ export default {
   },
   created() {
     var self = this
-  
     this.controlSideBar()
     EventBus.$on('changeTab', function() {
       if (self.$route.path !== '/vitabox/warnings') {
@@ -164,18 +163,15 @@ export default {
             EventBus.currentActiveRightComp = 0
             // define o elemento ativo coomo sendo a barra lateral
             EventBus.currentComponent = EventBus.sidebarName
-
             return
           }
         }
       }
     })
-
     EventBus.$on('mode', function() {
       self.sidebarStore.mode.advanced = !self.sidebarStore.mode.advanced
       self.sidebarStore.mode.auto = !self.sidebarStore.mode.auto
       self.sidebarLinks = self.sidebarStore.mode.advanced ? self.sidebarStore.sidebarLinksMode.advanced : self.sidebarStore.sidebarLinksMode.basic
-      
       self.$notifications.notify({
         message: '<h4>' + (self.sidebarStore.mode.advanced ? self.$t("dictionary.advanced.title") : self.$t("dictionary.basic.title")) + '</h4>',
         icon: 'ti-bell',
@@ -183,10 +179,9 @@ export default {
         verticalAlign: 'top',
         type: 'info'
       })
-
-      if(self.sidebarStore.mode.auto){
+      if (self.sidebarStore.mode.auto) {
         clearInterval(self.interval)
-        self.interval = setInterval(()=>{
+        self.interval = setInterval(() => {
           console.log('Auto On ')
           let index = self.activeLinkIndex + 1
           if (index < 0) {
@@ -199,11 +194,10 @@ export default {
           self.$router.push({ path: self.sidebarLinks[index].path })
           EventBus.correntRightComponent = self.sidebarLinks[index].path
         }, EventBus.timeCalculator(0, 0, 50))
-      }else{
+      } else {
         clearInterval(self.interval)
         console.log('Auto Off ')
       }
-
       if (self.$route.path !== '/vitabox/exames') {
         let sideBar = self.sidebarLinks
         for (var index in sideBar) {
