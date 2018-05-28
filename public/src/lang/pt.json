@@ -77,14 +77,36 @@
     "getSettings": "Vai buscar as settings",
     "sendText": "Enviar Texto"
   },
-  "warnings": {
-    "remote": {
-      "title": "Comando da tv Bloaqueado",
-      "text": "O comando da Tv está bloaqueado, devido ao aviso, prima ok no comando para desbloquear"
-    },
-    "nosensors": {
-      "title": "Sem Sensores em estado crítico.",
-      "text": ""
-    }
+  "histambi": {
+    "msgSensor": "Selecione e pressione [OK] para visualizar o histórico do sensor.",
+    "msgExit": "Pressione seta direita do comando para selecionar..."
+  },
+  "examshist": {
+    "msgUser": "Selecione e pressione [OK] para visualizar o histórico dos exames do utilizador.",
+    "msgExam": "Selecione o exame e pressione [OK] para visualizar o histórico.",
+    "msgExit": "Pressione seta direita do comando para selecionar..."
+  },
+  "exams": {
+    "msgUser": "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
+    "msgExit": "Pressione seta direita do comando para selecionar..."
+  },
+  "warning3": {
+    "msgSensor": "Sem sensores."
+  },
+  "warning2": {
+    "msgSensor": "Sem sensores."
+  },
+  "warning": {
+    "msgSensor": "Sem sensores em alarme."
+  },
+  "showData": {
+    "msgSensor": "Sem sensores."
+  },
+  "showData2": {
+    "msgSensor": "Sem sensores."
+  },
+  "remote": {
+    "title": "Comando da tv Bloaqueado",
+    "text": "O comando da Tv está bloaqueado, devido ao aviso, prima ok no comando para desbloquear"
   }
 }

@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      msg: 'Sem sensores.',
+      msg: 'warning3.msgSensor',
       warningCards: [],
       elem: '',
       content: '',
@@ -108,11 +108,7 @@ export default {
         if (EventBus.elementControl.length === 0) {
           self.$refs.DefaultView.setMsg(self.msg)
           self.$refs.DefaultView.show()
-          EventBus.currentActiveRightComp = 0
-          EventBus.firstRightEvent = true
-          EventBus.elementControl = []
-          EventBus.currentComponent = EventBus.sidebarName
-          return
+          EventBus.setSidebar()
         }
         self.$refs.DefaultView.hide()
         switch (cmd) {

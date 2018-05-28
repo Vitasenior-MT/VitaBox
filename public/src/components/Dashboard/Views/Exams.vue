@@ -476,8 +476,8 @@ export default {
   },
   data() {
     return {
-      msgUser: 'Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.',
-      msgExit: 'Pressione seta direita do comando para selecionar...',
+      msgUser: 'exams.msgUser',
+      msgExit: 'exams.msgExit',
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
       patientsList: [],
@@ -970,11 +970,7 @@ export default {
         if (!self.execProcess) {
           EventBus.elementControl = document.getElementsByClassName(self.classEvent)
           if (EventBus.elementControl.length === 0) {
-            EventBus.currentActiveRightComp = 0
-            EventBus.firstRightEvent = true
-            EventBus.elementControl = []
-            EventBus.currentComponent = EventBus.sidebarName
-            return
+            EventBus.setSidebar()
           }
           switch (cmd) {
             // evento do 'OK'

@@ -80,6 +80,13 @@ export const EventBus = new Vue({
       elem.classList.add('btn-fill')
       this.scrollScreen(elem)
     },
+    setSidebar() {
+      this.currentActiveRightComp = 0
+      this.firstRightEvent = true
+      this.elementControl = []
+      this.currentComponent = EventBus.sidebarName
+      return true
+    },
     dateFormat(data) {
       let date = new Date(data)
       return (

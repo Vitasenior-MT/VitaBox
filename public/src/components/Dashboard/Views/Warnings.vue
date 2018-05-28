@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      msg: this.$t("warnings.nosensors.title"),
+      msg: 'warning.msgSensor',
       warningCards: [],
       elem: '',
       content: '',

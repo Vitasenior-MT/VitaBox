@@ -63,8 +63,8 @@ export default {
   },
   data() {
     return {
-      msgSensor: 'Selecione e pressione [OK] para visualizar o histórico do sensor.',
-      msgExit: 'Pressione seta direita do comando para selecionar...',
+      msgSensor: 'histambi.msgSensor',
+      msgExit: 'histambi.msgExit',
       classEvent: 'control-remote-sensors',
       posSensorSelected: -1,
       dataCharsExists: false,
@@ -209,11 +209,7 @@ export default {
         if (!self.$refs.loading.getLoadingState()) {
           EventBus.elementControl = document.getElementsByClassName(self.classEvent)
           if (EventBus.elementControl.length === 0) {
-            EventBus.currentActiveRightComp = 0
-            EventBus.firstRightEvent = true
-            EventBus.elementControl = []
-            EventBus.currentComponent = EventBus.sidebarName
-            return
+            EventBus.setSidebar()
           }
           switch (cmd) {
             // evento do 'OK'

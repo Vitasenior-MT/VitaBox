@@ -117,13 +117,13 @@ export const app = new Vue({
     },
     blocked: function() {
       this.$notifications.notify({
-        message: '<h4>' + this.$t("warnings.remote.title") + '</h4>',
+        message: '<h4>' + this.$t("remote.title") + '</h4>',
         icon: 'ti-bell',
         horizontalAlign: 'middle',
         verticalAlign: 'top',
         type: 'warning'
       })
-      this.$socket.emit('ttsText', this.$t("warnings.remote.text"))
+      this.$socket.emit('ttsText', this.$t("remote.text"))
     },
     cmd: function(cmd) {
       switch (cmd) {

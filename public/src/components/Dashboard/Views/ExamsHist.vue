@@ -69,9 +69,9 @@ export default {
   },
   data() {
     return {
-      msgUser: 'Selecione e pressione [OK] para visualizar o histórico dos exames do utilizador.',
-      msgExam: 'Selecione o exame e pressione [OK] para visualizar o histórico.',
-      msgExit: 'Pressione seta direita do comando para selecionar...',
+      msgUser: 'examshist.msgUser',
+      msgExam: 'examshist.msgExam',
+      msgExit: 'examshist.msgExit',
       lastHistRecords: 10,
       dataCharsExists: false,
       chartsBarAllData: {},
@@ -399,11 +399,7 @@ export default {
         if (!self.$refs.loading.getLoadingState()) {
           EventBus.elementControl = document.getElementsByClassName(self.classEvent)
           if (EventBus.elementControl.length === 0) {
-            EventBus.currentActiveRightComp = 0
-            EventBus.firstRightEvent = true
-            EventBus.elementControl = []
-            EventBus.currentComponent = EventBus.sidebarName
-            return
+            EventBus.setSidebar()
           }
           switch (cmd) {
             // evento do 'OK'
