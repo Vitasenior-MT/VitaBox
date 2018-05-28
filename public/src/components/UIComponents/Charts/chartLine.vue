@@ -106,6 +106,12 @@ export default {
   mounted() {
     this.initGraphLine(this.lineChartId)
   },
+  beforeDestroy() {
+    this.labelsPos = 0
+    this.clearChart = false
+    this.lineChart.data = {}
+    this.lineChart = null
+  },
   watch: {
     callbackindex: function(value) {
       if (value >= 0) {

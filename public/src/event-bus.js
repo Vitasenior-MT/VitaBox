@@ -16,7 +16,7 @@ export const EventBus = new Vue({
      * @param {Minutes} m
      * @param {Seconds} s
      */
-    timeCalculator: function (h, m, s) {
+    timeCalculator: function(h, m, s) {
       let time = 0;
       if (h > 0) {
         time = time + (h * 60 * 60 * 1000)
@@ -34,21 +34,23 @@ export const EventBus = new Vue({
      * @param {elemento activo} el
      */
     scrollScreen: function(el) {
+      el.scrollIntoView(false)
+
       // determina a altura do ecrâ disponivel
-      let height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+      // let height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
       // dimensão e posição do elemento passado por parametre
-      let elemPos = el.getBoundingClientRect()
+      // let elemPos = el.getBoundingClientRect()
       // numero de pixels que o scroll vai deslocar
-      let step = 15
+      // let step = 15
 
       // faz a deslocação do elemento ativo para aparecer no ecrã faz scroll para cima
-      if ((elemPos.top + elemPos.height) > height) {
-        this.scrollAnimate(step, window.scrollY + elemPos.top - 50)
-      }
+      // if ((elemPos.top + elemPos.height) > height) {
+      //  this.scrollAnimate(step, window.scrollY + elemPos.top - 50)
+      // }
       // faz a deslocação do elemento ativo para aparecer no ecrã faz scroll para baixo
-      if (elemPos.top < 0) {
-        this.scrollAnimate(step * -1, window.scrollY + elemPos.top - 20)
-      }
+      // if (elemPos.top < 0) {
+      //  this.scrollAnimate(step * -1, window.scrollY + elemPos.top - 20)
+      // }*/
     },
     /**
      * TODO: Faz o scroll do elemento
@@ -100,10 +102,14 @@ export const EventBus = new Vue({
       this.scrollScreen(elem)
     },
     setSidebar() {
-      this.currentActiveRightComp = 0
-      this.firstRightEvent = true
+      // atribui para que passe a ser novamento a primenra vez que entra nesta view
+      EventBus.firstRightEvent = true
+      // define como o elemento ativo seja o '0'
+      EventBus.currentActiveRightComp = 0
+      // define o elemento ativo coomo sendo a barra lateral
+      EventBus.currentComponent = EventBus.sidebarName
+      // limpa lista dos elementos pertencentes à class
       this.elementControl = []
-      this.currentComponent = EventBus.sidebarName
       return true
     },
     dateFormat(data) {

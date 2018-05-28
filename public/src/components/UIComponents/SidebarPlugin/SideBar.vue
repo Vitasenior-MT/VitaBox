@@ -190,7 +190,7 @@ export default {
           if (index > self.sidebarLinks.length - 1) {
             index = 0
           }
-          //this.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
+          // this.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
           self.$router.push({ path: self.sidebarLinks[index].path })
           EventBus.correntRightComponent = self.sidebarLinks[index].path
         }, EventBus.timeCalculator(0, 0, 50))

@@ -28,7 +28,10 @@ export default {
   props: ['dataCharts'],
   mounted() {},
   created() {},
-  beforeCreate() {}
+  beforeCreate() {},
+  beforeDestroy() {
+    this.dataCharts = []
+  }
 }
 </script>
 <style>

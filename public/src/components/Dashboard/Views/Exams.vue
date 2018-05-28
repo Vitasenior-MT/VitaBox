@@ -1002,15 +1002,9 @@ export default {
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
                 EventBus.elementControl[EventBus.currentActiveRightComp].blur()
-                // atribui para que passe a ser novamento a primenra vez que entra nesta view
-                EventBus.firstRightEvent = true
-                // define como o elemento ativo seja o '0'
-                EventBus.currentActiveRightComp = 0
-                // define o elemento ativo coomo sendo a barra lateral
-                EventBus.currentComponent = EventBus.sidebarName
                 self.$refs.DefaultView.setMsg(self.msgExit)
                 self.$refs.DefaultView.show()
-                return
+                EventBus.setSidebar()
               }
               // apaga a opção de exame selecionada
               self.examEvent = ''
