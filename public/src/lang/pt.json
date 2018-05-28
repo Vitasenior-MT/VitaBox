@@ -7,6 +7,14 @@
     "avarage": {
       "title": "Média",
       "text": ""
+    },
+    "advanced": {
+      "title": "Modo Avançado Ligado",
+      "text": ""
+    },
+    "basic": {
+      "title": "Modo Basico Ligado",
+      "text": ""
     }
   },
   "sidebar": {

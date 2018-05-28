@@ -119,7 +119,7 @@ export const app = new Vue({
       this.$notifications.notify({
         message: '<h4>' + this.$t("remote.title") + '</h4>',
         icon: 'ti-bell',
-        horizontalAlign: 'middle',
+        horizontalAlign: 'right',
         verticalAlign: 'top',
         type: 'warning'
       })
@@ -167,6 +167,9 @@ export const app = new Vue({
             EventBus.$emit('move-components', cmd)
           }
           break;
+        case 'mode':
+          EventBus.$emit('mode')
+          break;
         case 'menu':
           console.log('Testes')
           break;
@@ -201,6 +204,8 @@ window.addEventListener('keypress', function(e) {
     sendCmd = 'd';
   } else if (charCode === 113) { // 'q'
     sendCmd = '29';
+  } else if (charCode === 99) { // 'c'
+    sendCmd = '25';
   }
   if (sendCmd !== "") {
     app.$socket.emit('keypress', sendCmd);

@@ -105,7 +105,8 @@ export default {
 
       windowWidth: 0,
       isWindows: false,
-      hasAutoHeight: false
+      hasAutoHeight: false,
+      interval: null
     }
   },
   methods: {
@@ -135,6 +136,7 @@ export default {
     }
   },
   beforeDestroy() {
+    clearInterval(this.interval)
     EventBus.$off('move-components')
   },
   mounted() {
@@ -147,6 +149,7 @@ export default {
   },
   created() {
     var self = this
+  
     this.controlSideBar()
     EventBus.$on('changeTab', function() {
       if (self.$route.path !== '/vitabox/warnings') {
@@ -155,7 +158,58 @@ export default {
           if (sideBar[index].path === '/vitabox/warnings') {
             self.activeLinkIndex = index
             self.$router.push({ path: sideBar[index].path })
-            // EventBus.correntRightComponent = sideBar[index].path
+            // atribui para que passe a seer novamento a primenra vez que entra nesta view
+            EventBus.firstRightEvent = true
+            // define como o elemento ativo seja o '0'
+            EventBus.currentActiveRightComp = 0
+            // define o elemento ativo coomo sendo a barra lateral
+            EventBus.currentComponent = EventBus.sidebarName
+
+            return
+          }
+        }
+      }
+    })
+
+    EventBus.$on('mode', function() {
+      self.sidebarStore.mode.advanced = !self.sidebarStore.mode.advanced
+      self.sidebarStore.mode.auto = !self.sidebarStore.mode.auto
+      self.sidebarLinks = self.sidebarStore.mode.advanced ? self.sidebarStore.sidebarLinksMode.advanced : self.sidebarStore.sidebarLinksMode.basic
+      
+      self.$notifications.notify({
+        message: '<h4>' + (self.sidebarStore.mode.advanced ? self.$t("dictionary.advanced.title") : self.$t("dictionary.basic.title")) + '</h4>',
+        icon: 'ti-bell',
+        horizontalAlign: 'right',
+        verticalAlign: 'top',
+        type: 'info'
+      })
+
+      if(self.sidebarStore.mode.auto){
+        clearInterval(self.interval)
+        self.interval = setInterval(()=>{
+          console.log('Auto On ')
+          let index = self.activeLinkIndex + 1
+          if (index < 0) {
+            index = self.sidebarLinks.length - 1
+          }
+          if (index > self.sidebarLinks.length - 1) {
+            index = 0
+          }
+          //this.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
+          self.$router.push({ path: self.sidebarLinks[index].path })
+          EventBus.correntRightComponent = self.sidebarLinks[index].path
+        }, EventBus.timeCalculator(0, 0, 50))
+      }else{
+        clearInterval(self.interval)
+        console.log('Auto Off ')
+      }
+
+      if (self.$route.path !== '/vitabox/exames') {
+        let sideBar = self.sidebarLinks
+        for (var index in sideBar) {
+          if (sideBar[index].path === '/vitabox/exames') {
+            self.activeLinkIndex = index
+            self.$router.push({ path: sideBar[index].path })
             // atribui para que passe a seer novamento a primenra vez que entra nesta view
             EventBus.firstRightEvent = true
             // define como o elemento ativo seja o '0'
