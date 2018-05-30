@@ -41,13 +41,13 @@ const advanced = [
     icon: 'ti-bell',
     path: '/vitabox/warnings3',
     text: 'sidebar.warning3.text'
-  },
+  } /* ,
   {
     name: 'sidebar.showData.title',
     icon: 'ti-bell',
     path: '/vitabox/show-data',
     text: 'sidebar.showData.text'
-  } /* ,
+  },
   {
     name: 'sidebar.showData2.title',
     icon: 'ti-bell',

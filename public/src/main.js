@@ -104,13 +104,13 @@ export const app = new Vue({
     },
     vitaWarning: function(data) {
       let self = this
-      this.$modal.show('dialog', data)
+      this.$modal.show('alert', data)
       this.$socket.emit('ttsText', 'Aviso!')
       EventBus.$emit('changeTab')
       if (!this.timeout) {
         this.timeout = true
         setTimeout(() => {
-          self.$modal.hide('dialog')
+          self.$modal.hide('alert')
           self.timeout = false
         }, 3000)
       }

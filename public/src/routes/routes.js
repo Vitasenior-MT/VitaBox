@@ -31,43 +31,35 @@ const routes = [
       {
         path: 'exames',
         name: 'Exames / Diagnósticos',
-        component: Exams,
-        minimal: true
+        component: Exams
       }, {
         path: 'exameshistorico',
         name: 'Hist. de Diagnósticos',
-        component: ExamsHist,
-        minimal: true
+        component: ExamsHist
       }, {
         path: 'ambientehistorico',
         name: 'Hist. Sen. Ambientais',
-        component: AmbientHist,
-        minimal: true
+        component: AmbientHist
       }, {
         path: 'warnings',
         name: 'warnings',
-        component: Warnings,
-        minimal: false
+        component: Warnings
       }, {
         path: 'warnings2',
         name: 'warnings2',
-        component: Warnings2,
-        minimal: false
+        component: Warnings2
       }, {
         path: 'warnings3',
         name: 'warnings3',
-        component: Warnings3,
-        minimal: false
+        component: Warnings3
       }, {
         path: 'show-data',
         name: 'Sensores distrimuidos por Divisão',
-        component: ShowData,
-        minimal: false
+        component: ShowData
       }   /*  , {
         path: 'show-data2',
         name: 'Sensores distrimuidos por Divisão',
         component: ShowData2,
-        minimal: true
       } */
     ]
   },

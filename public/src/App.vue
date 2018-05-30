@@ -2,6 +2,7 @@
   <div :class="{'nav-open': $sidebar.showSidebar}">
     <router-view></router-view>
     <v-dialog/>
+    <v-alert/>
   </div>
 </template>
 

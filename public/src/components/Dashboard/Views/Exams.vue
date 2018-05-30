@@ -1199,4 +1199,13 @@ body {
 .text-div-wrap {
   white-space: pre-line;
 }
+.top-50 {
+  top: 50%
+}
+.width-50 {
+  width: 50%
+}
+.right-50 {
+  right: 50%;
+}
 </style>

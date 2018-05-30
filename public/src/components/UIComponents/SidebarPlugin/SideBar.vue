@@ -179,7 +179,7 @@ export default {
         verticalAlign: 'top',
         type: 'info'
       })
-      if (self.sidebarStore.mode.auto) {
+      /* if (self.sidebarStore.mode.auto) {
         clearInterval(self.interval)
         self.interval = setInterval(() => {
           console.log('Auto On ')
@@ -197,20 +197,14 @@ export default {
       } else {
         clearInterval(self.interval)
         console.log('Auto Off ')
-      }
+      } */
       if (self.$route.path !== '/vitabox/exames') {
         let sideBar = self.sidebarLinks
         for (var index in sideBar) {
           if (sideBar[index].path === '/vitabox/exames') {
             self.activeLinkIndex = index
             self.$router.push({ path: sideBar[index].path })
-            // atribui para que passe a seer novamento a primenra vez que entra nesta view
-            EventBus.firstRightEvent = true
-            // define como o elemento ativo seja o '0'
-            EventBus.currentActiveRightComp = 0
-            // define o elemento ativo coomo sendo a barra lateral
-            EventBus.currentComponent = EventBus.sidebarName
-
+            EventBus.setSidebar()
             return
           }
         }

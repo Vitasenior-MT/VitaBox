@@ -7,9 +7,34 @@ export const EventBus = new Vue({
     correntRightComponent: '',    // elemento ativo do lado direito
     currentActiveRightComp: 0,    // posição do array para o elemento ativo
     firstRightEvent: true,        // validação se é a primeira vez que foi precionado a tecla para a direita para entrar na view
-    elementControl: []            // Array com os elemento perencentes a uma class especifica
+    elementControl: [],           // Array com os elemento perencentes a uma class especifica
+    interval: null                // Store the setInterval function to clear it later
   },
   methods: {
+    startRotation(auto, h, m, s) {
+      if (auto) {
+        this.elementControl = document.getElementsByClassName('control-remote')
+        clearInterval(this.interval)
+        this.interval = setInterval(() => {
+          console.log('Auto On ')
+          this.moveLeftRightInView(1)
+        }, this.timeCalculator(h, m, s))
+      } else {
+        console.log('Auto Off ')
+      }
+    },
+    findOne: function (arr, obj) {
+      let i = arr.length
+      while (i--) {
+        console.log(arr[i])
+        console.log(obj)
+        console.log(arr[i].id === obj.id && arr[i].sensor === obj.sensortype)
+        if (arr[i].id === obj.id && arr[i].sensor === obj.sensortype) {
+          return arr[i]
+        }
+      }
+      return false
+    },
     /**
      * TODO: Function to convert miliseconds into hours, minutes and seconds
      * @param {Hours} h

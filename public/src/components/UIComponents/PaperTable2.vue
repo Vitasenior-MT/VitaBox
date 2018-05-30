@@ -16,11 +16,8 @@
         <tbody>
           <tr v-for="item in data" :key="item.id">
             <td class="text-center">
-              <span v-if="item.sensor == 'temp'">
-                <img src='static/img/vitabox/temp.svg' width='40' height='40'>
-              </span>
-              <span v-else>
-                <h5>{{item.measure}}</h5>
+              <span>
+                <img :src="'static/img/vitabox/'+item.sensor+'.svg'" width='40' height='40'>
               </span>
             </td>
             <td class="text-center">
@@ -29,7 +26,7 @@
                   :typechartdonut="false"
                   :valueChart="item.avg"
                   :labelChart="''"
-                  :chartmax="item.threshold"
+                  :chartmax="item.threshold_max_possible"
                   :symbol="''">
                 </ChartGauge>
             </td>

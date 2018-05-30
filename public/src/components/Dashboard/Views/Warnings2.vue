@@ -19,9 +19,9 @@ export default {
     DefaultForm
   },
   sockets: {
-    vitaWarning: data => {
-      console.log('Receive alert on Tab: ', data)
-      // this.updateSensor(data);
+    sensorUpdate: function(data) {
+      console.log('Sensor Update: ', data)
+      this.updateSensor(data);
     }
   },
   data() {
@@ -54,50 +54,13 @@ export default {
       )
     },
     updateSensor(data) {
-      for (var index in data) {
-        if (data.location === this.warningCards[index].headerText) {
-          if (data.warning_type === this.warningCards[index].sensor) {
-            this.warningCards[index].idmedia = 'chartmedia-' + index
-            this.warningCards[index].idlimite = 'chartlimite-' + index
-            this.warningCards[index].avg = data[index].avg
-            this.warningCards[index].threshold = data[index].threshold
-            this.warningCards[index].sensor = data[index].sensortype
-            this.warningCards[index].measure = data[index].measure
-            this.warningCards[index].location = data[index].location
-            this.warningCards[index].dateupdate = this.dateFormat(
-              data[index].avgLastUpdate
-            )
-            this.warningCards[index].footerIcon = 'ti-reload'
-            this.warningCards[index].symbol = ''
-            switch (this.warningCards[index].sensor) {
-              case 'temp':
-                this.warningCards[index].symbol = 'º'
-                break
-              case 'monoxido':
-              case 'co2':
-              case 'humi':
-                this.warningCards[index].symbol = '%'
-                break
-              default:
-                this.warningCards[index].symbol = ''
-            }
-            break
-          }
-        }
-      }
-      for (var index2 in this.warningCards) {
-        if (data.location === this.warningCards[index2].headerText) {
-          if (data.warning_type === this.warningCards[index2].sensor) {
-            this.warningCards[index2].avg = data.avg.toFixed()
-            this.warningCards[index2].avgLastUpdate = data.avgLastUpdate
-            this.warningCards[index2].threshold = data.threshold
-            this.warningCards[index2].footerText = this.dateFormat(
-              data.avgLastUpdate
-            )
-            this.warningCards[index2].critLvl = data.critLevel
-            break
-          }
-        }
+      let card = EventBus.findOne(this.warningCards, data)
+      if (card) {
+        card.avg = data.avg.toFixed()
+        card.avgLastUpdate = data.avgLastUpdate
+        card.threshold = data.threshold_max_possible
+        card.dateupdate = this.dateFormat(data.avgLastUpdate)
+        card.critLvl = data.critLevel
       }
     },
     controlEventsBus() {
@@ -211,6 +174,7 @@ export default {
           var datasensores = response.data.data
           for (var index in datasensores) {
             this.warningCards.push({
+              id: datasensores[index].board_id,
               idmedia: 'chartmedia-' + index,
               idlimite: 'chartlimite-' + index,
               avg: datasensores[index].avg,

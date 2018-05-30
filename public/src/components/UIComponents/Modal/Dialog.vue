@@ -1,27 +1,46 @@
 <template>
   <modal
-    name='dialog'
-    :classes="['size-100', this.params.class]"
-    :transition='transition'
-    @before-open='beforeOpened'
-    @before-close='beforeClosed'
+    name="dialog"
+    height="auto"
+    :classes="['v--modal', 'vue-dialog', this.params.class]"
+    :width="width"
+    :pivot-y="0.3"
+    :adaptive="true"
+    :clickToClose="clickToClose"
+    :transition="transition"
+    @before-open="beforeOpened"
+    @before-close="beforeClosed"
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
-    <card-style>
-      <div class='icon-big text-center' :class='`icon-${cardStyle.type}`' slot='header'>
-        <img src='static/img/vitabox/warning.svg' class='size-img'>
-      </div>
-      <div class='center font-size-b' slot='content'>
-        <b>{{cardStyle.title}}</b>
-      </div>
-    </card-style>
+    <div class="dialog-content">
+      <div
+        class="dialog-c-title"
+        v-if="params.title"
+        v-html="params.title || ''"></div>
+      <div
+        class="dialog-c-text"
+        v-html="params.text || ''"></div>
+    </div>
+    <div
+      class="vue-dialog-buttons"
+      v-if="buttons">
+      <button
+        v-for="(button, i) in buttons"
+        :class="button.class || 'vue-dialog-button'"
+        type="button"
+        :style="buttonStyle"
+        :key="i"
+        v-html="button.title"
+        @click.stop="click(i, $event)">
+        {{button.title}}
+      </button>
+    </div>
+    <div v-else class="vue-dialog-buttons-none"></div>
   </modal>
 </template>
 <script>
-import CardStyle from 'components/UIComponents/Modal/CardStyle.vue'
-
 export default {
-  name: 'Dialog',
+  name: 'VueJsDialog',
   props: {
     width: {
       type: [Number, String],
@@ -36,16 +55,55 @@ export default {
       default: 'fade'
     }
   },
-  components: {
-    CardStyle
-  },
-  data() {
+  data () {
     return {
-      cardStyle: {
-        type: 'warning',
-        title: 'Aviso'
-      },
-      params: {}
+      params: {},
+      defaultButtons: [{ title: 'CLOSE' }]
+    }
+  },
+  computed: {
+    buttons () {
+      return this.params.buttons || this.defaultButtons
+    },
+    /**
+      * Returns FLEX style with correct width for arbitrary number of
+      * buttons.
+      */
+    buttonStyle () {
+      return {
+        flex: `1 1 ${100 / this.buttons.length}%`
+      }
+    }
+  },
+  methods: {
+    beforeOpened (event) {
+      window.addEventListener('keyup', this.onKeyUp)
+      this.params = event.params || {}
+      this.$emit('before-opened', event)
+    },
+    beforeClosed (event) {
+      window.removeEventListener('keyup', this.onKeyUp)
+      this.params = {}
+      this.$emit('before-closed', event)
+    },
+    click (i, event, source = 'click') {
+      const button = this.buttons[i]
+      if (button && typeof button.handler === 'function') {
+        button.handler(i, event, { source })
+      } else {
+        this.$modal.hide('dialog')
+      }
+    },
+    onKeyUp (event) {
+      if (event.which === 13 && this.buttons.length > 0) {
+        const buttonIndex =
+          this.buttons.length === 1
+            ? 0
+            : this.buttons.findIndex(button => button.default)
+        if (buttonIndex !== -1) {
+          this.click(buttonIndex, event, 'keypress')
+        }
+      }
     }
   }
 }
@@ -54,72 +112,53 @@ export default {
 .vue-dialog div {
   box-sizing: border-box;
 }
-
 .vue-dialog .dialog-flex {
   width: 100%;
   height: 100%;
 }
-
 .vue-dialog .dialog-content {
   flex: 1 0 auto;
   width: 100%;
   padding: 15px;
   font-size: 14px;
 }
-
 .vue-dialog .dialog-c-title {
   font-weight: 600;
   padding-bottom: 15px;
 }
-
 .vue-dialog .dialog-c-text {
 }
-
-.vue-dialog-font {
-  padding-left: 3%;
-}
-
-.vue-dialog-margin {
-  margin: 5px 0 0 0;
-}
-
-.vue-dialog-text {
-  color: black;
-  text-align: center;
-  font-size: 16px;
-}
-
-.center {
-  text-align: center;
-  min-height: 150px;
-  line-height: 150px;
-}
-
-/* If the text has multiple lines, add the following: */
-.center b {
-  line-height: 1.5;
-  display: inline-block;
-  vertical-align: middle;
-  color: red;
-  font-size: 45px;
-}
-
-.background-opacity {
-  background-color: rgba(255, 255, 255, 0.5) !important;
-  height: 100%;
-}
-
-.size-100 {
+.vue-dialog .vue-dialog-buttons {
+  display: flex;
+  flex: 0 1 auto;
   width: 100%;
-  height: 100%;
+  border-top: 1px solid #eee;
 }
-
-.size-img {
-  width: 40%;
-  height: 50%;
+.vue-dialog .vue-dialog-buttons-none {
+  width: 100%;
+  padding-bottom: 15px;
 }
-
-.font-size-b b {
-  font-size: 70px !important;
+.vue-dialog-button {
+  font-size: 12px !important;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+  line-height: 40px;
+  height: 40px;
+  color: inherit;
+  font: inherit;
+  outline: none;
+}
+.vue-dialog-button:hover {
+  background: rgba(0, 0, 0, 0.01);
+}
+.vue-dialog-button:active {
+  background: rgba(0, 0, 0, 0.025);
+}
+.vue-dialog-button:not(:first-of-type) {
+  border-left: 1px solid #eee;
 }
 </style>

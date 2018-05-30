@@ -1,5 +1,6 @@
 import Modal from './Modal.vue'
 import Dialog from './Dialog.vue'
+import Alert from './Alert.vue'
 
 const defaultComponentName = 'modal'
 
@@ -19,10 +20,11 @@ const Plugin = {
      */
     Vue.prototype.$modal = {
       show(name, params) {
-        Plugin.event.$emit('sendData', params)
+        if(name === 'alert'){
+          Plugin.event.$emit('sendData', params)
+        }
         Plugin.event.$emit('toggle', name, true, params)
       },
-
       hide(name, params) {
         Plugin.event.$emit('toggle', name, false, params)
       },
@@ -37,6 +39,7 @@ const Plugin = {
     const componentName = options.componentName || defaultComponentName
     console.log('componentName:', componentName)
     Vue.component(componentName, Modal)
+    Vue.component('v-alert', Alert)
     /**
      * Registration of <Dialog/> component
      */
