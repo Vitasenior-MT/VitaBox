@@ -23,7 +23,7 @@ export const EventBus = new Vue({
         console.log('Auto Off ')
       }
     },
-    findOne: function (arr, obj) {
+    findOne: function(arr, obj) {
       let i = arr.length
       while (i--) {
         console.log(arr[i])

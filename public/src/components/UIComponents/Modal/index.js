@@ -20,7 +20,7 @@ const Plugin = {
      */
     Vue.prototype.$modal = {
       show(name, params) {
-        if(name === 'alert'){
+        if (name === 'alert') {
           Plugin.event.$emit('sendData', params)
         }
         Plugin.event.$emit('toggle', name, true, params)
