@@ -31,7 +31,7 @@ export const EventBus = new Vue({
         console.log('Auto Off ')
       }
     },
-    findOne: function (arr, obj) {
+    findOne: function(arr, obj) {
       let i = arr.length
       while (i--) {
         if (arr[i].id === obj.id && arr[i].sensor === obj.sensortype) {
