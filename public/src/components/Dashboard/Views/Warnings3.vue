@@ -30,8 +30,7 @@ export default {
       elem: '',
       content: '',
       numberCol: '',
-      movepos: '',
-      interval: null
+      movepos: ''
     }
   },
   methods: {
@@ -157,7 +156,7 @@ export default {
   },
   beforeDestroy() {
     EventBus.setSidebar()
-    clearInterval(this.interval)
+    clearInterval(EventBus.interval)
     EventBus.$off('move-components')
   },
   beforeCreate() {
@@ -204,7 +203,7 @@ export default {
             }
           }
           this.controlEventsBus()
-          EventBus.startRotation(this.sidebarStore.mode.auto, 0, 0, 5)
+          EventBus.startRotation('control-remote', this.sidebarStore.mode.auto, 0, 0, 5)
         } else {
           console.log('Receive error', response.data)
         }

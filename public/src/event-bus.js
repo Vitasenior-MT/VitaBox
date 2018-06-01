@@ -11,13 +11,21 @@ export const EventBus = new Vue({
     interval: null                // Store the setInterval function to clear it later
   },
   methods: {
-    startRotation(auto, h, m, s) {
+    startRotation (className, auto, h, m, s, click, callback) {
       if (auto) {
-        this.elementControl = document.getElementsByClassName('control-remote')
+        this.elementControl = document.getElementsByClassName(className)
         clearInterval(this.interval)
         this.interval = setInterval(() => {
+          if(click){
+            if (this.currentActiveRightComp + 1 >= this.elementControl.length) {
+              callback(true)
+            }
+          }
           console.log('Auto On ')
           this.moveLeftRightInView(1)
+          if(click){
+            callback(false)
+          }
         }, this.timeCalculator(h, m, s))
       } else {
         console.log('Auto Off ')
@@ -26,9 +34,6 @@ export const EventBus = new Vue({
     findOne: function (arr, obj) {
       let i = arr.length
       while (i--) {
-        console.log(arr[i])
-        console.log(obj)
-        console.log(arr[i].id === obj.id && arr[i].sensor === obj.sensortype)
         if (arr[i].id === obj.id && arr[i].sensor === obj.sensortype) {
           return arr[i]
         }
