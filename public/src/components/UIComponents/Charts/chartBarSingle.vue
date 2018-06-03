@@ -99,6 +99,7 @@ export default {
   mounted() {
     this.initGraphLine(this.barChartId)
   },
+  beforeDestroy() {},
   watch: {}
 }
 </script>

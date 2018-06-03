@@ -89,11 +89,9 @@ export default {
         let btnSelt = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.select
         if (btnSelt === 'false') {
           EventBus.elementControl[EventBus.currentActiveRightComp].classList.add("btn-selected")
-          // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-success')
           EventBus.elementControl[EventBus.currentActiveRightComp].setAttribute('data-select', 'true')
         } else {
           EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove("btn-selected")
-          // EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('btn-success')
           EventBus.elementControl[EventBus.currentActiveRightComp].setAttribute('data-select', 'false')
         }
         this.hideShowItem = dataIdBtn
