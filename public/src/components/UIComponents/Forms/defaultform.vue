@@ -12,7 +12,7 @@
       <div class="row">&nbsp;</div>
       <div class="row">
         <div class="col-md-12">
-          <img src='static/img/logo_A.png' alt=''>
+          <img src='static/img/logo_B.png' alt=''>
         </div>
       </div>
     </div>
