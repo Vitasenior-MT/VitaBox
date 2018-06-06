@@ -3,20 +3,12 @@ import DashboardLayout from '../components/Dashboard/Layout/DashboardLayout.vue'
 import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 
 // Admin pages
-// import Home from 'src/components/Dashboard/Views/Home.vue'
-// import History from 'src/components/Dashboard/Views/History.vue'
-// import History2 from 'src/components/Dashboard/Views/History2.vue'
-// import History3 from 'src/components/Dashboard/Views/History3.vue'
 import Exams from 'src/components/Dashboard/Views/Exams.vue'
 import ExamsHist from 'src/components/Dashboard/Views/ExamsHist.vue'
 import AmbientHist from 'src/components/Dashboard/Views/HistAmbi.vue'
-// import Wizard from 'src/components/Dashboard/Views/Wizard.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import Warnings2 from 'src/components/Dashboard/Views/Warnings2.vue'
-import Warnings3 from 'src/components/Dashboard/Views/Warnings3.vue'
 import ShowData from 'src/components/Dashboard/Views/ShowData.vue'
-// import ShowData2 from 'src/components/Dashboard/Views/ShowData2.vue'
-// import VidOnly from 'src/components/Dashboard/Views/VidOnly.vue'
 
 const routes = [
   {
@@ -49,18 +41,10 @@ const routes = [
         name: 'warnings2',
         component: Warnings2
       }, {
-        path: 'warnings3',
-        name: 'warnings3',
-        component: Warnings3
-      }, {
-        path: 'show-data',
-        name: 'Sensores distrimuidos por Divisão',
+        path: 'showData',
+        name: 'showData',
         component: ShowData
-      }   /*  , {
-        path: 'show-data2',
-        name: 'Sensores distrimuidos por Divisão',
-        component: ShowData2,
-      } */
+      }
     ]
   },
   { path: '*', component: NotFound }

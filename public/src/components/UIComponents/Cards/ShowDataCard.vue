@@ -1,48 +1,60 @@
 <template>
-  <div class="card">
-    <div class="content">
-      <div class="row positioning">
-        <b class="col-xs-12 text-center font-size-27">{{data.headerText}}</b>
-      </div>
-      <div class="row">
-        <div class="col-sm-4" v-for='sensor in data.data' :key='sensor.id'>
-          <div class="col-sm-12 positioning">
-            <show-data-circle
-            :space="5" :type="'Media'" :value="sensor.avg" :circleType="'circle-avg'"
-            :warning="'warning-card-' + sensor.critLvl">
-            </show-data-circle>
-            <show-data-circle class="positioning"
-            :space="4" :type="'Limite'" :value="sensor.threshold"
-            :circleType="'circle-limit'" :warning="'N/A'">
-            </show-data-circle>
-            <div class="col-xs-5">
-              <div class="pull-left">
-                <img src="static/img/vitabox/temp.svg" width="40" height="40">
-              </div>
-              <b class="">{{sensor.sensor}}</b>
-            </div>
+  <div class='card btn btn-info control-remote'>
+    <div class='content'>
+      <div class='row'>
+        <div class='col-lg-2'>
+          <span>
+            <img :src="'static/img/vitabox/'+warningCard.sensor+'.svg'" width='40' height='40'>
+          </span>
+        </div>
+        <div class='col-lg-10'>
+          <div class='numbers'>
+            <p>{{warningCard.measure}}</p>
+            {{warningCard.location}}
           </div>
-          <div class="text-center">
-            <i :class="sensor.footerIcon"></i> {{sensor.footerText}}
-          </div>
+         <b></b>
         </div>
       </div>
+      <div class='content'>
+        <chart-gauge-item-ranges
+          :id="warningCard.idchart"
+          :chartid="warningCard.idchart"
+          :typechartdonut="false"
+          :valueChart="warningCard.avg"
+          :labelChart="''"
+          :chartmaxA="warningCard.threshold_max_acceptable"
+          :chartmaxP="warningCard.threshold_max_possible"
+          :chartminA="warningCard.threshold_min_acceptable"
+          :chartminP="warningCard.threshold_min_possible"
+          :symbol="warningCard.symbol"
+        ></chart-gauge-item-ranges>
+      </div>
+      <div class='footer text-center'>
+        <hr/>
+          <i :class='warningCard.footerIcon'> {{warningCard.dateupdate}}</i>
     </div>
   </div>
 </template>
 <script>
-import ShowDataCircle from "components/UIComponents/Cards/ShowDataCircle.vue";
+import ChartGaugeItemRanges from 'components/UIComponents/Charts/chartGaugeItemRanges.vue'
 export default {
   components: {
-    ShowDataCircle
+    ChartGaugeItemRanges
   },
+  name: 'Warning',
   data() {
-    return {};
+    return {
+      warningCard: {}
+    }
   },
-  props: ["data"],
-  name: "show-data-card"
-};
+  props: {
+    warningCard: {
+      type: Object,
+      required: true
+    }
+  },
+  mounted() {}
+}
 </script>
 <style>
-
 </style>

@@ -31,6 +31,19 @@ export const EventBus = new Vue({
         console.log('Auto Off ')
       }
     },
+    audioBasicMode: function(path){
+      var self = this
+      let audio = document.createElement('audio')
+      audio.id = 'audioElem'
+      audio.style.display = 'none'
+      audio.src = './static/.temp/' + path
+      audio.autoplay = true
+      audio.onended = function() {
+        audio.remove()
+        self.$socket.emit('ttsDelete')
+      };
+      document.body.appendChild(audio)
+    },
     findOne: function(arr, obj) {
       let i = arr.length
       while (i--) {
