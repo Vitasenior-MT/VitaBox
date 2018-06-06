@@ -98,6 +98,7 @@ export default {
         this.configChart.options.scales.yAxes[0].id = "y-axis-1"
         this.configChart.options.scales.yAxes.push(this.defSecoundScale)
       }
+      this.configChart.data = {}
       this.lineChart = new Chart(ctx, this.configChart)
       this.lineChart.data = this.dataChart.data
       this.lineChart.update()
@@ -107,9 +108,11 @@ export default {
     this.initGraphLine(this.lineChartId)
   },
   beforeDestroy() {
+    this.lineChart.destroy()
     this.labelsPos = 0
     this.clearChart = false
     this.lineChart.data = {}
+    this.configChart.data = {}
     this.lineChart = null
   },
   watch: {

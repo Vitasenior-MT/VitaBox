@@ -448,13 +448,13 @@
           :symbol="''">
         </ChartGauge>
         <h4 class="text-center">
-          <img src='static/img/load4_A.gif' alt=''>
+          <img src='static/img/load4_B.gif' alt=''>
         </h4>
         <h1 class="text-center">Aguarde</h1>
       </div>
       <div v-show="examEvent != 'bloodpressure'" id="loader">
         <h4 class="text-center">
-          <img src='static/img/load3_A.gif' alt=''>
+          <img src='static/img/load3_B.gif' alt=''>
         </h4>
         <h1 class="text-center">Aguarde</h1>
       </div>

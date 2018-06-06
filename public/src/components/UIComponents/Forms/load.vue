@@ -2,7 +2,7 @@
   <div id="loader-wrapper" v-show="this.execProcess">
     <div id="loader">
       <h4 class="text-center">
-        <img src='static/img/load3_A.gif' alt=''>
+        <img src='static/img/load3_B.gif' alt=''>
       </h4>
       <h1 class="text-center">Aguarde</h1>
     </div>

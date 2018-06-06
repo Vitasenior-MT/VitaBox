@@ -31,7 +31,7 @@
       </div>
     </div>
     <default-form ref="DefaultView"></default-form>
-    <div class="row clear-margin show-charts-history" v-show="dataCharsExists">
+    <div class="row clear-margin show-charts-history" v-if="dataCharsExists">
       <div class="col-md-12 btn btn-round btn-fill">
         <div class="row">
           <div class="col-md-12" style="padding-bottom: 10px;">
@@ -214,6 +214,10 @@ export default {
         .then(response => {
           if (response.data.status === true) {
             let dataIterat = response.data.data
+            this.chartsLineAllData = {
+              sizeArr: 1,
+              charts: []
+            }
             this.chartsBarAllData = {
               lastUpdate: EventBus.dateFormat(dataIterat[0].value[dataIterat[0].value.length - 1].time),
               nameExam: examNameDes,

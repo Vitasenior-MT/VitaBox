@@ -11,20 +11,20 @@ export const EventBus = new Vue({
     interval: null                // Store the setInterval function to clear it later
   },
   methods: {
-    startRotation (className, auto, h, m, s, click, callback) {
+    startRotation(className, auto, h, m, s, click, next) {
       if (auto) {
         this.elementControl = document.getElementsByClassName(className)
         clearInterval(this.interval)
         this.interval = setInterval(() => {
-          if(click){
+          if (click) {
             if (this.currentActiveRightComp + 1 >= this.elementControl.length) {
-              callback(true)
+              next(true)
             }
           }
           console.log('Auto On ')
           this.moveLeftRightInView(1)
-          if(click){
-            callback(false)
+          if (click) {
+            next(false)
           }
         }, this.timeCalculator(h, m, s))
       } else {
