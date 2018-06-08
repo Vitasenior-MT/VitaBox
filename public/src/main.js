@@ -83,21 +83,25 @@ export const app = new Vue({
       }
     },
     ttsPath(path) {
-      var self = this
-      let audioOld = document.getElementById('audioElem')
-      if (audioOld) {
-        audioOld.remove()
+      if(!this.sidebarStore.mode.auto){
+        var self = this
+        let audioOld = document.getElementById('audioElem')
+        if (audioOld) {
+          audioOld.remove()
+        }
+        let audio = document.createElement('audio')
+        audio.id = 'audioElem'
+        audio.style.display = 'none'
+        audio.src = './static/.temp/' + path
+        audio.autoplay = true//visio key 7N9KX-H2WFG-JBV6P-BKYRC-MP2RV
+        audio.onended = function() {
+          audio.remove()
+          self.$socket.emit('ttsDelete')
+        };
+        document.body.appendChild(audio)
+      } else{
+        EventBus.audioBasicMode('./static/.temp/' + path)
       }
-      let audio = document.createElement('audio')
-      audio.id = 'audioElem'
-      audio.style.display = 'none'
-      audio.src = './static/.temp/' + path
-      audio.autoplay = true
-      audio.onended = function() {
-        audio.remove()
-        self.$socket.emit('ttsDelete')
-      };
-      document.body.appendChild(audio)
     },
     hdmistatus: function(data) {
       console.log('Receive hdmistatus', data)
@@ -110,7 +114,7 @@ export const app = new Vue({
       if (!this.timeout) {
         this.timeout = true
         setTimeout(() => {
-          self.$modal.hide('alert')
+          //self.$modal.hide('alert')
           self.timeout = false
         }, 3000)
       }

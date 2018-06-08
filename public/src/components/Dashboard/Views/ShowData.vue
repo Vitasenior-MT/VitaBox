@@ -1,42 +1,39 @@
 <template>
   <div>
     <div class="row container-data-sensors">
-      <div class="col-lg-12" v-for="warningCard in CardsSensors" :key="warningCard.board_id">
-        <CardWarning3 :key="warningCard.board_id + '-all'" :warningCard="warningCard">
-        </CardWarning3>
+      <div class="col-lg-4" v-for="warningCard in warningCards" :key="warningCard.id">
+        <card-warning :key="warningCard.id" :warningCard="warningCard"></card-warning>
       </div>
     </div>
     <default-form ref="DefaultView"></default-form>
   </div>
 </template>
 <script>
-import CardWarning3 from 'components/UIComponents/Cards/CardWarning3.vue'
+import CardWarning from 'components/UIComponents/Cards/ShowDataCard.vue'
 import { EventBus } from '../../../event-bus.js'
 import DefaultForm from 'components/UIComponents/Forms/defaultform.vue'
 export default {
   components: {
-    CardWarning3,
+    CardWarning,
     DefaultForm
   },
   sockets: {
-    avgSensorUpdate: function(data) {
-      for (let index in this.CardsSensors) {
-        if (this.CardsSensors[index].board_id === data.board_id) {
-          if (this.CardsSensors[index].sensortype === data.sensortype) {
-            this.CardsSensors[index].idchar = 'id-' + data.board_id + '-' + data.sensortype
-            this.CardsSensors[index].avg = Math.round(data.avg * 100) / 100
-            this.CardsSensors[index].avglastupdate = this.dateFormat(data.avgLastUpdate)
-            this.CardsSensors[index].sensortype = data.sensortype
-            this.CardsSensors[index].threshold = data.threshold_max_possible
-          }
-        }
+    sensorUpdate: function(data) {
+      console.log('Sensor Update: ', data)
+      console.log('Sensor Update: ', this.warningCards)
+      let card = EventBus.findOne(this.warningCards, data)
+      if (card) {
+        card.avg = data.avg.toFixed()
+        card.avgLastUpdate = data.avgLastUpdate
+        card.threshold = data.threshold_max_possible
+        card.dateupdate = this.dateFormat(data.avgLastUpdate)
       }
     }
   },
   data() {
     return {
-      msg: 'showData.msgSensor',
-      CardsSensors: [],
+      msg: 'warning3.msgSensor',
+      warningCards: [],
       elem: '',
       content: '',
       numberCol: '',
@@ -62,32 +59,24 @@ export default {
         (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
       )
     },
-    sortArrayByLength(arr, ascYN) {
-      arr.sort(function(a, b) {
-        // sort array by length of text
-        if (ascYN) {
-          return a.sensors.length - b.sensors.length // ASC -> a - b
-        } else {
-          return b.sensors.length - a.sensors.length // DESC -> b - a
-        }
-      })
-    },
     controlEventsBus() {
       var self = this
-      if (self.CardsSensors.length > 0) {
+      if (self.warningCards.length > 0) {
         self.$refs.DefaultView.hide()
       }
       EventBus.$on('move-components', function(cmd) {
         EventBus.elementControl = document.getElementsByClassName('control-remote')
         if (EventBus.elementControl.length === 0) {
+          self.$refs.DefaultView.setMsg(self.msg)
+          self.$refs.DefaultView.show()
           EventBus.setSidebar()
         }
         self.$refs.DefaultView.hide()
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
-            EventBus.elementControl[EventBus.currentActiveRightComp].click()
             console.log("'Ok btn")
+            EventBus.elementControl[EventBus.currentActiveRightComp].click()
             break
             // evento para sair para a sidebar
           case 'exit':
@@ -105,40 +94,48 @@ export default {
             console.log('if exit', cmd, EventBus.currentActiveRightComp)
             break
           case 'up':
-            self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-            self.content = document.getElementsByClassName('container-data-sensors')[0]
-            self.numberCol = parseInt((self.content.clientWidth / self.elem.clientWidth))
-            self.movepos = EventBus.currentActiveRightComp - self.numberCol
-            if (self.movepos < 0) {
-              self.movepos += (EventBus.elementControl.length - 1)
-              if (self.movepos === (EventBus.elementControl.length - 1) - self.numberCol) {
-                self.movepos += self.numberCol
+            try {
+              self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+              self.content = document.getElementsByClassName('container-data-sensors')[0]
+              self.numberCol = parseInt((self.content.clientWidth / self.elem.clientWidth))
+              self.movepos = EventBus.currentActiveRightComp - self.numberCol
+              if (self.movepos < 0) {
+                self.movepos += (EventBus.elementControl.length - 1)
+                if (self.movepos === (EventBus.elementControl.length - 1) - self.numberCol) {
+                  self.movepos += self.numberCol
+                }
               }
+              EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+              EventBus.currentActiveRightComp = self.movepos
+              self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+              self.elem.focus()
+              self.elem.classList.add('btn-fill')
+              EventBus.scrollScreen(self.elem)
+            } catch (e) {
+              console.log('error move up', e.toStrig())
             }
-            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-            EventBus.currentActiveRightComp = self.movepos
-            self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-            self.elem.focus()
-            self.elem.classList.add('btn-fill')
-            EventBus.scrollScreen(self.elem)
             break
           case 'down':
-            self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-            self.content = document.getElementsByClassName('container-data-sensors')[0]
-            self.numberCol = parseInt((self.content.clientWidth / self.elem.clientWidth))
-            self.movepos = EventBus.currentActiveRightComp + self.numberCol
-            if (self.movepos > (EventBus.elementControl.length - 1)) {
-              self.movepos -= (EventBus.elementControl.length - 1)
-              if (self.movepos === self.numberCol) {
-                self.movepos = 0
+            try {
+              self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+              self.content = document.getElementsByClassName('container-data-sensors')[0]
+              self.numberCol = parseInt((self.content.clientWidth / self.elem.clientWidth))
+              self.movepos = EventBus.currentActiveRightComp + self.numberCol
+              if (self.movepos > (EventBus.elementControl.length - 1)) {
+                self.movepos -= (EventBus.elementControl.length - 1)
+                if (self.movepos === self.numberCol) {
+                  self.movepos = 0
+                }
               }
+              EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+              EventBus.currentActiveRightComp = self.movepos
+              self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+              self.elem.focus()
+              self.elem.classList.add('btn-fill')
+              EventBus.scrollScreen(self.elem)
+            } catch (e) {
+              console.log('error move down', e.toStrig())
             }
-            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-            EventBus.currentActiveRightComp = self.movepos
-            self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-            self.elem.focus()
-            self.elem.classList.add('btn-fill')
-            EventBus.scrollScreen(self.elem)
             break
           case 'right': // tecla para a direita
             EventBus.moveLeftRightInView(1)
@@ -154,35 +151,58 @@ export default {
       })
     }
   },
+  beforeDestroy() {
+    EventBus.setSidebar()
+    clearInterval(EventBus.interval)
+    EventBus.$off('move-components')
+  },
+  beforeCreate() {
+  },
   mounted() {
-    if (this.CardsSensors.length === 0) {
+    if (this.warningCards.length === 0) {
       this.$refs.DefaultView.setMsg(this.msg)
       this.$refs.DefaultView.show()
     }
   },
   created() {
     this.$http
-      .get('/api/sensor/getAllSensorsByLocation')
+      .get('/api/sensor/allSensorsInfo')
       .then(response => {
         if (response.data.status === true) {
           var datasensores = response.data.data
+          console.log('response')
+          console.log(response)
           for (var index in datasensores) {
-            this.CardsSensors.push({
-              board_id: datasensores[index].board_id,
+            this.warningCards.push({
+              id: datasensores[index].board_id,
+              idchart: 'chartid-' + index,
+              avg: datasensores[index].avg,
+              threshold_max_acceptable: datasensores[index].threshold_max_acceptable === undefined ? 100 : datasensores[index].threshold_max_acceptable,
+              threshold_max_possible: datasensores[index].threshold_max_possible === undefined ? 100 : datasensores[index].threshold_max_possible,
+              threshold_min_acceptable: datasensores[index].threshold_min_acceptable === undefined ? 100 : datasensores[index].threshold_min_acceptable,
+              threshold_min_possible: datasensores[index].threshold_min_possible === undefined ? 100 : datasensores[index].threshold_min_possible,
+              sensor: datasensores[index].sensortype,
               location: datasensores[index].location,
-              sensors: [{
-                idchar: 'id-' + datasensores[index].board_id + '-' + datasensores[index].sensortype,
-                avg: Math.round(datasensores[index].avg * 100) / 100,
-                avgLastUpdate: this.dateFormat(datasensores[index].avgLastUpdate
-                ),
-                sensor: datasensores[index].sensortype,
-                measure: datasensores[index].measure,
-                threshold: (datasensores[index].threshold_max_possible === undefined ? 100 : datasensores[index].threshold_max_possible)
-              }]
+              measure: datasensores[index].measure,
+              dateupdate: this.dateFormat(datasensores[index].avgLastUpdate),
+              footerIcon: 'ti-reload',
+              symbol: ''
             })
+            switch (this.warningCards[index].sensor) {
+              case 'temp':
+                this.warningCards[index].symbol = 'º'
+                break
+              case 'monoxido':
+              case 'co2':
+              case 'humi':
+                this.warningCards[index].symbol = '%'
+                break
+              default:
+                this.warningCards[index].symbol = ''
+            }
           }
-          this.sortArrayByLength(this.CardsSensors, true)
           this.controlEventsBus()
+          EventBus.startRotation('control-remote', this.sidebarStore.mode.auto, 0, 0, 5)
         } else {
           console.log('Receive error', response.data)
         }
@@ -190,12 +210,6 @@ export default {
       .catch(error => {
         console.log(error)
       })
-  },
-  beforeDestroy() {
-    EventBus.$off('move-components')
-  },
-  beforeCreate() {
-    // console.log('Remotes', EventBus.elementControl)
   }
 }
 </script>

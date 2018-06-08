@@ -1,61 +1,46 @@
 <template>
-  <div class="card">
+  <div class="card btn control-remote">
     <div class="content">
-      <div class="row">
-        <div class="col-xs-5">
-          <div class="col-xs-5">
-            <img src="static/img/vitabox/temp.svg" width="40" height="40">
-          </div>
-          <div class="col-xs-5 text-center font-padding">
-            <b>{{data.sensor}}</b>
-          </div>
-        </div>
-        <b class="col-xs-5 text-center font-size-27">{{data.headerText}}</b>
+      <div class="text-center positioning">
+        <b class="font-size-27">{{data.headerText}}</b>
       </div>
-      <hr/>
       <div class="row">
-        <div class="margin-5">
-          <circle-data
-          :space="5" :type="'Media'" :value="this.data.avg" :circleType="'circle-avg'"
-          :warning="'warning-card-' + this.data.critLvl">
-          </circle-data>
-          <circle-data
-          :space="4" :type="'Limite'" :value="this.data.threshold"
-          :circleType="'circle-limit'" :warning="'N/A'">
+        <div class="margin-25">
+          <circle-data :sensortype="data.sensor">
           </circle-data>
         </div>
       </div>
-      <div class="footer">
+      <div class="footer row">
         <hr/>
-        <i :class="data.footerIcon"></i> {{data.footerText}}
+        <div class="col-sm-12">
+          <i :class="data.footerIcon"></i> {{data.footerText}}
+        </div>
+        <p class="col-sm-6">{{ $t("dictionary.avarage.title") }}: {{data.avg}}</p>
+        <p class="col-sm-6">{{ $t("dictionary.limit.title") }}: {{data.threshold}}</p>
       </div>
     </div>
   </div>
 </template>
 <script>
-import CircleData from 'components/UIComponents/Cards/CircleData.vue'
+import CircleData from "components/UIComponents/Cards/CircleComp.vue";
 export default {
   components: {
     CircleData
   },
   data() {
-    return {}
+    return {};
   },
-  props: ['data'],
-  name: 'warning-card'
-}
+  props: ["data"],
+  name: "warning-card",
+  mounted() {}
+};
 </script>
 <style>
-.margin-5 {
-  margin: 0 0 0 15%;
+.margin-25 {
+  margin: 0 0 0 25%;
 }
 
-.font-size-27 {
-  font-size: 27px;
-}
-
-.font-padding {
-  font-size: 15px;
-  padding-top: 10%;
+.positioning {
+  margin-bottom: 5px;
 }
 </style>

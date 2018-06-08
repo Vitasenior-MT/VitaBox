@@ -26,10 +26,6 @@
       "title": "teste do historico",
       "text": "Não sei que fazer com esta"
     },
-    "wizard": {
-      "title": "teste do wizard",
-      "text": "Não sei que fazer com esta"
-    },
     "warning": {
       "title": "Aviso",
       "text": "Neste separador é exposto toda a informação crítica dos alarmes."
@@ -38,16 +34,8 @@
       "title": "Aviso 02",
       "text": "neste separador é exposto toda a informação crítica dos alarmes."
     },
-    "warning3": {
-      "title": "Aviso 03",
-      "text": "neste separador é exposto toda a informação crítica dos alarmes."
-    },
-    "showData": {
-      "title": "Mostra Dados",
-      "text": "Mostra todos os dados dos sensores"
-    },
-    "showData2": {
-      "title": "Mostra Dados 02",
+    "ShowData": {
+      "title": "Mostrar Dados",
       "text": "Mostra todos os dados dos sensores"
     },
     "historyEnvironmentSensor": {
@@ -69,10 +57,6 @@
     "ambienteHistory": {
       "title": "Hist. Sen. Ambientais",
       "text": "Hist. Sensores Ambientais"
-    },
-    "video": {
-      "title": "Video",
-      "text": "video"
     }
   },
   "home": {
@@ -98,7 +82,7 @@
     "msgUser": "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
     "msgExit": "Pressione seta direita do comando para selecionar..."
   },
-  "warning3": {
+  "showdata": {
     "msgSensor": "Sem sensores."
   },
   "warning2": {

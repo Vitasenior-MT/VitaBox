@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-import WarningCard from 'components/UIComponents/Cards/WarningCard2.vue'
+import WarningCard from 'components/UIComponents/Cards/WarningCard.vue'
 import { EventBus } from '../../../event-bus.js'
 import DefaultForm from 'components/UIComponents/Forms/defaultform.vue'
 export default {
@@ -68,7 +68,7 @@ export default {
               this.warningCards[index].avgLastUpdate = data.avgLastUpdate
               this.warningCards[index].threshold = data.threshold_max_possible
               this.warningCards[index].footerText = this.dateFormat(data.avgLastUpdate)
-              this.warningCards[index].critLvl = data.critLevel
+              this.warningCards[index].critLvl = data.critState
               break
             }
           }
@@ -87,7 +87,7 @@ export default {
                 avg: data.avg.toFixed(),
                 avgLastUpdate: data.avgLastUpdate,
                 threshold: data.threshold_max_possible,
-                critLvl: data.critLevel
+                critLvl: data.critState
               })
             }
             this.$refs.DefaultView.hide()
@@ -201,7 +201,7 @@ export default {
   },
   created() {
     this.$http
-        .get('/api/sensor/allCriticalSensors/2')
+        .get('/api/sensor/allCriticalSensors')
         .then(response => {
           for (var index in response.data.data) {
             let data = response.data.data[index]
@@ -213,7 +213,7 @@ export default {
               avg: data.avg.toFixed(),
               avgLastUpdate: data.avgLastUpdate,
               threshold: data.threshold_max_possible,
-              critLvl: data.critLevel
+              critLvl: data.critState
             })
           }
           this.controlEventsBus()

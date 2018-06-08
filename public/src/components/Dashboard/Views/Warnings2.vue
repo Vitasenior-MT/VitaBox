@@ -60,7 +60,7 @@ export default {
         card.avgLastUpdate = data.avgLastUpdate
         card.threshold = data.threshold_max_possible
         card.dateupdate = this.dateFormat(data.avgLastUpdate)
-        card.critLvl = data.critLevel
+        card.critLvl = data.critState
       }
     },
     controlEventsBus() {
