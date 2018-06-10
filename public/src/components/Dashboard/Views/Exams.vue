@@ -804,53 +804,64 @@ export default {
         .then(response => {
           if (response.data.status === true) {
             let devacesArray = response.data.data
-            for (let index = 0; index < devacesArray.length; index++) {
-              let btnopt = ''
-              switch (devacesArray[index].device) {
-                case 'bloodpressure':
-                  this.btns[0].nome = devacesArray[index].name
-                  btnopt = this.btns[0]
-                  break
-                case 'bodytemperature':
-                  this.btns[1].nome = devacesArray[index].name
-                  btnopt = this.btns[1]
-                  break
-                case 'bodypulse':
-                  this.btns[2].nome = devacesArray[index].name
-                  btnopt = this.btns[2]
-                  break
-                case 'bodyscale':
-                  this.btns[3].nome = devacesArray[index].name
-                  btnopt = this.btns[3]
-                  break
-                case 'bloodglucose':
-                  this.btns[4].nome = devacesArray[index].name
-                  btnopt = this.btns[4]
-                  break
-                case 'bandfitness':
-                  this.btns[5].nome = devacesArray[index].name
-                  btnopt = this.btns[5]
-                  break
-                default:
-                  break
+            if (devacesArray.length > 0) {
+              for (let index = 0; index < devacesArray.length; index++) {
+                let btnopt = ''
+                switch (devacesArray[index].device) {
+                  case 'bloodpressure':
+                    this.btns[0].nome = devacesArray[index].name
+                    btnopt = this.btns[0]
+                    break
+                  case 'bodytemperature':
+                    this.btns[1].nome = devacesArray[index].name
+                    btnopt = this.btns[1]
+                    break
+                  case 'bodypulse':
+                    this.btns[2].nome = devacesArray[index].name
+                    btnopt = this.btns[2]
+                    break
+                  case 'bodyscale':
+                    this.btns[3].nome = devacesArray[index].name
+                    btnopt = this.btns[3]
+                    break
+                  case 'bloodglucose':
+                    this.btns[4].nome = devacesArray[index].name
+                    btnopt = this.btns[4]
+                    break
+                  case 'bandfitness':
+                    this.btns[5].nome = devacesArray[index].name
+                    btnopt = this.btns[5]
+                    break
+                  default:
+                    break
+                }
+                if (btnopt !== '') {
+                  this.btnExams.push(btnopt)
+                }
               }
-              if (btnopt !== '') {
-                this.btnExams.push(btnopt)
-              }
+              this.classEvent = 'control-remote'
+              setTimeout(() => {
+                EventBus.elementControl = document.getElementsByClassName(this.classEvent)
+                EventBus.currentActiveRightComp = 0
+                // ativa o novo elemento adiconando a class que simboliza o elemento activo
+                let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+                elem.focus()
+                elem.classList.add('btn-fill')
+                elem.scrollIntoView(false)
+                self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+                self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
+              }, 10)
+            } else {
+              this.$refs.DefaultView.setMsg(self.msgUser)
+              this.$refs.DefaultView.show()
+              this.$notifications.notify({
+                message: '<h4>Sem Exames atribuidos.</h4>',
+                icon: 'ti-bell',
+                horizontalAlign: 'right',
+                verticalAlign: 'top',
+                type: 'info'
+              })
             }
-            this.classEvent = 'control-remote'
-            setTimeout(() => {
-              EventBus.elementControl = document.getElementsByClassName(this.classEvent)
-              EventBus.currentActiveRightComp = 0
-              // ativa o novo elemento adiconando a class que simboliza o elemento activo
-              let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-              elem.focus()
-              elem.classList.add('btn-fill')
-              // EventBus.scrollScreen(elem)
-              elem.scrollIntoView(false)
-              self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
-              self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
-            }, 10)
           } else {
             console.log('erro', response.data)
           }

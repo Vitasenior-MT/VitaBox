@@ -16,6 +16,7 @@ import GlobalDirectives from './globalDirectives'
 import Notifications from './components/UIComponents/NotificationPlugin'
 import SideBar from './components/UIComponents/SidebarPlugin'
 import VModal from './components/UIComponents/Modal'
+import VMarqueeMsg from 'components/UIComponents/Forms'
 import VueFormWizard from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 import App from './App'
@@ -36,8 +37,9 @@ Vue.use(GlobalComponents)
 Vue.use(GlobalDirectives)
 Vue.use(Notifications)
 Vue.use(SideBar)
-Vue.use(VModal, {dialog: true})
-Vue.use(Tooltip);
+Vue.use(VModal, { dialog: true })
+Vue.use(Tooltip)
+Vue.use(VMarqueeMsg)
 Vue.use(VueFormWizard)
 Vue.use(resource)
 Vue.use(VueSocketio, location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : ''))
@@ -83,7 +85,7 @@ export const app = new Vue({
       }
     },
     ttsPath(path) {
-      if(!this.sidebarStore.mode.auto){
+      if (!this.sidebarStore.mode.auto) {
         var self = this
         let audioOld = document.getElementById('audioElem')
         if (audioOld) {
@@ -93,13 +95,13 @@ export const app = new Vue({
         audio.id = 'audioElem'
         audio.style.display = 'none'
         audio.src = './static/.temp/' + path
-        audio.autoplay = true//visio key 7N9KX-H2WFG-JBV6P-BKYRC-MP2RV
+        audio.autoplay = true // visio key 7N9KX-H2WFG-JBV6P-BKYRC-MP2RV
         audio.onended = function() {
           audio.remove()
           self.$socket.emit('ttsDelete')
         };
         document.body.appendChild(audio)
-      } else{
+      } else {
         EventBus.audioBasicMode('./static/.temp/' + path)
       }
     },
@@ -109,15 +111,19 @@ export const app = new Vue({
     vitaWarning: function(data) {
       let self = this
       this.$modal.show('alert', data)
+      this.$marqueemsg.show('Mensagem', 'Pressiosne me [OK] para desbloquear.')
       this.$socket.emit('ttsText', 'Aviso!')
       EventBus.$emit('changeTab')
       if (!this.timeout) {
         this.timeout = true
         setTimeout(() => {
-          //self.$modal.hide('alert')
+          // self.$modal.hide('alert')
           self.timeout = false
         }, 3000)
       }
+    },
+    unblock: function() {
+      this.$marqueemsg.hide()
     },
     blocked: function() {
       this.$notifications.notify({
