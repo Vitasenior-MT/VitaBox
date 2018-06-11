@@ -307,7 +307,7 @@ JustGage2 = function(config) {
   }
 
   if (obj.config.relativeGaugeSize === true) {
-    obj.canvas.setViewBox(0, 0, 200, 150, true);
+    obj.canvas.setViewBox(0, 30, 200, 120, true);
   }
 
   // canvas dimensions
@@ -318,7 +318,7 @@ JustGage2 = function(config) {
     canvasW = obj.config.width;
     canvasH = obj.config.height;
   } else if (obj.config.parentNode !== null) {
-    obj.canvas.setViewBox(0, 0, 200, 150, true);
+    obj.canvas.setViewBox(0, 30, 200, 120, true);
     canvasW = 200;
     canvasH = 150;
   } else {
