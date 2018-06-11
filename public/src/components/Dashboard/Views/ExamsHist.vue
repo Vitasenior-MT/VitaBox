@@ -69,6 +69,7 @@ export default {
   },
   data() {
     return {
+      listData: ['item1', 'item2', 'item3'],
       msgUser: 'examshist.msgUser',
       msgExam: 'examshist.msgExam',
       msgExit: 'examshist.msgExit',
@@ -141,58 +142,70 @@ export default {
         .then(response => {
           if (response.data.status === true) {
             let devacesArray = response.data.data
-            this.btnExams = []
-            for (let index = 0; index < devacesArray.length; index++) {
-              let btnopt = ''
-              switch (devacesArray[index].device) {
-                case 'bloodpressure':
-                  this.btns[0].macAddr = devacesArray[index].mac_addr
-                  this.btns[0].nome = devacesArray[index].name
-                  btnopt = this.btns[0]
-                  break
-                case 'bodytemperature':
-                  this.btns[1].macAddr = devacesArray[index].mac_addr
-                  this.btns[1].nome = devacesArray[index].name
-                  btnopt = this.btns[1]
-                  break
-                case 'bodypulse':
-                  this.btns[2].macAddr = devacesArray[index].mac_addr
-                  this.btns[2].nome = devacesArray[index].name
-                  btnopt = this.btns[2]
-                  break
-                case 'bodyscale':
-                  this.btns[3].macAddr = devacesArray[index].mac_addr
-                  this.btns[3].nome = devacesArray[index].name
-                  btnopt = this.btns[3]
-                  break
-                case 'bloodglucose':
-                  this.btns[4].macAddr = devacesArray[index].mac_addr
-                  this.btns[4].nome = devacesArray[index].name
-                  btnopt = this.btns[4]
-                  break
-                case 'bandfitness':
-                  this.btns[5].macAddr = devacesArray[index].mac_addr
-                  this.btns[5].nome = devacesArray[index].name
-                  btnopt = this.btns[5]
-                  break
-                default:
-                  break
+            if (devacesArray.length > 0) {
+              this.btnExams = []
+              for (let index = 0; index < devacesArray.length; index++) {
+                let btnopt = ''
+                switch (devacesArray[index].device) {
+                  case 'bloodpressure':
+                    this.btns[0].macAddr = devacesArray[index].mac_addr
+                    this.btns[0].nome = devacesArray[index].name
+                    btnopt = this.btns[0]
+                    break
+                  case 'bodytemperature':
+                    this.btns[1].macAddr = devacesArray[index].mac_addr
+                    this.btns[1].nome = devacesArray[index].name
+                    btnopt = this.btns[1]
+                    break
+                  case 'bodypulse':
+                    this.btns[2].macAddr = devacesArray[index].mac_addr
+                    this.btns[2].nome = devacesArray[index].name
+                    btnopt = this.btns[2]
+                    break
+                  case 'bodyscale':
+                    this.btns[3].macAddr = devacesArray[index].mac_addr
+                    this.btns[3].nome = devacesArray[index].name
+                    btnopt = this.btns[3]
+                    break
+                  case 'bloodglucose':
+                    this.btns[4].macAddr = devacesArray[index].mac_addr
+                    this.btns[4].nome = devacesArray[index].name
+                    btnopt = this.btns[4]
+                    break
+                  case 'bandfitness':
+                    this.btns[5].macAddr = devacesArray[index].mac_addr
+                    this.btns[5].nome = devacesArray[index].name
+                    btnopt = this.btns[5]
+                    break
+                  default:
+                    break
+                }
+                if (btnopt !== '') {
+                  this.btnExams.push(btnopt)
+                }
               }
-              if (btnopt !== '') {
-                this.btnExams.push(btnopt)
-              }
+              this.classEvent = 'control-remote'
+              setTimeout(() => {
+                EventBus.elementControl = document.getElementsByClassName(this.classEvent)
+                EventBus.currentActiveRightComp = 0
+                // ativa o novo elemento adiconando a class que indica o elemento activo
+                let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+                elem.focus()
+                elem.classList.add('btn-fill')
+                // EventBus.scrollScreen(elem)
+                elem.scrollIntoView(false)
+              }, 10)
+            } else {
+              this.$refs.DefaultView.setMsg(self.msgUser)
+              this.$refs.DefaultView.show()
+              this.$notifications.notify({
+                message: '<h4>Sem Exames atribuidos.</h4>',
+                icon: 'ti-bell',
+                horizontalAlign: 'right',
+                verticalAlign: 'top',
+                type: 'info'
+              })
             }
-            this.classEvent = 'control-remote'
-            setTimeout(() => {
-              EventBus.elementControl = document.getElementsByClassName(this.classEvent)
-              EventBus.currentActiveRightComp = 0
-              // ativa o novo elemento adiconando a class que indica o elemento activo
-              let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-              elem.focus()
-              elem.classList.add('btn-fill')
-              // EventBus.scrollScreen(elem)
-              elem.scrollIntoView(false)
-            }, 10)
           } else {
             console.log('erro', response.data)
           }

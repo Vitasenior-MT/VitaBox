@@ -31,7 +31,7 @@ export const EventBus = new Vue({
         console.log('Auto Off ')
       }
     },
-    audioBasicMode: function(path){
+    audioBasicMode: function(path) {
       var self = this
       let audio = document.createElement('audio')
       audio.id = 'audioElem'

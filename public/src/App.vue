@@ -3,6 +3,7 @@
     <router-view></router-view>
     <v-dialog/>
     <v-alert/>
+    <v-marquee-msg/>
   </div>
 </template>
 

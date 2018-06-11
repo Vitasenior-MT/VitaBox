@@ -16,6 +16,7 @@ import GlobalDirectives from './globalDirectives'
 import Notifications from './components/UIComponents/NotificationPlugin'
 import SideBar from './components/UIComponents/SidebarPlugin'
 import VModal from './components/UIComponents/Modal'
+import VMarqueeMsg from 'components/UIComponents/Forms'
 import VueFormWizard from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 import App from './App'
@@ -36,8 +37,9 @@ Vue.use(GlobalComponents)
 Vue.use(GlobalDirectives)
 Vue.use(Notifications)
 Vue.use(SideBar)
-Vue.use(VModal, {dialog: true})
-Vue.use(Tooltip);
+Vue.use(VModal, { dialog: true })
+Vue.use(Tooltip)
+Vue.use(VMarqueeMsg)
 Vue.use(VueFormWizard)
 Vue.use(resource)
 Vue.use(VueSocketio, location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : ''))
@@ -110,6 +112,7 @@ export const app = new Vue({
     vitaWarning: function(data) {
       let self = this
       this.$modal.show('alert', data)
+      this.$marqueemsg.show('Mensagem', 'Pressiosne me [OK] para desbloquear.')
       this.$socket.emit('ttsText', 'Aviso!')
       EventBus.$emit('changeTab')
       clearInterval(interval)
@@ -125,6 +128,9 @@ export const app = new Vue({
     },
     informationVita: function(data) {
       console.log('marquee', data)
+    },
+    unblock: function() {
+      this.$marqueemsg.hide()
     },
     blocked: function() {
       this.$notifications.notify({
