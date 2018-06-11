@@ -68,7 +68,8 @@ export const app = new Vue({
   router,
   data: {
     Chartist: Chartist,
-    timeout: false
+    interval: null,
+    show: true
   },
   mounted() {
   },
@@ -83,7 +84,7 @@ export const app = new Vue({
       }
     },
     ttsPath(path) {
-      if(!this.sidebarStore.mode.auto){
+      if (!this.sidebarStore.mode.auto) {
         var self = this
         let audioOld = document.getElementById('audioElem')
         if (audioOld) {
@@ -93,13 +94,13 @@ export const app = new Vue({
         audio.id = 'audioElem'
         audio.style.display = 'none'
         audio.src = './static/.temp/' + path
-        audio.autoplay = true//visio key 7N9KX-H2WFG-JBV6P-BKYRC-MP2RV
+        audio.autoplay = true
         audio.onended = function() {
           audio.remove()
           self.$socket.emit('ttsDelete')
         };
         document.body.appendChild(audio)
-      } else{
+      } else {
         EventBus.audioBasicMode('./static/.temp/' + path)
       }
     },
@@ -111,13 +112,19 @@ export const app = new Vue({
       this.$modal.show('alert', data)
       this.$socket.emit('ttsText', 'Aviso!')
       EventBus.$emit('changeTab')
-      if (!this.timeout) {
-        this.timeout = true
-        setTimeout(() => {
-          //self.$modal.hide('alert')
-          self.timeout = false
-        }, 3000)
-      }
+      clearInterval(interval)
+      interval = setInterval( () => {
+        if (self.show) {
+          self.$modal.show('alert', data)
+          self.show = false
+        } else {
+          self.$modal.hide('alert')
+          self.show = true
+        }
+      }, 3000)
+    },
+    informationVita: function(data) {
+      console.log('marquee', data)
     },
     blocked: function() {
       this.$notifications.notify({

@@ -151,10 +151,11 @@ export default {
     var self = this
     this.controlSideBar()
     EventBus.$on('changeTab', function() {
-      if (self.$route.path !== '/vitabox/warnings') {
+      let path = '/vitabox/warnings'
+      if (self.$route.path !== path) {
         let sideBar = self.sidebarLinks
         for (var index in sideBar) {
-          if (sideBar[index].path === '/vitabox/warnings') {
+          if (sideBar[index].path === path) {
             self.activeLinkIndex = index
             self.$router.push({ path: sideBar[index].path })
             // atribui para que passe a seer novamento a primenra vez que entra nesta view
