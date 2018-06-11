@@ -16,6 +16,8 @@ export default {
         decimals: 0,
         symbol: this.symbol,
         gaugeWidthScale: 1,
+        gaugeWidthScale2: 1,
+        valueFontColor: '#000000',
         pointer: true,
         labelFontColor: 'black',
         donut: this.typechartdonut,
