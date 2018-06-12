@@ -115,8 +115,8 @@ export const app = new Vue({
       this.$marqueemsg.show('Mensagem', 'Pressiosne me [OK] para desbloquear.')
       this.$socket.emit('ttsText', 'Aviso!')
       EventBus.$emit('changeTab')
-      clearInterval(interval)
-      interval = setInterval( () => {
+      clearInterval(this.interval)
+      this.interval = setInterval(() => {
         if (self.show) {
           self.$modal.show('alert', data)
           self.show = false
@@ -131,6 +131,7 @@ export const app = new Vue({
     },
     unblock: function() {
       this.$marqueemsg.hide()
+      clearInterval(this.interval)
     },
     blocked: function() {
       this.$notifications.notify({

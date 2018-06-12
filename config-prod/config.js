@@ -23,20 +23,10 @@ module.exports = {
       min: 0,
       sec: 4
     },
-    timeTillAvgOutExpiredDate: {
-      hour: 0,
-      min: 10,
-      sec: 0
-    },
     deleteRate: {
       hour: 0,
       min: 10,
       sec: 0
-    },
-    postRate: {
-      hour: 0,
-      min: 0,
-      sec: 5
     }
   },
   RemoteConfigs: {
