@@ -8,7 +8,7 @@
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
     <card-style>
-      <div class='icon-big text-center' :class='`icon-${cardStyle.type}`' slot='header'>
+      <div class='icon-big vue-alert-img' :class='`icon-${cardStyle.type}`' slot='header'>
         <img src='static/img/vitabox/warning.svg' class='size-img'>
       </div>
       <div class='center font-size-b' slot='content'>
@@ -83,14 +83,13 @@ export default {
   margin: 5px 0 0 0;
 }
 
-.vue-alert-text {
-  color: black;
-  text-align: center;
-  font-size: 16px;
+.vue-alert-img {
+  text-align: right;
+  margin-right: 2%;
 }
 
 .center {
-  text-align: center;
+  text-align: right;
   min-height: 150px;
   line-height: 150px;
 }
@@ -100,12 +99,13 @@ export default {
   line-height: 1.5;
   display: inline-block;
   vertical-align: middle;
+  margin-right: 10%;
   color: red;
   font-size: 45px;
 }
 
 .background-opacity {
-  background-color: rgba(255, 255, 255, 0.5) !important;
+  background-color: rgba(255, 255, 255, 0.3) !important;
   height: 100%;
 }
 
@@ -115,8 +115,7 @@ export default {
 }
 
 .size-img {
-  width: 40%;
-  height: 50%;
+  width: 30%;
 }
 
 .font-size-b b {

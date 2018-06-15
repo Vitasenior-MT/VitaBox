@@ -8,39 +8,50 @@ export const EventBus = new Vue({
     currentActiveRightComp: 0,    // posição do array para o elemento ativo
     firstRightEvent: true,        // validação se é a primeira vez que foi precionado a tecla para a direita para entrar na view
     elementControl: [],           // Array com os elemento perencentes a uma class especifica
-    interval: null                // Store the setInterval function to clear it later
+    flgStartRotation: false,
+    next: null,
+    className: ''
   },
   methods: {
-    startRotation(className, auto, h, m, s, click, next) {
-      if (auto) {
-        this.elementControl = document.getElementsByClassName(className)
-        clearInterval(this.interval)
-        this.interval = setInterval(() => {
-          if (click) {
-            if (this.currentActiveRightComp + 1 >= this.elementControl.length) {
-              next(true)
-            }
-          }
-          console.log('Auto On ')
-          this.moveLeftRightInView(1)
-          if (click) {
-            next(false)
-          }
-        }, this.timeCalculator(h, m, s))
-      } else {
-        console.log('Auto Off ')
+    rotation() {
+      if (this.flgStartRotation) {
+        if (this.currentActiveRightComp + 1 >= this.elementControl.length) {
+          this.next(true)
+        }
       }
+      this.moveLeftRightInView(1)
+      if (this.flgStartRotation) {
+        this.next(false)
+      }
+    },
+    startRotation(next, className) {
+      console.log('Auto On ')
+      this.elementControl = document.getElementsByClassName(className)
+      this.flgStartRotation = true
+      this.next = next
+      this.className = className
+    },
+    endRotation() {
+      console.log('Auto Off ')
+      this.flgStartRotation = false
+      this.next = null
+      this.className = ''
+      this.setSidebar()
     },
     audioBasicMode: function(path) {
       var self = this
       let audio = document.createElement('audio')
       audio.id = 'audioElem'
       audio.style.display = 'none'
-      audio.src = './static/.temp/' + path
+      audio.src = path
       audio.autoplay = true
       audio.onended = function() {
         audio.remove()
         self.$socket.emit('ttsDelete')
+        console.log(self.flgStartRotation)
+        if (self.flgStartRotation) {
+          self.rotation()
+        }
       };
       document.body.appendChild(audio)
     },

@@ -70,7 +70,8 @@ export const app = new Vue({
   router,
   data: {
     Chartist: Chartist,
-    timeout: false
+    interval: null,
+    show: true
   },
   mounted() {
   },
@@ -85,25 +86,10 @@ export const app = new Vue({
       }
     },
     ttsPath(path) {
-      if (!this.sidebarStore.mode.auto) {
-        var self = this
-        let audioOld = document.getElementById('audioElem')
-        if (audioOld) {
-          audioOld.remove()
-        }
-        let audio = document.createElement('audio')
-        audio.id = 'audioElem'
-        audio.style.display = 'none'
-        audio.src = './static/.temp/' + path
-        audio.autoplay = true // visio key 7N9KX-H2WFG-JBV6P-BKYRC-MP2RV
-        audio.onended = function() {
-          audio.remove()
-          self.$socket.emit('ttsDelete')
-        };
-        document.body.appendChild(audio)
-      } else {
-        EventBus.audioBasicMode('./static/.temp/' + path)
+      if (document.getElementById('audioElem')) {
+        document.getElementById('audioElem').remove()
       }
+      EventBus.audioBasicMode('./static/.temp/' + path)
     },
     hdmistatus: function(data) {
       console.log('Receive hdmistatus', data)
@@ -111,19 +97,27 @@ export const app = new Vue({
     vitaWarning: function(data) {
       let self = this
       this.$modal.show('alert', data)
-      this.$marqueemsg.show('Mensagem', 'Pressiosne me [OK] para desbloquear.')
-      this.$socket.emit('ttsText', 'Aviso!')
+      this.$socket.emit('ttsText', this.$t('dictionary.warnings.warning'))
       EventBus.$emit('changeTab')
-      if (!this.timeout) {
-        this.timeout = true
-        setTimeout(() => {
-          // self.$modal.hide('alert')
-          self.timeout = false
-        }, 3000)
-      }
+      clearInterval(this.interval)
+      this.interval = setInterval(() => {
+        if (self.show) {
+          self.$modal.show('alert', data)
+          self.show = false
+        } else {
+          self.$modal.hide('alert')
+          self.show = true
+        }
+      }, 3000)
+    },
+    informationVita: function(data) {
+      console.log('marquee', data)
+      this.$marqueemsg.show(data.shortMessage, data.longMessage)
     },
     unblock: function() {
       this.$marqueemsg.hide()
+      this.$modal.hide('alert')
+      clearInterval(this.interval)
     },
     blocked: function() {
       this.$notifications.notify({

@@ -408,33 +408,44 @@ export default {
     },
     componentsRotation() {
       var self = this
-      EventBus.startRotation('control-remote-patient', this.sidebarStore.mode.auto, 0, 0, 5, true, (end) => {
-        if (self.posPatientSelected > -1) {
-          if (end) {
-            // inicializa a variavel para selecionar a lista do user
-            self.classEvent = 'control-remote-patient'
-            self.dataCharsExists = false
-            self.$refs.DefaultView.setMsg(self.msgUser)
-            self.$refs.DefaultView.show()
-            self.resetValues()
-            // Constroi a lista com os elementos da class dos users
-            EventBus.elementControl = document.getElementsByClassName(self.classEvent)
-            // Atualiza para elemento anteriormente ativo
-            EventBus.currentActiveRightComp = self.posPatientSelected
-            // limpa a variavel para saber que se voltar a carregar para sair e voltar para a barra lateral.
-            self.posPatientSelected = -1
-            // desloca a div para o inicio
-            document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
-            // limpa a lisa dos botões disponiveis para o user
-            self.btnExams = []
-            self.resetValues()
+      if (this.sidebarStore.mode.auto) {
+        EventBus.startRotation((end) => {
+          console.log(end)
+          if (self.posPatientSelected > -1) {
+            if (end) {
+              // inicializa a variavel para selecionar a lista do user
+              self.classEvent = 'control-remote-patient'
+              self.dataCharsExists = false
+              self.$refs.DefaultView.setMsg(self.msgUser)
+              self.$refs.DefaultView.show()
+              // Constroi a lista com os elementos da class dos users
+              EventBus.elementControl = document.getElementsByClassName(self.classEvent)
+              // Atualiza para elemento anteriormente ativo
+              EventBus.currentActiveRightComp = self.posPatientSelected
+              // limpa a variavel para saber que se voltar a carregar para sair e voltar para a barra lateral.
+              self.posPatientSelected = -1
+              // desloca a div para o inicio
+              document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
+              // limpa a lisa dos botões disponiveis para o user
+              self.btnExams = []
+              self.resetValues()
+            }
           }
-        }
-        let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-        elem.focus()
-        elem.click()
-        elem.classList.add('btn-fill')
-      })
+          let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+          elem.focus()
+          elem.click()
+          elem.classList.add('btn-fill')
+          if (!end) {
+            setTimeout(() => {
+              let datas = document.getElementsByClassName('control-remote btn-fill')
+              self.$socket.emit('ttsText', self.$t('dictionary.biosensors.' + datas[0].dataset.type))
+              console.log(datas[0].dataset.type)
+              datas[0].focus()
+              datas[0].click()
+            }, 300);
+          }
+        }, 'control-remote-patient')
+      }
     },
     /**
      * TODO: Metodo para controlar os eventos do comando remoto quando esta é a view ativa no momento
@@ -609,6 +620,7 @@ export default {
    * TODO: Destroi o evento das teclas do comando para esta view
    */
   beforeDestroy() {
+    EventBus.endRotation()
     EventBus.$off('move-components')
   }
 }

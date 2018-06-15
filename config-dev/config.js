@@ -23,20 +23,10 @@ module.exports = {
       min: 0,
       sec: 4
     },
-    timeTillAvgOutExpiredDate: {
-      hour: 0,
-      min: 10,
-      sec: 0
-    },
     deleteRate: {
       hour: 0,
       min: 10,
       sec: 0
-    },
-    postRate: {
-      hour: 0,
-      min: 0,
-      sec: 5
     }
   },
   RemoteConfigs: {
@@ -53,7 +43,7 @@ module.exports = {
   },
   ServerConfigs: {
     key: fs.readFileSync('key.key').toString().trim(),
-    pass: 'FE9kZq3iZF',
+    pass: 'passvita',
     port: 443,
     host: 'vitasenior-test.eu-gb.mybluemix.net'
   },

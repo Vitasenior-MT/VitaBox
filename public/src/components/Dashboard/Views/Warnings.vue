@@ -26,7 +26,7 @@ export default {
         self.warningCards = []
         self.$refs.DefaultView.setMsg(this.msg)
         self.$refs.DefaultView.show()
-      }, EventBus.timeCalculator(0, 5, 0))
+      }, EventBus.timeCalculator(0, 16, 0))
     }
   },
   data() {
@@ -75,7 +75,7 @@ export default {
         }
       } else {
         this.$http
-          .get('/api/sensor/allCriticalSensors/2')
+          .get('/api/sensor/allCriticalSensors')
           .then(response => {
             for (var index in response.data.data) {
               let data = response.data.data[index]

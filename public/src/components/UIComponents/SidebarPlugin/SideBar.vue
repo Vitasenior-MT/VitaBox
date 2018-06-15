@@ -129,7 +129,7 @@ export default {
         if (index > self.sidebarLinks.length - 1) {
           index = 0
         }
-        this.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
+        self.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
         self.$router.push({ path: self.sidebarLinks[index].path })
         EventBus.correntRightComponent = self.sidebarLinks[index].path
       })
@@ -151,10 +151,11 @@ export default {
     var self = this
     this.controlSideBar()
     EventBus.$on('changeTab', function() {
-      if (self.$route.path !== '/vitabox/warnings') {
+      let path = '/vitabox/warnings'
+      if (self.$route.path !== path) {
         let sideBar = self.sidebarLinks
         for (var index in sideBar) {
-          if (sideBar[index].path === '/vitabox/warnings') {
+          if (sideBar[index].path === path) {
             self.activeLinkIndex = index
             self.$router.push({ path: sideBar[index].path })
             // atribui para que passe a seer novamento a primenra vez que entra nesta view
