@@ -31,10 +31,10 @@ const advanced = [
     text: 'sidebar.warning.text'
   },
   {
-    name: 'sidebar.ShowData.title',
+    name: 'sidebar.showData.title',
     icon: 'ti-bell',
     path: '/vitabox/showdata',
-    text: 'sidebar.showdata.text'
+    text: 'sidebar.showData.text'
   }
 ]
 
@@ -58,10 +58,10 @@ const basic = [
     text: 'sidebar.warning.text'
   },
   {
-    name: 'sidebar.warning3.title',
+    name: 'sidebar.showData.title',
     icon: 'ti-bell',
-    path: '/vitabox/warnings3',
-    text: 'sidebar.warning3.text'
+    path: '/vitabox/showdata',
+    text: 'sidebar.showData.text'
   }
 ]
 

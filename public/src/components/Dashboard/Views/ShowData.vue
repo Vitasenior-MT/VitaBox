@@ -2,7 +2,10 @@
   <div>
     <div class="row container-data-sensors">
       <div class="col-lg-4" v-for="warningCard in warningCards" :key="warningCard.id">
-        <card-warning :key="warningCard.id" :warningCard="warningCard"></card-warning>
+        <card-warning :key="warningCard.id" :warningCard="warningCard"
+        :data-avg="warningCard.avg"
+        :data-threshold="warningCard.threshold_max_possible"
+        :data-location="warningCard.location"></card-warning>
       </div>
     </div>
     <default-form ref="DefaultView"></default-form>
@@ -152,8 +155,8 @@ export default {
     }
   },
   beforeDestroy() {
+    EventBus.endRotation()
     EventBus.setSidebar()
-    clearInterval(EventBus.interval)
     EventBus.$off('move-components')
   },
   beforeCreate() {
@@ -165,6 +168,7 @@ export default {
     }
   },
   created() {
+    var self = this
     this.$http
       .get('/api/sensor/allSensorsInfo')
       .then(response => {
@@ -202,7 +206,18 @@ export default {
             }
           }
           this.controlEventsBus()
-          EventBus.startRotation('control-remote', this.sidebarStore.mode.auto, 0, 0, 5)
+          if (this.sidebarStore.mode.auto) {
+            EventBus.startRotation((end) => {
+              let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+              console.log(elem)
+              console.log(elem.dataset)
+              console.log(elem.dataset.avg)
+              self.$socket.emit('ttsText', elem.dataset.avg)
+              elem.focus()
+              elem.click()
+              elem.classList.add('btn-fill')
+            }, 'control-remote')
+          }
         } else {
           console.log('Receive error', response.data)
         }

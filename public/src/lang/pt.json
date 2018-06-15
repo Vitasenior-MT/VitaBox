@@ -1,5 +1,12 @@
 {
   "dictionary": {
+    "biosensors": {
+      "bodypulse": "Não sei que fazer com esta",
+      "bodyscale": "Não sei que fazer com esta",
+      "bodytemperature": "Não sei que fazer com esta",
+      "bloodpressure": "Não sei que fazer com esta",
+      "bandfitness": "Não sei que fazer com esta"
+    },
     "limit": {
       "title": "Limite",
       "text": ""
@@ -15,6 +22,9 @@
     "basic": {
       "title": "Modo Basico Ligado",
       "text": ""
+    },
+    "warnings": {
+      "warning": "Aviso!"
     }
   },
   "sidebar": {
@@ -22,8 +32,8 @@
       "title": "casa",
       "text": "Casa"
     },
-    "history": {
-      "title": "teste do historico",
+    "diagnosisHistory": {
+      "title": "Hist. de Diagnósticos",
       "text": "Não sei que fazer com esta"
     },
     "warning": {
@@ -34,9 +44,9 @@
       "title": "Aviso 02",
       "text": "neste separador é exposto toda a informação crítica dos alarmes."
     },
-    "ShowData": {
+    "showData": {
       "title": "Mostrar Dados",
-      "text": "Mostra todos os dados dos sensores"
+      "text": "Não sei que fazer com esta"
     },
     "historyEnvironmentSensor": {
       "title": "Hist. Sens. Ambientais",
@@ -49,10 +59,6 @@
     "diagnosis": {
       "title": "Exames / Diagnósticos",
       "text": "Execução de exames"
-    },
-    "diagnosisHistory": {
-      "title": "Hist. de Diagnósticos",
-      "text": "Hist. de Diagnósticos"
     },
     "ambienteHistory": {
       "title": "Hist. Sen. Ambientais",
