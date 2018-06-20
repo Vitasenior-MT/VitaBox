@@ -1,4 +1,6 @@
 #!/bin/bash
+mkdir -p /generatedLogs/;
+mkdir -p /generatedPlots/;
 for((i=1;i<"$#"+1;i++));
 do
 sh ./whatcher.sh "${!i}" 10 &

@@ -27,6 +27,7 @@
     "sleep": "^5.1.1",
     "socket.io": "^2.1.1",
     "winston": "^2.4.2",
-    "winston-daily-rotate-file": "^3.1.4"
+    "winston-daily-rotate-file": "^3.1.4",
+    "coap": "^0.21.0"
   }
 }
