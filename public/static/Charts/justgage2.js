@@ -914,7 +914,6 @@ obj.config.customSectors.forEach(function(elem, index, arr){
 
 /** Refresh gauge level */
 JustGage2.prototype.refresh = function(val, max) {
-
   var obj = this;
   var displayVal, color, max = max || null;
 
@@ -952,7 +951,6 @@ JustGage2.prototype.refresh = function(val, max) {
   }
 
   color = getColor(val, (val - obj.config.min) / (obj.config.max - obj.config.min), obj.config.levelColors, obj.config.noGradient, obj.config.customSectors);
-
   if (obj.config.textRenderer) {
     displayVal = obj.config.textRenderer(displayVal);
   } else if (obj.config.humanFriendly) {
@@ -964,7 +962,6 @@ JustGage2.prototype.refresh = function(val, max) {
   }
   obj.originalValue = displayVal;
   obj.config.value = val * 1;
-
   if (!obj.config.counter) {
     obj.txtValue.attr({
       "text": displayVal

@@ -409,8 +409,9 @@ export default {
     componentsRotation() {
       var self = this
       if (this.sidebarStore.mode.auto) {
+        this.resetValues()
+        this.dataCharsExists = false
         EventBus.startRotation((end) => {
-          console.log(end)
           if (self.posPatientSelected > -1) {
             if (end) {
               // inicializa a variavel para selecionar a lista do user
@@ -428,22 +429,21 @@ export default {
               document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
               // limpa a lisa dos botões disponiveis para o user
               self.btnExams = []
-              self.resetValues()
             }
           }
-          let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-          elem.focus()
-          elem.click()
-          elem.classList.add('btn-fill')
-          if (!end) {
-            setTimeout(() => {
-              let datas = document.getElementsByClassName('control-remote btn-fill')
-              self.$socket.emit('ttsText', self.$t('dictionary.biosensors.' + datas[0].dataset.type))
-              console.log(datas[0].dataset.type)
-              datas[0].focus()
-              datas[0].click()
-            }, 300);
-          }
+          EventBus.currentComponent = EventBus.correntRightComponent
+          EventBus.$emit('move-components', 'right')
+          EventBus.$emit('move-components', 'ok_btn')
+          setTimeout(() => {
+            if (end) {
+               EventBus.$emit('move-components', 'ok_btn')
+            }
+            let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+            console.log(elem);
+            let datas = document.getElementsByClassName('control-remote btn-fill')
+            console.log(datas);
+            self.$socket.emit('ttsText', self.$t('dictionary.biosensors.' + datas[0].dataset.type))
+          }, 300);
         }, 'control-remote-patient')
       }
     },

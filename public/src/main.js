@@ -98,6 +98,7 @@ export const app = new Vue({
       let self = this
       this.$modal.show('alert', data)
       this.$socket.emit('ttsText', this.$t('dictionary.warnings.warning'))
+      this.$marqueemsg.show('Ver Mensagem', 'Aviso')
       EventBus.$emit('changeTab')
       clearInterval(this.interval)
       this.interval = setInterval(() => {
@@ -111,7 +112,6 @@ export const app = new Vue({
       }, 3000)
     },
     informationVita: function(data) {
-      console.log('marquee', data)
       this.$marqueemsg.show(data.shortMessage, data.longMessage)
     },
     unblock: function() {
@@ -136,7 +136,6 @@ export const app = new Vue({
             EventBus.$emit('move-sidebar', -1)
           } else {
             if (EventBus.currentComponent !== EventBus.sidebarName) {
-              console.log("Not sidebar")
               EventBus.$emit('move-components', 'up')
             }
           }
@@ -146,7 +145,6 @@ export const app = new Vue({
             EventBus.$emit('move-sidebar', 1)
           } else {
             if (EventBus.currentComponent !== EventBus.sidebarName) {
-              console.log("Not sidebar")
               EventBus.$emit('move-components', 'down')
             }
           }
@@ -175,10 +173,8 @@ export const app = new Vue({
           EventBus.$emit('mode')
           break;
         case 'menu':
-          console.log('Testes')
           break;
         default:
-          console.log("No event key", cmd)
           break;
       }
     }

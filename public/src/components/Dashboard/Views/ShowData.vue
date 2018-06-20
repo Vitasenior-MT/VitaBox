@@ -22,8 +22,6 @@ export default {
   },
   sockets: {
     sensorUpdate: function(data) {
-      console.log('Sensor Update: ', data)
-      console.log('Sensor Update: ', this.warningCards)
       let card = EventBus.findOne(this.warningCards, data)
       if (card) {
         card.avg = data.avg.toFixed()
@@ -208,14 +206,16 @@ export default {
           this.controlEventsBus()
           if (this.sidebarStore.mode.auto) {
             EventBus.startRotation((end) => {
-              let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-              console.log(elem)
-              console.log(elem.dataset)
-              console.log(elem.dataset.avg)
-              self.$socket.emit('ttsText', elem.dataset.avg)
-              elem.focus()
-              elem.click()
-              elem.classList.add('btn-fill')
+              EventBus.currentComponent = EventBus.correntRightComponent
+              EventBus.$emit('move-components', 'right')
+              EventBus.$emit('move-components', 'ok_btn')
+              setTimeout(() => {
+                if (end) {
+                  EventBus.$emit('move-components', 'ok_btn')
+                }
+                let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+                self.$socket.emit('ttsText', elem.dataset.avg)
+              }, 300);
             }, 'control-remote')
           }
         } else {

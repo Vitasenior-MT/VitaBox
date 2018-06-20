@@ -28,7 +28,6 @@ cd Scripts
 sudo cp nodeAutostart.service /etc/systemd/system/nodeAutostart.service
 sudo systemctl enable nodeAutostart.service
 sudo systemctl start nodeAutostart.service
-#sudo systemctl stop nodeAutostart.service
 
 #3. Chromium config and autostart
 sudo echo "@sh /home/pi/Desktop/VitaBox/autoStartChrome.sh" >> /home/pi/.config/lxsession/LXDE-pi/autostart
@@ -47,19 +46,13 @@ sudo rm -f /boot/config.txt
 sudo cp bootConfig.txt /boot/config.txt
 
 #6. hide mouse
-#não testado
 sudo apt-get install unclutter
 sudo sed -i -e 's/\r$//' mousehide.sh
 sudo chmod +x mousehide.sh
 
 #7. sceen saver
-#não testado
 sudo sed -i -e 's/\r$//' xscreensaver.sh
 sudo chmod +x xscreensaver.sh
 
-#7. Installers
-npm install
-sudo apt-get install chromium-browser
-sudo apt-get install cec-utils
-sudo apt-get install mongodb
+#7. Reboot system
 sudo reboot
