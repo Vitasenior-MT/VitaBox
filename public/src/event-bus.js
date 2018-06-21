@@ -19,7 +19,7 @@ export const EventBus = new Vue({
           this.next(true)
         }
       }
-      //this.moveLeftRightInView(1)
+      // this.moveLeftRightInView(1)
       if (this.flgStartRotation) {
         this.next(false)
       }
