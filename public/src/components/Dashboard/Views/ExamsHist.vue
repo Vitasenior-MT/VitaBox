@@ -436,7 +436,7 @@ export default {
           EventBus.$emit('move-components', 'ok_btn')
           setTimeout(() => {
             if (end) {
-               EventBus.$emit('move-components', 'ok_btn')
+              EventBus.$emit('move-components', 'ok_btn')
             }
             let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
             console.log(elem);
@@ -511,6 +511,7 @@ export default {
               self.resetValues()
               clearInterval(EventBus.interval)
               console.log('if exit', cmd, EventBus.currentActiveRightComp)
+              EventBus.endRotation()
               break
             case 'right': // tecla para a direita
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')

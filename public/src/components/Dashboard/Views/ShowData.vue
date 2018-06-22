@@ -93,6 +93,7 @@ export default {
             // define o elemento ativo coomo sendo a barra lateral
             EventBus.currentComponent = EventBus.sidebarName
             console.log('if exit', cmd, EventBus.currentActiveRightComp)
+            EventBus.endRotation()
             break
           case 'up':
             try {
@@ -172,13 +173,11 @@ export default {
       .then(response => {
         if (response.data.status === true) {
           var datasensores = response.data.data
-          console.log('response')
-          console.log(response)
           for (var index in datasensores) {
             this.warningCards.push({
               id: datasensores[index].board_id,
               idchart: 'chartid-' + index,
-              avg: datasensores[index].avg,
+              avg: datasensores[index].avg.toFixed(),
               threshold_max_acceptable: datasensores[index].threshold_max_acceptable === undefined ? 100 : datasensores[index].threshold_max_acceptable,
               threshold_max_possible: datasensores[index].threshold_max_possible === undefined ? 100 : datasensores[index].threshold_max_possible,
               threshold_min_acceptable: datasensores[index].threshold_min_acceptable === undefined ? 100 : datasensores[index].threshold_min_acceptable,
