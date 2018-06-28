@@ -511,6 +511,7 @@ export default {
               self.resetValues()
               clearInterval(EventBus.interval)
               console.log('if exit', cmd, EventBus.currentActiveRightComp)
+              EventBus.endRotation()
               break
             case 'right': // tecla para a direita
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
