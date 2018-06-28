@@ -31,348 +31,356 @@
     <default-form ref="DefaultView"></default-form>
     <div class="row bloodpressure clear-margin" v-show="examEvent == 'bloodpressure'">
       <div class="col-md-12 btn btn-round btn-fill">
-        <div class="col-md-9">
-          <div class="card">
-            <div class="content">
-              <h4 class="title">Modo de Utilização</h4>
-              <hr>
-              <ol>
-                <h4>
-                  <div class="row">
-                    <div class="col-md-9 text-justify text-div-wrap">
-                      <li>Coloque a bracelete no braço.</li>
-                      <li>Ajuste a bracelete conforme mostrado na imagem (Fig.1).</li>
-                      <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                      <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar e iniciar o processo (Fig.2).</li>
-                      <li>A luz indicadora de equipamento ligado pisca.</li>
-                      <li>Após o equpamento ser detectado a luz deixa de piscar ficando sempre ligada.</li>
-                      <li>Aguarde até o processo terminar.</li>
-                      <li>Após todos os dados aparecerem na televisão o equipamento desliga-se automaticamente.</li>
+        <div class="row" v-show="dataPressArt.panelPrincipal">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="content">
+                <h4 class="title">Modo de Utilização</h4>
+                <hr>
+                <ol>
+                  <h4>
+                    <div class="row">
+                      <div class="col-md-10 text-justify text-div-wrap">
+                        <li>Coloque a bracelete no braço.</li>
+                        <li>Ajuste a bracelete conforme mostrado na imagem (Fig.1).</li>
+                        <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
+                        <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar e iniciar o processo (Fig.2).</li>
+                        <li>A luz indicadora de equipamento ligado pisca.</li>
+                        <li>Após o equpamento ser detectado a luz deixa de piscar ficando sempre ligada.</li>
+                        <li>Aguarde até o processo terminar.</li>
+                        <li>Após todos os dados aparecerem na televisão o equipamento desliga-se automaticamente.</li>
+                      </div>
+                      <div class="col-md-2">
+                        <figure>
+                          <img src='static/img/bloodpressure.png' alt="" class="img-fit">
+                          <figcaption>Fig.1</figcaption>
+                        </figure>
+                        <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                        <figure>
+                          <img src='static/img/bloodpressure.gif' alt="" class="img-fit">
+                          <figcaption>Fig.2</figcaption>
+                        </figure>
+                      </div>
                     </div>
-                    <div class="col-md-3">
-                      <figure>
-                        <img src='static/img/bloodpressure.png' alt="" class="img-fit">
-                        <figcaption>Fig.1</figcaption>
-                      </figure>
-                      <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                      <figure>
-                        <img src='static/img/bloodpressure.gif' alt="" class="img-fit">
-                        <figcaption>Fig.2</figcaption>
-                      </figure>
-                    </div>
-                  </div>
-                </h4>
-              </ol>
+                  </h4>
+                </ol>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-3" :class="bloodpressureClass">
-          <stats-card>
-            <div class="icon-big text-center" slot="header">
-              <i class="ti-stats-up"></i>
-              <hr>
-              <i class="ti-stats-down"></i>
-              <hr>
-              <i class="ti-pulse"></i>
-            </div>
-            <div class="numbers" slot="content">
-              <p>Sistólica </p>
-              {{dataPressArt.pressmax}}
-              <hr>
-              <p>Diastólica </p>
-              {{dataPressArt.pressmin}}
-              <hr>
-              <p>Batimento <br> Cardíaco </p>
-              {{dataPressArt.pulso}}
-            </div>
-          </stats-card>
+        <div class="row" v-show="dataPressArt.panelResults">
+          <div :class="bloodpressureClass + ' ' + dataPressArt.resultCol" v-show="dataPressArt.pressmaxShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="ti-stats-up"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+                <p>{{dataPressArt.pressmaxName}} </p>
+                {{dataPressArt.pressmax}}
+              </div>
+            </stats-card>
+          </div>
+          <div :class="bloodpressureClass + ' ' + dataPressArt.resultCol" v-show="dataPressArt.pressminShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="ti-stats-down"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+                <p>{{dataPressArt.pressminName}} </p>
+                {{dataPressArt.pressmin}}
+              </div>
+            </stats-card>
+          </div>
+          <div :class="bloodpressureClass + ' ' + dataPressArt.resultCol" v-show="dataPressArt.pulsoShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="ti-pulse"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+                <p>{{dataPressArt.pulsoName}} </p>
+                {{dataPressArt.pulso}}
+              </div>
+            </stats-card>
+          </div>
         </div>
       </div>
     </div>
     <div class="row bodyscale clear-margin" v-show="examEvent == 'bodyscale'">
       <div class="col-md-12 btn btn-round btn-fill">
-        <div class="col-md-9">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="content">
-                  <h4 class="title">Modo de Utilização</h4>
-                  <hr>
-                  <ol>
-                    <h4>
-                      <div class="row">
-                        <div class="col-md-9 text-justify text-div-wrap">
-                          <li>Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição.</li>
-                          <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                          <li>Descalce-se e suba para a balança.</li>
-                          <li>O equipamento liga-se automaticamente.</li>
-                          <li>Quando o valor obtido estabilizar o mesmo irá piscar.</li>
-                          <li>Após a correta recolha dos dados o equipamento desliga-se automaticamente.</li>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                          <img src='static/img/bodyscale.png' alt="" class="img-fit">
-                        </div>
+        <div class="row" v-show="dataBodyScale.panelPrincipal">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="content">
+                <h4 class="title">Modo de Utilização</h4>
+                <hr>
+                <ol>
+                  <h4>
+                    <div class="row">
+                      <div class="col-md-10 text-justify text-div-wrap">
+                        <li>Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição.</li>
+                        <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
+                        <li>Descalce-se e suba para a balança.</li>
+                        <li>O equipamento liga-se automaticamente.</li>
+                        <li>Quando o valor obtido estabilizar o mesmo irá piscar.</li>
+                        <li>Após a correta recolha dos dados o equipamento desliga-se automaticamente.</li>
                       </div>
-                    </h4>
-                  </ol>
-                </div>
+                      <div class="col-md-2">
+                        <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                        <img src='static/img/bodyscale.png' alt="" class="img-fit">
+                      </div>
+                    </div>
+                  </h4>
+                </ol>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-4" :class="bodyscaleClass">
-              <stats-card>
-                <div class="icon-big text-center" slot="header">
-                  <i class="fas fa-street-view"></i>
-                  <!-- <hr> -->
-                </div>
-                <div class="numbers" slot="content">
-                  <p>Gordura Corporal</p>
-                  {{dataBodyScale.bodyfat}} %
-                </div>
-              </stats-card>
-            </div>
-            <div class="col-md-4" :class="bodyscaleClass">
-              <stats-card>
-                <div class="icon-big text-center" slot="header">
-                  <i class="fas fa-street-view"></i>
-                  <!-- <hr> -->
-                </div>
-                <div class="numbers" slot="content">
-                  <p>Massa Óssea</p>
-                  {{dataBodyScale.bonemass}} %
-                </div>
-              </stats-card>
-            </div>
-            <div class="col-md-4" :class="bodyscaleClass">
-              <stats-card>
-                <div class="icon-big text-center" slot="header">
-                  <i class="fas fa-street-view"></i>
-                  <!-- <hr> -->
-                </div>
-                <div class="numbers" slot="content">
-                  <p>Gordura Visceral</p>
-                  {{dataBodyScale.visceralfat}} %
-                </div>
-              </stats-card>
-            </div>
-          </div>
         </div>
-        <div class="col-md-3" :class="bodyscaleClass">
-          <stats-card>
-            <div class="icon-big text-center" slot="header">
-              <i class="fas fa-tachometer-alt"></i>
-              <hr>
-              <i class="fas fa-diagnoses"></i>
-              <hr>
-              <i class="fas fa-tint"></i>
-              <hr>
-              <i class="fas fa-child"></i>
-              <!-- <hr> -->
-            </div>
-            <div class="numbers" slot="content">
-              <p>Peso </p>
+        <div class="row" v-show="dataBodyScale.panelResults">
+           <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.weightShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-tachometer-alt"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+              <p>{{dataBodyScale.weightName}} </p>
               {{dataBodyScale.weight}} Kg
-              <hr>
-              <p>Calorias</p>
-              {{dataBodyScale.calories}} Kcal
-              <hr>
-              <p>Água</p>
-              {{dataBodyScale.water}} %
-              <hr>
-              <p>Massa Muscular</p>
-              {{dataBodyScale.musclemass}} %
-            </div>
-          </stats-card>
-        </div>
-      </div>
-    </div>
-    <div class="row bloodglucose clear-margin" v-show="examEvent == 'bloodglucose'">
-      <div class="col-md-12 btn btn-round btn-fill">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="header">
-                <h4 class="title">Modo de Utilização</h4>
-                <p class="category"></p>
-            </div>
-            <div class="content">
-              <table class="table table-Striped">
-                <thead>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <h4>
-                      </h4>
-                    </td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h4></h4>
-                    </td>
-                    <td>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <h4>Aguarde...</h4>
-                    </td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="footer">
-            </div>
+              </div>
+            </stats-card>
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="header">
-              <h3>Medir a Glucose</h3>
-            </div>
-            <div class="content">
-              :class="bloodglucoseClass" bloodglucose
-            </div>
-            <div class="footer">
-            </div>
+          <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.caloriesShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-diagnoses"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+              <p>{{dataBodyScale.caloriesName}}</p>
+              {{dataBodyScale.calories}} Kcal
+              </div>
+            </stats-card>
+          </div>
+          <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.waterShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-tint"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+              <p>{{dataBodyScale.waterName}}</p>
+              {{dataBodyScale.water}} %
+              </div>
+            </stats-card>
+          </div>
+          <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.musclemassShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-child"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+              <p>{{dataBodyScale.musclemassName}}</p>
+              {{dataBodyScale.musclemass}} %
+              </div>
+            </stats-card>
+          </div>          
+          <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.bodyfatShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-street-view"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+                <p>{{dataBodyScale.bodyfatName}}</p>
+                {{dataBodyScale.bodyfat}} %
+              </div>
+            </stats-card>
+          </div>
+          <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.bonemassShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-street-view"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+                <p>{{dataBodyScale.bonemassName}}</p>
+                {{dataBodyScale.bonemass}} %
+              </div>
+            </stats-card>
+          </div>
+          <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.visceralfatShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-street-view"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+                <p>{{dataBodyScale.visceralfatName}}</p>
+                {{dataBodyScale.visceralfat}} %
+              </div>
+            </stats-card>
           </div>
         </div>
       </div>
     </div>
     <div class="row bodytemperature clear-margin" v-show="examEvent == 'bodytemperature'">
       <div class="col-md-12 btn btn-round btn-fill">
-        <div class="col-md-9">
-          <div class="card">
-            <div class="content">
-              <h4 class="title">Modo de Utilização</h4>
-              <hr>
-              <ol>
-                <h4>
-                  <div class="row">
-                    <div class="col-md-9 text-justify text-div-wrap">
-                      <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                      <li>Coloque o equipamento de acordo com a imagem ao lado (Fig.1).</li>
-                      <li>Pressione no botão até que o equipamento ligue (Fig.2).</li>
-                      <li>Quando o equipamento estiver ligado uma luz indicadora pisca.</li>
-                      <li>Após a deteção do equipamento a luz indicadora apaga-se.</li>
-                      <li>Aguarde até que todos os valores apareçam na televisão.</li>
-                      <li>Após a conclusão do processo a luz indicadora volta a piscar.</li>
-                      <li>Pode retirar o equipamento e desligá-lo.</li>
-                      <li>Pressione novamente no botão <b class="ti-power-off"></b> até que o equipamento se deslique (Fig.2).</li>
-                      <li>É importante que o equipamento seja desligado de forma a economizar a bateria.</li>
+        <div class="row" v-show="bodytemperature.panelPrincipal">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="content">
+                <h4 class="title">Modo de Utilização</h4>
+                <hr>
+                <ol>
+                  <h4>
+                    <div class="row">
+                      <div class="col-md-10 text-justify text-div-wrap">
+                        <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
+                        <li>Coloque o equipamento de acordo com a imagem ao lado (Fig.1).</li>
+                        <li>Pressione no botão até que o equipamento ligue (Fig.2).</li>
+                        <li>Quando o equipamento estiver ligado uma luz indicadora pisca.</li>
+                        <li>Após a deteção do equipamento a luz indicadora apaga-se.</li>
+                        <li>Aguarde até que todos os valores apareçam na televisão.</li>
+                        <li>Após a conclusão do processo a luz indicadora volta a piscar.</li>
+                        <li>Pode retirar o equipamento e desligá-lo.</li>
+                        <li>Pressione novamente no botão <b class="ti-power-off"></b> até que o equipamento se deslique (Fig.2).</li>
+                        <li>É importante que o equipamento seja desligado de forma a economizar a bateria.</li>
+                      </div>
+                      <div class="col-md-2">
+                        <figure>
+                          <img src='static/img/bodytemp.png' alt="" class="img-fit">
+                          <figcaption>Fig.1</figcaption>
+                        </figure>
+                        <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                        <figure>
+                          <img src='static/img/bodytemp.gif' alt="" class="img-fit">
+                          <figcaption>Fig.2</figcaption>
+                        </figure>
+                      </div>
                     </div>
-                    <div class="col-md-3">
-                      <figure>
-                        <img src='static/img/bodytemp.png' alt="" class="img-fit">
-                        <figcaption>Fig.1</figcaption>
-                      </figure>
-                      <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                      <figure>
-                        <img src='static/img/bodytemp.gif' alt="" class="img-fit">
-                        <figcaption>Fig.2</figcaption>
-                      </figure>
-                    </div>
-                  </div>
-                </h4>
-              </ol>
+                  </h4>
+                </ol>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-3" :class="bodytemperatureClass">
-          <stats-card >
-            <div class="icon-big text-center" slot="header">
-              <span v-show="this.battery < 15"><i class="fas fa-battery-empty"></i></span>
-              <span v-show="this.battery >= 15 && this.battery < 40"><i class="fas fa-battery-quarter"></i></span>
-              <span v-show="this.battery >= 40 && this.battery < 65"><i class="fas fa-battery-half"></i></span>
-              <span v-show="this.battery >= 65 && this.battery < 90"><i class="fas fa-battery-three-quarters"></i></span>
-              <span v-show="this.battery >= 90"><i class="fas fa-battery-full"></i></span>
-              <hr>
-              <i class="fas fa-thermometer"></i>
-            </div>
-            <div class="numbers" slot="content">
-              <p>Bateria </p>
-              {{battery}}%
-              <hr>
-              <p>Temperatura <br> Corporal </p>
-              {{tempCorp}}ºC
-            </div>
-          </stats-card>
+        <div class="row" v-show="bodytemperature.panelResults">
+          <div :class="bodytemperatureClass + ' ' + bodytemperature.resultCol" v-show="bodytemperature.batteryShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <span v-show="bodytemperature.battery < 15"><i class="fas fa-battery-empty"></i></span>
+                <span v-show="bodytemperature.battery >= 15 && bodytemperature.battery < 40"><i class="fas fa-battery-quarter"></i></span>
+                <span v-show="bodytemperature.battery >= 40 && bodytemperature.battery < 65"><i class="fas fa-battery-half"></i></span>
+                <span v-show="bodytemperature.battery >= 65 && bodytemperature.battery < 90"><i class="fas fa-battery-three-quarters"></i></span>
+                <span v-show="bodytemperature.battery >= 90"><i class="fas fa-battery-full"></i></span>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+              <p>{{bodytemperature.batteryName}}</p>
+              {{bodytemperature.battery}} %
+              </div>
+            </stats-card>
+          </div>
+          <div :class="bodytemperatureClass + ' ' + bodytemperature.resultCol" v-show="bodytemperature.tempCorpShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-thermometer"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+                <p>{{bodytemperature.tempCorpName}} </p>
+                {{bodytemperature.tempCorp}} ºC
+              </div>
+            </stats-card>
+          </div>
         </div>
       </div>
     </div>
     <div class="row bodypulse clear-margin" v-show="examEvent == 'bodypulse'">
       <div class="col-md-12 btn btn-round btn-fill">
-        <div class="col-md-9">
-          <div class="card">
-            <div class="content">
-              <h4 class="title">Modo de Utilização</h4>
-              <hr>
-              <ol>
-                <h4>
-                  <div class="row">
-                    <div class="col-md-9 text-justify text-div-wrap">
-                      <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                      <li>Coloque o equipamento no dedo conforme apresentado na imagem (Fig.1).</li>
-                      <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar (Fig.2).</li>
-                      <li>Aguarde até que todos os valores apareçam na televisão.</li>
-                      <li>Quando todos os valores aparecerem, o processo encontra-se concluido.</li>
-                      <li>Pode retirar o equipamento do dedo e o mesmo desliga-se automaticamente.</li>
+        <div class="row" v-show="bodypulse.panelPrincipal">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="content">
+                <h4 class="title">Modo de Utilização</h4>
+                <hr>
+                <ol>
+                  <h4>
+                    <div class="row">
+                      <div class="col-md-10 text-justify text-div-wrap">
+                        <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
+                        <li>Coloque o equipamento no dedo conforme apresentado na imagem (Fig.1).</li>
+                        <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar (Fig.2).</li>
+                        <li>Aguarde até que todos os valores apareçam na televisão.</li>
+                        <li>Quando todos os valores aparecerem, o processo encontra-se concluido.</li>
+                        <li>Pode retirar o equipamento do dedo e o mesmo desliga-se automaticamente.</li>
+                      </div>
+                      <div class="col-md-2">
+                        <figure>
+                          <img src='static/img/pulse.png' alt="" class="img-fit">
+                          <figcaption>Fig.1</figcaption>
+                        </figure>
+                        <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                        <figure>
+                          <img src='static/img/pulse.gif' alt="" class="img-fit">
+                          <figcaption>Fig.2</figcaption>
+                        </figure>
+                      </div>
                     </div>
-                    <div class="col-md-3">
-                      <figure>
-                        <img src='static/img/pulse.png' alt="" class="img-fit">
-                        <figcaption>Fig.1</figcaption>
-                      </figure>
-                      <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                      <figure>
-                        <img src='static/img/pulse.gif' alt="" class="img-fit">
-                        <figcaption>Fig.2</figcaption>
-                      </figure>
-                    </div>
-                  </div>
-                </h4>
-              </ol>
+                  </h4>
+                </ol>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-3" :class="bodypulseClass">
-          <stats-card>
-            <div class="icon-big text-center" slot="header">
-              <i class="fas fa-fire"></i>
-              <hr>
-              <i class="fas fa-heartbeat"></i>
-            </div>
-            <div class="numbers" slot="content">
-              <p>Oxiximetria </p>
-              {{spoVal}}%
-              <hr>
-              <p>Batimento <br>Cardíaco </p>
-              {{pulseVal}} PPM
-            </div>
-          </stats-card>
+        <div class="row" v-show="bodypulse.panelResults">          
+          <div :class="bodypulseClass + ' ' + bodypulse.resultCol" v-show="bodypulse.spoValShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-fire"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+                <p>{{bodypulse.spoValName}} </p>
+                {{bodypulse.spoVal}} %
+              </div>
+            </stats-card>
+          </div>  
+          <div :class="bodypulseClass + ' ' + bodypulse.resultCol" v-show="bodypulse.pulseValShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-heartbeat"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+              <p>{{bodypulse.pulseValName}} </p>
+              {{bodypulse.pulseVal}} PPM
+              </div>
+            </stats-card>
+          </div>
         </div>
       </div>
     </div>
     <div class="row bandfitness clear-margin" v-show="examEvent == 'bandfitness'">
       <div class="col-md-12 btn btn-round btn-fill">
-        <div class="col-md-9">
+        <div class="row" v-show="dataBandFitness.panelPrincipal">
           <div class="col-md-12">
-            <div class="row">
-              <div class="card">
-                <div class="content">
-                  <h4 class="title">Modo de Utilização</h4><hr>
-                  <ul>
-                    <h4>
-                      <li class="text-justify text-div-wrap">Assegure-se de que possui a banda corretamente colocada no pulso.</li>
-                    </h4>
-                  </ul>
-                </div>
+            <div class="card">
+              <div class="content">
+                <h4 class="title">Modo de Utilização</h4><hr>
+                <ul>
+                  <h4>
+                    <li class="text-justify text-div-wrap">Assegure-se de que possui a banda corretamente colocada no pulso.</li>
+                  </h4>
+                </ul>
               </div>
             </div>
           </div>
+        </div>
+        <div class="row" v-show="dataBandFitness.panelGraph">
           <div class="col-md-12">
             <div class="row">
               <div class="card">
@@ -390,50 +398,139 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3" :class="bandfitnessClass">
-          <stats-card >
-            <div class="icon-big text-center" slot="header">
-              <span v-show="this.dataBandFitness.batterystatus.battery_level < 15">
+        <div class="row" v-show="dataBandFitness.panelResults">
+          <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.batterystatus.battery_levelShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <span v-show="this.dataBandFitness.batterystatus.battery_level < 15">
                 <i class="fas fa-battery-empty"></i>
-              </span>
-              <span v-show="this.dataBandFitness.batterystatus.battery_level >= 15 && this.dataBandFitness.batterystatus.battery_level < 40">
-                <i class="fas fa-battery-quarter"></i>
-              </span>
-              <span v-show="this.dataBandFitness.batterystatus.battery_level >= 40 && this.dataBandFitness.batterystatus.battery_level < 65">
-                <i class="fas fa-battery-half"></i>
-              </span>
-              <span v-show="this.dataBandFitness.batterystatus.battery_level >= 65 && this.dataBandFitness.batterystatus.battery_level < 90">
-                <i class="fas fa-battery-three-quarters"></i>
-              </span>
-              <span v-show="this.dataBandFitness.batterystatus.battery_level >= 90">
-                <i class="fas fa-battery-full"></i>
-              </span>
-              <hr>
-              <i class="fas fa-capsules"></i>
-              <hr>
-              <i class="fas fa-hand-holding-heart"></i>
-              <!-- <hr>
-              <i class="fas fa-flag-checkered"></i>
-              <hr>
-              <i class="fas fa-diagnoses"></i> -->
+                </span>
+                <span v-show="this.dataBandFitness.batterystatus.battery_level >= 15 && this.dataBandFitness.batterystatus.battery_level < 40">
+                  <i class="fas fa-battery-quarter"></i>
+                </span>
+                <span v-show="this.dataBandFitness.batterystatus.battery_level >= 40 && this.dataBandFitness.batterystatus.battery_level < 65">
+                  <i class="fas fa-battery-half"></i>
+                </span>
+                <span v-show="this.dataBandFitness.batterystatus.battery_level >= 65 && this.dataBandFitness.batterystatus.battery_level < 90">
+                  <i class="fas fa-battery-three-quarters"></i>
+                </span>
+                <span v-show="this.dataBandFitness.batterystatus.battery_level >= 90">
+                  <i class="fas fa-battery-full"></i>
+                </span>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+              <p>{{dataBandFitness.batterystatus.battery_levelName}} </p>
+              {{dataBandFitness.batterystatus.battery_level}} %
+              </div>
+            </stats-card>
+          </div> 
+          <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.steps.stepsShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-capsules"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+                <p>{{dataBandFitness.steps.stepsName}} </p>
+                {{dataBandFitness.steps.steps}}
+              </div>
+            </stats-card>
+          </div>
+          <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.heartrateavgShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-hand-holding-heart"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+                <p>{{dataBandFitness.heartrateavgName}}</p>
+                {{dataBandFitness.heartrateavg}}
+              </div>
+            </stats-card>
+          </div> 
+          <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.steps.metersShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-flag-checkered"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+                <p>{{dataBandFitness.steps.metersName}}</p>
+                {{dataBandFitness.steps.meters}}
+              </div>
+            </stats-card>
+          </div> 
+          <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.steps.calloriesShow">
+            <stats-card>
+              <div class="icon-big text-center" slot="header">
+                <i class="fas fa-diagnoses"></i>
+                <!-- <hr> -->
+              </div>
+              <div class="numbers" slot="content">
+                <p>{{dataBandFitness.steps.calloriesName}}</p>
+                {{dataBandFitness.steps.callories}}
+              </div>
+            </stats-card>
+          </div> 
+        </div>        
+      </div>
+    </div>
+    <div class="row bloodglucose clear-margin" v-show="examEvent == 'bloodglucose'">
+      <div class="col-md-12 btn btn-round btn-fill">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="header">
+                  <h4 class="title">Modo de Utilização</h4>
+                  <p class="category"></p>
+              </div>
+              <div class="content">
+                <table class="table table-Striped">
+                  <thead>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <h4>
+                        </h4>
+                      </td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <h4></h4>
+                      </td>
+                      <td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <h4>Aguarde...</h4>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="footer">
+              </div>
             </div>
-            <div class="numbers" slot="content">
-              <p>Bateria </p>
-              {{dataBandFitness.batterystatus.battery_level}}
-              <hr>
-              <p>Passos </p>
-              {{dataBandFitness.steps.steps}}
-              <hr>
-              <p>Batimento <br> Cardíaco </p>
-              {{dataBandFitness.heartrateavg}}
-              <!-- <hr>
-              <p>Metros percorridos por dia </p>
-              {{dataBandFitness.steps.meters}}
-              <hr>
-              <p>Calorias </p>
-              {{dataBandFitness.steps.callories}} -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="header">
+                <h3>Medir a Glucose</h3>
+              </div>
+              <div class="content">
+                :class="bloodglucoseClass" bloodglucose
+              </div>
+              <div class="footer">
+              </div>
             </div>
-          </stats-card>
+          </div>
         </div>
       </div>
     </div>
@@ -486,32 +583,92 @@ export default {
       // definição do ojecto para medir a pressão arterial
       dataPressArt: {
         id: 'pressArterial-Chart',
+        resultCol: 'col-md-4',
+        panelPrincipal: true,
+        panelResults: true,
         val: 0,
         max: 100,
         pulso: 0,
+        pulsoName: '',
+        pulsoShow: false,
         pressmax: 0,
-        pressmin: 0
+        pressmaxName: '',
+        pressmaxShow: false,
+        pressmin: 0,
+        pressminName: '',
+        pressminShow: false
       },
       dataBodyScale: {
         // definiºão do objecto para os dados da balança
+        resultCol: 'col-md-4',
+        panelPrincipal: true,
+        panelResults: false,
         weight: 0,
+        weightName: '',
+        weightShow: false,
         bodyfat: 0,
+        bodyfatName: '',
+        bodyfatShow: false,
         bonemass: 0,
+        bonemassName: '',
+        bonemassShow: false,
         musclemass: 0,
+        musclemassName: '',
+        musclemassShow: false,
         visceralfat: 0,
+        visceralfatName: '',
+        visceralfatShow: false,
         water: 0,
-        calories: 0
+        waterName: '',
+        waterShow: false,
+        calories: 0,
+        caloriesName: '',
+        caloriesShow: false
+      },
+      bodytemperature: {
+        resultCol: 'col-md-6',
+        panelPrincipal: true,
+        panelResults: false,
+        battery: 0,
+        batteryName: '',
+        batteryShow: false,
+        tempCorp: 0,
+        tempCorpName: '',
+        tempCorpShow: false
+      },
+      bodypulse: {
+        resultCol: 'col-md-6',
+        panelPrincipal: true,
+        panelResults: false,
+        spoVal: 0,
+        spoValName: '',
+        spoValShow: false,
+        pulseVal: 0,
+        pulseValName: '',
+        pulseValShow: false
       },
       dataBandFitness: {
+        resultCol: 'col-md-4',
+        panelPrincipal: true,
+        panelResults: false,
+        panelGraph: false,
         heartrate: [],
         heartrateavg: 0,
         steps: {
           steps: 0,
+          stepsName: '',
+          stepsShow: false,
           meters: 0,
-          callories: 0
+          metersName: '',
+          metersShow: false,
+          callories: 0,
+          calloriesName: '',
+          calloriesShow: false
         },
         batterystatus: {
           battery_level: 0,
+          battery_levelName: '',
+          battery_levelShow: false,
           last_time_full: 0,
           last_time_charged: 0,
           charge_cycles: 0,
@@ -533,10 +690,6 @@ export default {
       examEvent: '', // frag para mostrar o elemento selecionado
       examMac: '',
       canBeShown: true,
-      battery: 0,
-      tempCorp: 0,
-      spoVal: 0,
-      pulseVal: 0,
       execProcess: false,
       bodytemperatureClass: [],
       bodypulseClass: [],
@@ -644,13 +797,29 @@ export default {
           type: 'warning'
         })
         this.dataBodyScale = {
+          panelPrincipal: true,
+          panelResults: false,
           weight: 0,
+          weightName: '',
+          weightShow: false,
           bodyfat: 0,
+          bodyfatName: '',
+          bodyfatShow: false,
           bonemass: 0,
+          bonemassName: '',
+          bonemassShow: false,
           musclemass: 0,
+          musclemassName: '',
+          musclemassShow: false,
           visceralfat: 0,
+          visceralfatName: '',
+          visceralfatShow: false,
           water: 0,
-          calories: 0
+          waterName: '',
+          waterShow: false,
+          calories: 0,
+          caloriesName: '',
+          caloriesShow: false
         }
       }
       this.execProcess = false
@@ -658,8 +827,8 @@ export default {
     bleExecFimPulse: function(data) {
       // console.log('Pulse', data)
       if (data.satus === true) {
-        this.spoVal = data.data.spo2
-        this.pulseVal = data.data.pulse
+        this.bodypulse.spoVal = data.data.spo2
+        this.bodypulse.pulseVal = data.data.pulse
         this.bodypulseClass.push('ajustinfo')
       } else {
         // console.log('Receive error', data)
@@ -670,8 +839,16 @@ export default {
           verticalAlign: 'top',
           type: 'warning'
         })
-        this.spoVal = 0
-        this.pulseVal = 0
+        this.bodypulse = {
+          panelPrincipal: true,
+          panelResults: false,
+          spoVal: 0,
+          spoValName: '',
+          spoValShow: false,
+          pulseVal: 0,
+          pulseValName: '',
+          pulseValShow: false
+        }
       }
       this.execProcess = false
     },
@@ -680,9 +857,9 @@ export default {
      */
     bleMsgBattery: function(data) {
       if (data.satus === true) {
-        this.battery = data.data
+        this.bodytemperature.battery = data.data
       } else {
-        this.battery = 0
+        this.bodytemperature.battery = 0
       }
     },
     /**
@@ -775,6 +952,21 @@ export default {
           verticalAlign: 'top',
           type: 'warning'
         })
+        this.dataPressArt = {
+          panelPrincipal: true,
+          panelResults: false,
+          val: 0,
+          max: 100,
+          pulso: 0,
+          pulsoName: '',
+          pulsoShow: false,
+          pressmax: 0,
+          pressmaxName: '',
+          pressmaxShow: false,
+          pressmin: 0,
+          pressminName: '',
+          pressminShow: false
+        }
       }
       this.execProcess = false
     },
@@ -922,30 +1114,63 @@ export default {
       this.bodyscaleClass = []
       this.bloodglucoseClass = []
       this.dataBodyScale = {
+        panelPrincipal: true,
+        panelResults: false,
         weight: 0,
+        weightName: '',
+        weightShow: false,
         bodyfat: 0,
+        bodyfatName: '',
+        bodyfatShow: false,
         bonemass: 0,
+        bonemassName: '',
+        bonemassShow: false,
         musclemass: 0,
+        musclemassName: '',
+        musclemassShow: false,
         visceralfat: 0,
+        visceralfatName: '',
+        visceralfatShow: false,
         water: 0,
-        calories: 0
+        waterName: '',
+        waterShow: false,
+        calories: 0,
+        caloriesName: '',
+        caloriesShow: false
       }
       this.dataPressArt = {
+        panelPrincipal: true,
+        panelResults: false,
         val: 0,
+        max: 100,
+        pulso: 0,
+        pulsoName: '',
+        pulsoShow: false,
         pressmax: 0,
+        pressmaxName: '',
+        pressmaxShow: false,
         pressmin: 0,
-        pulso: 0
+        pressminName: '',
+        pressminShow: false
       }
       this.dataBandFitness = {
         heartrate: [],
         heartrateavg: 0,
         steps: {
           steps: 0,
+          stepsName: '',
+          stepsShow: false,
           meters: 0,
-          callories: 0
+          metersName: '',
+          metersShow: false,
+          callories: 0,
+          calloriesName: '',
+          calloriesShow: false
         },
         batterystatus: {
           battery_level: 0,
+          battery_levelName: '',
+          battery_levelShow: false,
           last_time_full: 0,
           last_time_charged: 0,
           charge_cycles: 0,
@@ -964,10 +1189,26 @@ export default {
         serialnumber: '',
         devicename: ''
       }
-      this.battery = 0
-      this.tempCorp = 0
-      this.spoVal = 0
-      this.pulseVal = 0
+      this.bodytemperature = {
+        panelPrincipal: true,
+        panelResults: false,
+        battery: 0,
+        batteryName: '',
+        batteryShow: false,
+        tempCorp: 0,
+        tempCorpName: '',
+        tempCorpShow: false
+      }
+      this.bodypulse = {
+        panelPrincipal: true,
+        panelResults: false,
+        spoVal: 0,
+        spoValName: '',
+        spoValShow: false,
+        pulseVal: 0,
+        pulseValName: '',
+        pulseValShow: false
+      }
     },
     /**
      * TODO: Metodo para controlar os eventos do comando remoto quando esta é a view ativa no momento
