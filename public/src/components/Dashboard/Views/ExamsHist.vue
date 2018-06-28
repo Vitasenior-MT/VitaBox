@@ -436,7 +436,7 @@ export default {
           EventBus.$emit('move-components', 'ok_btn')
           setTimeout(() => {
             if (end) {
-               EventBus.$emit('move-components', 'ok_btn')
+              EventBus.$emit('move-components', 'ok_btn')
             }
             let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
             console.log(elem);
