@@ -585,7 +585,7 @@ export default {
         id: 'pressArterial-Chart',
         resultCol: 'col-md-4',
         panelPrincipal: true,
-        panelResults: true,
+        panelResults: false,
         val: 0,
         max: 100,
         pulso: 0,
@@ -598,8 +598,8 @@ export default {
         pressminName: '',
         pressminShow: false
       },
+      // definição do objecto para os dados da balança
       dataBodyScale: {
-        // definiºão do objecto para os dados da balança
         resultCol: 'col-md-4',
         panelPrincipal: true,
         panelResults: false,
@@ -625,6 +625,7 @@ export default {
         caloriesName: '',
         caloriesShow: false
       },
+      // definição do objecto para os dados da temperatura corporal
       databodytemperature: {
         resultCol: 'col-md-6',
         panelPrincipal: true,
@@ -636,6 +637,7 @@ export default {
         tempCorpName: '',
         tempCorpShow: false
       },
+      // definição do objecto para os dados da pulsiometro
       databodypulse: {
         resultCol: 'col-md-6',
         panelPrincipal: true,
@@ -647,6 +649,7 @@ export default {
         pulseValName: '',
         pulseValShow: false
       },
+      // definição do objecto para os dados da banda / pulseira
       dataBandFitness: {
         resultCol: 'col-md-4',
         panelPrincipal: true,
@@ -697,6 +700,7 @@ export default {
       bloodpressureClass: [],
       bodyscaleClass: [],
       bloodglucoseClass: [],
+      // definição da estrutura dos botões a serem utilizadoss na interface
       btns: [
         {
           nome: 'Pressão Arterial',
@@ -738,54 +742,205 @@ export default {
     }
   },
   sockets: {
+    /**
+     * TODO: Recebe do socket toda a informação refente a bracelete
+     */
     bleExecFimBandFitness: function(data) {
       let resData = data.data
       if (resData.status === true) {
-        switch (resData.exec) {
-          case "Steps":
-            this.dataBandFitness.steps = {
-              steps: resData.data.steps,
-              meters: resData.data.meters,
-              callories: resData.data.callories
-            }
-            break;
-          case 'heartrate':
-            this.dataBandFitness.heartrate.push(resData.data.heartrate)
-            break;
-          case "devicename":
-            this.dataBandFitness.devicename = resData.data.devicename
-            break;
-          case 'batterystatus':
-            this.dataBandFitness.batterystatus = {
-              battery_level: resData.data.battery_level,
-              last_time_full: resData.data.last_time_full,
-              last_time_charged: resData.data.last_time_charged,
-              charge_cycles: resData.data.charge_cycles,
-              status: resData.data.status
-            }
-            break;
-          case "heartrateEnd":
-            this.bandfitnessClass.push('ajustinfo')
-            this.dataBandFitness.heartrateavg = Math.round(resData.data.heartrateavg)
-            this.execProcess = false
-            break
-          default:
-            break;
+        for (let dataVal in resData.data) {
+          switch (dataVal.tag) {
+            case "Steps":
+              this.dataBandFitness = {
+                panelPrincipal: false,
+                panelResults: true,
+                steps: {
+                  steps: dataVal.steps,
+                  stepsName: dataVal.measure,
+                  stepsShow: true
+                }
+              }
+              break;
+            case "meters":
+              this.dataBandFitness = {
+                panelPrincipal: false,
+                panelResults: true,
+                steps: {
+                  meters: dataVal.meters,
+                  metersName: dataVal.measure,
+                  metersShow: true
+                }
+              }
+              break;
+            case "calories":
+              this.dataBandFitness = {
+                panelPrincipal: false,
+                panelResults: true,
+                steps: {
+                  callories: dataVal.callories,
+                  calloriesName: dataVal.measure,
+                  calloriesShow: true
+                }
+              }
+              break;
+            case 'heartrate':
+              this.dataBandFitness = {
+                panelPrincipal: false,
+                panelResults: true,
+                panelGraph: true
+              }
+              this.dataBandFitness.heartrate.push(dataVal.data.heartrate)
+              break;
+            case "devicename":
+              this.dataBandFitness.devicename = dataVal.data.devicename
+              break;
+            case 'batterystatus':
+              this.dataBandFitness.batterystatus = {
+                battery_level: dataVal.data.battery_level,
+                battery_levelName: dataVal.data.battery_levelName,
+                battery_levelShow: true,
+                last_time_full: dataVal.data.last_time_full,
+                last_time_charged: dataVal.data.last_time_charged,
+                charge_cycles: dataVal.data.charge_cycles,
+                status: dataVal.data.status
+              }
+              break;
+            case "heartrateEnd":
+              this.dataBandFitness = {
+                panelPrincipal: false,
+                panelResults: true,
+                heartrateavg: Math.round(dataVal.measure)
+              }
+              this.execProcess = false
+              break
+            default:
+              break;
+          }
         }
+        this.bandfitnessClass.push('ajustinfo')
       } else {
-
+        this.$notifications.notify({
+          message: '<h4>' + data.data + '</h4>',
+          icon: 'ti-bell',
+          horizontalAlign: 'right',
+          verticalAlign: 'top',
+          type: 'warning'
+        })
+        this.dataBandFitness = {
+          panelPrincipal: true,
+          panelResults: false,
+          panelGraph: false,
+          heartrate: [],
+          heartrateavg: 0,
+          steps: {
+            steps: 0,
+            stepsName: '',
+            stepsShow: false,
+            meters: 0,
+            metersName: '',
+            metersShow: false,
+            callories: 0,
+            calloriesName: '',
+            calloriesShow: false
+          },
+          batterystatus: {
+            battery_level: 0,
+            battery_levelName: '',
+            battery_levelShow: false,
+            last_time_full: 0,
+            last_time_charged: 0,
+            charge_cycles: 0,
+            status: 0
+          },
+          time: {
+            day: 0,
+            month: 0,
+            year: 0,
+            hour: 0,
+            minute: 0,
+            second: 0
+          },
+          softwarerevision: '',
+          hardwarerevision: '',
+          serialnumber: '',
+          devicename: ''
+        }
       }
     },
+    /**
+     * TODO: Recebe do socket toda a informação referente a balança
+     */
     bleExecFimScale: function(data) {
-      if (data.satus === true) {
-        this.dataBodyScale = {
-          weight: data.data.weight,
-          bodyfat: data.data.bodyfat,
-          bonemass: data.data.bonemass,
-          musclemass: data.data.musclemass,
-          visceralfat: data.data.visceralfat,
-          water: data.data.water,
-          calories: data.data.calories
+      let resData = data.data
+      if (resData.status === true) {
+        for (let dataVal in resData.data) {
+          switch (dataVal.tag) {
+            case "weight":
+              this.dataBodyScale = {
+                panelPrincipal: false,
+                panelResults: true,
+                weight: dataVal.value,
+                weightName: dataVal.measure,
+                weightShow: true
+              }
+              break;
+            case "bodyfat":
+              this.dataBodyScale = {
+                panelPrincipal: false,
+                panelResults: true,
+                bodyfat: dataVal.value,
+                bodyfatName: dataVal.measure,
+                bodyfatShow: true
+              }
+              break;
+            case "bonemass":
+              this.dataBodyScale = {
+                panelPrincipal: false,
+                panelResults: true,
+                bonemass: dataVal.value,
+                bonemassName: dataVal.measure,
+                bonemassShow: true
+              }
+              break;
+            case "musclemass":
+              this.dataBodyScale = {
+                panelPrincipal: false,
+                panelResults: true,
+                musclemass: dataVal.value,
+                musclemassName: dataVal.measure,
+                musclemassShow: true
+              }
+              break;
+            case "visceralfat":
+              this.dataBodyScale = {
+                panelPrincipal: false,
+                panelResults: true,
+                visceralfat: dataVal.value,
+                visceralfatName: dataVal.measure,
+                visceralfatShow: true
+              }
+              break;
+            case "water":
+              this.dataBodyScale = {
+                panelPrincipal: false,
+                panelResults: true,
+                water: dataVal.value,
+                waterName: dataVal.measure,
+                waterShow: true
+              }
+              break;
+            case "calories":
+              this.dataBodyScale = {
+                panelPrincipal: false,
+                panelResults: true,
+                calories: dataVal.value,
+                caloriesName: dataVal.measure,
+                caloriesShow: true
+              }
+              break;
+            default:
+              break;
+          }
         }
         this.bodyscaleClass.push('ajustinfo')
       } else {
@@ -824,11 +979,37 @@ export default {
       }
       this.execProcess = false
     },
+    /**
+     * TODO: Recebe do socket toda a informação referente ao pulsiometro
+     */
     bleExecFimPulse: function(data) {
       // console.log('Pulse', data)
-      if (data.satus === true) {
-        this.databodypulse.spoVal = data.data.spo2
-        this.databodypulse.pulseVal = data.data.pulse
+      let resData = data.data
+      if (resData.status === true) {
+        for (let dataVal in resData.data) {
+          switch (dataVal.tag) {
+            case "spo2":
+              this.databodypulse = {
+                panelPrincipal: false,
+                panelResults: true,
+                spoVal: dataVal.value,
+                spoValName: dataVal.measure,
+                spoValShow: true
+              }
+              break;
+            case "pulse":
+              this.databodypulse = {
+                panelPrincipal: false,
+                panelResults: true,
+                pulseVal: dataVal.value,
+                pulseValName: dataVal.measure,
+                pulseValShow: true
+              }
+              break;
+            default:
+              break;
+          }
+        }
         this.bodypulseClass.push('ajustinfo')
       } else {
         // console.log('Receive error', data)
@@ -854,21 +1035,46 @@ export default {
     },
     /**
      * TODO: Recebe do socket a informação da bateria
-     */
     bleMsgBattery: function(data) {
       if (data.satus === true) {
         this.databodytemperature.battery = data.data
       } else {
         this.databodytemperature.battery = 0
       }
-    },
+    }, */
     /**
      * TODO: Recebe do socket a informação da temperatura corporal
      */
     bleExecFimTemp: function(data) {
-      if (data.satus === true) {
-        this.tempCorp = data.data
-        this.bodytemperatureClass.push('ajustinfo')
+      let resData = data.data
+      if (resData.status === true) {
+        for (let dataVal in resData.data) {
+          switch (dataVal.tag) {
+            case "batteryInfo":
+              this.databodytemperature = {
+                panelPrincipal: false,
+                panelResults: true,
+                battery: dataVal.data,
+                batteryName: dataVal.measure,
+                batteryShow: true
+              }
+              break;
+            case "bodytemp":
+              this.tempCorp = data.data
+              this.databodytemperature = {
+                panelPrincipal: false,
+                panelResults: true,
+                tempCorp: dataVal.value,
+                tempCorpName: dataVal.measure,
+                tempCorpShow: true
+              }
+              this.execProcess = false
+              break;
+            default:
+              break;
+          }
+          this.bodytemperatureClass.push('ajustinfo')
+        }
       } else {
         // console.log('Receive error', data)
         this.$notifications.notify({
@@ -878,7 +1084,87 @@ export default {
           verticalAlign: 'top',
           type: 'warning'
         })
+        this.databodytemperature = {
+          panelPrincipal: true,
+          panelResults: false,
+          battery: 0,
+          batteryName: '',
+          batteryShow: false,
+          tempCorp: 0,
+          tempCorpName: '',
+          tempCorpShow: false
+        }
+        this.databodytemperature.battery = 0
         this.tempCorp = 0
+      }
+    },
+    /**
+     * TODO: Recebe do socket os dados finais da medição
+     */
+    bleExecFimPress: function(data) {
+      let resData = data.data
+      if (resData.status === true) {
+        for (let dataVal in resData.data) {
+          switch (dataVal.tag) {
+            case "systolic":
+              this.dataPressArt = {
+                panelPrincipal: false,
+                panelResults: true,
+                val: 0,
+                pressmax: dataVal.value,
+                pressmaxName: dataVal.measure,
+                pressmaxShow: true
+              }
+              break;
+            case "diastolic":
+              this.dataPressArt = {
+                panelPrincipal: false,
+                panelResults: true,
+                val: 0,
+                pressmin: dataVal.value,
+                pressminName: dataVal.measure,
+                pressminShow: true
+              }
+              break;
+            case "pulse":
+              this.dataPressArt = {
+                panelPrincipal: false,
+                panelResults: true,
+                val: 0,
+                pulso: dataVal.value,
+                pulsoName: dataVal.measure,
+                pulsoShow: true
+              }
+              break;
+            default:
+              break;
+          }
+        }
+        this.bloodpressureClass.push('ajustinfo')
+      } else {
+        // console.log('Receive error', data)
+        this.$notifications.notify({
+          message: '<h4>' + data.data + '</h4>',
+          icon: 'ti-bell',
+          horizontalAlign: 'right',
+          verticalAlign: 'top',
+          type: 'warning'
+        })
+        this.dataPressArt = {
+          panelPrincipal: true,
+          panelResults: false,
+          val: 0,
+          max: 100,
+          pulso: 0,
+          pulsoName: '',
+          pulsoShow: false,
+          pressmax: 0,
+          pressmaxName: '',
+          pressmaxShow: false,
+          pressmin: 0,
+          pressminName: '',
+          pressminShow: false
+        }
       }
       this.execProcess = false
     },
@@ -928,47 +1214,6 @@ export default {
         })
         this.execProcess = false
       }
-    },
-    /**
-     * TODO: Recebe do socket os dados finais da medição
-     */
-    bleExecFimPress: function(data) {
-      if (data.satus === true) {
-        // console.log('bleExecFim', data)
-        var val = data.data.split('/')
-        this.dataPressArt = {
-          val: 0,
-          pressmax: val[1].replace(/\D/g, '') * 1,
-          pressmin: val[2].replace(/\D/g, '') * 1,
-          pulso: val[3].replace(/\D/g, '') * 1
-        }
-        this.bloodpressureClass.push('ajustinfo')
-      } else {
-        // console.log('Receive error', data)
-        this.$notifications.notify({
-          message: '<h4>' + data.data + '</h4>',
-          icon: 'ti-bell',
-          horizontalAlign: 'right',
-          verticalAlign: 'top',
-          type: 'warning'
-        })
-        this.dataPressArt = {
-          panelPrincipal: true,
-          panelResults: false,
-          val: 0,
-          max: 100,
-          pulso: 0,
-          pulsoName: '',
-          pulsoShow: false,
-          pressmax: 0,
-          pressmaxName: '',
-          pressmaxShow: false,
-          pressmin: 0,
-          pressminName: '',
-          pressminShow: false
-        }
-      }
-      this.execProcess = false
     },
     /**
      * TODO: Recebe do socket os erros na execução do processo de medição da pressão arterial
