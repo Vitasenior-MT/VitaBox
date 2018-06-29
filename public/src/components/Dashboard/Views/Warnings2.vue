@@ -79,7 +79,6 @@ export default {
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
-            console.log("'Ok btn")
             EventBus.elementControl[EventBus.currentActiveRightComp].click()
             break
             // evento para sair para a sidebar

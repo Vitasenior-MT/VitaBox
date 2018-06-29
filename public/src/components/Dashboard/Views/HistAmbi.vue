@@ -4,7 +4,7 @@
       <div class="col-md-2" v-for="sensor in sensorList"  :key='sensor.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button v-tooltip.bottom="'Pessione em [OK] para selecionar o sensor.'" class="btn btn-block btn-info control-remote-sensors" type="button" :data-type="sensor.type" v-on:click="getAllDataSensor()">
+            <button v-tooltip.bottom="$t('tooltips.ambienteHistory.sensor.title')" class="btn btn-block btn-info control-remote-sensors" type="button" :data-type="sensor.type" v-on:click="getAllDataSensor()">
                 <h5 class="text-div-wrap"><b class="fab fa-galactic-senate"></b> {{ sensor.name }}</h5>
             </button>
           </div>
@@ -16,7 +16,7 @@
         <div class="card clear-padding">
           <div class="content">
             <button
-              v-tooltip.bottom="'Pessione em [OK] para mostrar / esconder o histórico do sensor.'"
+              v-tooltip.bottom="$t('tooltips.ambienteHistory.history.title')"
               class="btn btn-block btn-success control-remote"
               type="button"
               :data-id="btn.id"

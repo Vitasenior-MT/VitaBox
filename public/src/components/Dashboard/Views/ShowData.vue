@@ -4,6 +4,7 @@
       <div class="col-lg-4" v-for="warningCard in warningCards" :key="warningCard.id">
         <card-warning :key="warningCard.id" :warningCard="warningCard"
         :data-avg="warningCard.avg"
+        :data-sensortype="warningCard.measure"
         :data-threshold="warningCard.threshold_max_possible"
         :data-location="warningCard.location"></card-warning>
       </div>
@@ -94,6 +95,7 @@ export default {
             EventBus.currentComponent = EventBus.sidebarName
             console.log('if exit', cmd, EventBus.currentActiveRightComp)
             EventBus.endRotation()
+            EventBus.setSidebar()
             break
           case 'up':
             try {
@@ -209,12 +211,9 @@ export default {
               EventBus.$emit('move-components', 'right')
               EventBus.$emit('move-components', 'ok_btn')
               setTimeout(() => {
-                if (end) {
-                  EventBus.$emit('move-components', 'ok_btn')
-                }
-                let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-                self.$socket.emit('ttsText', elem.dataset.avg)
-              }, 300);
+                let elem = EventBus.elementControl[EventBus.currentActiveRightComp].dataset
+                self.$socket.emit('ttsText', self.$t('showdata.info', {sensortype: elem.sensortype, location: elem.location, avg: elem.avg}))
+              }, 10);
             }, 'control-remote')
           }
         } else {

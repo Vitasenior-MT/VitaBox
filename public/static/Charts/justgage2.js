@@ -978,7 +978,6 @@ JustGage2.prototype.refresh = function(val, max) {
         var sws = (obj.config.value >= elem.lo && obj.config.value <= elem.hi) ? obj.config.gaugeWidthScale : obj.config.gaugeWidthScale2;
         var mx = obj.config.max;
         var mn = obj.config.min;
-        console.log(elem);
         obj[s].animate({
             pki:[
                 elem.lo,

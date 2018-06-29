@@ -4,7 +4,7 @@
       <div class="col-md-3" v-for="patient in patientsList"  :key='patient.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button v-tooltip.bottom="'Pessione em [OK] para selecionar o utilizador.'" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
+            <button v-tooltip.bottom="$t('tooltips.diagnosis.user.title')" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
                 <h4 class="text-div-wrap"><b class="ti-user"> {{ patient.name }}</b></h4>
             </button>
           </div>
@@ -16,7 +16,7 @@
         <div class="card clear-padding">
           <div class="content">
             <button
-              v-tooltip.bottom="'Pessione em [OK] para selecionar o exame.'"
+              v-tooltip.bottom="$t('tooltips.diagnosis.exam.title')"
               class="btn btn-block btn-success control-remote"
               type="button"
               :data-type="btn.type"
@@ -34,7 +34,7 @@
         <div class="col-md-9">
           <div class="card">
             <div class="content">
-              <h4 class="title">Modo de Utilização</h4>
+              <h4 class="title">{{ $t('diagnosis.user.title') }}</h4>
               <hr>
               <ol>
                 <h4>
@@ -96,7 +96,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="content">
-                  <h4 class="title">Modo de Utilização</h4>
+                  <h4 class="title">{{ $t('diagnosis.user.title') }}</h4>
                   <hr>
                   <ol>
                     <h4>
@@ -476,8 +476,8 @@ export default {
   },
   data() {
     return {
-      msgUser: 'exams.msgUser',
-      msgExit: 'exams.msgExit',
+      msgUser: 'diagnosis.msgUser',
+      msgExit: 'diagnosis.msgExit',
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
       patientsList: [],

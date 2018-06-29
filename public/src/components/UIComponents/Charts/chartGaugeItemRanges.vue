@@ -68,7 +68,6 @@ export default {
   },
   watch: {
     valueChart: function(_el) {
-      console.log('Update Char', this.chartid, _el)
       this.chart.refresh(_el)
     }
   }
