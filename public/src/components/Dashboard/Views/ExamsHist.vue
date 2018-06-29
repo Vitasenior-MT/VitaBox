@@ -4,7 +4,7 @@
       <div class="col-md-3" v-for="patient in patientsList"  :key='patient.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button v-tooltip.bottom="'Pessione em [OK] para selecionar o utilizador.'" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
+            <button v-tooltip.bottom="$t('tooltips.diagnosisHistory.user.title')" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
                 <h5 class="text-div-wrap"><b class="ti-user"> {{ patient.name }}</b></h5>
             </button>
           </div>
@@ -16,7 +16,7 @@
         <div class="card clear-padding">
           <div class="content">
             <button
-              v-tooltip.bottom="'Pessione em [OK] para visualizar o histórico.'"
+              v-tooltip.bottom="$t('tooltips.diagnosisHistory.history.title')"
               class="btn btn-block btn-success control-remote"
               type="button"
               :data-examname="btn.nome"
@@ -36,7 +36,7 @@
         <div class="row">
           <div class="col-md-12" style="padding-bottom: 10px;">
             <h3 style="display:inline;"><u>{{this.chartsBarAllData.nameExam}}</u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</h3>
-            <h5 style="display:inline;">Ultima execução: &nbsp; <i class="ti-calendar"></i> &nbsp; {{this.chartsBarAllData.lastUpdate}}</h5>
+            <h5 style="display:inline;">{{ $t('diagnosisHistory.lastExecution') }} <i class='ti-calendar'> {{this.chartsBarAllData.lastUpdate}} </h5>
           </div>
         </div>
         <card-chart-history-bar :dataCharts="chartsBarAllData.dataCharts"></card-chart-history-bar>
@@ -44,7 +44,7 @@
         <div class="row">
           <div class="col-md-12" style="padding-bottom: 10px;">
             <h3 style="margin: 0px;">
-              Histórico - Últimos {{ lastHistRecords }} dados recolhidos.
+              {{ $t('diagnosisHistory.lastHistRecords', { lastHistRecords: lastHistRecords }) }}
             </h3>
           </div>
         </div>
@@ -438,11 +438,8 @@ export default {
             if (end) {
               EventBus.$emit('move-components', 'ok_btn')
             }
-            let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-            console.log(elem);
-            let datas = document.getElementsByClassName('control-remote btn-fill')
-            console.log(datas);
-            self.$socket.emit('ttsText', self.$t('dictionary.biosensors.' + datas[0].dataset.type))
+            let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
+            self.$socket.emit('ttsText', self.$t('diagnosisHistory.biosensors.' + datas.type))
           }, 300);
         }, 'control-remote-patient')
       }
@@ -479,11 +476,6 @@ export default {
             case 'exit':
               // iniicializa a variavel para selecionar a lsta do user
               self.classEvent = 'control-remote-patient'
-              self.dataCharsExists = false
-              self.$refs.DefaultView.setMsg(self.msgUser)
-              self.$refs.DefaultView.show()
-              self.resetValues()
-
               // se existir um user selecionado é porque se está na lista dos equipamentos
               if (self.posPatientSelected >= 0) {
                 // Constroi a lista com os elementos da class dos users
@@ -509,7 +501,8 @@ export default {
               // limpa a lisa dos botões disponiveis para o user
               self.btnExams = []
               self.resetValues()
-              clearInterval(EventBus.interval)
+              self.$refs.DefaultView.setMsg(self.msgUser)
+              self.$refs.DefaultView.show()
               console.log('if exit', cmd, EventBus.currentActiveRightComp)
               EventBus.endRotation()
               break

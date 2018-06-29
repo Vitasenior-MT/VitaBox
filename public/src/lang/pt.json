@@ -1,5 +1,6 @@
 {
   "dictionary": {
+    "": "Para entrar no menu Selecione a tecla direita.",
     "biosensors": {
       "bodypulse": "Não sei que fazer com esta",
       "bodyscale": "Não sei que fazer com esta",
@@ -29,52 +30,84 @@
     }
   },
   "sidebar": {
-    "home": {
-      "title": "casa",
-      "text": "Casa"
+    "diagnosis": {
+      "title": "Exames / Diagnósticos",
+      "text": "Este menu permite realizar vários exames."
     },
     "diagnosisHistory": {
       "title": "Hist. de Diagnósticos",
-      "text": "Não sei que fazer com esta"
+      "text": "Este menu permite a visualização do histórico das várias categorias de medições."
+    },
+    "ambienteHistory": {
+      "title": "Hist. Sen. Ambientais",
+      "text": "Este menu permite a visualização do histórico dos sensores."
     },
     "warning": {
       "title": "Aviso",
       "text": "Neste separador é exposto toda a informação crítica dos alarmes."
     },
-    "warning2": {
-      "title": "Aviso 02",
-      "text": "neste separador é exposto toda a informação crítica dos alarmes."
-    },
     "showData": {
       "title": "Mostrar Dados",
-      "text": "Não sei que fazer com esta"
+      "text": "Mostra todos os dados acerca dos sensores e o estado atual das medições."
     },
-    "historyEnvironmentSensor": {
-      "title": "Hist. Sens. Ambientais",
-      "text": "Histórico dos sensores ambientais"
-    },
-    "historyEnvironmentSensor2": {
-      "title": "Hist. Sens. Ambientais V2",
-      "text": "Histórico dos sensores ambientais"
-    },
-    "diagnosis": {
-      "title": "Exames / Diagnósticos",
-      "text": "Execução de exames"
-    },
-    "ambienteHistory": {
-      "title": "Hist. Sen. Ambientais",
-      "text": "Hist. Sensores Ambientais"
+    "about": {
+      "title": "Ajuda",
+      "text": "Neste menu tem toda a informação acerca da aplicação, para ajudar na sua utilização."
     }
   },
-  "home": {
-    "title": "SandBox Area para testes.",
-    "requestToken": "Vai buscar o Token",
-    "sendSettings": "Manda os settings",
-    "sendSensorData": "Manda os dados dos sensores",
-    "getBoards": "Vai buscar os boards",
-    "getPatients": "Vai buscar os pacientes",
-    "getSettings": "Vai buscar as settings",
-    "sendText": "Enviar Texto"
+  "tooltips": {
+    "diagnosis": {
+      "user":{
+        "title": "Pessione em [OK] para selecionar o utilizador.",
+        "text": ""
+      },
+      "exam":{
+        "title": "Pessione em [OK] para selecionar o exame.",
+        "text": ""
+      }
+    },
+    "diagnosisHistory": {
+      "user":{
+        "title": "Pessione em [OK] para selecionar o utilizador.",
+        "text": ""
+      },
+      "history":{
+        "title": "Pessione em [OK] para visualizar o histórico.",
+        "text": ""
+      }
+    },
+    "ambienteHistory": {
+      "sensor":{
+        "title": "Pessione em [OK] para selecionar o sensor.",
+        "text": ""
+      },
+      "history":{
+        "title": "Pessione em [OK] para mostrar / esconder o histórico do sensor.",
+        "text": ""
+      }
+    }
+  },
+  "diagnosis": {
+    "msgUser": "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
+    "msgExit": "Pressione seta direita do comando para selecionar...",
+    "user": {
+      "title": "Modo de Utilização",
+      "": ""
+    }
+  },
+  "diagnosisHistory": {
+    "msgSensor": "Selecione e pressione [OK] para visualizar o histórico do sensor.",
+    "msgExit": "Pressione seta direita do comando para selecionar...",
+    "lastExecution": "Ultima execução: ",
+    "lastHistRecords": "Histórico - Últimos {lastHistRecords} dados recolhidos.",
+    "biosensors": {
+      "bodypulse": "Mostra todos os dados acerca das medições feitas com o pulsometro.",
+      "bodyscale": "Mostra todos os dados acerca das medições feitas com a balança.",
+      "bodytemperature": "Mostra todos os dados acerca das medições feitas com a medição de temperatura.",
+      "bloodpressure": "Mostra todos os dados acerca das medições feitas com a pressão arterial.",
+      "bloodglucose": "Mostra todos os dados acerca das medições feitas com a glucose.",
+      "bandfitness": "Mostra todos os dados acerca das medições feitas com a bracelete."
+    }
   },
   "histambi": {
     "msgSensor": "Selecione e pressione [OK] para visualizar o histórico do sensor.",
@@ -90,7 +123,8 @@
     "msgExit": "Pressione seta direita do comando para selecionar..."
   },
   "showdata": {
-    "msgSensor": "Sem sensores."
+    "msgSensor": "Sem sensores.",
+    "info": "{location}, o valor do sensor {sensortype} é {avg}"
   },
   "warning2": {
     "msgSensor": "Sem sensores."

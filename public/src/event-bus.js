@@ -17,11 +17,9 @@ export const EventBus = new Vue({
       if (this.flgStartRotation) {
         if (this.currentActiveRightComp + 1 >= this.elementControl.length) {
           this.next(true)
+        } else {
+          this.next(false)
         }
-      }
-      // this.moveLeftRightInView(1)
-      if (this.flgStartRotation) {
-        this.next(false)
       }
     },
     startRotation(next, className) {
@@ -36,7 +34,6 @@ export const EventBus = new Vue({
       this.flgStartRotation = false
       this.next = null
       this.className = ''
-      this.setSidebar()
     },
     audioBasicMode: function(path) {
       var self = this
@@ -48,7 +45,6 @@ export const EventBus = new Vue({
       audio.onended = function() {
         audio.remove()
         self.$socket.emit('ttsDelete')
-        console.log(self.flgStartRotation)
         if (self.flgStartRotation) {
           self.rotation()
         }
