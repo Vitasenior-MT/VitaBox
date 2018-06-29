@@ -186,7 +186,7 @@
               {{dataBodyScale.musclemass}} %
               </div>
             </stats-card>
-          </div>          
+          </div>
           <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.bodyfatShow">
             <stats-card>
               <div class="icon-big text-center" slot="header">
@@ -228,7 +228,7 @@
     </div>
     <div class="row bodytemperature clear-margin" v-show="examEvent == 'bodytemperature'">
       <div class="col-md-12 btn btn-round btn-fill">
-        <div class="row" v-show="bodytemperature.panelPrincipal">
+        <div class="row" v-show="databodytemperature.panelPrincipal">
           <div class="col-md-12">
             <div class="card">
               <div class="content">
@@ -267,32 +267,32 @@
             </div>
           </div>
         </div>
-        <div class="row" v-show="bodytemperature.panelResults">
-          <div :class="bodytemperatureClass + ' ' + bodytemperature.resultCol" v-show="bodytemperature.batteryShow">
+        <div class="row" v-show="databodytemperature.panelResults">
+          <div :class="bodytemperatureClass + ' ' + databodytemperature.resultCol" v-show="databodytemperature.batteryShow">
             <stats-card>
               <div class="icon-big text-center" slot="header">
-                <span v-show="bodytemperature.battery < 15"><i class="fas fa-battery-empty"></i></span>
-                <span v-show="bodytemperature.battery >= 15 && bodytemperature.battery < 40"><i class="fas fa-battery-quarter"></i></span>
-                <span v-show="bodytemperature.battery >= 40 && bodytemperature.battery < 65"><i class="fas fa-battery-half"></i></span>
-                <span v-show="bodytemperature.battery >= 65 && bodytemperature.battery < 90"><i class="fas fa-battery-three-quarters"></i></span>
-                <span v-show="bodytemperature.battery >= 90"><i class="fas fa-battery-full"></i></span>
+                <span v-show="databodytemperature.battery < 15"><i class="fas fa-battery-empty"></i></span>
+                <span v-show="databodytemperature.battery >= 15 && databodytemperature.battery < 40"><i class="fas fa-battery-quarter"></i></span>
+                <span v-show="databodytemperature.battery >= 40 && databodytemperature.battery < 65"><i class="fas fa-battery-half"></i></span>
+                <span v-show="databodytemperature.battery >= 65 && databodytemperature.battery < 90"><i class="fas fa-battery-three-quarters"></i></span>
+                <span v-show="databodytemperature.battery >= 90"><i class="fas fa-battery-full"></i></span>
                 <!-- <hr> -->
               </div>
               <div class="numbers" slot="content">
-              <p>{{bodytemperature.batteryName}}</p>
-              {{bodytemperature.battery}} %
+              <p>{{databodytemperature.batteryName}}</p>
+              {{databodytemperature.battery}} %
               </div>
             </stats-card>
           </div>
-          <div :class="bodytemperatureClass + ' ' + bodytemperature.resultCol" v-show="bodytemperature.tempCorpShow">
+          <div :class="bodytemperatureClass + ' ' + databodytemperature.resultCol" v-show="databodytemperature.tempCorpShow">
             <stats-card>
               <div class="icon-big text-center" slot="header">
                 <i class="fas fa-thermometer"></i>
                 <!-- <hr> -->
               </div>
               <div class="numbers" slot="content">
-                <p>{{bodytemperature.tempCorpName}} </p>
-                {{bodytemperature.tempCorp}} ºC
+                <p>{{databodytemperature.tempCorpName}} </p>
+                {{databodytemperature.tempCorp}} ºC
               </div>
             </stats-card>
           </div>
@@ -301,7 +301,7 @@
     </div>
     <div class="row bodypulse clear-margin" v-show="examEvent == 'bodypulse'">
       <div class="col-md-12 btn btn-round btn-fill">
-        <div class="row" v-show="bodypulse.panelPrincipal">
+        <div class="row" v-show="databodypulse.panelPrincipal">
           <div class="col-md-12">
             <div class="card">
               <div class="content">
@@ -336,28 +336,28 @@
             </div>
           </div>
         </div>
-        <div class="row" v-show="bodypulse.panelResults">          
-          <div :class="bodypulseClass + ' ' + bodypulse.resultCol" v-show="bodypulse.spoValShow">
+        <div class="row" v-show="databodypulse.panelResults">
+          <div :class="bodypulseClass + ' ' + databodypulse.resultCol" v-show="databodypulse.spoValShow">
             <stats-card>
               <div class="icon-big text-center" slot="header">
                 <i class="fas fa-fire"></i>
                 <!-- <hr> -->
               </div>
               <div class="numbers" slot="content">
-                <p>{{bodypulse.spoValName}} </p>
-                {{bodypulse.spoVal}} %
+                <p>{{databodypulse.spoValName}} </p>
+                {{databodypulse.spoVal}} %
               </div>
             </stats-card>
-          </div>  
-          <div :class="bodypulseClass + ' ' + bodypulse.resultCol" v-show="bodypulse.pulseValShow">
+          </div>
+          <div :class="bodypulseClass + ' ' + databodypulse.resultCol" v-show="databodypulse.pulseValShow">
             <stats-card>
               <div class="icon-big text-center" slot="header">
                 <i class="fas fa-heartbeat"></i>
                 <!-- <hr> -->
               </div>
               <div class="numbers" slot="content">
-              <p>{{bodypulse.pulseValName}} </p>
-              {{bodypulse.pulseVal}} PPM
+              <p>{{databodypulse.pulseValName}} </p>
+              {{databodypulse.pulseVal}} PPM
               </div>
             </stats-card>
           </div>
@@ -424,7 +424,7 @@
               {{dataBandFitness.batterystatus.battery_level}} %
               </div>
             </stats-card>
-          </div> 
+          </div>
           <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.steps.stepsShow">
             <stats-card>
               <div class="icon-big text-center" slot="header">
@@ -448,7 +448,7 @@
                 {{dataBandFitness.heartrateavg}}
               </div>
             </stats-card>
-          </div> 
+          </div>
           <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.steps.metersShow">
             <stats-card>
               <div class="icon-big text-center" slot="header">
@@ -460,7 +460,7 @@
                 {{dataBandFitness.steps.meters}}
               </div>
             </stats-card>
-          </div> 
+          </div>
           <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.steps.calloriesShow">
             <stats-card>
               <div class="icon-big text-center" slot="header">
@@ -472,8 +472,8 @@
                 {{dataBandFitness.steps.callories}}
               </div>
             </stats-card>
-          </div> 
-        </div>        
+          </div>
+        </div>
       </div>
     </div>
     <div class="row bloodglucose clear-margin" v-show="examEvent == 'bloodglucose'">
@@ -625,7 +625,7 @@ export default {
         caloriesName: '',
         caloriesShow: false
       },
-      bodytemperature: {
+      databodytemperature: {
         resultCol: 'col-md-6',
         panelPrincipal: true,
         panelResults: false,
@@ -636,7 +636,7 @@ export default {
         tempCorpName: '',
         tempCorpShow: false
       },
-      bodypulse: {
+      databodypulse: {
         resultCol: 'col-md-6',
         panelPrincipal: true,
         panelResults: false,
@@ -827,8 +827,8 @@ export default {
     bleExecFimPulse: function(data) {
       // console.log('Pulse', data)
       if (data.satus === true) {
-        this.bodypulse.spoVal = data.data.spo2
-        this.bodypulse.pulseVal = data.data.pulse
+        this.databodypulse.spoVal = data.data.spo2
+        this.databodypulse.pulseVal = data.data.pulse
         this.bodypulseClass.push('ajustinfo')
       } else {
         // console.log('Receive error', data)
@@ -839,7 +839,7 @@ export default {
           verticalAlign: 'top',
           type: 'warning'
         })
-        this.bodypulse = {
+        this.databodypulse = {
           panelPrincipal: true,
           panelResults: false,
           spoVal: 0,
@@ -857,9 +857,9 @@ export default {
      */
     bleMsgBattery: function(data) {
       if (data.satus === true) {
-        this.bodytemperature.battery = data.data
+        this.databodytemperature.battery = data.data
       } else {
-        this.bodytemperature.battery = 0
+        this.databodytemperature.battery = 0
       }
     },
     /**
@@ -1189,7 +1189,7 @@ export default {
         serialnumber: '',
         devicename: ''
       }
-      this.bodytemperature = {
+      this.databodytemperature = {
         panelPrincipal: true,
         panelResults: false,
         battery: 0,
@@ -1199,7 +1199,7 @@ export default {
         tempCorpName: '',
         tempCorpShow: false
       }
-      this.bodypulse = {
+      this.databodypulse = {
         panelPrincipal: true,
         panelResults: false,
         spoVal: 0,
