@@ -515,63 +515,57 @@
     </div>
     <div class="row bloodglucose clear-margin" v-show="examEvent == 'bloodglucose'">
       <div class="col-md-12 btn btn-round btn-fill">
-        <div class="row">
-          <div class="col-md-12 btn btn-round btn-fill">
-            <h5>Resultados</h5>
-          </div>
-        </div>
-        <div class="row">
+        <div class="row" v-show="databloodglucose.panelPrincipal">
           <div class="col-md-12">
             <div class="card">
-              <div class="header">
-                  <h4 class="title">Modo de Utilização</h4>
-                  <p class="category"></p>
-              </div>
               <div class="content">
-                <table class="table table-Striped">
-                  <thead>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <h4>
-                        </h4>
-                      </td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h4></h4>
-                      </td>
-                      <td>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h4>Aguarde...</h4>
-                      </td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="footer">
+                <h4 class="title">Modo de Utilização</h4>
+                <hr>
+                <ol>
+                  <h4>
+                    ----------------
+                  </h4>
+                </ol>
               </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card">
-              <div class="header">
-                <h5>Medir a Glucose</h5>
-              </div>
-              <div class="content">
-                bloodglucose
-              </div>
-              <div class="footer">
-              </div>
+        <div class="row" v-show="databloodglucose.panelResults">
+          <div class="col-md-12">
+            <h5>Resultados</h5>
+          </div>
+          <div class="col-md-12 blink-results">
+            <div class="col-md-6 results-val" v-show="databloodglucose.batteryShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <span v-show="databloodglucose.battery < 15"><i class="fas fa-battery-empty"></i></span>
+                  <span v-show="databloodglucose.battery >= 15 && databloodglucose.battery < 40"><i class="fas fa-battery-quarter"></i></span>
+                  <span v-show="databloodglucose.battery >= 40 && databloodglucose.battery < 65"><i class="fas fa-battery-half"></i></span>
+                  <span v-show="databloodglucose.battery >= 65 && databloodglucose.battery < 90"><i class="fas fa-battery-three-quarters"></i></span>
+                  <span v-show="databloodglucose.battery >= 90"><i class="fas fa-battery-full"></i></span>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                <p>{{databloodglucose.batteryName}}</p>
+                {{databloodglucose.battery}} %
+                </div>
+              </stats-card>
             </div>
+            <div class="col-md-6 results-val" v-show="databloodglucose.glucoseShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-thermometer"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{databloodglucose.glucoseName}} </p>
+                  {{databloodglucose.glucose}} (mg/dl)
+                </div>
+              </stats-card>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <h5>Pressione em [OK] para executar novamente.</h5>
           </div>
         </div>
       </div>
@@ -731,6 +725,16 @@ export default {
         serialnumber: '',
         devicename: ''
       },
+      databloodglucose: {
+        panelPrincipal: true,
+        panelResults: false,
+        battery: 0,
+        batteryName: '',
+        batteryShow: false,
+        glucose: 0,
+        glucoseName: '',
+        glucoseShow: false
+      },
       examEvent: '', // frag para mostrar o elemento selecionado
       examMac: '',
       canBeShown: true,
@@ -777,6 +781,50 @@ export default {
     }
   },
   sockets: {
+    bloodglucoseFim: function(data) {
+      let resData = data
+      if (resData.status === true) {
+        for (let dataVal in resData.data) {
+          switch (resData.data[dataVal].tag) {
+            case 'batteryInfo':
+              this.databloodglucose.panelPrincipal = false
+              this.databloodglucose.panelResults = true
+              this.databloodglucose.battery = resData.data[dataVal].data
+              this.databloodglucose.batteryName = resData.data[dataVal].measure
+              this.databloodglucose.batteryShow = true
+              break;
+            case 'bloodglucose':
+              console.log("AAA")
+              this.databloodglucose.panelPrincipal = false
+              this.databloodglucose.panelResults = true
+              this.databloodglucose.glucose = resData.data[dataVal].value
+              this.databloodglucose.glucoseName = resData.data[dataVal].measure
+              this.databloodglucose.glucoseShow = true
+              break;
+            default:
+              break;
+          }
+        }
+      } else {
+        this.$notifications.notify({
+          message: '<h4>' + data.data + '</h4>',
+          icon: 'ti-bell',
+          horizontalAlign: 'right',
+          verticalAlign: 'top',
+          type: 'warning'
+        })
+        this.databloodglucose = {
+          panelPrincipal: true,
+          panelResults: false,
+          battery: 0,
+          batteryName: '',
+          batteryShow: false,
+          glucose: 0,
+          glucoseName: '',
+          glucoseShow: false
+        }
+      }
+    },
     /**
      * TODO: Recebe do socket toda a informação refente a bracelete
      */
@@ -1393,6 +1441,16 @@ export default {
         pulseVal: 0,
         pulseValName: '',
         pulseValShow: false
+      }
+      this.databloodglucose = {
+        panelPrincipal: true,
+        panelResults: false,
+        battery: 0,
+        batteryName: '',
+        batteryShow: false,
+        glucose: 0,
+        glucoseName: '',
+        glucoseShow: false
       }
     },
     /**
