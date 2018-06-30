@@ -5,7 +5,7 @@
         <div class="card clear-padding">
           <div class="content">
             <button v-tooltip.bottom="$t('tooltips.diagnosis.user.title')" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
-                <h4 class="text-div-wrap"><b class="ti-user"> {{ patient.name }}</b></h4>
+                <h5 class="text-div-wrap"><b class="ti-user"> {{ patient.name }}</b></h5>
             </button>
           </div>
         </div>
@@ -69,41 +69,49 @@
           </div>
         </div>
         <div class="row" v-show="dataPressArt.panelResults">
-          <div :class="bloodpressureClass + ' ' + dataPressArt.resultCol" v-show="dataPressArt.pressmaxShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="ti-stats-up"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-                <p>{{dataPressArt.pressmaxName}} </p>
-                {{dataPressArt.pressmax}}
-              </div>
-            </stats-card>
+          <div class="col-md-12">
+            <h5>Resultados</h5>
           </div>
-          <div :class="bloodpressureClass + ' ' + dataPressArt.resultCol" v-show="dataPressArt.pressminShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="ti-stats-down"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-                <p>{{dataPressArt.pressminName}} </p>
-                {{dataPressArt.pressmin}}
-              </div>
-            </stats-card>
+          <div class="col-md-12 blink-results">
+            <div class="col-md-6 results-val" v-show="dataPressArt.pressmaxShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="ti-stats-up"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataPressArt.pressmaxName}} </p>
+                  {{dataPressArt.pressmax}}
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-6 results-val" v-show="dataPressArt.pressminShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="ti-stats-down"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataPressArt.pressminName}} </p>
+                  {{dataPressArt.pressmin}}
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-6 results-val" v-show="dataPressArt.pulsoShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="ti-pulse"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataPressArt.pulsoName}} </p>
+                  {{dataPressArt.pulso}}
+                </div>
+              </stats-card>
+            </div>
           </div>
-          <div :class="bloodpressureClass + ' ' + dataPressArt.resultCol" v-show="dataPressArt.pulsoShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="ti-pulse"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-                <p>{{dataPressArt.pulsoName}} </p>
-                {{dataPressArt.pulso}}
-              </div>
-            </stats-card>
+          <div class="col-md-12">
+            <h5>Pressione em [OK] para executar novamente.</h5>
           </div>
         </div>
       </div>
@@ -139,89 +147,97 @@
           </div>
         </div>
         <div class="row" v-show="dataBodyScale.panelResults">
-           <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.weightShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-tachometer-alt"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-              <p>{{dataBodyScale.weightName}} </p>
-              {{dataBodyScale.weight}} Kg
-              </div>
-            </stats-card>
+          <div class="col-md-12">
+            <h5>Resultados</h5>
           </div>
-          <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.caloriesShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-diagnoses"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-              <p>{{dataBodyScale.caloriesName}}</p>
-              {{dataBodyScale.calories}} Kcal
-              </div>
-            </stats-card>
+          <div class="col-md-12 blink-results">
+            <div class="col-md-6 results-val" v-show="dataBodyScale.weightShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-tachometer-alt"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                <p>{{dataBodyScale.weightName}} </p>
+                {{dataBodyScale.weight}} Kg
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-6 results-val" v-show="dataBodyScale.caloriesShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-diagnoses"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                <p>{{dataBodyScale.caloriesName}}</p>
+                {{dataBodyScale.calories}} Kcal
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-6 results-val" v-show="dataBodyScale.waterShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-tint"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                <p>{{dataBodyScale.waterName}}</p>
+                {{dataBodyScale.water}} %
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-6 results-val" v-show="dataBodyScale.musclemassShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-child"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                <p>{{dataBodyScale.musclemassName}}</p>
+                {{dataBodyScale.musclemass}} %
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-6 results-val" v-show="dataBodyScale.bodyfatShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-street-view"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataBodyScale.bodyfatName}}</p>
+                  {{dataBodyScale.bodyfat}} %
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-6 results-val" v-show="dataBodyScale.bonemassShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-street-view"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataBodyScale.bonemassName}}</p>
+                  {{dataBodyScale.bonemass}} %
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-6 results-val" v-show="dataBodyScale.visceralfatShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-street-view"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataBodyScale.visceralfatName}}</p>
+                  {{dataBodyScale.visceralfat}} %
+                </div>
+              </stats-card>
+            </div>
           </div>
-          <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.waterShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-tint"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-              <p>{{dataBodyScale.waterName}}</p>
-              {{dataBodyScale.water}} %
-              </div>
-            </stats-card>
-          </div>
-          <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.musclemassShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-child"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-              <p>{{dataBodyScale.musclemassName}}</p>
-              {{dataBodyScale.musclemass}} %
-              </div>
-            </stats-card>
-          </div>
-          <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.bodyfatShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-street-view"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-                <p>{{dataBodyScale.bodyfatName}}</p>
-                {{dataBodyScale.bodyfat}} %
-              </div>
-            </stats-card>
-          </div>
-          <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.bonemassShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-street-view"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-                <p>{{dataBodyScale.bonemassName}}</p>
-                {{dataBodyScale.bonemass}} %
-              </div>
-            </stats-card>
-          </div>
-          <div :class="bodyscaleClass + ' ' + dataBodyScale.resultCol"  v-show="dataBodyScale.visceralfatShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-street-view"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-                <p>{{dataBodyScale.visceralfatName}}</p>
-                {{dataBodyScale.visceralfat}} %
-              </div>
-            </stats-card>
+          <div class="col-md-12">
+            <h5>Pressione em [OK] para executar novamente.</h5>
           </div>
         </div>
       </div>
@@ -268,33 +284,41 @@
           </div>
         </div>
         <div class="row" v-show="databodytemperature.panelResults">
-          <div :class="bodytemperatureClass + ' ' + databodytemperature.resultCol" v-show="databodytemperature.batteryShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <span v-show="databodytemperature.battery < 15"><i class="fas fa-battery-empty"></i></span>
-                <span v-show="databodytemperature.battery >= 15 && databodytemperature.battery < 40"><i class="fas fa-battery-quarter"></i></span>
-                <span v-show="databodytemperature.battery >= 40 && databodytemperature.battery < 65"><i class="fas fa-battery-half"></i></span>
-                <span v-show="databodytemperature.battery >= 65 && databodytemperature.battery < 90"><i class="fas fa-battery-three-quarters"></i></span>
-                <span v-show="databodytemperature.battery >= 90"><i class="fas fa-battery-full"></i></span>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-              <p>{{databodytemperature.batteryName}}</p>
-              {{databodytemperature.battery}} %
-              </div>
-            </stats-card>
+          <div class="col-md-12">
+            <h5>Resultados</h5>
           </div>
-          <div :class="bodytemperatureClass + ' ' + databodytemperature.resultCol" v-show="databodytemperature.tempCorpShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-thermometer"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-                <p>{{databodytemperature.tempCorpName}} </p>
-                {{databodytemperature.tempCorp}} ºC
-              </div>
-            </stats-card>
+          <div class="col-md-12 blink-results">
+            <div class="col-md-6 results-val" v-show="databodytemperature.batteryShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <span v-show="databodytemperature.battery < 15"><i class="fas fa-battery-empty"></i></span>
+                  <span v-show="databodytemperature.battery >= 15 && databodytemperature.battery < 40"><i class="fas fa-battery-quarter"></i></span>
+                  <span v-show="databodytemperature.battery >= 40 && databodytemperature.battery < 65"><i class="fas fa-battery-half"></i></span>
+                  <span v-show="databodytemperature.battery >= 65 && databodytemperature.battery < 90"><i class="fas fa-battery-three-quarters"></i></span>
+                  <span v-show="databodytemperature.battery >= 90"><i class="fas fa-battery-full"></i></span>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                <p>{{databodytemperature.batteryName}}</p>
+                {{databodytemperature.battery}} %
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-6 results-val" v-show="databodytemperature.tempCorpShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-thermometer"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{databodytemperature.tempCorpName}} </p>
+                  {{databodytemperature.tempCorp}} ºC
+                </div>
+              </stats-card>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <h5>Pressione em [OK] para executar novamente.</h5>
           </div>
         </div>
       </div>
@@ -337,29 +361,37 @@
           </div>
         </div>
         <div class="row" v-show="databodypulse.panelResults">
-          <div :class="bodypulseClass + ' ' + databodypulse.resultCol" v-show="databodypulse.spoValShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-fire"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-                <p>{{databodypulse.spoValName}} </p>
-                {{databodypulse.spoVal}} %
-              </div>
-            </stats-card>
+          <div class="col-md-12">
+            <h5>Resultados</h5>
           </div>
-          <div :class="bodypulseClass + ' ' + databodypulse.resultCol" v-show="databodypulse.pulseValShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-heartbeat"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-              <p>{{databodypulse.pulseValName}} </p>
-              {{databodypulse.pulseVal}} PPM
-              </div>
-            </stats-card>
+          <div class="col-md-12 blink-results">
+            <div class="col-md-6 results-val" v-show="databodypulse.spoValShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-fire"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{databodypulse.spoValName}} </p>
+                  {{databodypulse.spoVal}} %
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-6 results-val" v-show="databodypulse.pulseValShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-heartbeat"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                <p>{{databodypulse.pulseValName}} </p>
+                {{databodypulse.pulseVal}} PPM
+                </div>
+              </stats-card>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <h5>Pressione em [OK] para executar novamente.</h5>
           </div>
         </div>
       </div>
@@ -380,104 +412,114 @@
             </div>
           </div>
         </div>
-        <div class="row" v-show="dataBandFitness.panelGraph">
+        <div class="row" v-show="dataBandFitness.panelResults">
           <div class="col-md-12">
-            <div class="row">
-              <div class="card">
-                <div class="content">
-                  <h4 class="title">Pulsação</h4>
-                  <hr>
-                  <chart-line
-                    :id="'chartLine-1'"
-                    :lineChartId="'chartLine-1'"
-                    :dataChart="this.dataBandFitness.heartrate"
-                    :dataChartAvg="this.dataBandFitness.heartrateavg" >
-                  </chart-line>
+            <h5>Resultados</h5>
+          </div>
+          <din class="col-md-12 blink-results">
+            <div class="col-md-4 results-val" v-show="dataBandFitness.batterystatus.battery_levelShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <span v-show="this.dataBandFitness.batterystatus.battery_level < 15">
+                  <i class="fas fa-battery-empty"></i>
+                  </span>
+                  <span v-show="this.dataBandFitness.batterystatus.battery_level >= 15 && this.dataBandFitness.batterystatus.battery_level < 40">
+                    <i class="fas fa-battery-quarter"></i>
+                  </span>
+                  <span v-show="this.dataBandFitness.batterystatus.battery_level >= 40 && this.dataBandFitness.batterystatus.battery_level < 65">
+                    <i class="fas fa-battery-half"></i>
+                  </span>
+                  <span v-show="this.dataBandFitness.batterystatus.battery_level >= 65 && this.dataBandFitness.batterystatus.battery_level < 90">
+                    <i class="fas fa-battery-three-quarters"></i>
+                  </span>
+                  <span v-show="this.dataBandFitness.batterystatus.battery_level >= 90">
+                    <i class="fas fa-battery-full"></i>
+                  </span>
+                  <!-- <hr> -->
                 </div>
-              </div>
+                <div class="numbers" slot="content">
+                <p>{{dataBandFitness.batterystatus.battery_levelName}} </p>
+                {{dataBandFitness.batterystatus.battery_level}} %
+                </div>
+              </stats-card>
             </div>
+            <div class="col-md-4 results-val" v-show="dataBandFitness.steps.stepsShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-capsules"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataBandFitness.steps.stepsName}} </p>
+                  {{dataBandFitness.steps.steps}}
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-4 results-val" v-show="dataBandFitness.steps.metersShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-flag-checkered"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataBandFitness.steps.metersName}}</p>
+                  {{dataBandFitness.steps.meters}}
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-4 results-val" v-show="dataBandFitness.steps.calloriesShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-diagnoses"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataBandFitness.steps.calloriesName}}</p>
+                  {{dataBandFitness.steps.callories}}
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-4 results-val" v-show="dataBandFitness.heartrate.heartrateavgShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-hand-holding-heart"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataBandFitness.heartrate.heartrateavgName}}</p>
+                  {{dataBandFitness.heartrate.heartrateavg}}
+                </div>
+              </stats-card>
+            </div>
+          </din>
+          <div class="col-md-12">
+            <h5>Pressione em [OK] para executar novamente.</h5>
           </div>
         </div>
-        <div class="row" v-show="dataBandFitness.panelResults">
-          <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.batterystatus.battery_levelShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <span v-show="this.dataBandFitness.batterystatus.battery_level < 15">
-                <i class="fas fa-battery-empty"></i>
-                </span>
-                <span v-show="this.dataBandFitness.batterystatus.battery_level >= 15 && this.dataBandFitness.batterystatus.battery_level < 40">
-                  <i class="fas fa-battery-quarter"></i>
-                </span>
-                <span v-show="this.dataBandFitness.batterystatus.battery_level >= 40 && this.dataBandFitness.batterystatus.battery_level < 65">
-                  <i class="fas fa-battery-half"></i>
-                </span>
-                <span v-show="this.dataBandFitness.batterystatus.battery_level >= 65 && this.dataBandFitness.batterystatus.battery_level < 90">
-                  <i class="fas fa-battery-three-quarters"></i>
-                </span>
-                <span v-show="this.dataBandFitness.batterystatus.battery_level >= 90">
-                  <i class="fas fa-battery-full"></i>
-                </span>
-                <!-- <hr> -->
+        <div class="row" v-show="dataBandFitness.panelGraph">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="content">
+                <h4 class="title"><b>Pulsação</b></h4>
+                <chart-line
+                  :id="'chartLine-1'"
+                  :lineChartId="'chartLine-1'"
+                  :dataChart="this.dataBandFitness.heartrate.heartrateArr"
+                  :dataChartAvg="this.dataBandFitness.heartrate.heartrateavg" >
+                </chart-line>
               </div>
-              <div class="numbers" slot="content">
-              <p>{{dataBandFitness.batterystatus.battery_levelName}} </p>
-              {{dataBandFitness.batterystatus.battery_level}} %
-              </div>
-            </stats-card>
-          </div>
-          <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.steps.stepsShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-capsules"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-                <p>{{dataBandFitness.steps.stepsName}} </p>
-                {{dataBandFitness.steps.steps}}
-              </div>
-            </stats-card>
-          </div>
-          <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.heartrateavgShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-hand-holding-heart"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-                <p>{{dataBandFitness.heartrateavgName}}</p>
-                {{dataBandFitness.heartrateavg}}
-              </div>
-            </stats-card>
-          </div>
-          <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.steps.metersShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-flag-checkered"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-                <p>{{dataBandFitness.steps.metersName}}</p>
-                {{dataBandFitness.steps.meters}}
-              </div>
-            </stats-card>
-          </div>
-          <div :class="bandfitnessClass + ' ' + dataBandFitness.resultCol" v-show="dataBandFitness.steps.calloriesShow">
-            <stats-card>
-              <div class="icon-big text-center" slot="header">
-                <i class="fas fa-diagnoses"></i>
-                <!-- <hr> -->
-              </div>
-              <div class="numbers" slot="content">
-                <p>{{dataBandFitness.steps.calloriesName}}</p>
-                {{dataBandFitness.steps.callories}}
-              </div>
-            </stats-card>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row bloodglucose clear-margin" v-show="examEvent == 'bloodglucose'">
       <div class="col-md-12 btn btn-round btn-fill">
+        <div class="row">
+          <div class="col-md-12 btn btn-round btn-fill">
+            <h5>Resultados</h5>
+          </div>
+        </div>
         <div class="row">
           <div class="col-md-12">
             <div class="card">
@@ -522,10 +564,10 @@
           <div class="col-md-4">
             <div class="card">
               <div class="header">
-                <h3>Medir a Glucose</h3>
+                <h5>Medir a Glucose</h5>
               </div>
               <div class="content">
-                :class="bloodglucoseClass" bloodglucose
+                bloodglucose
               </div>
               <div class="footer">
               </div>
@@ -583,7 +625,6 @@ export default {
       // definição do ojecto para medir a pressão arterial
       dataPressArt: {
         id: 'pressArterial-Chart',
-        resultCol: 'col-md-4',
         panelPrincipal: true,
         panelResults: false,
         val: 0,
@@ -600,7 +641,6 @@ export default {
       },
       // definição do objecto para os dados da balança
       dataBodyScale: {
-        resultCol: 'col-md-4',
         panelPrincipal: true,
         panelResults: false,
         weight: 0,
@@ -627,7 +667,6 @@ export default {
       },
       // definição do objecto para os dados da temperatura corporal
       databodytemperature: {
-        resultCol: 'col-md-6',
         panelPrincipal: true,
         panelResults: false,
         battery: 0,
@@ -639,7 +678,6 @@ export default {
       },
       // definição do objecto para os dados da pulsiometro
       databodypulse: {
-        resultCol: 'col-md-6',
         panelPrincipal: true,
         panelResults: false,
         spoVal: 0,
@@ -651,12 +689,15 @@ export default {
       },
       // definição do objecto para os dados da banda / pulseira
       dataBandFitness: {
-        resultCol: 'col-md-4',
         panelPrincipal: true,
         panelResults: false,
         panelGraph: false,
-        heartrate: [],
-        heartrateavg: 0,
+        heartrate: {
+          heartrateArr: [],
+          heartrateavg: 0,
+          heartrateavgName: '',
+          heartrateavgShow: false
+        },
         steps: {
           steps: 0,
           stepsName: '',
@@ -694,12 +735,6 @@ export default {
       examMac: '',
       canBeShown: true,
       execProcess: false,
-      bodytemperatureClass: [],
-      bodypulseClass: [],
-      bandfitnessClass: [],
-      bloodpressureClass: [],
-      bodyscaleClass: [],
-      bloodglucoseClass: [],
       // definição da estrutura dos botões a serem utilizadoss na interface
       btns: [
         {
@@ -746,78 +781,66 @@ export default {
      * TODO: Recebe do socket toda a informação refente a bracelete
      */
     bleExecFimBandFitness: function(data) {
-      let resData = data.data
+      let resData = data
       if (resData.status === true) {
         for (let dataVal in resData.data) {
-          switch (dataVal.tag) {
-            case "Steps":
-              this.dataBandFitness = {
-                panelPrincipal: false,
-                panelResults: true,
-                steps: {
-                  steps: dataVal.steps,
-                  stepsName: dataVal.measure,
-                  stepsShow: true
-                }
-              }
+          console.log("band", resData.data[dataVal].tag, resData.data[dataVal])
+          switch (resData.data[dataVal].tag) {
+            case "steps":
+              this.dataBandFitness.panelPrincipal = false
+              this.dataBandFitness.panelResults = true
+              this.dataBandFitness.steps.steps = resData.data[dataVal].value
+              this.dataBandFitness.steps.stepsName = resData.data[dataVal].measure
+              this.dataBandFitness.steps.stepsShow = true
               break;
             case "meters":
-              this.dataBandFitness = {
-                panelPrincipal: false,
-                panelResults: true,
-                steps: {
-                  meters: dataVal.meters,
-                  metersName: dataVal.measure,
-                  metersShow: true
-                }
-              }
+              this.dataBandFitness.panelPrincipal = false
+              this.dataBandFitness.panelResults = true
+              this.dataBandFitness.steps.meters = resData.data[dataVal].value
+              this.dataBandFitness.steps.metersName = resData.data[dataVal].measure
+              this.dataBandFitness.steps.metersShow = true
               break;
             case "calories":
-              this.dataBandFitness = {
-                panelPrincipal: false,
-                panelResults: true,
-                steps: {
-                  callories: dataVal.callories,
-                  calloriesName: dataVal.measure,
-                  calloriesShow: true
-                }
-              }
+              this.dataBandFitness.panelPrincipal = false
+              this.dataBandFitness.panelResults = true
+              this.dataBandFitness.steps.callories = resData.data[dataVal].value
+              this.dataBandFitness.steps.calloriesName = resData.data[dataVal].measure
+              this.dataBandFitness.steps.calloriesShow = true
               break;
-            case 'heartrate':
-              this.dataBandFitness = {
-                panelPrincipal: false,
-                panelResults: true,
-                panelGraph: true
-              }
-              this.dataBandFitness.heartrate.push(dataVal.data.heartrate)
+            case 'heartrateChart':
+              this.dataBandFitness.panelPrincipal = false
+              this.dataBandFitness.panelResults = true
+              this.dataBandFitness.panelGraph = true
+              this.dataBandFitness.heartrate.heartrateArr.push(resData.data[dataVal].data.heartrate)
               break;
             case "devicename":
-              this.dataBandFitness.devicename = dataVal.data.devicename
+              //  this.dataBandFitness.panelPrincipal = false
+              // this.dataBandFitness.panelResults = true
+              this.dataBandFitness.devicename = resData.data[dataVal].data
               break;
             case 'batterystatus':
-              this.dataBandFitness.batterystatus = {
-                battery_level: dataVal.data.battery_level,
-                battery_levelName: dataVal.data.battery_levelName,
-                battery_levelShow: true,
-                last_time_full: dataVal.data.last_time_full,
-                last_time_charged: dataVal.data.last_time_charged,
-                charge_cycles: dataVal.data.charge_cycles,
-                status: dataVal.data.status
-              }
+              this.dataBandFitness.panelPrincipal = false
+              this.dataBandFitness.panelResults = true
+              this.dataBandFitness.batterystatus.battery_level = resData.data[dataVal].data.battery_level
+              this.dataBandFitness.batterystatus.battery_levelName = resData.data[dataVal].data.battery_levelName
+              this.dataBandFitness.batterystatus.battery_levelShow = true
+              this.dataBandFitness.batterystatus.last_time_full = resData.data[dataVal].data.last_time_full
+              this.dataBandFitness.batterystatus.last_time_charged = resData.data[dataVal].data.last_time_charged
+              this.dataBandFitness.batterystatus.charge_cycles = resData.data[dataVal].data.charge_cycles
+              this.dataBandFitness.batterystatus.status = resData.data[dataVal].data.status
               break;
-            case "heartrateEnd":
-              this.dataBandFitness = {
-                panelPrincipal: false,
-                panelResults: true,
-                heartrateavg: Math.round(dataVal.measure)
-              }
+            case "heartrate":
+              this.dataBandFitness.panelPrincipal = false
+              this.dataBandFitness.panelResults = true
+              this.dataBandFitness.heartrate.heartrateavg = Math.round(resData.data[dataVal].value)
+              this.dataBandFitness.heartrate.heartrateavgName = resData.data[dataVal].measure
+              this.dataBandFitness.heartrate.heartrateavgShow = true
               this.execProcess = false
               break
             default:
               break;
           }
         }
-        this.bandfitnessClass.push('ajustinfo')
       } else {
         this.$notifications.notify({
           message: '<h4>' + data.data + '</h4>',
@@ -830,8 +853,12 @@ export default {
           panelPrincipal: true,
           panelResults: false,
           panelGraph: false,
-          heartrate: [],
-          heartrateavg: 0,
+          heartrate: {
+            heartrateArr: [],
+            heartrateavg: 0,
+            heartrateavgName: '',
+            heartrateavgShow: false
+          },
           steps: {
             steps: 0,
             stepsName: '',
@@ -871,78 +898,17 @@ export default {
      * TODO: Recebe do socket toda a informação referente a balança
      */
     bleExecFimScale: function(data) {
-      let resData = data.data
+      let resData = data
       if (resData.status === true) {
-        for (let dataVal in resData.data) {
-          switch (dataVal.tag) {
-            case "weight":
-              this.dataBodyScale = {
-                panelPrincipal: false,
-                panelResults: true,
-                weight: dataVal.value,
-                weightName: dataVal.measure,
-                weightShow: true
-              }
-              break;
-            case "bodyfat":
-              this.dataBodyScale = {
-                panelPrincipal: false,
-                panelResults: true,
-                bodyfat: dataVal.value,
-                bodyfatName: dataVal.measure,
-                bodyfatShow: true
-              }
-              break;
-            case "bonemass":
-              this.dataBodyScale = {
-                panelPrincipal: false,
-                panelResults: true,
-                bonemass: dataVal.value,
-                bonemassName: dataVal.measure,
-                bonemassShow: true
-              }
-              break;
-            case "musclemass":
-              this.dataBodyScale = {
-                panelPrincipal: false,
-                panelResults: true,
-                musclemass: dataVal.value,
-                musclemassName: dataVal.measure,
-                musclemassShow: true
-              }
-              break;
-            case "visceralfat":
-              this.dataBodyScale = {
-                panelPrincipal: false,
-                panelResults: true,
-                visceralfat: dataVal.value,
-                visceralfatName: dataVal.measure,
-                visceralfatShow: true
-              }
-              break;
-            case "water":
-              this.dataBodyScale = {
-                panelPrincipal: false,
-                panelResults: true,
-                water: dataVal.value,
-                waterName: dataVal.measure,
-                waterShow: true
-              }
-              break;
-            case "calories":
-              this.dataBodyScale = {
-                panelPrincipal: false,
-                panelResults: true,
-                calories: dataVal.value,
-                caloriesName: dataVal.measure,
-                caloriesShow: true
-              }
-              break;
-            default:
-              break;
-          }
+        if (resData.data.length > 0) {
+          this.dataBodyScale.panelPrincipal = false
+          this.dataBodyScale.panelResults = true
         }
-        this.bodyscaleClass.push('ajustinfo')
+        for (let dataVal in resData.data) {
+          this.dataBodyScale[resData.data[dataVal].tag] = resData.data[dataVal].value
+          this.dataBodyScale[resData.data[dataVal].tag + 'Name'] = resData.data[dataVal].measure
+          this.dataBodyScale[resData.data[dataVal].tag + 'Show'] = true
+        }
       } else {
         this.$notifications.notify({
           message: '<h4>' + data.data + '</h4>',
@@ -983,36 +949,30 @@ export default {
      * TODO: Recebe do socket toda a informação referente ao pulsiometro
      */
     bleExecFimPulse: function(data) {
-      // console.log('Pulse', data)
-      let resData = data.data
+      let resData = data
       if (resData.status === true) {
         for (let dataVal in resData.data) {
-          switch (dataVal.tag) {
+          switch (resData.data[dataVal].tag) {
             case "spo2":
-              this.databodypulse = {
-                panelPrincipal: false,
-                panelResults: true,
-                spoVal: dataVal.value,
-                spoValName: dataVal.measure,
-                spoValShow: true
-              }
+              this.databodypulse.panelPrincipal = false
+              this.databodypulse.panelResults = true
+              this.databodypulse.spoVal = resData.data[dataVal].value
+              this.databodypulse.spoValName = resData.data[dataVal].measure
+              this.databodypulse.spoValShow = true
               break;
             case "pulse":
-              this.databodypulse = {
-                panelPrincipal: false,
-                panelResults: true,
-                pulseVal: dataVal.value,
-                pulseValName: dataVal.measure,
-                pulseValShow: true
-              }
+              this.databodypulse.panelPrincipal = false
+              this.databodypulse.panelResults = true
+              this.databodypulse.pulseVal = resData.data[dataVal].value
+              this.databodypulse.pulseValName = resData.data[dataVal].measure
+              this.databodypulse.pulseValShow = true
               break;
             default:
               break;
           }
         }
-        this.bodypulseClass.push('ajustinfo')
       } else {
-        // console.log('Receive error', data)
+        console.log('Receive error', data)
         this.$notifications.notify({
           message: '<h4>' + data.data + '</h4>',
           icon: 'ti-bell',
@@ -1034,46 +994,31 @@ export default {
       this.execProcess = false
     },
     /**
-     * TODO: Recebe do socket a informação da bateria
-    bleMsgBattery: function(data) {
-      if (data.satus === true) {
-        this.databodytemperature.battery = data.data
-      } else {
-        this.databodytemperature.battery = 0
-      }
-    }, */
-    /**
      * TODO: Recebe do socket a informação da temperatura corporal
      */
     bleExecFimTemp: function(data) {
-      let resData = data.data
+      let resData = data
       if (resData.status === true) {
         for (let dataVal in resData.data) {
-          switch (dataVal.tag) {
+          switch (resData.data[dataVal].tag) {
             case "batteryInfo":
-              this.databodytemperature = {
-                panelPrincipal: false,
-                panelResults: true,
-                battery: dataVal.data,
-                batteryName: dataVal.measure,
-                batteryShow: true
-              }
+              this.databodytemperature.panelPrincipal = false
+              this.databodytemperature.panelResults = true
+              this.databodytemperature.battery = resData.data[dataVal].data
+              this.databodytemperature.batteryName = resData.data[dataVal].measure
+              this.databodytemperature.batteryShow = true
               break;
             case "bodytemp":
-              this.tempCorp = data.data
-              this.databodytemperature = {
-                panelPrincipal: false,
-                panelResults: true,
-                tempCorp: dataVal.value,
-                tempCorpName: dataVal.measure,
-                tempCorpShow: true
-              }
+              this.databodytemperature.panelPrincipal = false
+              this.databodytemperature.panelResults = true
+              this.databodytemperature.tempCorp = resData.data[dataVal].value
+              this.databodytemperature.tempCorpName = resData.data[dataVal].measure
+              this.databodytemperature.tempCorpShow = true
               this.execProcess = false
               break;
             default:
               break;
           }
-          this.bodytemperatureClass.push('ajustinfo')
         }
       } else {
         // console.log('Receive error', data)
@@ -1096,51 +1041,45 @@ export default {
         }
         this.databodytemperature.battery = 0
         this.tempCorp = 0
+        this.execProcess = false
       }
     },
     /**
      * TODO: Recebe do socket os dados finais da medição
      */
     bleExecFimPress: function(data) {
-      let resData = data.data
+      let resData = data
       if (resData.status === true) {
         for (let dataVal in resData.data) {
-          switch (dataVal.tag) {
+          switch (resData.data[dataVal].tag) {
             case "systolic":
-              this.dataPressArt = {
-                panelPrincipal: false,
-                panelResults: true,
-                val: 0,
-                pressmax: dataVal.value,
-                pressmaxName: dataVal.measure,
-                pressmaxShow: true
-              }
+              this.dataPressArt.panelPrincipal = false
+              this.dataPressArt.panelResults = true
+              this.dataPressArt.val = 0
+              this.dataPressArt.pressmax = resData.data[dataVal].value
+              this.dataPressArt.pressmaxName = resData.data[dataVal].measure
+              this.dataPressArt.pressmaxShow = true
               break;
             case "diastolic":
-              this.dataPressArt = {
-                panelPrincipal: false,
-                panelResults: true,
-                val: 0,
-                pressmin: dataVal.value,
-                pressminName: dataVal.measure,
-                pressminShow: true
-              }
+              this.dataPressArt.panelPrincipal = false
+              this.dataPressArt.panelResults = true
+              this.dataPressArt.val = 0
+              this.dataPressArt.pressmin = resData.data[dataVal].value
+              this.dataPressArt.pressminName = resData.data[dataVal].measure
+              this.dataPressArt.pressminShow = true
               break;
             case "pulse":
-              this.dataPressArt = {
-                panelPrincipal: false,
-                panelResults: true,
-                val: 0,
-                pulso: dataVal.value,
-                pulsoName: dataVal.measure,
-                pulsoShow: true
-              }
+              this.dataPressArt.panelPrincipal = false
+              this.dataPressArt.panelResults = true
+              this.dataPressArt.val = 0
+              this.dataPressArt.pulso = resData.data[dataVal].value
+              this.dataPressArt.pulsoName = resData.data[dataVal].measure
+              this.dataPressArt.pulsoShow = true
               break;
             default:
               break;
           }
         }
-        this.bloodpressureClass.push('ajustinfo')
       } else {
         // console.log('Receive error', data)
         this.$notifications.notify({
@@ -1173,7 +1112,7 @@ export default {
      */
     bleMsg: function(data) {
       // console.log('BleMsg', data)
-      if (data.satus === true) {
+      if (data.status === true) {
         this.$notifications.notify({
           message: '<h4>' + data.data + '</h4>',
           icon: 'ti-info',
@@ -1197,7 +1136,8 @@ export default {
      * TODO: Recebe do socket os dasos da execução do processode medição da pressão arterial
      */
     bleExec: function(data) {
-      if (data.satus === true) {
+      // console.log('bleExec', data)
+      if (data.status === true) {
         var val = data.data
         // console.log('bleExec', data, val.replace(/\D/g, ''))
         if (val.length < 5) {
@@ -1352,12 +1292,6 @@ export default {
      * TODO: Limpa todas as variaveis que contenham valores que são apresentados na pagina
      */
     resetValues() {
-      this.bodytemperatureClass = []
-      this.bodypulseClass = []
-      this.bandfitnessClass = []
-      this.bloodpressureClass = []
-      this.bodyscaleClass = []
-      this.bloodglucoseClass = []
       this.dataBodyScale = {
         panelPrincipal: true,
         panelResults: false,
@@ -1399,8 +1333,14 @@ export default {
         pressminShow: false
       }
       this.dataBandFitness = {
-        heartrate: [],
-        heartrateavg: 0,
+        panelPrincipal: true,
+        panelResults: false,
+        heartrate: {
+          heartrateArr: [],
+          heartrateavg: 0,
+          heartrateavgName: '',
+          heartrateavgShow: false
+        },
         steps: {
           steps: 0,
           stepsName: '',
@@ -1613,7 +1553,7 @@ export default {
 }
 </script>
 <style>
-.ajustinfo {
+.blink-results .results-val .card {
   border-radius: 20px;
   border-width: 4px;
   border-style: solid;
@@ -1622,8 +1562,17 @@ export default {
   animation: blinker 3s linear infinite;
 }
 
-.ajustinfo div, .ajustinfo div p, .ajustinfo p {
+.results-val div, .results-val div p, .results-val p {
   background-color: transparent;
+}
+
+.results-val .numbers p {
+  font-size: 0.7em;
+  white-space: pre-line;
+}
+
+.results-val .numbers {
+  padding-right: 10px;
 }
 
 @keyframes blinker {

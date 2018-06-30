@@ -348,27 +348,6 @@ export default {
 }
 </script>
 <style>
-.ajustinfo {
-  border-radius: 20px;
-  border-width: 4px;
-  border-style: solid;
-  border-color: #f7931d;
-  background-color: white;
-  animation: blinker 3s linear infinite;
-}
-
-.ajustinfo div, .ajustinfo div p, .ajustinfo p {
-  background-color: transparent;
-}
-
-@keyframes blinker {
-  0% {
-    background-color: white;
-  }
-  50% {
-    background-color: #f05a28;
-  }
-}
 .clear-margin {
   margin: 0 !important;
 }

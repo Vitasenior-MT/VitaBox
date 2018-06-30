@@ -1,5 +1,5 @@
 <template>
-  <canvas height="80px"></canvas>
+  <canvas height="40px"></canvas>
 </template>
 <script>
 import Chart from 'chart.js'
@@ -39,7 +39,7 @@ export default {
           min: 0,
           max: 150,
           legend: {
-            position: 'top',
+            position: 'right',
             display: true,
             labels: {
               fontSize: 18,
