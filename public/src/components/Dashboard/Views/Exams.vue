@@ -35,30 +35,30 @@
           <div class="col-md-12">
             <div class="card">
               <div class="content">
-                <h4 class="title">{{ $t('diagnosis.user.title') }}</h4>
+                <h4 class="title">{{ $t('diagnosis.user.bloodpressure.title') }}</h4>
                 <hr>
                 <ol>
                   <h4>
                     <div class="row">
                       <div class="col-md-10 text-justify text-div-wrap">
-                        <li>Coloque a bracelete no braço.</li>
-                        <li>Ajuste a bracelete conforme mostrado na imagem (Fig.1).</li>
-                        <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                        <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar e iniciar o processo (Fig.2).</li>
-                        <li>A luz indicadora de equipamento ligado pisca.</li>
-                        <li>Após o equpamento ser detectado a luz deixa de piscar ficando sempre ligada.</li>
-                        <li>Aguarde até o processo terminar.</li>
-                        <li>Após todos os dados aparecerem na televisão o equipamento desliga-se automaticamente.</li>
+                        <li>{{ $t('diagnosis.user.bloodpressure.0') }}</li>
+                        <li>{{ $t('diagnosis.user.bloodpressure.1') }}</li>
+                        <li>{{ $t('diagnosis.user.bloodpressure.2.0') }} <i class="ti-new-window"></i> {{ $t('diagnosis.user.bloodpressure.2.1') }}</li>
+                        <li>{{ $t('diagnosis.user.bloodpressure.3.0') }} <b class="ti-power-off"></b> {{ $t('diagnosis.user.bloodpressure.3.1') }}</li>
+                        <li>{{ $t('diagnosis.user.bloodpressure.4') }}</li>
+                        <li>{{ $t('diagnosis.user.bloodpressure.5') }}</li>
+                        <li>{{ $t('diagnosis.user.bloodpressure.6') }}</li>
+                        <li>{{ $t('diagnosis.user.bloodpressure.7') }}</li>
                       </div>
                       <div class="col-md-2">
                         <figure>
                           <img src='static/img/bloodpressure.png' alt="" class="img-fit">
-                          <figcaption>Fig.1</figcaption>
+                          <figcaption>{{ $t('diagnosis.user.bloodpressure.fig.0') }}</figcaption>
                         </figure>
                         <div class="row"><div class="col-md-12">&nbsp;</div></div>
                         <figure>
                           <img src='static/img/bloodpressure.gif' alt="" class="img-fit">
-                          <figcaption>Fig.2</figcaption>
+                          <figcaption>{{ $t('diagnosis.user.bloodpressure.fig.1') }}</figcaption>
                         </figure>
                       </div>
                     </div>
@@ -70,7 +70,7 @@
         </div>
         <div class="row" v-show="dataPressArt.panelResults">
           <div class="col-md-12">
-            <h5>Resultados</h5>
+            <h5>{{ $t('dictionary.results') }}</h5>
           </div>
           <div class="col-md-12 blink-results">
             <div class="col-md-6 results-val" v-show="dataPressArt.pressmaxShow">
@@ -111,7 +111,7 @@
             </div>
           </div>
           <div class="col-md-12">
-            <h5>Pressione em [OK] para executar novamente.</h5>
+            <h5>{{ $t('dictionary.press_ok') }}</h5>
           </div>
         </div>
       </div>
@@ -122,18 +122,18 @@
           <div class="col-md-12">
             <div class="card">
               <div class="content">
-                <h4 class="title">{{ $t('diagnosis.user.title') }}</h4>
+                <h4 class="title">{{ $t('diagnosis.user.bodyscale.title') }}</h4>
                 <hr>
                 <ol>
                   <h4>
                     <div class="row">
                       <div class="col-md-10 text-justify text-div-wrap">
-                        <li>Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição.</li>
-                        <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                        <li>Descalce-se e suba para a balança.</li>
-                        <li>O equipamento liga-se automaticamente.</li>
-                        <li>Quando o valor obtido estabilizar o mesmo irá piscar.</li>
-                        <li>Após a correta recolha dos dados o equipamento desliga-se automaticamente.</li>
+                        <li>{{ $t('diagnosis.user.bodyscale.0') }}</li>
+                        <li>{{ $t('diagnosis.user.bodyscale.1.0') }} <i class="ti-new-window"></i> {{ $t('diagnosis.user.bodyscale.1.1') }}</li>
+                        <li>{{ $t('diagnosis.user.bodyscale.2') }}</li>
+                        <li>{{ $t('diagnosis.user.bodyscale.3') }}</li>
+                        <li>{{ $t('diagnosis.user.bodyscale.4') }}</li>
+                        <li>{{ $t('diagnosis.user.bodyscale.5') }}</li>
                       </div>
                       <div class="col-md-2">
                         <div class="row"><div class="col-md-12">&nbsp;</div></div>
@@ -148,7 +148,7 @@
         </div>
         <div class="row" v-show="dataBodyScale.panelResults">
           <div class="col-md-12">
-            <h5>Resultados</h5>
+            <h5>{{ $t('dictionary.results') }}</h5>
           </div>
           <div class="col-md-12 blink-results">
             <div class="col-md-6 results-val" v-show="dataBodyScale.weightShow">
@@ -237,7 +237,7 @@
             </div>
           </div>
           <div class="col-md-12">
-            <h5>Pressione em [OK] para executar novamente.</h5>
+            <h5>{{ $t('dictionary.press_ok') }}</h5>
           </div>
         </div>
       </div>
@@ -248,32 +248,32 @@
           <div class="col-md-12">
             <div class="card">
               <div class="content">
-                <h4 class="title">Modo de Utilização</h4>
+                <h4 class="title">{{ $t('diagnosis.user.bodytemperature.title') }}</h4>
                 <hr>
                 <ol>
                   <h4>
                     <div class="row">
                       <div class="col-md-10 text-justify text-div-wrap">
-                        <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                        <li>Coloque o equipamento de acordo com a imagem ao lado (Fig.1).</li>
-                        <li>Pressione no botão até que o equipamento ligue (Fig.2).</li>
-                        <li>Quando o equipamento estiver ligado uma luz indicadora pisca.</li>
-                        <li>Após a deteção do equipamento a luz indicadora apaga-se.</li>
-                        <li>Aguarde até que todos os valores apareçam na televisão.</li>
-                        <li>Após a conclusão do processo a luz indicadora volta a piscar.</li>
-                        <li>Pode retirar o equipamento e desligá-lo.</li>
-                        <li>Pressione novamente no botão <b class="ti-power-off"></b> até que o equipamento se deslique (Fig.2).</li>
-                        <li>É importante que o equipamento seja desligado de forma a economizar a bateria.</li>
+                        <li>{{ $t('diagnosis.user.bodytemperature.0.0') }} <i class="ti-new-window"></i> {{ $t('diagnosis.user.bodytemperature.0.1') }}</li>
+                        <li>{{ $t('diagnosis.user.bodytemperature.1') }}</li>
+                        <li>{{ $t('diagnosis.user.bodytemperature.2') }}</li>
+                        <li>{{ $t('diagnosis.user.bodytemperature.3') }}</li>
+                        <li>{{ $t('diagnosis.user.bodytemperature.4') }}</li>
+                        <li>{{ $t('diagnosis.user.bodytemperature.5') }}</li>
+                        <li>{{ $t('diagnosis.user.bodytemperature.6') }}</li>
+                        <li>{{ $t('diagnosis.user.bodytemperature.7') }}</li>
+                        <li>{{ $t('diagnosis.user.bodytemperature.8.0') }} <b class="ti-power-off"></b> {{ $t('diagnosis.user.bodytemperature.8.1') }}</li>
+                        <li>{{ $t('diagnosis.user.bodytemperature.9') }}</li>
                       </div>
                       <div class="col-md-2">
                         <figure>
                           <img src='static/img/bodytemp.png' alt="" class="img-fit">
-                          <figcaption>Fig.1</figcaption>
+                          <figcaption>{{ $t('diagnosis.user.bodytemperature.fig.0') }}</figcaption>
                         </figure>
                         <div class="row"><div class="col-md-12">&nbsp;</div></div>
                         <figure>
                           <img src='static/img/bodytemp.gif' alt="" class="img-fit">
-                          <figcaption>Fig.2</figcaption>
+                          <figcaption>{{ $t('diagnosis.user.bodytemperature.fig.1') }}</figcaption>
                         </figure>
                       </div>
                     </div>
@@ -285,7 +285,7 @@
         </div>
         <div class="row" v-show="databodytemperature.panelResults">
           <div class="col-md-12">
-            <h5>Resultados</h5>
+            <h5>{{ $t('dictionary.results') }}</h5>
           </div>
           <div class="col-md-12 blink-results">
             <div class="col-md-6 results-val" v-show="databodytemperature.batteryShow">
@@ -318,7 +318,7 @@
             </div>
           </div>
           <div class="col-md-12">
-            <h5>Pressione em [OK] para executar novamente.</h5>
+            <h5>{{ $t('dictionary.press_ok') }}</h5>
           </div>
         </div>
       </div>
@@ -329,28 +329,28 @@
           <div class="col-md-12">
             <div class="card">
               <div class="content">
-                <h4 class="title">Modo de Utilização</h4>
+                <h4 class="title">{{ $t('diagnosis.user.bodypulse.title') }}</h4>
                 <hr>
                 <ol>
                   <h4>
                     <div class="row">
                       <div class="col-md-10 text-justify text-div-wrap">
-                        <li>No comando pressione em <i class="ti-new-window"></i> para iniciar.</li>
-                        <li>Coloque o equipamento no dedo conforme apresentado na imagem (Fig.1).</li>
-                        <li>Pressione no botão <b class="ti-power-off"></b> do equipamento para ligar (Fig.2).</li>
-                        <li>Aguarde até que todos os valores apareçam na televisão.</li>
-                        <li>Quando todos os valores aparecerem, o processo encontra-se concluido.</li>
-                        <li>Pode retirar o equipamento do dedo e o mesmo desliga-se automaticamente.</li>
+                        <li>{{ $t('diagnosis.user.bodypulse.0.0') }} <i class="ti-new-window"></i> {{ $t('diagnosis.user.bodypulse.0.1') }}</li>
+                        <li>{{ $t('diagnosis.user.bodypulse.1') }}</li>
+                        <li>{{ $t('diagnosis.user.bodypulse.2.0') }} <b class="ti-power-off"></b> {{ $t('diagnosis.user.bodypulse.2.1') }}</li>
+                        <li>{{ $t('diagnosis.user.bodypulse.3') }}</li>
+                        <li>{{ $t('diagnosis.user.bodypulse.4') }}</li>
+                        <li>{{ $t('diagnosis.user.bodypulse.5') }}</li>
                       </div>
                       <div class="col-md-2">
                         <figure>
                           <img src='static/img/pulse.png' alt="" class="img-fit">
-                          <figcaption>Fig.1</figcaption>
+                          <figcaption>{{ $t('diagnosis.user.bodypulse.fig.0') }}</figcaption>
                         </figure>
                         <div class="row"><div class="col-md-12">&nbsp;</div></div>
                         <figure>
                           <img src='static/img/pulse.gif' alt="" class="img-fit">
-                          <figcaption>Fig.2</figcaption>
+                          <figcaption>{{ $t('diagnosis.user.bodypulse.fig.1') }}</figcaption>
                         </figure>
                       </div>
                     </div>
@@ -362,7 +362,7 @@
         </div>
         <div class="row" v-show="databodypulse.panelResults">
           <div class="col-md-12">
-            <h5>Resultados</h5>
+            <h5>{{ $t('dictionary.results') }}</h5>
           </div>
           <div class="col-md-12 blink-results">
             <div class="col-md-6 results-val" v-show="databodypulse.spoValShow">
@@ -391,7 +391,7 @@
             </div>
           </div>
           <div class="col-md-12">
-            <h5>Pressione em [OK] para executar novamente.</h5>
+            <h5>{{ $t('dictionary.press_ok') }}</h5>
           </div>
         </div>
       </div>
@@ -402,10 +402,10 @@
           <div class="col-md-12">
             <div class="card">
               <div class="content">
-                <h4 class="title">Modo de Utilização</h4><hr>
+                <h4 class="title">{{ $t('diagnosis.user.bandfitness.title') }}</h4><hr>
                 <ul>
                   <h4>
-                    <li class="text-justify text-div-wrap">Assegure-se de que possui a banda corretamente colocada no pulso.</li>
+                    <li class="text-justify text-div-wrap">{{ $t('diagnosis.user.bandfitness.0') }}</li>
                   </h4>
                 </ul>
               </div>
@@ -414,7 +414,7 @@
         </div>
         <div class="row" v-show="dataBandFitness.panelResults">
           <div class="col-md-12">
-            <h5>Resultados</h5>
+            <h5>{{ $t('dictionary.results') }}</h5>
           </div>
           <din class="col-md-12 blink-results">
             <div class="col-md-4 results-val" v-show="dataBandFitness.batterystatus.battery_levelShow">
@@ -493,7 +493,7 @@
             </div>
           </din>
           <div class="col-md-12">
-            <h5>Pressione em [OK] para executar novamente.</h5>
+            <h5>{{ $t('dictionary.press_ok') }}</h5>
           </div>
         </div>
         <div class="row" v-show="dataBandFitness.panelGraph">
@@ -532,7 +532,7 @@
         </div>
         <div class="row" v-show="databloodglucose.panelResults">
           <div class="col-md-12">
-            <h5>Resultados</h5>
+            <h5>{{ $t('dictionary.results') }}</h5>
           </div>
           <div class="col-md-12 blink-results">
             <div class="col-md-6 results-val" v-show="databloodglucose.batteryShow">
@@ -565,7 +565,7 @@
             </div>
           </div>
           <div class="col-md-12">
-            <h5>Pressione em [OK] para executar novamente.</h5>
+            <h5>{{ $t('dictionary.press_ok') }}</h5>
           </div>
         </div>
       </div>
@@ -583,13 +583,13 @@
         <h4 class="text-center">
           <img src='static/img/load4_B.gif' alt=''>
         </h4>
-        <h1 class="text-center">Aguarde</h1>
+        <h1 class="text-center">{{ $t('dictionary.waiting') }}</h1>
       </div>
       <div v-show="examEvent != 'bloodpressure'" id="loader">
         <h4 class="text-center">
           <img src='static/img/load3_B.gif' alt=''>
         </h4>
-        <h1 class="text-center">Aguarde</h1>
+        <h1 class="text-center">{{ $t('dictionary.waiting') }}</h1>
       </div>
     </div>
   </div>
@@ -609,6 +609,7 @@ export default {
   },
   data() {
     return {
+      flg_once: false,
       msgUser: 'diagnosis.msgUser',
       msgExit: 'diagnosis.msgExit',
       classEvent: 'control-remote-patient',
@@ -1219,6 +1220,20 @@ export default {
     }
   },
   methods: {
+    audioPlayer(dataset) {
+      let i = 0
+      let text = ''
+      while (true) {
+        if (this.$t('diagnosis.user.' + dataset + '.audioDescription.' + i) === 'diagnosis.user.' + dataset + '.audioDescription.' + i) {
+          text.substring(0, text.length - 1);
+          break;
+        } else {
+          text += this.$t('diagnosis.user.' + dataset + '.audioDescription.' + i) + ' '
+        }
+        i++
+      }
+      this.$socket.emit('ttsText', text)
+    },
     bleGetListExam(btnPatient) {
       this.patientId = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.id
       this.posPatientSelected = EventBus.currentActiveRightComp
@@ -1473,6 +1488,17 @@ export default {
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
+              if(EventBus.currentActiveRightComp === 0 && !self.flg_once){
+                self.flg_once = true
+                // self.audioPlayer(self.examEvent)
+                setTimeout(() => {
+                  let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
+                  console.log('datas:');
+                  console.log(datas);
+                  console.log('datas:');
+                  self.audioPlayer(datas)
+                }, 300);
+              }
               if (!self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
               }
@@ -1492,6 +1518,7 @@ export default {
                 let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
                 elem.focus()
                 elem.classList.add('btn-fill')
+                self.flg_once = false
               } else {
                 // remove o preenchimento
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
@@ -1524,6 +1551,7 @@ export default {
               if (self.posPatientSelected >= 0) {
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
                 self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
+                self.audioPlayer(self.examEvent)
               } else {
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
@@ -1569,6 +1597,7 @@ export default {
               if (self.posPatientSelected >= 0) {
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
                 self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
+                self.audioPlayer(self.examEvent)
               }
               break
             default:

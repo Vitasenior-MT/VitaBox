@@ -139,11 +139,9 @@ export const EventBus = new Vue({
       }
       // verifica se estou na posição '0' e se foi carregado para a esquerda
       // se sim é para sair desta view e ativar a sidebar
-      if (this.currentActiveRightComp <= -1 && cmd === -1) {
+      if (this.currentActiveRightComp <= -1) {
         this.firstRightEvent = true
-        this.currentActiveRightComp = 0
-        console.log('if', cmd, this.currentActiveRightComp)
-        return
+        this.currentActiveRightComp = this.elementControl.length - 1
       }
       // ativa o novo elemento adiconando a class que simboliza o elemento activo
       let elem = this.elementControl[this.currentActiveRightComp]

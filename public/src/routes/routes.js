@@ -7,7 +7,6 @@ import Exams from 'src/components/Dashboard/Views/Exams.vue'
 import ExamsHist from 'src/components/Dashboard/Views/ExamsHist.vue'
 import AmbientHist from 'src/components/Dashboard/Views/HistAmbi.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
-import Warnings2 from 'src/components/Dashboard/Views/Warnings2.vue'
 import ShowData from 'src/components/Dashboard/Views/ShowData.vue'
 
 const routes = [
@@ -36,10 +35,6 @@ const routes = [
         path: 'warnings',
         name: 'warnings',
         component: Warnings
-      }, {
-        path: 'warnings2',
-        name: 'warnings2',
-        component: Warnings2
       }, {
         path: 'showData',
         name: 'showData',

@@ -63,6 +63,7 @@ export default {
   },
   data() {
     return {
+      flg_once: false,
       msgSensor: 'histambi.msgSensor',
       msgExit: 'histambi.msgExit',
       classEvent: 'control-remote-sensors',
@@ -82,6 +83,24 @@ export default {
   },
   sockets: {},
   methods: {
+    move(side) {
+      EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
+      if (this.posSensorSelected >= 0) {
+        document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
+      } else {
+        document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
+      }
+      EventBus.moveLeftRightInView(side)
+      this.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+      if (this.posSensorSelected >= 0) {
+      } else {
+        this.$refs.DefaultView.setMsg(this.msgSensor)
+        this.$refs.DefaultView.show()
+      }
+    },
+    audioPlayer(dataset) {
+      this.$socket.emit('ttsText', this.$t('histambi.info.' + dataset.type))
+    },
     hideShowLocationLine() {
       this.hideShowItem = -1
       setTimeout(() => {
@@ -204,17 +223,28 @@ export default {
        * TODO: Monitorização dos eventos do controlo remoto
        */
       EventBus.$on('move-components', function(cmd) {
+        console.log('self.$refs.loading.getLoadingState()')
+        console.log(self.$refs.loading.getLoadingState())
         if (!self.$refs.loading.getLoadingState()) {
           EventBus.elementControl = document.getElementsByClassName(self.classEvent)
           if (EventBus.elementControl.length === 0) {
             EventBus.setSidebar()
           }
+          console.log('cmd')
+          console.log(cmd)
           switch (cmd) {
             // evento do 'OK'
             case 'ok_btn':
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
+              if(EventBus.currentActiveRightComp === 0 && !self.flg_once){
+                self.flg_once = true
+                setTimeout(() => {
+                  let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
+                  self.audioPlayer(datas)
+                }, 300);
+              }
               if (self.posSensorSelected < 0) {
                 document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgExam)
@@ -226,6 +256,8 @@ export default {
               // iniicializa a variavel para selecionar a lsta do user
               self.classEvent = 'control-remote-sensors'
               // se existir um user selecionado é porque se está na lista dos equipamentos
+              console.log('self.posSensorSelected')
+              console.log(self.posSensorSelected)
               if (self.posSensorSelected >= 0) {
                 // Constroi a lista com os elementos da class dos users
                 EventBus.elementControl = document.getElementsByClassName(self.classEvent)
@@ -236,6 +268,7 @@ export default {
                 let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
                 elem.focus()
                 elem.classList.add('btn-fill')
+                self.flg_once = false
               } else {
                 // remove o preenchimento
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
@@ -255,58 +288,10 @@ export default {
               console.log('if exit', cmd, EventBus.currentActiveRightComp)
               break
             case 'right': // tecla para a direita
-              EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-              if (self.posSensorSelected >= 0) {
-                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
-              } else {
-                document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
-              }
-              EventBus.moveLeftRightInView(1)
-              if (self.posSensorSelected >= 0) {
-              } else {
-                self.$refs.DefaultView.setMsg(self.msgSensor)
-                self.$refs.DefaultView.show()
-              }
+              self.move(1)
               break
             case 'left': // tecla para a esquerda
-              EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-              if (EventBus.currentActiveRightComp === 0 && cmd === 'left') {
-                // estamos na lista dos exames
-                if (self.posSensorSelected >= 0) {
-                  // iniicializa a variavel para selecionar a lsta do user
-                  self.classEvent = 'control-remote-sensors'
-                  // Constroi a lista com os elementos da class dos users
-                  EventBus.elementControl = document.getElementsByClassName(self.classEvent)
-                  // Atualiza para elemento anteriormente ativo
-                  EventBus.currentActiveRightComp = self.posSensorSelected
-                  // limpa a variavel para saber que se voltar a carregar
-                  self.posSensorSelected = -1
-                  // desloca a div para o inicio
-                  if (self.posSensorSelected >= 0) {
-                    document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
-                  } else {
-                    document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
-                    self.$refs.DefaultView.setMsg(self.msgSensor)
-                    self.$refs.DefaultView.show()
-                  }
-                  // limpa a lisa dos botões disponiveis para o user
-                  self.btnLocation = []
-                  self.resetValues()
-
-                  // estamos na lista dos users
-                } else {
-                  EventBus.moveLeftRightInView(-1)
-                  self.$refs.DefaultView.setMsg(self.msgExit)
-                  self.$refs.DefaultView.show()
-                }
-              } else {
-                EventBus.moveLeftRightInView(-1)
-                if (self.posSensorSelected >= 0) {
-                } else {
-                  self.$refs.DefaultView.setMsg(self.msgSensor)
-                  self.$refs.DefaultView.show()
-                }
-              }
+              self.move(-1)
               break
             default:
               break

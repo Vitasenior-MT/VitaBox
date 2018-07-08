@@ -2,19 +2,24 @@
   <div class="row">
     <div class='col-sm-12 container-data-sensors'>
       <div class='col-sm-4' v-for='warningCard in warningCards' :key='warningCard.id'>
-        <warning-card :data='warningCard'></warning-card>
+        <card-warning :key="warningCard.id" :warningCard="warningCard"
+        :data-avg="warningCard.avg"
+        :data-sensortype="warningCard.measure + ' (' + warningCard.unit + ')'"
+        :data-reading="warningCard.to_read"
+        :data-threshold="warningCard.threshold_max_possible"
+        :data-location="warningCard.location"></card-warning>
       </div>
     </div>
     <default-form ref="DefaultView"></default-form>
   </div>
 </template>
 <script>
-import WarningCard from 'components/UIComponents/Cards/WarningCard.vue'
+import CardWarning from 'components/UIComponents/Cards/ShowDataCard.vue'
 import { EventBus } from '../../../event-bus.js'
 import DefaultForm from 'components/UIComponents/Forms/defaultform.vue'
 export default {
   components: {
-    WarningCard,
+    CardWarning,
     DefaultForm
   },
   sockets: {
@@ -41,6 +46,21 @@ export default {
     }
   },
   methods: {
+    audioPlayer(dataset) {
+      // let i = 0
+      // let text = ''
+      /* while (true) {
+        if (self.$t('diagnosis.user.' + self.examEvent + '.audioDescription.' + i) === 'diagnosis.user.' + self.examEvent + '.audioDescription.' + i) {
+          text.substring(0, text.length - 1);
+          break;
+        } else {
+          text += self.$t('diagnosis.user.' + self.examEvent + '.audioDescription.' + i) + ' '
+        }
+        i++
+      } */
+      console.log(dataset)
+      this.$socket.emit('ttsText', this.$t('showdata.info', {sensortype: dataset.reading, location: dataset.location, avg: dataset.avg}))
+    },
     dateFormat(data) {
       let date = new Date(data)
       return (
@@ -61,33 +81,33 @@ export default {
     },
     updateSensor(data) {
       if (this.warningCards.length > 0) {
-        for (var index in this.warningCards) {
-          if (data.location === this.warningCards[index].headerText) {
-            if (data.warning_type === this.warningCards[index].sensor) {
-              this.warningCards[index].avg = data.avg.toFixed()
-              this.warningCards[index].avgLastUpdate = data.avgLastUpdate
-              this.warningCards[index].threshold = data.threshold_max_possible
-              this.warningCards[index].footerText = this.dateFormat(data.avgLastUpdate)
-              this.warningCards[index].critLvl = data.critState
-              break
-            }
-          }
+        let card = EventBus.findOne(this.warningCards, data)
+        if (card) {
+          card.avg = data.avg.toFixed()
+          card.avgLastUpdate = data.avgLastUpdate
+          card.dateupdate = this.dateFormat(data.avgLastUpdate)
         }
       } else {
         this.$http
           .get('/api/sensor/allCriticalSensors')
           .then(response => {
-            for (var index in response.data.data) {
-              let data = response.data.data[index]
+            var datasensores = response.data.data
+            for (var index in datasensores) {
               this.warningCards.push({
-                headerText: data.location,
-                footerText: this.dateFormat(data.avgLastUpdate),
-                footerIcon: 'ti-reload',
-                sensor: data.sensortype,
-                avg: data.avg.toFixed(),
-                avgLastUpdate: data.avgLastUpdate,
-                threshold: data.threshold_max_possible,
-                critLvl: data.critState
+                id: datasensores[index].board_id,
+                idchart: 'chartid-' + index,
+                avg: datasensores[index].avg.toFixed(),
+                threshold_max_acceptable: datasensores[index].threshold_max_acceptable === undefined ? 100 : datasensores[index].threshold_max_acceptable,
+                threshold_max_possible: datasensores[index].threshold_max_possible === undefined ? 100 : datasensores[index].threshold_max_possible,
+                threshold_min_acceptable: datasensores[index].threshold_min_acceptable === undefined ? 100 : datasensores[index].threshold_min_acceptable,
+                threshold_min_possible: datasensores[index].threshold_min_possible === undefined ? 100 : datasensores[index].threshold_min_possible,
+                sensor: datasensores[index].sensortype,
+                location: datasensores[index].location,
+                measure: datasensores[index].measure,
+                symbol: datasensores[index].unit,
+                to_read: datasensores[index].to_read,
+                dateupdate: this.dateFormat(datasensores[index].avgLastUpdate),
+                footerIcon: 'ti-reload'
               })
             }
             this.$refs.DefaultView.hide()
@@ -153,6 +173,7 @@ export default {
               self.elem.focus()
               self.elem.classList.add('btn-fill')
               EventBus.scrollScreen(self.elem)
+              self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             } catch (e) {
               console.log('error move up', e.toStrig())
             }
@@ -175,15 +196,18 @@ export default {
               self.elem.focus()
               self.elem.classList.add('btn-fill')
               EventBus.scrollScreen(self.elem)
+              self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             } catch (e) {
               console.log('error move down', e.toStrig())
             }
             break
           case 'right': // tecla para a direita
             EventBus.moveLeftRightInView(1)
+            self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             break
           case 'left': // tecla para a esquerda
             EventBus.moveLeftRightInView(-1)
+            self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             break
           default:
             console.log("No key available")
@@ -203,17 +227,23 @@ export default {
     this.$http
         .get('/api/sensor/allCriticalSensors')
         .then(response => {
-          for (var index in response.data.data) {
-            let data = response.data.data[index]
+          var datasensores = response.data.data
+          for (var index in datasensores) {
             this.warningCards.push({
-              headerText: data.location,
-              footerText: this.dateFormat(data.avgLastUpdate),
-              footerIcon: 'ti-reload',
-              sensor: data.sensortype,
-              avg: data.avg.toFixed(),
-              avgLastUpdate: data.avgLastUpdate,
-              threshold: data.threshold_max_possible,
-              critLvl: data.critState
+              id: datasensores[index].board_id,
+              idchart: 'chartid-' + index,
+              avg: datasensores[index].avg.toFixed(),
+              threshold_max_acceptable: datasensores[index].threshold_max_acceptable === undefined ? 100 : datasensores[index].threshold_max_acceptable,
+              threshold_max_possible: datasensores[index].threshold_max_possible === undefined ? 100 : datasensores[index].threshold_max_possible,
+              threshold_min_acceptable: datasensores[index].threshold_min_acceptable === undefined ? 100 : datasensores[index].threshold_min_acceptable,
+              threshold_min_possible: datasensores[index].threshold_min_possible === undefined ? 100 : datasensores[index].threshold_min_possible,
+              sensor: datasensores[index].sensortype,
+              location: datasensores[index].location,
+              measure: datasensores[index].measure,
+              symbol: datasensores[index].unit,
+              to_read: datasensores[index].to_read,
+              dateupdate: this.dateFormat(datasensores[index].avgLastUpdate),
+              footerIcon: 'ti-reload'
             })
           }
           this.controlEventsBus()
