@@ -83,6 +83,7 @@ export default {
             // evento para sair para a sidebar
           case 'exit':
             // remove o preenchimento
+            console.log("Elem num - ", EventBus.currentActiveRightComp)
             EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
             EventBus.elementControl[EventBus.currentActiveRightComp].blur()
             // atribui para que passe a seer novamento a primenra vez que entra nesta view

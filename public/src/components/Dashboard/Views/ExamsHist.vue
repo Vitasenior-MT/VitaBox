@@ -507,6 +507,7 @@ export default {
               EventBus.endRotation()
               break
             case 'right': // tecla para a direita
+            case 'left': // tecla para a esquerda
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               if (self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
@@ -520,58 +521,9 @@ export default {
                 self.$refs.DefaultView.show()
                 self.resetValues()
               }
-              EventBus.moveLeftRightInView(1)
+              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
               if (self.posPatientSelected >= 0) {
                 // self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
-              } else {
-                self.$refs.DefaultView.setMsg(self.msgUser)
-                self.$refs.DefaultView.show()
-                self.resetValues()
-              }
-              break
-            case 'left': // tecla para a esquerda
-              EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-              if (EventBus.currentActiveRightComp === 0 && cmd === 'left') {
-                // estamos na lista dos exames
-                if (self.posPatientSelected >= 0) {
-                  // iniicializa a variavel para selecionar a lsta do user
-                  self.classEvent = 'control-remote-patient'
-                  // Constroi a lista com os elementos da class dos users
-                  EventBus.elementControl = document.getElementsByClassName(self.classEvent)
-                  // Atualiza para elemento anteriormente ativo
-                  EventBus.currentActiveRightComp = self.posPatientSelected
-                  // limpa a variavel para saber que se voltar a carregar
-                  self.posPatientSelected = -1
-                  // desloca a div para o inicio
-                  if (self.posPatientSelected >= 0) {
-                    document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
-                    self.$refs.DefaultView.setMsg(self.msgExam)
-                    self.$refs.DefaultView.show()
-                  } else {
-                    document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
-                    self.dataCharsExists = false
-                    self.$refs.DefaultView.setMsg(self.msgUser)
-                    self.$refs.DefaultView.show()
-                  }
-                  // limpa a lisa dos botões disponiveis para o user
-                  self.btnExams = []
-                  self.resetValues()
-                  // estamos na lista dos users
-                } else {
-                  EventBus.moveLeftRightInView(-1)
-                  self.$refs.DefaultView.setMsg(self.msgExit)
-                  self.$refs.DefaultView.show()
-                  self.resetValues()
-                  return
-                }
-              } else {
-                EventBus.moveLeftRightInView(-1)
-                self.$refs.DefaultView.setMsg(self.msgExam)
-                self.$refs.DefaultView.show()
-                self.resetValues()
-              }
-              if (self.posPatientSelected >= 0) {
-                self.$refs.DefaultView.show()
               } else {
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()

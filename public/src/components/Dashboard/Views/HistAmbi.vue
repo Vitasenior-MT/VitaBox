@@ -255,59 +255,21 @@ export default {
               console.log('if exit', cmd, EventBus.currentActiveRightComp)
               break
             case 'right': // tecla para a direita
+            case 'left': // tecla para a esquerda
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               if (self.posSensorSelected >= 0) {
                 document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
               } else {
                 document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
               }
-              EventBus.moveLeftRightInView(1)
+              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
               if (self.posSensorSelected >= 0) {
               } else {
                 self.$refs.DefaultView.setMsg(self.msgSensor)
                 self.$refs.DefaultView.show()
               }
               break
-            case 'left': // tecla para a esquerda
-              EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-              if (EventBus.currentActiveRightComp === 0 && cmd === 'left') {
-                // estamos na lista dos exames
-                if (self.posSensorSelected >= 0) {
-                  // iniicializa a variavel para selecionar a lsta do user
-                  self.classEvent = 'control-remote-sensors'
-                  // Constroi a lista com os elementos da class dos users
-                  EventBus.elementControl = document.getElementsByClassName(self.classEvent)
-                  // Atualiza para elemento anteriormente ativo
-                  EventBus.currentActiveRightComp = self.posSensorSelected
-                  // limpa a variavel para saber que se voltar a carregar
-                  self.posSensorSelected = -1
-                  // desloca a div para o inicio
-                  if (self.posSensorSelected >= 0) {
-                    document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
-                  } else {
-                    document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
-                    self.$refs.DefaultView.setMsg(self.msgSensor)
-                    self.$refs.DefaultView.show()
-                  }
-                  // limpa a lisa dos botões disponiveis para o user
-                  self.btnLocation = []
-                  self.resetValues()
 
-                  // estamos na lista dos users
-                } else {
-                  EventBus.moveLeftRightInView(-1)
-                  self.$refs.DefaultView.setMsg(self.msgExit)
-                  self.$refs.DefaultView.show()
-                }
-              } else {
-                EventBus.moveLeftRightInView(-1)
-                if (self.posSensorSelected >= 0) {
-                } else {
-                  self.$refs.DefaultView.setMsg(self.msgSensor)
-                  self.$refs.DefaultView.show()
-                }
-              }
-              break
             default:
               break
           }
