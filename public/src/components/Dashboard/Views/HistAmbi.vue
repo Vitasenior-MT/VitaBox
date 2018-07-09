@@ -288,11 +288,21 @@ export default {
               console.log('if exit', cmd, EventBus.currentActiveRightComp)
               break
             case 'right': // tecla para a direita
-              self.move(1)
-              break
             case 'left': // tecla para a esquerda
-              self.move(-1)
+              EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
+              if (self.posSensorSelected >= 0) {
+                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
+              } else {
+                document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
+              }
+              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
+              if (self.posSensorSelected >= 0) {
+              } else {
+                self.$refs.DefaultView.setMsg(self.msgSensor)
+                self.$refs.DefaultView.show()
+              }
               break
+
             default:
               break
           }
