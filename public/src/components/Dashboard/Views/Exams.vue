@@ -1224,11 +1224,11 @@ export default {
       let i = 0
       let text = ''
       while (true) {
-        if (this.$t('diagnosis.user.' + dataset + '.audioDescription.' + i) === 'diagnosis.user.' + dataset + '.audioDescription.' + i) {
+        if (this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + i) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + i) {
           text.substring(0, text.length - 1);
           break;
         } else {
-          text += this.$t('diagnosis.user.' + dataset + '.audioDescription.' + i) + ' '
+          text += this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + i) + ' '
         }
         i++
       }
@@ -1488,15 +1488,10 @@ export default {
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
-              if(EventBus.currentActiveRightComp === 0 && !self.flg_once){
+              if (EventBus.currentActiveRightComp === 0 && !self.flg_once) {
                 self.flg_once = true
-                // self.audioPlayer(self.examEvent)
                 setTimeout(() => {
-                  let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
-                  console.log('datas:');
-                  console.log(datas);
-                  console.log('datas:');
-                  self.audioPlayer(datas)
+                  self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
                 }, 300);
               }
               if (!self.posPatientSelected >= 0) {

@@ -467,7 +467,7 @@ export default {
             case 'ok_btn':
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
-              if(EventBus.currentActiveRightComp === 0 && !self.flg_once){
+              if (EventBus.currentActiveRightComp === 0 && !self.flg_once) {
                 self.flg_once = true
                 setTimeout(() => {
                   let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset

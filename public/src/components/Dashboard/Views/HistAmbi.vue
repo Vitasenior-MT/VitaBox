@@ -83,22 +83,10 @@ export default {
   },
   sockets: {},
   methods: {
-    move(side) {
-      EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-      if (this.posSensorSelected >= 0) {
-        document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
-      } else {
-        document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
-      }
-      EventBus.moveLeftRightInView(side)
-      this.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-      if (this.posSensorSelected >= 0) {
-      } else {
-        this.$refs.DefaultView.setMsg(this.msgSensor)
-        this.$refs.DefaultView.show()
-      }
-    },
     audioPlayer(dataset) {
+      console.log('-------------------------->')
+      console.log(dataset)
+      console.log(this.$t('histambi.info.' + dataset.type))
       this.$socket.emit('ttsText', this.$t('histambi.info.' + dataset.type))
     },
     hideShowLocationLine() {
@@ -223,28 +211,26 @@ export default {
        * TODO: Monitorização dos eventos do controlo remoto
        */
       EventBus.$on('move-components', function(cmd) {
-        console.log('self.$refs.loading.getLoadingState()')
-        console.log(self.$refs.loading.getLoadingState())
         if (!self.$refs.loading.getLoadingState()) {
           EventBus.elementControl = document.getElementsByClassName(self.classEvent)
           if (EventBus.elementControl.length === 0) {
             EventBus.setSidebar()
           }
-          console.log('cmd')
-          console.log(cmd)
           switch (cmd) {
             // evento do 'OK'
             case 'ok_btn':
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
-              if(EventBus.currentActiveRightComp === 0 && !self.flg_once){
-                self.flg_once = true
-                setTimeout(() => {
+              console.log(self.flg_once)
+              console.log(EventBus.currentActiveRightComp)
+              setTimeout(() => {
+                if (EventBus.currentActiveRightComp === 0 && !self.flg_once) {
+                  self.flg_once = true
                   let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
                   self.audioPlayer(datas)
-                }, 300);
-              }
+                }
+              }, 300);
               if (self.posSensorSelected < 0) {
                 document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgExam)
@@ -256,8 +242,6 @@ export default {
               // iniicializa a variavel para selecionar a lsta do user
               self.classEvent = 'control-remote-sensors'
               // se existir um user selecionado é porque se está na lista dos equipamentos
-              console.log('self.posSensorSelected')
-              console.log(self.posSensorSelected)
               if (self.posSensorSelected >= 0) {
                 // Constroi a lista com os elementos da class dos users
                 EventBus.elementControl = document.getElementsByClassName(self.classEvent)
@@ -296,6 +280,7 @@ export default {
                 document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
               }
               EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
+              self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               if (self.posSensorSelected >= 0) {
               } else {
                 self.$refs.DefaultView.setMsg(self.msgSensor)
