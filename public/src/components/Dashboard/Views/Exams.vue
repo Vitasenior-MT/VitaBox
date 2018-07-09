@@ -884,6 +884,7 @@ export default {
               this.dataBandFitness.heartrate.heartrateavgName = resData.data[dataVal].measure
               this.dataBandFitness.heartrate.heartrateavgShow = true
               this.execProcess = false
+              EventBus.examEmExec = false
               break
             default:
               break;
@@ -992,6 +993,7 @@ export default {
         }
       }
       this.execProcess = false
+      EventBus.examEmExec = false
     },
     /**
      * TODO: Recebe do socket toda a informação referente ao pulsiometro
@@ -1040,6 +1042,7 @@ export default {
         }
       }
       this.execProcess = false
+      EventBus.examEmExec = false
     },
     /**
      * TODO: Recebe do socket a informação da temperatura corporal
@@ -1063,6 +1066,7 @@ export default {
               this.databodytemperature.tempCorpName = resData.data[dataVal].measure
               this.databodytemperature.tempCorpShow = true
               this.execProcess = false
+              EventBus.examEmExec = false
               break;
             default:
               break;
@@ -1090,6 +1094,7 @@ export default {
         this.databodytemperature.battery = 0
         this.tempCorp = 0
         this.execProcess = false
+        EventBus.examEmExec = false
       }
     },
     /**
@@ -1154,6 +1159,7 @@ export default {
         }
       }
       this.execProcess = false
+      EventBus.examEmExec = false
     },
     /**
      * TODO: Recebe do socket as mensagens
@@ -1178,6 +1184,7 @@ export default {
           type: 'warning'
         })
         this.execProcess = false
+        EventBus.examEmExec = false
       }
     },
     /**
@@ -1201,6 +1208,7 @@ export default {
           type: 'warning'
         })
         this.execProcess = false
+        EventBus.examEmExec = false
       }
     },
     /**
@@ -1216,6 +1224,7 @@ export default {
         type: 'danger'
       })
       this.execProcess = false
+      EventBus.examEmExec = false
     }
   },
   methods: {
@@ -1297,6 +1306,7 @@ export default {
     },
     bleExecExam() {
       this.execProcess = true
+      EventBus.examEmExec = true
       this.resetValues()
       this.$http
         .get('/api/ble/' + this.examEvent.toLowerCase() + '/' + this.patientId)
@@ -1319,6 +1329,7 @@ export default {
               type: 'warning'
             })
             this.execProcess = false
+            EventBus.examEmExec = false
           }
         })
         .catch(error => {
