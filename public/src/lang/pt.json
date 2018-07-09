@@ -2,14 +2,6 @@
   "dictionary": {
     "waiting": "Aguarde",
     "": "Para entrar no menu Selecione a tecla direita.",
-    "biosensors": {
-      "bodypulse": "Não sei que fazer com esta",
-      "bodyscale": "Não sei que fazer com esta",
-      "bodytemperature": "Não sei que fazer com esta",
-      "bloodpressure": "Não sei que fazer com esta",
-      "bloodglucose": "Não sei que fazer com esta",
-      "bandfitness": "Não sei que fazer com esta"
-    },
     "press_ok": "Pressione em [OK] para executar novamente.",
     "results": "Resultados",
     "limit": {
@@ -98,15 +90,11 @@
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "1 . No comando pressione no ok para iniciar .",
-          "1": "2 . Coloque o equipamento de acordo com a imagem ao lado, ver figura 1 .",
-          "2": "3 . Pressione no botão até que o equipamento ligue, ver figura 2 .",
-          "3": "4 . Quando o equipamento estiver ligado uma luz indicadora pisca .",
-          "4": "5 . Após a deteção do equipamento a luz indicadora apaga-se .",
-          "5": "6 . Aguarde até que todos os valores apareçam na televisão .",
-          "6": "7 . Após a conclusão do processo a luz indicadora volta a piscar .",
-          "7": "8 . Pode retirar o equipamento e desligá-lo .",
-          "8": "9 . Pressione novamente no botão até que o equipamento se desligue, ver figura 2 .",
-          "9": "10 . É importante que o equipamento seja desligado de forma a ecónomizar a bateria"
+          "1": "2 . Coloque o equipamento de acordo com a imagem .",
+          "2": "3 . Pressione no botão até que o equipamento ligue .",
+          "3": "4 . Aguarde até que todos os valores apareçam na televisão .",
+          "4": "5 . Pode retirar o equipamento e desligá-lo .",
+          "5": "6 . É importante que o equipamento seja desligado de forma a ecónomizar a bateria"
         },
         "fig": {
           "0": "Fig.1",
@@ -137,10 +125,9 @@
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "1 . No comando pressione no ok para iniciar .",
-          "1": "2 . Coloque o equipamento no dedo conforme apresentado na imagem, ver figura 1 .",
-          "2": "3 . Pressione no botão até que o equipamento ligue, ver figura 2 .",
+          "1": "2 . Coloque o equipamento no dedo conforme apresentado na imagem .",
+          "2": "3 . Pressione no botão até que o equipamento ligue .",
           "3": "4 . Aguarde até que todos os valores apareçam na televisão .",
-          "4": "5 . Quando todos os valores aparecerem, o processo encontra-se concluido .",
           "5": "6 . Pode retirar o equipamento do dedo e o mesmo desliga-se automaticamente ."
         },
         "0": {
@@ -185,7 +172,7 @@
         "audioDescription":{
           "0": "1 . Coloque a bracelete no braço .",
           "1": "2 . No comando pressione no ok para iniciar .",
-          "2": "3 . Pressione no botão até que o equipamento ligue, ver figura 2 .",
+          "2": "3 . Pressione no botão até que o equipamento ligue .",
           "3": "4 . Aguarde até o processo terminar ."
         },
         "0": "Coloque a bracelete no braço.",
