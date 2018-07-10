@@ -533,8 +533,9 @@ export default {
                 self.$refs.DefaultView.show()
                 self.resetValues()
               }
+              let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
-              if (EventBus.elementControl.length > 1) {
+              if (EventBus.elementControl.length > 1 || moveFirstTime) {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
               if (self.posPatientSelected < 0) {

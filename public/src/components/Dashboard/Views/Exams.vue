@@ -1559,8 +1559,9 @@ export default {
               } else {
                 document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
               }
+              let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
-              if (EventBus.elementControl.length > 1) {
+              if (EventBus.elementControl.length > 1 || moveFirstTime) {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
               if (self.posPatientSelected >= 0) {
