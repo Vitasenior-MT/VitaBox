@@ -161,7 +161,9 @@ export const app = new Vue({
           }
           break;
         case 'mode':
-          EventBus.$emit('mode')
+          if (!examEmExec) {
+            EventBus.$emit('mode')
+          }
           break;
         case 'menu':
           break;

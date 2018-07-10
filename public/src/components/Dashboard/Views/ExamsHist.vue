@@ -136,7 +136,7 @@ export default {
   sockets: {},
   methods: {
     audioPlayer(dataset) {
-      this.$socket.emit('ttsText', this.$t('diagnosisHistory.biosensors.' + dataset.type))
+      this.$socket.emit('ttsText', dataset.type ? this.$t('diagnosisHistory.biosensors.' + dataset.type) : this.$t('dictionary.press_user'))
     },
     bleGetListExam(btnPatient) {
       this.patientId = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.id
@@ -467,7 +467,7 @@ export default {
             case 'ok_btn':
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
-              if (EventBus.currentActiveRightComp === 0 && !self.flg_once) {
+              if (!self.flg_once) {
                 self.flg_once = true
                 setTimeout(() => {
                   let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
@@ -534,10 +534,10 @@ export default {
                 self.resetValues()
               }
               EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
-              if (self.posPatientSelected >= 0) {
+              if (EventBus.elementControl.length > 1) {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-                // self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
-              } else {
+              }
+              if (self.posPatientSelected < 0) {
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
                 self.resetValues()

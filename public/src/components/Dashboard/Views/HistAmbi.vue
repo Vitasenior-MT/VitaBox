@@ -225,7 +225,7 @@ export default {
               console.log(self.flg_once)
               console.log(EventBus.currentActiveRightComp)
               setTimeout(() => {
-                if (EventBus.currentActiveRightComp === 0 && !self.flg_once) {
+                if (!self.flg_once) {
                   self.flg_once = true
                   let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
                   self.audioPlayer(datas)
@@ -280,7 +280,9 @@ export default {
                 document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
               }
               EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
-              self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+              if (EventBus.elementControl.length > 1) {
+                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+              }
               if (self.posSensorSelected >= 0) {
               } else {
                 self.$refs.DefaultView.setMsg(self.msgSensor)

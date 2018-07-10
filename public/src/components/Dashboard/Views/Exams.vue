@@ -1232,14 +1232,18 @@ export default {
     audioPlayer(dataset) {
       let i = 0
       let text = ''
-      while (true) {
-        if (this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + i) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + i) {
-          text.substring(0, text.length - 1);
-          break;
-        } else {
-          text += this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + i) + ' '
+      if (dataset.type) {
+        while (true) {
+          if (this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + i) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + i) {
+            text.substring(0, text.length - 1);
+            break;
+          } else {
+            text += this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + i) + ' '
+          }
+          i++
         }
-        i++
+      } else {
+        text = this.$t('dictionary.press_user')
       }
       this.$socket.emit('ttsText', text)
     },
@@ -1499,9 +1503,10 @@ export default {
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
-              if (EventBus.currentActiveRightComp === 0 && !self.flg_once) {
+              if (!self.flg_once) {
                 self.flg_once = true
                 setTimeout(() => {
+                  console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
                   self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
                 }, 300);
               }
@@ -1555,10 +1560,12 @@ export default {
                 document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
               }
               EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
+              if (EventBus.elementControl.length > 1) {
+                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+              }
               if (self.posPatientSelected >= 0) {
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
                 self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
-                self.audioPlayer(self.examEvent)
               } else {
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
