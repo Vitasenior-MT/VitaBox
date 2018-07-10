@@ -71,7 +71,8 @@ export const app = new Vue({
   data: {
     Chartist: Chartist,
     interval: null,
-    show: true
+    show: true,
+    settings: false
   },
   mounted() {
   },
@@ -161,8 +162,35 @@ export const app = new Vue({
           }
           break;
         case 'mode':
-          if (!examEmExec) {
+          if (!EventBus.examEmExec) {
             EventBus.$emit('mode')
+          }
+          break;
+        case 'settings':
+          console.log('app settings')
+          if (this.settings) {
+            this.settings = false
+            this.$modal.hide('dialog')
+          } else {
+            this.settings = true
+            this.$modal.show('dialog', {
+              title: 'Alert!',
+              text: 'You are too awesome',
+              buttons: [
+                {
+                  title: 'Deal with it',
+                  handler: () => { alert('Woot!') }
+                },
+                {
+                  title: '',       // Button title
+                  default: true,    // Will be triggered by default if 'Enter' pressed.
+                  handler: () => {} // Button click handler
+                },
+                {
+                  title: 'Close'
+                }
+              ]
+            })
           }
           break;
         case 'menu':
