@@ -10,7 +10,8 @@ export const EventBus = new Vue({
     elementControl: [],           // Array com os elemento perencentes a uma class especifica
     flgStartRotation: false,
     next: null,
-    className: ''
+    className: '',
+    examEmExec: false             // flag para validação da execução dos exames
   },
   methods: {
     rotation() {
