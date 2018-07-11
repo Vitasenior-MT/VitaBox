@@ -13,31 +13,21 @@
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
     <div class="dialog-content">
-      <div
-        class="dialog-c-title"
-        v-if="params.title"
-        v-html="params.title || ''"></div>
-      <div
-        class="dialog-c-text"
-        v-html="params.text || ''"></div>
+      <div class="dialog-c-title" v-html="'Settings'"></div>
     </div>
-    <div class="padding">
-      <span>Som</span>
-      <toggle-button :value="true"
-      :labels="{checked: 'ON', unchecked: 'OFF'}"
-      :color="{checked: '#7DCE94', unchecked: '#82C7EB'}"
-      :width="80"/>
-    </div>
-    <div class="padding">
-      <span>Mode</span>
-      <toggle-button :value="true"
-      :labels="{checked: 'Advanced', unchecked: 'Basic'}"
-      :color="{checked: '#7DCE94', unchecked: '#82C7EB'}"
+    <div class="padding" v-for="(item, i) in items" v-bind:key='item.key'>
+      <span>{{items[i].title}}</span>
+      <toggle-button 
+      @change="updateItem($event.value, items[i])"
+      :value="true"
+      :labels="items[i].labels"
+      :color="items[i].color"
       :width="80"/>
     </div>
   </modal>
 </template>
 <script>
+import { EventBus } from '../../../event-bus.js'
 export default {
   name: 'VueJsDialog',
   props: {
@@ -56,6 +46,23 @@ export default {
   },
   data() {
     return {
+      items: [
+        {
+          title: 'Modo',
+          type: 'mode',
+          currentValue: this.sidebarStore.mode.advanced,
+          labels: {checked: 'Avançado', unchecked: 'Básico'},
+          color: {checked: '#7DCE94', unchecked: '#82C7EB'},
+          values: ['Avançado', 'Básico']
+        },
+        {
+          title: 'Som',
+          type: 'sound',
+          labels: {checked: 'Ligado', unchecked: 'Desligado'},
+          color: {checked: '#7DCE94', unchecked: '#82C7EB'},
+          values: ['Ligado', 'Desligado']
+        }
+      ],
       params: {},
       defaultButtons: [{ title: 'CLOSE' }]
     }
@@ -75,6 +82,18 @@ export default {
     }
   },
   methods: {
+    updateItem(toggle, type) {
+      switch (type.type) {
+        case 'mode':
+          EventBus.$emit('mode')
+          break
+        case 'sound':
+          console.log(toggle ? type.values[0] : type.values[1])
+          break
+        default:
+          break
+      }
+    },
     beforeOpened(event) {
       window.addEventListener('keyup', this.onKeyUp)
       this.params = event.params || {}
@@ -112,5 +131,9 @@ export default {
   max-width: 40%;
   margin-left: 40%;
   margin-top: 20%;
+  flex: 1 0 auto;
+  width: 100%;
+  padding: 15px;
+  font-size: 14px;
 }
 </style>

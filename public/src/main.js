@@ -172,24 +172,7 @@ export const app = new Vue({
             this.$modal.hide('settings')
           } else {
             this.settings = true
-            this.$modal.show('settings', {
-              title: 'Alert!',
-              text: 'You are too awesome',
-              buttons: [
-                {
-                  title: 'Deal with it',
-                  handler: () => { alert('Woot!') }
-                },
-                {
-                  title: '',       // Button title
-                  default: true,    // Will be triggered by default if 'Enter' pressed.
-                  handler: () => {} // Button click handler
-                },
-                {
-                  title: 'Close'
-                }
-              ]
-            })
+            this.$modal.show('settings')
           }
           break;
         case 'menu':
