@@ -69,10 +69,11 @@ export default {
   },
   data() {
     return {
+      flg_once: false,
       listData: ['item1', 'item2', 'item3'],
-      msgUser: 'examshist.msgUser',
-      msgExam: 'examshist.msgExam',
-      msgExit: 'examshist.msgExit',
+      msgUser: 'diagnosisHistory.msgUser',
+      msgExam: 'diagnosisHistory.msgExam',
+      msgExit: 'diagnosisHistory.msgExit',
       lastHistRecords: 10,
       dataCharsExists: false,
       chartsBarAllData: {},
@@ -134,6 +135,9 @@ export default {
   },
   sockets: {},
   methods: {
+    audioPlayer(dataset) {
+      this.$socket.emit('ttsText', dataset.type ? this.$t('diagnosisHistory.biosensors.' + dataset.type) : this.$t('dictionary.press_user'))
+    },
     bleGetListExam(btnPatient) {
       this.patientId = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.id
       this.posPatientSelected = EventBus.currentActiveRightComp
@@ -463,6 +467,13 @@ export default {
             case 'ok_btn':
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
+              if (!self.flg_once) {
+                self.flg_once = true
+                setTimeout(() => {
+                  let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
+                  self.audioPlayer(datas)
+                }, 300);
+              }
               if (!self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
               }
@@ -487,6 +498,7 @@ export default {
                 let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
                 elem.focus()
                 elem.classList.add('btn-fill')
+                self.flg_once = false
               } else {
                 // remove o preenchimento
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
@@ -521,10 +533,12 @@ export default {
                 self.$refs.DefaultView.show()
                 self.resetValues()
               }
+              let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
-              if (self.posPatientSelected >= 0) {
-                // self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
-              } else {
+              if (EventBus.elementControl.length > 1 || moveFirstTime) {
+                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+              }
+              if (self.posPatientSelected < 0) {
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
                 self.resetValues()

@@ -63,6 +63,7 @@ export default {
   },
   data() {
     return {
+      flg_once: false,
       msgSensor: 'histambi.msgSensor',
       msgExit: 'histambi.msgExit',
       classEvent: 'control-remote-sensors',
@@ -82,6 +83,12 @@ export default {
   },
   sockets: {},
   methods: {
+    audioPlayer(dataset) {
+      console.log('-------------------------->')
+      console.log(dataset)
+      console.log(this.$t('histambi.info.' + dataset.type))
+      this.$socket.emit('ttsText', this.$t('histambi.info.' + dataset.type))
+    },
     hideShowLocationLine() {
       this.hideShowItem = -1
       setTimeout(() => {
@@ -215,6 +222,15 @@ export default {
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
+              console.log(self.flg_once)
+              console.log(EventBus.currentActiveRightComp)
+              setTimeout(() => {
+                if (!self.flg_once) {
+                  self.flg_once = true
+                  let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
+                  self.audioPlayer(datas)
+                }
+              }, 300);
               if (self.posSensorSelected < 0) {
                 document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgExam)
@@ -236,6 +252,7 @@ export default {
                 let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
                 elem.focus()
                 elem.classList.add('btn-fill')
+                self.flg_once = false
               } else {
                 // remove o preenchimento
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
@@ -262,7 +279,11 @@ export default {
               } else {
                 document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
               }
+              let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
+              if (EventBus.elementControl.length > 1 || moveFirstTime) {
+                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+              }
               if (self.posSensorSelected >= 0) {
               } else {
                 self.$refs.DefaultView.setMsg(self.msgSensor)

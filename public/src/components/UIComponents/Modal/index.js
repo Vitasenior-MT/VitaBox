@@ -1,6 +1,7 @@
 import Modal from './Modal.vue'
 import Dialog from './Dialog.vue'
 import Alert from './Alert.vue'
+import Settings from './Settings.vue'
 
 const defaultComponentName = 'modal'
 
@@ -40,6 +41,7 @@ const Plugin = {
     console.log('componentName:', componentName)
     Vue.component(componentName, Modal)
     Vue.component('v-alert', Alert)
+    Vue.component('v-settings', Settings)
     /**
      * Registration of <Dialog/> component
      */
