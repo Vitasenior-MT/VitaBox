@@ -209,6 +209,8 @@ window.addEventListener('keypress', function(e) {
     sendCmd = '29';
   } else if (charCode === 99) { // 'c'
     sendCmd = '25';
+  } else if (charCode === 120) { // 'x'
+    sendCmd = 'green';
   }
   if (sendCmd !== "") {
     app.$socket.emit('keypress', sendCmd);
