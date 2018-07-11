@@ -9,6 +9,7 @@ export const EventBus = new Vue({
     firstRightEvent: true,        // validação se é a primeira vez que foi precionado a tecla para a direita para entrar na view
     elementControl: [],           // Array com os elemento perencentes a uma class especifica
     flgStartRotation: false,
+    flg_sound: true,
     next: null,
     className: '',
     examEmExec: false             // flag para validação da execução dos exames
@@ -36,23 +37,40 @@ export const EventBus = new Vue({
       this.next = null
       this.className = ''
     },
-    audioBasicMode: function(path) {
-      var self = this
-      let audio = document.createElement('audio')
-      audio.id = 'audioElem'
-      audio.style.display = 'none'
-      audio.src = path
-      audio.autoplay = true
-      audio.onended = function() {
-        audio.remove()
-        self.$socket.emit('ttsDelete')
-        if (self.flgStartRotation) {
-          self.rotation()
-        }
-      };
-      document.body.appendChild(audio)
+    audioBasicMode: function (path) {
+      if (this.flg_sound) {
+        let self = this
+        let audio = document.createElement('audio')
+        audio.id = 'audioElem'
+        audio.style.display = 'none'
+        audio.src = path
+        audio.autoplay = true
+        audio.onended = function () {
+          audio.remove()
+          self.$socket.emit('ttsDelete')
+          if (self.flgStartRotation) {
+            self.rotation()
+          }
+        };
+        document.body.appendChild(audio)
+      }
     },
-    findOne: function(arr, obj) {
+    removeAudio: function (type) {
+      if (type === 'off') {
+        console.log(type)
+        this.flg_sound = false
+        let audio = document.getElementById('audioElem')
+        if (audio) {
+          audio.pause()
+          audio.currentTime = 0
+          audio.remove()
+          this.$socket.emit('ttsDelete')
+        }
+      } else {
+        this.flg_sound = true
+      }
+    },
+    findOne: function (arr, obj) {
       let i = arr.length
       while (i--) {
         if (arr[i].id === obj.id && arr[i].sensor === obj.sensortype) {
@@ -67,7 +85,7 @@ export const EventBus = new Vue({
      * @param {Minutes} m
      * @param {Seconds} s
      */
-    timeCalculator: function(h, m, s) {
+    timeCalculator: function (h, m, s) {
       let time = 0;
       if (h > 0) {
         time = time + (h * 60 * 60 * 1000)
@@ -84,20 +102,20 @@ export const EventBus = new Vue({
      * TODO: Função destinada a colocar o elemento activo no momento visivel no ecrã
      * @param {elemento activo} el
      */
-    scrollScreen: function(el) {
+    scrollScreen: function (el) {
       el.scrollIntoView(false)
     },
     /**
      * TODO: Faz o scroll do elemento
      */
-    scrollAnimate: function(scrollStep, limit) {
+    scrollAnimate: function (scrollStep, limit) {
       // console.log("Receive", scrollStep, limit)
       // se o interval ainda estiver ativo é terminado e destruido
       if (this.scrollInterval) {
         clearInterval(this.scrollInterval)
         this.scrollInterval = null
       }
-      this.scrollInterval = setInterval(function() {
+      this.scrollInterval = setInterval(function () {
         if (scrollStep > 0 && window.scrollY <= limit) {
           window.scrollBy(0, scrollStep)
         } else if (scrollStep < 0 && window.scrollY >= limit) {
@@ -107,7 +125,7 @@ export const EventBus = new Vue({
         }
       }, 1);
     },
-    moveLeftRightInView: function(cmd) {
+    moveLeftRightInView: function (cmd) {
       // primeira vez que se entra nesta view
       if (this.firstRightEvent) {
         cmd = 0

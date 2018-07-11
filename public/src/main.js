@@ -130,6 +130,7 @@ export const app = new Vue({
       this.$socket.emit('ttsText', this.$t("remote.text"))
     },
     cmd: function(cmd) {
+      console.log('settings: ', this.settings)
       switch (cmd) {
         case 'up':
           if (EventBus.currentComponent === EventBus.sidebarName) {
@@ -166,13 +167,15 @@ export const app = new Vue({
           }
           break;
         case 'settings':
-          console.log('app settings')
-          if (this.settings) {
-            this.settings = false
-            this.$modal.hide('settings')
-          } else {
-            this.settings = true
-            this.$modal.show('settings')
+          if (!EventBus.examEmExec) {
+            console.log('app settings')
+            if (this.settings) {
+              this.settings = false
+              this.$modal.hide('settings')
+            } else {
+              this.settings = true
+              this.$modal.show('settings')
+            }
           }
           break;
         case 'menu':

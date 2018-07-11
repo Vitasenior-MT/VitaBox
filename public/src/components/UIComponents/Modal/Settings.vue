@@ -18,8 +18,10 @@
     <div class="padding" v-for="(item, i) in items" v-bind:key='item.key'>
       <span>{{items[i].title}}</span>
       <toggle-button 
-      @change="updateItem($event.value, items[i])"
-      :value="true"
+      @change="updateItem($event.value, items[i], i)"
+      :key="i"
+      :sync="true"
+      :value="items[i].default"
       :labels="items[i].labels"
       :color="items[i].color"
       :width="80"/>
@@ -50,16 +52,26 @@ export default {
         {
           title: 'Modo',
           type: 'mode',
+          default: true,
           labels: {checked: 'Avançado', unchecked: 'Básico'},
           color: {checked: '#7DCE94', unchecked: '#82C7EB'},
-          values: ['Avançado', 'Básico']
+          values: ['advanced', 'basic']
         },
         {
           title: 'Som',
           type: 'sound',
+          default: true,
           labels: {checked: 'Ligado', unchecked: 'Desligado'},
           color: {checked: '#7DCE94', unchecked: '#82C7EB'},
-          values: ['Ligado', 'Desligado']
+          values: ['on', 'off']
+        },
+        {
+          title: 'linguagem',
+          type: 'language',
+          default: true,
+          labels: {checked: 'pt', unchecked: 'en'},
+          color: {checked: '#7DCE94', unchecked: '#82C7EB'},
+          values: ['pt', 'en']
         }
       ],
       params: {},
@@ -80,16 +92,25 @@ export default {
       }
     }
   },
+  mounted () {
+    var i = 0
+    /* setInterval(() => {
+      this.updateItem(!this.items[i].default, this.items[i], i)
+    }, 10000) */
+  },
   methods: {
-    updateItem(toggle, type) {
-      console.log(type)
-      console.log(type.type)
+    updateItem(toggle, type, i) {
       switch (type.type) {
         case 'mode':
           EventBus.$emit('mode')
+          this.items[i].default = toggle
+          console.log(this.items[i])
           break
         case 'sound':
-          console.log(toggle ? type.values[0] : type.values[1])
+          EventBus.removeAudio(toggle ? type.values[0] : type.values[1])
+          break
+        case 'language':
+          this.$store.dispatch('setLangNew', toggle ? type.values[0] : type.values[1])
           break
         default:
           break
@@ -136,5 +157,10 @@ export default {
   width: 100%;
   padding: 15px;
   font-size: 14px;
+}
+
+.background-opacity {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  height: 100%;
 }
 </style>
