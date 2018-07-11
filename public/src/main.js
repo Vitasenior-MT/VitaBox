@@ -131,57 +131,71 @@ export const app = new Vue({
     },
     cmd: function(cmd) {
       console.log('settings: ', this.settings)
-      switch (cmd) {
-        case 'up':
-          if (EventBus.currentComponent === EventBus.sidebarName) {
-            EventBus.$emit('move-sidebar', -1)
-          } else {
-            if (EventBus.currentComponent !== EventBus.sidebarName) {
-              EventBus.$emit('move-components', 'up')
-            }
-          }
-          break;
-        case 'down':
-          if (EventBus.currentComponent === EventBus.sidebarName) {
-            EventBus.$emit('move-sidebar', 1)
-          } else {
-            if (EventBus.currentComponent !== EventBus.sidebarName) {
-              EventBus.$emit('move-components', 'down')
-            }
-          }
-          break;
-        case 'right':
-          EventBus.currentComponent = EventBus.correntRightComponent
-          EventBus.$emit('move-components', cmd)
-          break;
-        case 'left':
-        case 'ok_btn':
-        case 'exit':
-          if (EventBus.currentComponent !== EventBus.sidebarName) {
-            EventBus.$emit('move-components', cmd)
-          }
-          break;
-        case 'mode':
-          if (!EventBus.examEmExec) {
-            EventBus.$emit('mode')
-          }
-          break;
-        case 'settings':
-          if (!EventBus.examEmExec) {
-            console.log('app settings')
-            if (this.settings) {
-              this.settings = false
-              this.$modal.hide('settings')
+      if (!this.settings) {
+        switch (cmd) {
+          case 'up':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', -1)
             } else {
-              this.settings = true
-              this.$modal.show('settings')
+              if (EventBus.currentComponent !== EventBus.sidebarName) {
+                EventBus.$emit('move-components', 'up')
+              }
             }
+            break;
+          case 'down':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', 1)
+            } else {
+              if (EventBus.currentComponent !== EventBus.sidebarName) {
+                EventBus.$emit('move-components', 'down')
+              }
+            }
+            break;
+          case 'right':
+            EventBus.currentComponent = EventBus.correntRightComponent
+            EventBus.$emit('move-components', cmd)
+            break;
+          case 'left':
+          case 'ok_btn':
+          case 'exit':
+            if (EventBus.currentComponent !== EventBus.sidebarName) {
+              EventBus.$emit('move-components', cmd)
+            }
+            break;
+          case 'mode':
+            // if (!EventBus.examEmExec) {
+            //   EventBus.$emit('mode')
+            // }
+            break;
+          case 'settings':
+            if (!EventBus.examEmExec) {
+              console.log('app settings')
+              if (this.settings) {
+                this.settings = false
+                this.$modal.hide('settings')
+              } else {
+                this.settings = true
+                this.$modal.show('settings')
+              }
+            }
+            break;
+          case 'menu':
+            break;
+          default:
+            break;
+        }
+      } else {
+        EventBus.$emit('move-components-modal', cmd)
+        if ((cmd === 'settings' && !EventBus.examEmExec) || (cmd === 'exit' && !EventBus.examEmExec)) {
+          console.log('app settings')
+          if (this.settings) {
+            this.settings = false
+            this.$modal.hide('settings')
+          } else {
+            this.settings = true
+            this.$modal.show('settings')
           }
-          break;
-        case 'menu':
-          break;
-        default:
-          break;
+        }
       }
     }
   }
