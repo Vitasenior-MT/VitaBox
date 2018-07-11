@@ -208,8 +208,6 @@ window.addEventListener('keypress', function(e) {
   } else if (charCode === 113) { // 'q'
     sendCmd = '29';
   } else if (charCode === 99) { // 'c'
-    sendCmd = '25';
-  } else if (charCode === 120) { // 'x'
     sendCmd = 'green';
   }
   if (sendCmd !== "") {

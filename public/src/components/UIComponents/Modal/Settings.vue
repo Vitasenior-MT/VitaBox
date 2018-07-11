@@ -50,7 +50,6 @@ export default {
         {
           title: 'Modo',
           type: 'mode',
-          currentValue: this.sidebarStore.mode.advanced,
           labels: {checked: 'Avançado', unchecked: 'Básico'},
           color: {checked: '#7DCE94', unchecked: '#82C7EB'},
           values: ['Avançado', 'Básico']
@@ -83,6 +82,8 @@ export default {
   },
   methods: {
     updateItem(toggle, type) {
+      console.log(type)
+      console.log(type.type)
       switch (type.type) {
         case 'mode':
           EventBus.$emit('mode')
