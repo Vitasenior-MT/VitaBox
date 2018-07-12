@@ -130,7 +130,6 @@ export const app = new Vue({
       this.$socket.emit('ttsText', this.$t("remote.text"))
     },
     cmd: function(cmd) {
-      console.log('settings: ', this.settings)
       if (!this.settings) {
         switch (cmd) {
           case 'up':
@@ -186,7 +185,7 @@ export const app = new Vue({
         }
       } else {
         EventBus.$emit('move-components-modal', cmd)
-        if ((cmd === 'settings' && !EventBus.examEmExec) || (cmd === 'exit' && !EventBus.examEmExec)) {
+        if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ (cmd === 'exit' && !EventBus.examEmExec)) {
           console.log('app settings')
           if (this.settings) {
             this.settings = false

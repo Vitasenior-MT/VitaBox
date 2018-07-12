@@ -17,6 +17,9 @@
         <div class="col-md-12">
           <div class="dialog-content">
             <h2 class="dialog-c-title" v-html="'Configurações'"></h2>
+          <div>
+            <h4>Utilize as <i class="fas fa-arrows-alt"></i> do comando para navegar nas configurações.</h4>
+          </div>
           </div>
           <div v-for="(item, i) in items" v-bind:key='item.key'>
             <div class="row">
@@ -24,24 +27,22 @@
                 <div class="col-md-3">
                   <h3 :for="items[i].type + item.key">{{items[i].title}}</h3>
                 </div>
-                <div class="col-md-9">
-                  <h3>
-                    <toggle-button class="control-remote changed-font"
-                      @change="updateItem($event.value, items[i], i)"
-                      :key="i"
-                      :sync="true"
-                      :value="items[i].default"
-                      :labels="items[i].labels"
-                      :color="items[i].color"
-                      :width="200"
-                      :height="50"/>
-                    </h3>
+                <div class="col-md-9 control-modal" :data-itempos="i">
+                  <toggle-button class="changed-font"
+                    @change="updateItem($event.value, items[i], i)"
+                    :key="i"
+                    :sync="true"
+                    :value="items[i].default"
+                    :labels="items[i].labels"
+                    :color="items[i].color"
+                    :width="200"
+                    :height="40"/>
                 </div>
               </div>
             </div>
           </div>
           <div>
-            <h5> Pressione [EXIT] para sair.</h5>
+            <h4>Pressione [OK] para alterar o estado. <br> Pressione [EXIT] para sair.</h4>
           </div>
         </div>
       </div>
@@ -68,13 +69,17 @@ export default {
   },
   data() {
     return {
+      backupelementControl: [],
+      backupcurrentActiveRightComp: 0,
+      backupcorrentRightComponent: '',
+      bakupfirstRightEvent: false,
       items: [
         {
           title: 'Modo',
           type: 'mode',
           default: true,
           labels: {checked: 'Avançado', unchecked: 'Básico'},
-          color: {checked: '#7DCE94', unchecked: '#82C7EB'},
+          color: {checked: '#f7931d', unchecked: '#f05a28'},
           values: ['advanced', 'basic']
         },
         {
@@ -82,7 +87,7 @@ export default {
           type: 'sound',
           default: true,
           labels: {checked: 'Ligado', unchecked: 'Desligado'},
-          color: {checked: '#7DCE94', unchecked: '#82C7EB'},
+          color: {checked: '#f7931d', unchecked: '#f05a28'},
           values: ['on', 'off']
         },
         {
@@ -90,7 +95,7 @@ export default {
           type: 'language',
           default: true,
           labels: {checked: 'pt', unchecked: 'en'},
-          color: {checked: '#7DCE94', unchecked: '#82C7EB'},
+          color: {checked: '#f7931d', unchecked: '#f05a28'},
           values: ['pt', 'en']
         }
       ],
@@ -124,14 +129,23 @@ export default {
         case 'mode':
           EventBus.$emit('mode')
           this.items[i].default = toggle
-          console.log(this.items[i])
+          EventBus.elementControl = []
+          EventBus.currentActiveRightComp = 0
+          EventBus.correntRightComponent = ''
+          EventBus.firstRightEvent = false
+          this.backupelementControl = []
+          this.backupcurrentActiveRightComp = 0
+          this.backupcorrentRightComponent = ''
+          this.bakupfirstRightEvent = true
           break
         case 'sound':
           EventBus.removeAudio(toggle ? type.values[0] : type.values[1])
+          this.items[i].default = toggle
           break
         case 'language':
           EventBus.currentLanguage = toggle ? type.values[0] : type.values[1]
           this.$store.dispatch('setLangNew', EventBus.currentLanguage)
+          this.items[i].default = toggle
           break
         default:
           break
@@ -146,15 +160,15 @@ export default {
        * TODO: Monitorização dos eventos do controlo remoto
        */
       EventBus.$on('move-components-modal', function(cmd) {
-        EventBus.elementControl = document.getElementsByClassName('control-remote')
+        EventBus.elementControl = document.getElementsByClassName('control-modal')
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
             try {
-              let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-              var evt = document.createEvent("HTMLEvents");
-              evt.initEvent("change", false, true);
-              elem.dispatchEvent(evt);
+              let elem = EventBus.elementControl[EventBus.currentActiveRightComp].dataset
+              console.log('Teste btn - ', elem)
+              // @change="updateItem($event.value, items[i], i)"
+              self.updateItem(!self.items[elem.itempos].default, self.items[elem.itempos], elem.itempos)
             } catch (e) {
               console.log('error btn ok change.')
             }
@@ -165,15 +179,17 @@ export default {
             break
           case 'right': // tecla para a direita
           case 'left': // tecla para a esquerda
-            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
+            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-shadow')
             EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
-            EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
+            EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('btn-shadow')
+            EventBus.firstRightEvent = false
             break
           case 'up': // tecla para a cima
           case 'down': // tecla para a baixo
-            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
+            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-shadow')
             EventBus.moveLeftRightInView(cmd === 'up' ? -1 : 1)
-            EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
+            EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('btn-shadow')
+            EventBus.firstRightEvent = false
             break
           default:
             break
@@ -181,6 +197,11 @@ export default {
       })
     },
     beforeOpened(event) {
+      this.backupelementControl = EventBus.elementControl
+      this.backupcurrentActiveRightComp = EventBus.currentActiveRightComp
+      this.backupcorrentRightComponent = EventBus.correntRightComponent
+      this.bakupfirstRightEvent = EventBus.firstRightEvent
+      EventBus.firstRightEvent = true
       window.addEventListener('keyup', this.onKeyUp)
       this.params = event.params || {}
       this.$emit('before-opened', event)
@@ -190,6 +211,10 @@ export default {
       EventBus.currentLanguage === 'pt' ? this.items[2].default = true : this.items[2].default = false
     },
     beforeClosed(event) {
+      EventBus.elementControl = this.backupelementControl
+      EventBus.currentActiveRightComp = this.backupcurrentActiveRightComp
+      EventBus.correntRightComponent = this.backupcorrentRightComponent
+      EventBus.firstRightEvent = this.bakupfirstRightEvent
       window.removeEventListener('keyup', this.onKeyUp)
       this.params = {}
       this.$emit('before-closed', event)
@@ -216,11 +241,11 @@ export default {
 </script>
 <style>
 .vue-settings {
-  margin-left: 30% !important;
-  margin-top: 15% !important;
-  width: 40%;
+  margin-left: 25% !important;
+  margin-top: 10%;
+  width: 50%;
   position: absolute;
-  background-color: rgba(255, 255, 255, 1) !important;
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .background-opacity {
@@ -235,7 +260,7 @@ export default {
 .changed-font {
   font-size: 25px !important;
 }
-.on-shadow {
+.btn-shadow label {
   border-bottom: 5px solid black;
   border-radius: 100px;
 }
