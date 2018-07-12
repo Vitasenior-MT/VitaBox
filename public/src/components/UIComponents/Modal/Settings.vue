@@ -60,7 +60,7 @@ export default {
         {
           title: 'Som',
           type: 'sound',
-          default: true,
+          default: EventBus.flg_sound,
           labels: {checked: 'Ligado', unchecked: 'Desligado'},
           color: {checked: '#7DCE94', unchecked: '#82C7EB'},
           values: ['on', 'off']
