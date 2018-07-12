@@ -8,6 +8,7 @@ export const EventBus = new Vue({
     currentActiveRightComp: 0,    // posição do array para o elemento ativo
     firstRightEvent: true,        // validação se é a primeira vez que foi precionado a tecla para a direita para entrar na view
     elementControl: [],           // Array com os elemento perencentes a uma class especifica
+    currentLanguage: 'pt',
     flgStartRotation: false,
     flg_sound: true,
     next: null,

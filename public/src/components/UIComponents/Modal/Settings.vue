@@ -80,7 +80,7 @@ export default {
         {
           title: 'Som',
           type: 'sound',
-          default: EventBus.flg_sound,
+          default: true,
           labels: {checked: 'Ligado', unchecked: 'Desligado'},
           color: {checked: '#7DCE94', unchecked: '#82C7EB'},
           values: ['on', 'off']
@@ -130,7 +130,8 @@ export default {
           EventBus.removeAudio(toggle ? type.values[0] : type.values[1])
           break
         case 'language':
-          this.$store.dispatch('setLangNew', toggle ? type.values[0] : type.values[1])
+          EventBus.currentLanguage = toggle ? type.values[0] : type.values[1]
+          this.$store.dispatch('setLangNew', EventBus.currentLanguage)
           break
         default:
           break
@@ -184,6 +185,9 @@ export default {
       this.params = event.params || {}
       this.$emit('before-opened', event)
       this.controlEventsBus()
+      this.items[0].default = this.sidebarStore.mode.advanced
+      this.items[1].default = EventBus.flg_sound
+      EventBus.currentLanguage === 'pt' ? this.items[2].default = true : this.items[2].default = false
     },
     beforeClosed(event) {
       window.removeEventListener('keyup', this.onKeyUp)

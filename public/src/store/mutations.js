@@ -1,8 +1,9 @@
 import { app } from '../main'
 import * as types from './mutation-types'
+import { EventBus } from '../event-bus.js'
 
 export const state = {
-  lang: 'pt'
+  lang: EventBus.currentLanguage
 }
 
 export const mutations = {
