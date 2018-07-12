@@ -32,7 +32,6 @@ sudo systemctl start nodeAutostart.service
 
 #3. Chromium config and autostart
 sudo echo "@sh /home/pi/Desktop/VitaBox/autoStartChrome.sh" >> /home/pi/.config/lxsession/LXDE-pi/autostart
-sudo sed -i -e 's/\r$//' autoStartChrome.sh
 sudo chmod +x autoStartChrome.sh
 
 #4. sensors config and autostart
@@ -48,12 +47,13 @@ sudo cp bootConfig.txt /boot/config.txt
 
 #6. hide mouse
 sudo apt-get install unclutter
-sudo sed -i -e 's/\r$//' mousehide.sh
 sudo chmod +x mousehide.sh
 
 #7. sceen saver
-sudo sed -i -e 's/\r$//' xscreensaver.sh
 sudo chmod +x xscreensaver.sh
+
+#8. configures
+sudo dos2unix ./*
 
 #7. Reboot system
 sudo reboot
