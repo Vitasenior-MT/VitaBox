@@ -246,5 +246,24 @@
   "remote": {
     "title": "Comando da tv Bloaqueado",
     "text": "O comando da Tv está bloaqueado, devido ao aviso, prima ok no comando para desbloquear"
+  },
+  "modal": {
+    "settings": {
+      "sound": {
+        "title": "Som",
+        "checked": "Ligado",
+        "unchecked": "Desligado"
+      },
+      "mode": {
+        "title": "Modo",
+        "checked": "Avançado",
+        "unchecked": "Básico"
+      },
+      "language": {
+        "title": "linguagem",
+        "checked": "PT",
+        "unchecked": "EN"
+      }
+    }
   }
 }

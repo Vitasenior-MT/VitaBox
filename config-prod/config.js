@@ -1,7 +1,17 @@
 'use strict'
 var fs = require('fs');
 
+
 module.exports = {
+  coapConfigs: {
+    rate: {
+      hour: 0,
+      min: 1,
+      sec: 0, 
+    },
+    warningArraySize: 5,
+    avgSize: 15
+  },
   ReconnectRate: {
     hour: 0,
     min: 0,
