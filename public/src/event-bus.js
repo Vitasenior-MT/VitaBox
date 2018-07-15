@@ -6,8 +6,11 @@ export const EventBus = new Vue({
     currentComponent: 'side-bar', // elemeto ativo por defeito é a barra lateral
     correntRightComponent: '',    // elemento ativo do lado direito
     currentActiveRightComp: 0,    // posição do array para o elemento ativo
+    currentActiveRightCompModal: 0,    // posição do array para o elemento ativo
     firstRightEvent: true,        // validação se é a primeira vez que foi precionado a tecla para a direita para entrar na view
+    firstRightEventModal: true,        // validação se é a primeira vez que foi precionado a tecla para a direita para entrar na modal
     elementControl: [],           // Array com os elemento perencentes a uma class especifica
+    elementControlModal: [],           // Array com os elemento perencentes a uma class especifica
     currentLanguage: 'pt',
     flgStartRotation: false,
     flg_sound: true,
@@ -148,6 +151,32 @@ export const EventBus = new Vue({
       }
       // ativa o novo elemento adiconando a class que simboliza o elemento activo
       let elem = this.elementControl[this.currentActiveRightComp]
+      elem.focus()
+      elem.classList.add('btn-fill')
+      this.scrollScreen(elem)
+    },
+    moveLeftRightInModal: function (cmd) {
+      // primeira vez que se entra nesta view
+      if (this.firstRightEventModal) {
+        cmd = 0
+        this.firstRightEventModal = false
+      }
+      // remove a class que sinboliza o elemento ativo
+      this.elementControlModal[this.currentActiveRightCompModal].classList.remove('btn-fill')
+      this.elementControlModal[this.currentActiveRightCompModal].blur()
+      // Actualiza a variavel de controlo do elemento activo
+      this.currentActiveRightCompModal += cmd
+      // verifica se chegou ao fim do array se sim volta ao principio
+      if (this.currentActiveRightCompModal >= this.elementControlModal.length) {
+        this.currentActiveRightCompModal = 0
+      }
+      // verifica se estou na posição '0' e se foi carregado para a esquerda
+      // se sim é ir para o fim da lista dos componentes ativos.
+      if (this.currentActiveRightCompModal <= -1) {
+        this.currentActiveRightCompModal = this.elementControlModal.length - 1
+      }
+      // ativa o novo elemento adiconando a class que simboliza o elemento activo
+      let elem = this.elementControlModal[this.currentActiveRightCompModal]
       elem.focus()
       elem.classList.add('btn-fill')
       this.scrollScreen(elem)

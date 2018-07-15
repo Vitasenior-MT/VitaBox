@@ -5,6 +5,7 @@ import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 // Admin pages
 import Exams from 'src/components/Dashboard/Views/Exams.vue'
 import ExamsHist from 'src/components/Dashboard/Views/ExamsHist.vue'
+import ExamsHistBasic from 'src/components/Dashboard/Views/ExamsHistBasic.vue'
 import AmbientHist from 'src/components/Dashboard/Views/HistAmbi.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import ShowData from 'src/components/Dashboard/Views/ShowData.vue'
@@ -27,6 +28,10 @@ const routes = [
         path: 'exameshistorico',
         name: 'Hist. de Diagnósticos',
         component: ExamsHist
+      }, {
+        path: 'exameshistoricobasic',
+        name: 'Hist. de Diag. Basic',
+        component: ExamsHistBasic
       }, {
         path: 'ambientehistorico',
         name: 'Hist. Sen. Ambientais',

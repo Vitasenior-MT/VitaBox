@@ -21,7 +21,7 @@
               type="button"
               :data-type="btn.type"
               v-on:click="bleExecExam">
-              <h2><b :class="btn.icon"></b></h2>
+              <h1><b :class="btn.icon"></b></h1>
               <h5 class="text-div-wrap">{{ btn.nome }}</h5>
             </button>
           </div>
