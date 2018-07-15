@@ -76,7 +76,7 @@ export default {
   },
   watch: {
     dataChart: function(value) {
-      console.log('chartline', value)
+      // console.log('chartline', value)
       if (this.clearChart) {
         this.lineChart.data.datasets[0].data = []
         this.lineChart.data.datasets[0].data.push(null)

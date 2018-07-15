@@ -554,8 +554,7 @@
             <div class="col-md-6 results-val" v-show="databloodglucose.glucoseShow">
               <stats-card>
                 <div class="icon-big text-center" slot="header">
-                  <i class="fas fa-thermometer"></i>
-                  <!-- <hr> -->
+                  <i class="fas fa-tint"></i>
                 </div>
                 <div class="numbers" slot="content">
                   <p>{{databloodglucose.glucoseName}} </p>

@@ -16,7 +16,7 @@
       <div class="row vue-settings">
         <div class="col-md-12">
           <div class="dialog-content">
-            <h2 class="dialog-c-title" v-html="'Configurações'"></h2>
+            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> Configurações</h2>
           <div>
             <h4>Utilize as <i class="fas fa-arrows-alt"></i> do comando para navegar nas configurações.</h4>
           </div>
@@ -170,14 +170,14 @@ export default {
             EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.remove('btn-shadow')
             EventBus.moveLeftRightInModal(cmd === 'left' ? -1 : 1)
             EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.add('btn-shadow')
-            EventBus.firstRightEvent = false
+            EventBus.firstRightEventModal = false
             break
           case 'up': // tecla para a cima
           case 'down': // tecla para a baixo
             EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.remove('btn-shadow')
             EventBus.moveLeftRightInModal(cmd === 'up' ? -1 : 1)
             EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.add('btn-shadow')
-            EventBus.firstRightEvent = false
+            EventBus.firstRightEventModal = false
             break
           default:
             break
