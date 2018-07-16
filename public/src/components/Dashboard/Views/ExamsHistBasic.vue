@@ -35,20 +35,16 @@
       <div class="col-md-12 btn btn-round btn-fill">
         <div class="row">
           <div class="col-md-12" style="padding-bottom: 10px;">
-            <h3 style="display:inline;"><u>{{this.chartsBarAllData.nameExam}}</u> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</h3>
-            <h5 style="display:inline;">{{ $t('diagnosisHistory.lastExecution') }} <i class='ti-calendar'> {{this.chartsBarAllData.lastUpdate}} </h5>
+            <h1 style="margin: 5px;"><u>{{this.chartsBarAllData.nameExam}}</u></h1>
           </div>
         </div>
         <card-chart-history-bar :dataCharts="chartsBarAllData.dataCharts"></card-chart-history-bar>
         <hr style="margin: 0px;">
         <div class="row">
           <div class="col-md-12" style="padding-bottom: 10px;">
-            <h3 style="margin: 0px;">
-              {{ $t('diagnosisHistory.lastHistRecords', { lastHistRecords: lastHistRecords }) }}
-            </h3>
+            <h4>{{ $t('diagnosisHistory.lastExecution') }} <i class='ti-calendar'> {{this.chartsBarAllData.lastUpdate}} </h4>
           </div>
         </div>
-        <card-chart-history-line :dataCharts="chartsLineAllData" ></card-chart-history-line>
       </div>
     </div>
     <loading ref="loading"></loading>
@@ -57,13 +53,11 @@
 <script>
 import { EventBus } from '../../../event-bus.js'
 import CardChartHistoryBar from 'components/UIComponents/Cards/CardHistoryBarChart.vue'
-import CardChartHistoryLine from 'components/UIComponents/Cards/CardHistoryLineChart.vue'
 import Loading from 'components/UIComponents/Forms/load.vue'
 import DefaultForm from 'components/UIComponents/Forms/defaultform.vue'
 export default {
   components: {
     CardChartHistoryBar,
-    CardChartHistoryLine,
     Loading,
     DefaultForm
   },
@@ -77,12 +71,9 @@ export default {
       lastHistRecords: 10,
       dataCharsExists: false,
       chartsBarAllData: {},
-      chartsLineAllData: {
-        sizeArr: 1,
-        charts: []
-      },
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
+      posExameelected: -1,
       patientsList: [],
       patientId: '',
       btnExams: [],
@@ -222,26 +213,19 @@ export default {
       this.$refs.DefaultView.setMsg(this.msgExam)
       this.$refs.DefaultView.show()
       this.$refs.loading.show()
-      let dataTypeExam = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       let examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
       let examNameDes = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.examname
-      let countArrPos = -1
       this.$http
         .get('/api/sensorsble/' + this.patientId + '-' + examMac + '/' + this.lastHistRecords)
         .then(response => {
           if (response.data.status === true) {
+            this.posExameelected = EventBus.currentActiveRightComp
             let dataIterat = response.data.data
-            this.chartsLineAllData = {
-              sizeArr: 1,
-              charts: []
-            }
             this.chartsBarAllData = {
               lastUpdate: EventBus.dateFormat(dataIterat[0].value[dataIterat[0].value.length - 1].time),
               nameExam: examNameDes,
               dataCharts: []
             };
-            var controlVarA = false
-            var controlVarB = false
             for (let index = 0; index < dataIterat.length; index++) {
               this.chartsBarAllData.dataCharts.push({
                 key: 'chartBar-' + index,
@@ -250,125 +234,22 @@ export default {
                   y: dataIterat[index].value[dataIterat[0].value.length - 1].value
                 }
               });
-              let chartIDLabel = "y-axis-0"
-              let color = EventBus.getRandomColor()
-              let laabeldataArr = this.getAllDataAndLabels(dataIterat[index].value)
-              // console.log("dataTypeExam", dataTypeExam, dataIterat[index].measure)
-              switch (dataTypeExam) {
-                case 'bloodpressure':
-                  switch (dataIterat[index].tag) {
-                    case 'systolic':
-                    case 'diastolic':
-                      if (!controlVarA) {
-                        controlVarA = true
-                        countArrPos++
-                        this.chartsLineAllData.charts.push({
-                          data: {
-                            labels: laabeldataArr[1],
-                            poschart: countArrPos,
-                            datasets: []
-                          }
-                        })
-                      }
-                      break
-                    case 'pulse':
-                      countArrPos++
-                      this.chartsLineAllData.charts.push({
-                        data: {
-                          labels: laabeldataArr[1],
-                          poschart: countArrPos,
-                          datasets: []
-                        }
-                      })
-                      break
-                    default:
-                      break
-                  }
-                  break
-                case 'bandfitness':
-                  switch (dataIterat[index].tag) {
-                    case 'heartrate':
-                    case 'callories':
-                      if (!controlVarA) {
-                        controlVarA = true
-                        countArrPos++
-                        chartIDLabel = "y-axis-1"
-                        this.chartsLineAllData.charts.push({
-                          data: {
-                            labels: laabeldataArr[1],
-                            secoundScale: {
-                              position: "right",
-                              id: "y-axis-0",
-                              type: 'linear',
-                              ticks: {
-                                fontSize: 18
-                              }
-                            },
-                            poschart: countArrPos,
-                            datasets: []
-                          }
-                        })
-                      }
-                      break
-                    case 'meters':
-                    case 'steps':
-                      if (!controlVarB) {
-                        controlVarB = true
-                        countArrPos++
-                        chartIDLabel = "y-axis-1"
-                        this.chartsLineAllData.charts.push({
-                          data: {
-                            labels: laabeldataArr[1],
-                            secoundScale: {
-                              position: "right",
-                              id: "y-axis-0",
-                              type: 'linear',
-                              ticks: {
-                                fontSize: 18
-                              }
-                            },
-                            poschart: countArrPos,
-                            datasets: []
-                          }
-                        })
-                      }
-                      break
-                    default:
-                      break
-                  }
-                  break
-                case 'bodytemperature':
-                case 'bodypulse':
-                case 'bodyscale':
-                  countArrPos++
-                  this.chartsLineAllData.charts.push({
-                    data: {
-                      labels: laabeldataArr[1],
-                      poschart: countArrPos,
-                      datasets: []
-                    }
-                  })
-                  break
-                default:
-                  break;
-              }
-              this.chartsLineAllData.charts[countArrPos].data.datasets.push({
-                label: dataIterat[index].measure,
-                borderColor: color,
-                yAxisID: chartIDLabel,
-                pointBackgroundColor: color,
-                backgroundColor: 'rgba(0, 0, 0, 0)',
-                data: laabeldataArr[0]
-              })
             }
-
-            this.chartsLineAllData.sizeArr = this.chartsLineAllData.charts.length > 3 ? 3 : this.chartsLineAllData.charts.length
             this.dataCharsExists = true
             this.$refs.loading.hide()
             this.$refs.DefaultView.hide()
+            this.classEvent = 'control-remote-results'
             setTimeout(() => {
               document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
-            }, 500);
+              EventBus.elementControl = document.getElementsByClassName(this.classEvent)
+              EventBus.currentActiveRightComp = 0
+              // ativa o novo elemento adiconando a class que indica o elemento activo
+              let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+              elem.focus()
+              elem.classList.add('btn-fill')
+              // EventBus.scrollScreen(elem)
+              elem.scrollIntoView(false)
+            }, 10);
           } else {
             this.$notifications.notify({
               message: '<h4>' + response.data.data + '</h4>',
@@ -404,10 +285,6 @@ export default {
         this.dataCharsExists = false
         this.chartsBarAllData.dataCharts = []
         this.chartsBarAllData = {}
-        this.chartsLineAllData = {
-          sizeArr: 1,
-          charts: []
-        }
       }
     },
     componentsRotation() {
@@ -465,30 +342,46 @@ export default {
           switch (cmd) {
             // evento do 'OK'
             case 'ok_btn':
-              EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
-              EventBus.elementControl[EventBus.currentActiveRightComp].click()
-              if (!self.flg_once) {
-                self.flg_once = true
-                setTimeout(() => {
-                  let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
-                  self.audioPlayer(datas)
-                }, 300);
-              }
-              if (!self.posPatientSelected >= 0) {
-                document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
-              }
-              let typeSel = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
-              if (!typeSel) {
-                self.$refs.DefaultView.setMsg(self.msgExam)
-                self.$refs.DefaultView.show()
+              if (self.posExameelected === -1) {
+                EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
+                EventBus.elementControl[EventBus.currentActiveRightComp].click()
+                if (!self.flg_once) {
+                  self.flg_once = true
+                  setTimeout(() => {
+                    let datas = document.getElementsByClassName('control-remote')[0].dataset
+                    self.audioPlayer(datas)
+                  }, 300);
+                }
+                if (!self.posPatientSelected >= 0) {
+                  document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
+                }
+                let typeSel = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+                if (!typeSel) {
+                  self.$refs.DefaultView.setMsg(self.msgExam)
+                  self.$refs.DefaultView.show()
+                }
               }
               break
             // evento para sair para a sidebar ou para a lista anterior
             case 'exit':
-              // iniicializa a variavel para selecionar a lsta do user
-              self.classEvent = 'control-remote-patient'
-              // se existir um user selecionado é porque se está na lista dos equipamentos
-              if (self.posPatientSelected >= 0) {
+              if (self.posExameelected > -1) {
+                // remove o preenchimento
+                EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+                EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
+                EventBus.elementControl[EventBus.currentActiveRightComp].blur()
+                self.classEvent = 'control-remote'
+                // Constroi a lista com os elementos da class dos exames
+                EventBus.elementControl = document.getElementsByClassName(self.classEvent)
+                // Atualiza para elemento anteriormente ativo
+                EventBus.currentActiveRightComp = self.posExameelected
+                self.posExameelected = -1
+                let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+                elem.focus()
+                elem.classList.add('btn-fill')
+                self.flg_once = false
+              } else if (self.posPatientSelected >= 0) {
+                // iniicializa a variavel para selecionar a lsta do user
+                self.classEvent = 'control-remote-patient'
                 // Constroi a lista com os elementos da class dos users
                 EventBus.elementControl = document.getElementsByClassName(self.classEvent)
                 // Atualiza para elemento anteriormente ativo
@@ -498,6 +391,11 @@ export default {
                 let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
                 elem.focus()
                 elem.classList.add('btn-fill')
+                // limpa a lisa dos botões disponiveis para o user
+                self.btnExams = []
+                self.resetValues()
+                self.$refs.DefaultView.setMsg(self.msgUser)
+                self.$refs.DefaultView.show()
                 self.flg_once = false
               } else {
                 // remove o preenchimento
@@ -507,21 +405,16 @@ export default {
                 self.$refs.DefaultView.setMsg(self.msgExit)
                 self.$refs.DefaultView.show()
                 EventBus.setSidebar()
+                console.log('if exit', cmd, EventBus.currentActiveRightComp)
+                EventBus.endRotation()
               }
-              // desloca a div para o inicio
-              document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
-              // limpa a lisa dos botões disponiveis para o user
-              self.btnExams = []
-              self.resetValues()
-              self.$refs.DefaultView.setMsg(self.msgUser)
-              self.$refs.DefaultView.show()
-              console.log('if exit', cmd, EventBus.currentActiveRightComp)
-              EventBus.endRotation()
               break
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-              if (self.posPatientSelected >= 0) {
+              if (self.posExameelected > -1) {
+                document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
+              } else if (self.posPatientSelected > -1) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgExam)
                 self.$refs.DefaultView.show()
@@ -537,11 +430,6 @@ export default {
               EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
               if (EventBus.elementControl.length > 1 || moveFirstTime) {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-              }
-              if (self.posPatientSelected < 0) {
-                self.$refs.DefaultView.setMsg(self.msgUser)
-                self.$refs.DefaultView.show()
-                self.resetValues()
               }
               break
             default:

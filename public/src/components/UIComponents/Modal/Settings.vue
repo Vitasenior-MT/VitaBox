@@ -16,7 +16,7 @@
       <div class="row vue-settings">
         <div class="col-md-12">
           <div class="dialog-content">
-            <h2 class="dialog-c-title" v-html="'Configurações'"></h2>
+            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> Configurações</h2>
           <div>
             <h4>Utilize as <i class="fas fa-arrows-alt"></i> do comando para navegar nas configurações.</h4>
           </div>
@@ -69,10 +69,6 @@ export default {
   },
   data() {
     return {
-      backupelementControl: [],
-      backupcurrentActiveRightComp: 0,
-      backupcorrentRightComponent: '',
-      bakupfirstRightEvent: false,
       items: [
         {
           title: this.$t('modal.settings.mode.title'),
@@ -129,14 +125,6 @@ export default {
         case 'mode':
           EventBus.$emit('mode')
           this.items[i].default = toggle
-          EventBus.elementControl = []
-          EventBus.currentActiveRightComp = 0
-          EventBus.correntRightComponent = ''
-          EventBus.firstRightEvent = false
-          this.backupelementControl = []
-          this.backupcurrentActiveRightComp = 0
-          this.backupcorrentRightComponent = ''
-          this.bakupfirstRightEvent = true
           break
         case 'sound':
           EventBus.removeAudio(toggle ? type.values[0] : type.values[1])
@@ -160,12 +148,12 @@ export default {
        * TODO: Monitorização dos eventos do controlo remoto
        */
       EventBus.$on('move-components-modal', function(cmd) {
-        EventBus.elementControl = document.getElementsByClassName('control-modal')
+        EventBus.elementControlModal = document.getElementsByClassName('control-modal')
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
             try {
-              let elem = EventBus.elementControl[EventBus.currentActiveRightComp].dataset
+              let elem = EventBus.elementControlModal[EventBus.currentActiveRightCompModal].dataset
               console.log('Teste btn - ', elem)
               // @change="updateItem($event.value, items[i], i)"
               self.updateItem(!self.items[elem.itempos].default, self.items[elem.itempos], elem.itempos)
@@ -179,17 +167,17 @@ export default {
             break
           case 'right': // tecla para a direita
           case 'left': // tecla para a esquerda
-            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-shadow')
-            EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
-            EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('btn-shadow')
-            EventBus.firstRightEvent = false
+            EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.remove('btn-shadow')
+            EventBus.moveLeftRightInModal(cmd === 'left' ? -1 : 1)
+            EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.add('btn-shadow')
+            EventBus.firstRightEventModal = false
             break
           case 'up': // tecla para a cima
           case 'down': // tecla para a baixo
-            EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-shadow')
-            EventBus.moveLeftRightInView(cmd === 'up' ? -1 : 1)
-            EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('btn-shadow')
-            EventBus.firstRightEvent = false
+            EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.remove('btn-shadow')
+            EventBus.moveLeftRightInModal(cmd === 'up' ? -1 : 1)
+            EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.add('btn-shadow')
+            EventBus.firstRightEventModal = false
             break
           default:
             break
@@ -197,11 +185,8 @@ export default {
       })
     },
     beforeOpened(event) {
-      this.backupelementControl = EventBus.elementControl
-      this.backupcurrentActiveRightComp = EventBus.currentActiveRightComp
-      this.backupcorrentRightComponent = EventBus.correntRightComponent
-      this.bakupfirstRightEvent = EventBus.firstRightEvent
-      EventBus.firstRightEvent = true
+      EventBus.firstRightEventModal = true
+      EventBus.currentActiveRightCompModal = 0
       window.addEventListener('keyup', this.onKeyUp)
       this.params = event.params || {}
       this.$emit('before-opened', event)
@@ -211,10 +196,6 @@ export default {
       EventBus.currentLanguage === 'pt' ? this.items[2].default = true : this.items[2].default = false
     },
     beforeClosed(event) {
-      EventBus.elementControl = this.backupelementControl
-      EventBus.currentActiveRightComp = this.backupcurrentActiveRightComp
-      EventBus.correntRightComponent = this.backupcorrentRightComponent
-      EventBus.firstRightEvent = this.bakupfirstRightEvent
       window.removeEventListener('keyup', this.onKeyUp)
       this.params = {}
       this.$emit('before-closed', event)

@@ -21,7 +21,7 @@
               type="button"
               :data-type="btn.type"
               v-on:click="bleExecExam">
-              <h2><b :class="btn.icon"></b></h2>
+              <h1><b :class="btn.icon"></b></h1>
               <h5 class="text-div-wrap">{{ btn.nome }}</h5>
             </button>
           </div>
@@ -554,8 +554,7 @@
             <div class="col-md-6 results-val" v-show="databloodglucose.glucoseShow">
               <stats-card>
                 <div class="icon-big text-center" slot="header">
-                  <i class="fas fa-thermometer"></i>
-                  <!-- <hr> -->
+                  <i class="fas fa-tint"></i>
                 </div>
                 <div class="numbers" slot="content">
                   <p>{{databloodglucose.glucoseName}} </p>

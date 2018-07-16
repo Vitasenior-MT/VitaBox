@@ -72,6 +72,10 @@
         "text": ""
       }
     },
+    "diagnosisHistoryBasic": {
+      "title": "Hist. de Diag. Basic",
+      "text": "Histórico dos exames."
+    },
     "ambienteHistory": {
       "sensor":{
         "title": "Pessione em [OK] para selecionar o sensor.",
@@ -233,7 +237,8 @@
     }
   },
   "exams": {
-    "msgUser": "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
+    "msgUser":
+      "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
     "msgExit": "Pressione seta direita do comando para selecionar..."
   },
   "showdata": {

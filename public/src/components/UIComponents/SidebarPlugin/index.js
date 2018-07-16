@@ -46,10 +46,10 @@ const basic = [
     text: 'sidebar.diagnosis.text'
   },
   {
-    name: 'sidebar.diagnosisHistory.title',
+    name: 'sidebar.diagnosisHistoryBasic.title',
     icon: 'ti-pie-chart',
-    path: '/vitabox/exameshistorico',
-    text: 'sidebar.diagnosisHistory.text'
+    path: '/vitabox/exameshistoricobasic',
+    text: 'sidebar.diagnosisHistoryBasic.text'
   },
   {
     name: 'sidebar.warning.title',

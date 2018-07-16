@@ -34,6 +34,10 @@
       "title": "Medições",
       "text": "Medições."
     },
+    "diagnosisHistoryBasic": {
+      "title": "Hist. de Diag. Basic",
+      "text": "Histórico dos exames."
+    },
     "ambienteHistory": {
       "title": "Hist. Sen. Ambientais",
       "text": "Histórico dos sensores ambientais."
