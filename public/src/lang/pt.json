@@ -31,8 +31,8 @@
       "text": "Exames."
     },
     "diagnosisHistory": {
-      "title": "Hist. de Diagnósticos",
-      "text": "Histórico dos exames."
+      "title": "Medições",
+      "text": "Medições."
     },
     "diagnosisHistoryBasic": {
       "title": "Hist. de Diag. Basic",
@@ -47,8 +47,8 @@
       "text": "Avisos."
     },
     "showData": {
-      "title": "Mostrar Dados",
-      "text": "Mostra todos os dados."
+      "title": "Sensores Ambientais",
+      "text": "Sensores Ambientais."
     },
     "about": {
       "title": "Ajuda",
@@ -94,12 +94,13 @@
       "bodytemperature": {
         "title": "Modo de Utilização",
         "audioDescription":{
-          "0": "1 . No comando pressione no ok para iniciar .",
-          "1": "2 . Coloque o equipamento de acordo com a imagem .",
-          "2": "3 . Pressione no botão até que o equipamento ligue .",
-          "3": "4 . Aguarde até que todos os valores apareçam na televisão .",
-          "4": "5 . Pode retirar o equipamento e desligá-lo .",
-          "5": "6 . É importante que o equipamento seja desligado de forma a ecónomizar a bateria"
+          "0": "temperatura.",
+          "1": "1 . No comando pressione no ok para iniciar .",
+          "2": "2 . Coloque o equipamento de acordo com a imagem .",
+          "3": "3 . Pressione no botão até que o equipamento ligue .",
+          "4": "4 . Aguarde até que todos os valores apareçam na televisão .",
+          "5": "5 . Pode retirar o equipamento e desligá-lo .",
+          "6": "6 . É importante que o equipamento seja desligado de forma a ecónomizar a bateria"
         },
         "fig": {
           "0": "Fig.1",
@@ -129,10 +130,11 @@
         },
         "title": "Modo de Utilização",
         "audioDescription":{
-          "0": "1 . No comando pressione no ok para iniciar .",
-          "1": "2 . Coloque o equipamento no dedo conforme apresentado na imagem .",
-          "2": "3 . Pressione no botão até que o equipamento ligue .",
-          "3": "4 . Aguarde até que todos os valores apareçam na televisão .",
+          "0": "pulsometro.",
+          "1": "1 . No comando pressione no ok para iniciar .",
+          "2": "2 . Coloque o equipamento no dedo conforme apresentado na imagem .",
+          "3": "3 . Pressione no botão até que o equipamento ligue .",
+          "4": "4 . Aguarde até que todos os valores apareçam na televisão .",
           "5": "6 . Pode retirar o equipamento do dedo e o mesmo desliga-se automaticamente ."
         },
         "0": {
@@ -151,12 +153,13 @@
       "bodyscale": {
         "title": "Modo de Utilização",
         "audioDescription":{
-          "0": "1 . Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição .",
-          "1": "2 . No comando pressione no ok para iniciar .",
-          "2": "3 . Descalce-se e suba para a balança .",
-          "3": "4 . O equipamento liga-se automaticamente .",
-          "4": "5 . Quando o valor obtido estabilizar o mesmo irá piscar .",
-          "5": "6 . Após a correta recolha dos dados o equipamento desliga-se automaticamente ."
+          "0": "peso.",
+          "1": "1 . Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição .",
+          "2": "2 . No comando pressione no ok para iniciar .",
+          "3": "3 . Descalce-se e suba para a balança .",
+          "4": "4 . O equipamento liga-se automaticamente .",
+          "5": "5 . Quando o valor obtido estabilizar o mesmo irá piscar .",
+          "6": "6 . Após a correta recolha dos dados o equipamento desliga-se automaticamente ."
         },
         "0": "Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição.",
         "1": {
@@ -175,10 +178,11 @@
         },
         "title": "Modo de Utilização",
         "audioDescription":{
-          "0": "1 . Coloque a bracelete no braço .",
-          "1": "2 . No comando pressione no ok para iniciar .",
-          "2": "3 . Pressione no botão até que o equipamento ligue .",
-          "3": "4 . Aguarde até o processo terminar ."
+          "0": "pressão arterial.",
+          "1": "1 . Coloque a bracelete no braço .",
+          "2": "2 . No comando pressione no ok para iniciar .",
+          "3": "3 . Pressione no botão até que o equipamento ligue .",
+          "4": "4 . Aguarde até o processo terminar ."
         },
         "0": "Coloque a bracelete no braço.",
         "1": "Ajuste a bracelete conforme mostrado na imagem (Fig.1).",
@@ -202,7 +206,8 @@
         },
         "title": "Modo de Utilização",
         "audioDescription":{
-          "0": "1 . Assegure-se de que possui a banda corretamente colocada no pulso ."
+          "0": "bracelete.",
+          "1": "1 . Assegure-se de que possui a banda corretamente colocada no pulso ."
         },
         "0": "Assegure-se de que possui a banda corretamente colocada no pulso."
       }
@@ -216,12 +221,12 @@
     "lastExecution": "Ultima execução: ",
     "lastHistRecords": "Histórico - Últimos {lastHistRecords} dados recolhidos.",
     "biosensors": {
-      "bodypulse": "pulsometro.",
-      "bodyscale": "balança.",
-      "bodytemperature": "temperatura.",
-      "bloodpressure": "pressão arterial.",
-      "bloodglucose": "glucose.",
-      "bandfitness": "bracelete."
+      "bodypulse": "pulsometro. . . .",
+      "bodyscale": "peso. . . .",
+      "bodytemperature": "temperatura. . . .",
+      "bloodpressure": "pressão arterial. . . .",
+      "bloodglucose": "glucose. . . .",
+      "bandfitness": "bracelete. . . ."
     }
   },
   "histambi": {
@@ -242,7 +247,7 @@
   },
   "showdata": {
     "msgSensor": "Sem sensores.",
-    "info": "{location}, {sensortype} é {avg}"
+    "info": "{location}, {sensortype}, {avg}"
   },
   "warning": {
     "msgSensor": "Sem sensores em alarme."
@@ -250,5 +255,24 @@
   "remote": {
     "title": "Comando da tv Bloaqueado",
     "text": "O comando da Tv está bloaqueado, devido ao aviso, prima ok no comando para desbloquear"
+  },
+  "modal": {
+    "settings": {
+      "sound": {
+        "title": "Som",
+        "checked": "Ligado",
+        "unchecked": "Desligado"
+      },
+      "mode": {
+        "title": "Modo",
+        "checked": "Avançado",
+        "unchecked": "Básico"
+      },
+      "language": {
+        "title": "linguagem",
+        "checked": "PT",
+        "unchecked": "EN"
+      }
+    }
   }
 }

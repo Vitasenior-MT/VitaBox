@@ -1,106 +1,274 @@
 {
+  "dictionary": {
+    "waiting": "Aguarde",
+    "press_user": "Selecione o utilizador",
+    "": "Para entrar no menu Selecione a tecla direita.",
+    "press_ok": "Pressione em [OK] para executar novamente.",
+    "results": "Resultados",
+    "limit": {
+      "title": "Limite",
+      "text": ""
+    },
+    "avarage": {
+      "title": "Média",
+      "text": ""
+    },
+    "advanced": {
+      "title": "Modo Avançado Ligado",
+      "text": ""
+    },
+    "basic": {
+      "title": "Modo Basico Ligado",
+      "text": ""
+    },
+    "warnings": {
+      "warning": "Aviso!"
+    }
+  },
   "sidebar": {
-    "home": {
-      "title": "casa",
-      "text": "casa"
-    },
-    "history": {
-      "title": "teste do historico",
-      "text": "nao sei que fazer com esta"
-    },
-    "wizard": {
-      "title": "teste do wizard",
-      "text": "nao sei que fazer com esta"
-    },
-    "warning": {
-      "title": "Aviso",
-      "text": "Neste separador é exposto toda a informação critica dos alarmes."
-    },
-    "warning2": {
-      "title": "Aviso 02",
-      "text": "Neste separador é exposto toda a informação critica dos alarmes."
-    },
-    "warning3": {
-      "title": "Aviso 03",
-      "text": "Neste separador é exposto toda a informação critica dos alarmes."
-    },
-    "showData": {
-      "title": "Mostra Dados",
-      "text": "onde mostra todos os dados dos sensores"
-    },
-    "showData2": {
-      "title": "Mostra Dados 02",
-      "text": "onde mostra todos os dados dos sensores"
-    },
-    "historyEnvironmentSensor": {
-      "title": "Hist. Sens. Ambientais",
-      "text": "historico dos sensores ambientais"
-    },
-    "historyEnvironmentSensor2": {
-      "title": "Hist. Sens. Ambientais V2",
-      "text": "historico dos sensores ambientais"
-    },
     "diagnosis": {
-      "title": "Exames / Diagnósticos",
-      "text": "medir pressao arterial"
+      "title": "Exams / Diagnostics",
+      "text": "Exames."
     },
     "diagnosisHistory": {
-      "title": "Hist. de Diagnósticos",
-      "text": "Hist. de Diagnósticos"
+      "title": "Hist. of Diagnostics",
+      "text": "Histórico dos exames."
+    },
+    "ambienteHistory": {
+      "title": "Hist. Environmental Sen.",
+      "text": "Histórico dos sensores ambientais."
+    },
+    "warning": {
+      "title": "Warnings",
+      "text": "Avisos."
+    },
+    "showData": {
+      "title": "Show Data",
+      "text": "Mostra todos os dados."
+    },
+    "about": {
+      "title": "Help",
+      "text": "Neste menu tem toda a informação acerca da aplicação, para ajudar na sua utilização."
+    }
+  },
+  "tooltips": {
+    "diagnosis": {
+      "user":{
+        "title": "Pessione em [OK] para selecionar o utilizador.",
+        "text": ""
+      },
+      "exam":{
+        "title": "Pessione em [OK] para selecionar o exame.",
+        "text": ""
+      }
+    },
+    "diagnosisHistory": {
+      "user":{
+        "title": "Pessione em [OK] para selecionar o utilizador.",
+        "text": ""
+      },
+      "history":{
+        "title": "Pessione em [OK] para visualizar o histórico.",
+        "text": ""
+      }
     },
     "diagnosisHistoryBasic": {
       "title": "Hist. de Diag. Basic",
       "text": "Histórico dos exames."
     },
     "ambienteHistory": {
-      "title": "Hist. Sen. Ambientais",
-      "text": "Hist Sensores Ambientais"
-    },
-    "video": {
-      "title": "Video",
-      "text": "video"
+      "sensor":{
+        "title": "Pessione em [OK] para selecionar o sensor.",
+        "text": ""
+      },
+      "history":{
+        "title": "Pessione em [OK] para mostrar / esconder o histórico do sensor.",
+        "text": ""
+      }
     }
   },
-  "home": {
-    "title": "SandBox Area For Tests.",
-    "requestToken": "Request Token",
-    "sendSettings": "Send Vitabox Settings",
-    "sendSensorData": "Send Sensor Data",
-    "getBoards": "Get Boards",
-    "getPatients": "Get Patients",
-    "getSettings": "Get Settings",
-    "sendText": "Send Text"
+  "diagnosis": {
+    "msgUser": "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
+    "msgExit": "Pressione seta direita do comando para selecionar...",
+    "user": {
+      "bodytemperature": {
+        "title": "Modo de Utilização",
+        "audioDescription":{
+          "0": "1 . No comando pressione no ok para iniciar .",
+          "1": "2 . Coloque o equipamento de acordo com a imagem .",
+          "2": "3 . Pressione no botão até que o equipamento ligue .",
+          "3": "4 . Aguarde até que todos os valores apareçam na televisão .",
+          "4": "5 . Pode retirar o equipamento e desligá-lo .",
+          "5": "6 . É importante que o equipamento seja desligado de forma a ecónomizar a bateria"
+        },
+        "fig": {
+          "0": "Fig.1",
+          "1": "Fig.2"
+        },
+        "0": {
+          "0": "No comando pressione em",
+          "1": "para iniciar."
+        },
+        "1": "Coloque o equipamento de acordo com a imagem ao lado (Fig.1).",
+        "2": "Pressione no botão até que o equipamento ligue (Fig.2).",
+        "3": "Quando o equipamento estiver ligado uma luz indicadora pisca.",
+        "4": "Após a deteção do equipamento a luz indicadora apaga-se.",
+        "5": "Aguarde até que todos os valores apareçam na televisão.",
+        "6": "Após a conclusão do processo a luz indicadora volta a piscar.",
+        "7": "Pode retirar o equipamento e desligá-lo.",
+        "8": {
+          "0": "Pressione novamente no botão",
+          "1": "até que o equipamento se deslique (Fig.2)."
+        },
+        "9": "É importante que o equipamento seja desligado de forma a economizar a bateria."
+      },
+      "bodypulse": {
+        "fig": {
+          "0": "Fig.1",
+          "1": "Fig.2"
+        },
+        "title": "Modo de Utilização",
+        "audioDescription":{
+          "0": "1 . No comando pressione no ok para iniciar .",
+          "1": "2 . Coloque o equipamento no dedo conforme apresentado na imagem .",
+          "2": "3 . Pressione no botão até que o equipamento ligue .",
+          "3": "4 . Aguarde até que todos os valores apareçam na televisão .",
+          "5": "6 . Pode retirar o equipamento do dedo e o mesmo desliga-se automaticamente ."
+        },
+        "0": {
+          "0": "No comando pressione em",
+          "1": "para iniciar."
+        },
+        "1": "Coloque o equipamento no dedo conforme apresentado na imagem (Fig.1).",
+        "2": {
+          "0": "Pressione no botão",
+          "1": "do equipamento para ligar (Fig.2)."
+        },
+        "3": "Aguarde até que todos os valores apareçam na televisão.",
+        "4": "Quando todos os valores aparecerem, o processo encontra-se concluido.",
+        "5": "Pode retirar o equipamento do dedo e o mesmo desliga-se automaticamente."
+      },
+      "bodyscale": {
+        "title": "Modo de Utilização",
+        "audioDescription":{
+          "0": "1 . Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição .",
+          "1": "2 . No comando pressione no ok para iniciar .",
+          "2": "3 . Descalce-se e suba para a balança .",
+          "3": "4 . O equipamento liga-se automaticamente .",
+          "4": "5 . Quando o valor obtido estabilizar o mesmo irá piscar .",
+          "5": "6 . Após a correta recolha dos dados o equipamento desliga-se automaticamente ."
+        },
+        "0": "Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição.",
+        "1": {
+          "0": "No comando pressione em",
+          "1": "para iniciar."
+        },
+        "2": "Descalce-se e suba para a balança.",
+        "3": "O equipamento liga-se automaticamente.",
+        "4": "Quando o valor obtido estabilizar o mesmo irá piscar.",
+        "5": "Após a correta recolha dos dados o equipamento desliga-se automaticamente."
+      },
+      "bloodpressure": {
+        "fig": {
+          "0": "Fig.1",
+          "1": "Fig.2"
+        },
+        "title": "Modo de Utilização",
+        "audioDescription":{
+          "0": "1 . Coloque a bracelete no braço .",
+          "1": "2 . No comando pressione no ok para iniciar .",
+          "2": "3 . Pressione no botão até que o equipamento ligue .",
+          "3": "4 . Aguarde até o processo terminar ."
+        },
+        "0": "Coloque a bracelete no braço.",
+        "1": "Ajuste a bracelete conforme mostrado na imagem (Fig.1).",
+        "2": {
+          "0": "No comando pressione em",
+          "1": "para iniciar."
+        },
+        "3": {
+          "0": "Pressione no botão",
+          "1": "do equipamento para ligar e iniciar o processo (Fig.2)."
+        },
+        "4": "A luz indicadora de equipamento ligado pisca.",
+        "5": "Após o equpamento ser detectado a luz deixa de piscar ficando sempre ligada.",
+        "6": "Aguarde até o processo terminar.",
+        "7": "Após todos os dados aparecerem na televisão o equipamento desliga-se automaticamente."
+      },
+      "bandfitness": {
+        "fig": {
+          "0": "Fig.1",
+          "1": "Fig.2"
+        },
+        "title": "Modo de Utilização",
+        "audioDescription":{
+          "0": "1 . Assegure-se de que possui a banda corretamente colocada no pulso ."
+        },
+        "0": "Assegure-se de que possui a banda corretamente colocada no pulso."
+      }
+    }
+  },
+  "diagnosisHistory": {
+    "msgUser": "Selecione e pressione [OK] para visualizar o histórico dos exames do utilizador.",
+    "msgExam": "Selecione o exame e pressione [OK] para visualizar o histórico.",
+    "msgExit": "Pressione seta direita do comando para selecionar...",
+    "msgSensor": "Selecione e pressione [OK] para visualizar o histórico do sensor.",
+    "lastExecution": "Ultima execução: ",
+    "lastHistRecords": "Histórico - Últimos {lastHistRecords} dados recolhidos.",
+    "biosensors": {
+      "bodypulse": "pulsometro.",
+      "bodyscale": "balança.",
+      "bodytemperature": "temperatura.",
+      "bloodpressure": "pressão arterial.",
+      "bloodglucose": "glucose.",
+      "bandfitness": "bracelete."
+    }
   },
   "histambi": {
-    "msgSensor":
-      "Selecione e pressione [OK] para visualizar o histórico do sensor.",
-    "msgExit": "Pressione seta direita do comando para selecionar..."
-  },
-  "examshist": {
-    "msgUser":
-      "Selecione e pressione [OK] para visualizar o histórico dos exames do utilizador.",
-    "msgExam":
-      "Selecione o exame e pressione [OK] para visualizar o histórico.",
-    "msgExit": "Pressione seta direita do comando para selecionar..."
+    "msgSensor": "Selecione e pressione [OK] para visualizar o histórico do sensor.",
+    "msgExit": "Pressione seta direita do comando para selecionar...",
+    "info": {
+      "temp": "temperatura.",
+      "humi": "humidade.",
+      "mono": "monoxido de carbono.",
+      "Quarto": "quarto.",
+      "Sala": "sala.",
+      "Cozinha": "cozinha."
+    }
   },
   "exams": {
     "msgUser":
       "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
     "msgExit": "Pressione seta direita do comando para selecionar..."
   },
-  "warning3": {
-    "msgSensor": "Sem sensores."
-  },
-  "warning2": {
-    "msgSensor": "Sem sensores."
+  "showdata": {
+    "msgSensor": "Sem sensores.",
+    "info": "{location}, {sensortype} é {avg}"
   },
   "warning": {
     "msgSensor": "Sem sensores em alarme."
   },
-  "showData": {
-    "msgSensor": "Sem sensores."
+  "remote": {
+    "title": "Comando da tv Bloaqueado",
+    "text": "O comando da Tv está bloaqueado, devido ao aviso, prima ok no comando para desbloquear"
   },
-  "showData2": {
-    "msgSensor": "Sem sensores."
+  "modal": {
+    "settings": {
+      "sound": {
+        "title": "Som",
+        "checked": "Ligado",
+        "unchecked": "Desligado"
+      },
+      "mode": {
+        "title": "Modo",
+        "checked": "Avançado",
+        "unchecked": "Básico"
+      },
+      "language": {
+        "title": "linguagem",
+        "checked": "PT",
+        "unchecked": "EN"
+      }
+    }
   }
 }

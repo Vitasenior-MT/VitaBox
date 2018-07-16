@@ -71,26 +71,26 @@ export default {
     return {
       items: [
         {
-          title: 'Modo',
+          title: this.$t('modal.settings.mode.title'),
           type: 'mode',
           default: true,
-          labels: {checked: 'Avançado', unchecked: 'Básico'},
+          labels: {checked: this.$t('modal.settings.mode.checked'), unchecked: this.$t('modal.settings.mode.unchecked')},
           color: {checked: '#f7931d', unchecked: '#f05a28'},
           values: ['advanced', 'basic']
         },
         {
-          title: 'Som',
+          title: this.$t('modal.settings.sound.title'),
           type: 'sound',
           default: true,
-          labels: {checked: 'Ligado', unchecked: 'Desligado'},
+          labels: {checked: this.$t('modal.settings.sound.checked'), unchecked: this.$t('modal.settings.sound.unchecked')},
           color: {checked: '#f7931d', unchecked: '#f05a28'},
           values: ['on', 'off']
         },
         {
-          title: 'linguagem',
+          title: this.$t('modal.settings.language.title'),
           type: 'language',
           default: true,
-          labels: {checked: 'pt', unchecked: 'en'},
+          labels: {checked: this.$t('modal.settings.language.checked'), unchecked: this.$t('modal.settings.language.unchecked')},
           color: {checked: '#f7931d', unchecked: '#f05a28'},
           values: ['pt', 'en']
         }
