@@ -5,4 +5,4 @@ ERRLOGFILE="$COMMON/Scripts/mibandstderr.log"
 rm "$OUTLOGFILE"
 rm "$ERRLOGFILE"
 cd /home/pi/Desktop/VitaBox
-sudo node startAutoMiBand.js >> "$OUTLOGFILE" 2>> "$ERRLOGFILE"
+sudo NODE_ENV=prod node startAutoMiBand.js >> "$OUTLOGFILE" 2>> "$ERRLOGFILE"

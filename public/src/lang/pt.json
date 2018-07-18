@@ -27,12 +27,12 @@
   },
   "sidebar": {
     "diagnosis": {
-      "title": "Exames / Diagnósticos",
-      "text": "Exames."
-    },
-    "diagnosisHistory": {
       "title": "Medições",
       "text": "Medições."
+    },
+    "diagnosisHistory": {
+      "title": "Histórico das medições",
+      "text": "Histórico das medições."
     },
     "diagnosisHistoryBasic": {
       "title": "Hist. de Diag. Basic",
