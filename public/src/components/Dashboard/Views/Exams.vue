@@ -1528,6 +1528,16 @@ export default {
                 let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
                 elem.focus()
                 elem.classList.add('btn-fill')
+                // apaga a opção de exame selecionada
+                self.examEvent = ''
+                self.examMac = ''
+                // desloca a div para o inicio
+                document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
+                // limpa a lista dos botões dos exames disponiveis do user
+                self.btnExams = []
+                self.resetValues()
+                self.$refs.DefaultView.setMsg(self.msgUser)
+                self.$refs.DefaultView.show()
                 self.flg_once = false
               } else {
                 // remove o preenchimento
@@ -1537,18 +1547,8 @@ export default {
                 self.$refs.DefaultView.setMsg(self.msgExit)
                 self.$refs.DefaultView.show()
                 EventBus.setSidebar()
+                console.log('if exit', cmd, EventBus.currentActiveRightComp)
               }
-              // apaga a opção de exame selecionada
-              self.examEvent = ''
-              self.examMac = ''
-              // desloca a div para o inicio
-              document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
-              // limpa a lisa dos botões disponiveis para o user
-              self.btnExams = []
-              self.resetValues()
-              self.$refs.DefaultView.setMsg(self.msgUser)
-              self.$refs.DefaultView.show()
-              console.log('if exit', cmd, EventBus.currentActiveRightComp)
               break
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda

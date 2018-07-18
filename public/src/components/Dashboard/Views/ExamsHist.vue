@@ -498,6 +498,15 @@ export default {
                 elem.focus()
                 elem.classList.add('btn-fill')
                 self.flg_once = false
+                // desloca a div para o inicio
+                document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
+                // limpa a lisa dos botões disponiveis para o user
+                self.btnExams = []
+                self.resetValues()
+                self.$refs.DefaultView.setMsg(self.msgUser)
+                self.$refs.DefaultView.show()
+                console.log('if exit', cmd, EventBus.currentActiveRightComp)
+                EventBus.endRotation()
               } else {
                 // remove o preenchimento
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
@@ -506,16 +515,8 @@ export default {
                 self.$refs.DefaultView.setMsg(self.msgExit)
                 self.$refs.DefaultView.show()
                 EventBus.setSidebar()
+                console.log('if exit', cmd, EventBus.currentActiveRightComp)
               }
-              // desloca a div para o inicio
-              document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
-              // limpa a lisa dos botões disponiveis para o user
-              self.btnExams = []
-              self.resetValues()
-              self.$refs.DefaultView.setMsg(self.msgUser)
-              self.$refs.DefaultView.show()
-              console.log('if exit', cmd, EventBus.currentActiveRightComp)
-              EventBus.endRotation()
               break
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda

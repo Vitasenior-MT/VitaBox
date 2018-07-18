@@ -89,7 +89,7 @@
   },
   "diagnosis": {
     "msgUser": "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
-    "msgExit": "Pressione seta direita do comando para selecionar...",
+    "msgExit": "Pressione em [OK] no comando para entrar e selecionar...",
     "user": {
       "bodytemperature": {
         "title": "Modo de Utilização",
@@ -216,7 +216,7 @@
   "diagnosisHistory": {
     "msgUser": "Selecione e pressione [OK] para visualizar o histórico dos exames do utilizador.",
     "msgExam": "Selecione o exame e pressione [OK] para visualizar o histórico.",
-    "msgExit": "Pressione seta direita do comando para selecionar...",
+    "msgExit": "Pressione em [OK] no comando para entrar e selecionar...",
     "msgSensor": "Selecione e pressione [OK] para visualizar o histórico do sensor.",
     "lastExecution": "Ultima execução: ",
     "lastHistRecords": "Histórico - Últimos {lastHistRecords} dados recolhidos.",
@@ -231,7 +231,7 @@
   },
   "histambi": {
     "msgSensor": "Selecione e pressione [OK] para visualizar o histórico do sensor.",
-    "msgExit": "Pressione seta direita do comando para selecionar...",
+    "msgExit": "Pressione em [OK] no comando para entrar e selecionar...",
     "info": {
       "temp": "temperatura.",
       "humi": "humidade.",
@@ -243,7 +243,7 @@
   },
   "exams": {
     "msgUser": "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
-    "msgExit": "Pressione seta direita do comando para selecionar..."
+    "msgExit": "Pressione em [OK] no comando para entrar e selecionar..."
   },
   "showdata": {
     "msgSensor": "Sem sensores.",

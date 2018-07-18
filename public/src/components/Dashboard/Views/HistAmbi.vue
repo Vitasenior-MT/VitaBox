@@ -174,8 +174,6 @@ export default {
           } else {
             this.posSensorSelected = -1
             this.$refs.loading.hide()
-            this.$refs.DefaultView.setMsg(this.msgExam)
-            this.$refs.DefaultView.show()
             this.$notifications.notify({
               message: '<h4>' + response.data.data + '</h4>',
               icon: 'ti-bell',
@@ -183,6 +181,8 @@ export default {
               verticalAlign: 'top',
               type: 'warning'
             })
+            this.$refs.DefaultView.setMsg(this.msgSensor)
+            this.$refs.DefaultView.show()
           }
         })
         .catch(error => {
@@ -252,6 +252,13 @@ export default {
                 let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
                 elem.focus()
                 elem.classList.add('btn-fill')
+                // desloca a div para o inicio
+                document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
+                // limpa a lisa dos botões disponiveis para o user
+                self.btnLocation = []
+                self.resetValues()
+                self.$refs.DefaultView.setMsg(self.msgSensor)
+                self.$refs.DefaultView.show()
                 self.flg_once = false
               } else {
                 // remove o preenchimento
@@ -261,15 +268,8 @@ export default {
                 self.$refs.DefaultView.setMsg(self.msgExit)
                 self.$refs.DefaultView.show()
                 EventBus.setSidebar()
+                console.log('if exit', cmd, EventBus.currentActiveRightComp)
               }
-              // desloca a div para o inicio
-              document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
-              // limpa a lisa dos botões disponiveis para o user
-              self.btnLocation = []
-              self.resetValues()
-              self.$refs.DefaultView.setMsg(self.msgSensor)
-              self.$refs.DefaultView.show()
-              console.log('if exit', cmd, EventBus.currentActiveRightComp)
               break
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda
