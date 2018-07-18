@@ -151,13 +151,16 @@ export const app = new Vue({
             }
             break;
           case 'right':
-            EventBus.currentComponent = EventBus.correntRightComponent
-            EventBus.$emit('move-components', cmd)
-            break;
           case 'left':
-          case 'ok_btn':
           case 'exit':
             if (EventBus.currentComponent !== EventBus.sidebarName) {
+              EventBus.$emit('move-components', cmd)
+            }
+            break;
+          case 'ok_btn':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', 'enter')
+            } else {
               EventBus.$emit('move-components', cmd)
             }
             break;

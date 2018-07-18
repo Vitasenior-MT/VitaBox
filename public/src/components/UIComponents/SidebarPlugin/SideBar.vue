@@ -122,16 +122,21 @@ export default {
     controlSideBar() {
       var self = this
       EventBus.$on('move-sidebar', function(cmd) {
-        let index = self.activeLinkIndex + cmd
-        if (index < 0) {
-          index = self.sidebarLinks.length - 1
+        if (cmd === "enter") {
+          EventBus.currentComponent = EventBus.correntRightComponent
+          EventBus.$emit('move-components', 'right')
+        } else {
+          let index = self.activeLinkIndex + cmd
+          if (index < 0) {
+            index = self.sidebarLinks.length - 1
+          }
+          if (index > self.sidebarLinks.length - 1) {
+            index = 0
+          }
+          self.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
+          self.$router.push({ path: self.sidebarLinks[index].path })
+          EventBus.correntRightComponent = self.sidebarLinks[index].path
         }
-        if (index > self.sidebarLinks.length - 1) {
-          index = 0
-        }
-        self.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
-        self.$router.push({ path: self.sidebarLinks[index].path })
-        EventBus.correntRightComponent = self.sidebarLinks[index].path
       })
     }
   },
