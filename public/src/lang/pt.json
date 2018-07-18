@@ -226,7 +226,8 @@
       "bodytemperature": "temperatura. . . .",
       "bloodpressure": "pressão arterial. . . .",
       "bloodglucose": "glucose. . . .",
-      "bandfitness": "bracelete. . . ."
+      "bandfitness": "bracelete. . . .",
+      "values": "O valor é, {avg}"
     }
   },
   "histambi": {

@@ -410,44 +410,6 @@ export default {
         }
       }
     },
-    componentsRotation() {
-      var self = this
-      if (this.sidebarStore.mode.auto) {
-        this.resetValues()
-        this.dataCharsExists = false
-        EventBus.startRotation((end) => {
-          if (self.posPatientSelected > -1) {
-            if (end) {
-              // inicializa a variavel para selecionar a lista do user
-              self.classEvent = 'control-remote-patient'
-              self.dataCharsExists = false
-              self.$refs.DefaultView.setMsg(self.msgUser)
-              self.$refs.DefaultView.show()
-              // Constroi a lista com os elementos da class dos users
-              EventBus.elementControl = document.getElementsByClassName(self.classEvent)
-              // Atualiza para elemento anteriormente ativo
-              EventBus.currentActiveRightComp = self.posPatientSelected
-              // limpa a variavel para saber que se voltar a carregar para sair e voltar para a barra lateral.
-              self.posPatientSelected = -1
-              // desloca a div para o inicio
-              document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
-              // limpa a lisa dos botões disponiveis para o user
-              self.btnExams = []
-            }
-          }
-          EventBus.currentComponent = EventBus.correntRightComponent
-          EventBus.$emit('move-components', 'right')
-          EventBus.$emit('move-components', 'ok_btn')
-          setTimeout(() => {
-            if (end) {
-              EventBus.$emit('move-components', 'ok_btn')
-            }
-            let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
-            self.$socket.emit('ttsText', self.$t('diagnosisHistory.biosensors.' + datas.type))
-          }, 300);
-        }, 'control-remote-patient')
-      }
-    },
     /**
      * TODO: Metodo para controlar os eventos do comando remoto quando esta é a view ativa no momento
      */
@@ -563,7 +525,6 @@ export default {
     this.$http
       .get('/api/patient/getAll')
       .then(response => {
-        this.componentsRotation()
         let data = response.data.data
         for (var index in data) {
           this.patientsList.push({
