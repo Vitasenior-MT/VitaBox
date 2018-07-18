@@ -155,7 +155,7 @@ export const EventBus = new Vue({
       elem.classList.add('btn-fill')
       this.scrollScreen(elem)
     },
-    moveLeftRightInModal: function (cmd) {
+    moveLeftRightInModal: function(cmd) {
       // primeira vez que se entra nesta view
       if (this.firstRightEventModal) {
         cmd = 0

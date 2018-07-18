@@ -1615,9 +1615,23 @@ export default {
   border-radius: 20px;
   border-width: 4px;
   border-style: solid;
-  border-color: #f7931d;
-  background-color: white;
-  animation: blinker 3s linear infinite;
+  /* border-color: #f7931d;
+  background-color: white; */
+  border-color:white;
+  background-color:  #f05a28;
+  color: white;
+  animation: blinker 5s linear infinite;
+}
+
+@keyframes blinker {
+  0% {
+    /* background-color: white; */
+    border-color: white;
+  }
+  50% {
+    /* background-color: #f05a28; */
+    border-color: #f7931d;
+  }
 }
 
 .results-val div, .results-val div p, .results-val p {
@@ -1633,14 +1647,6 @@ export default {
   padding-right: 10px;
 }
 
-@keyframes blinker {
-  0% {
-    background-color: white;
-  }
-  50% {
-    background-color: #f05a28;
-  }
-}
 #loader-wrapper {
   position: fixed;
   top: 0;
