@@ -1617,22 +1617,22 @@ export default {
   border-style: solid;
   /* border-color: #f7931d;
   background-color: white; */
-  border-color:white;
+  border-color: #f7931d;
   background-color:  #f05a28;
   color: white;
-  animation: blinker 5s linear infinite;
+  /* animation: blinker 5s linear infinite; */
 }
-
+/*
 @keyframes blinker {
   0% {
-    /* background-color: white; */
+     background-color: white; 
     border-color: white;
   }
-  50% {
-    /* background-color: #f05a28; */
+  50% {*/
+    /* background-color: #f05a28;
     border-color: #f7931d;
   }
-}
+} */
 
 .results-val div, .results-val div p, .results-val p {
   background-color: transparent;
