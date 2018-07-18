@@ -70,7 +70,6 @@ export default {
   data() {
     return {
       flg_once: false,
-      listData: ['item1', 'item2', 'item3'],
       msgUser: 'diagnosisHistory.msgUser',
       msgExam: 'diagnosisHistory.msgExam',
       msgExit: 'diagnosisHistory.msgExit',
