@@ -54,7 +54,6 @@ Main.prototype.execBleMiBand = function (pacientInfo) {
   child.send({ "serverdata": args });
   child.on('message', function (data) {
     if (data.proc === 'saveDataSensors') {
-      // console.log(data);
       rawsensorlib.insertManyData(data.dataSend);
     } else if (data.proc === 'saveAuthPatient') {
       patientslib.updateFlagAuthBandFit(data.dataSend);

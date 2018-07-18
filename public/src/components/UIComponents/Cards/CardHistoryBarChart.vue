@@ -1,7 +1,9 @@
 <template>
   <div class="row">
     <div class="col-md-3" v-for="chartData in this.dataCharts" :key="chartData.id">
-      <div class="card btn btn-block btn-success control-remote-results">
+      <div class="card btn btn-block btn-success control-remote-results"
+        :data-tag="chartData.dataBar.tag"
+        :data-value="chartData.dataBar.y">
         <div class="content">
           <h1 style="margin: 0;"><span class="label label-info"><b>{{chartData.dataBar.y}}</b></span></h1>
           <div class="footer row">
