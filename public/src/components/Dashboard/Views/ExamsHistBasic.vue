@@ -307,6 +307,12 @@ export default {
             EventBus.$emit('move-components', 'exit')
             EventBus.$emit('move-components', 'right')
             data = null
+            setTimeout(() => {
+              console.log(document.getElementsByClassName('control-remote-results btn-fill')[0])
+              if (!document.getElementsByClassName('control-remote-results btn-fill')[0]) {
+                EventBus.$emit('move-components', 'right')
+              }
+            }, 300);
           }
           if (examLength - 1 === EventBus.currentActiveRightComp) {
             EventBus.$emit('move-components', 'exit')
