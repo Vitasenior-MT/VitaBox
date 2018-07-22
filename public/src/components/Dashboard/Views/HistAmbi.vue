@@ -274,10 +274,8 @@ export default {
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-              if (self.posSensorSelected >= 0) {
-                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
-              } else {
-                document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
+              if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
+                return EventBus.$emit('move-components', 'exit')
               }
               let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
@@ -285,7 +283,9 @@ export default {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
               if (self.posSensorSelected >= 0) {
+                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
               } else {
+                document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgSensor)
                 self.$refs.DefaultView.show()
               }

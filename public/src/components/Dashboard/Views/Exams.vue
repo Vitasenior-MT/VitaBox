@@ -1553,10 +1553,8 @@ export default {
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-              if (self.posPatientSelected >= 0) {
-                document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
-              } else {
-                document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
+              if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
+                return EventBus.$emit('move-components', 'exit')
               }
               let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
@@ -1564,15 +1562,39 @@ export default {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
               if (self.posPatientSelected >= 0) {
+                document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
                 self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
               } else {
+                document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
               }
               break
             default:
               break
+          }
+        } else {
+          if (cmd === 'exit') {
+            self.$http
+              .get('/api/ble/cancelExam')
+              .then(response => {
+                let data = response.data.data
+                console.log("Cancel", data)
+                self.$notifications.notify({
+                  message: '<h4>' + response.data.data + '</h4>',
+                  icon: 'ti-bell',
+                  horizontalAlign: 'right',
+                  verticalAlign: 'top',
+                  type: 'warning'
+                })
+                self.execProcess = false
+                EventBus.examEmExec = false
+                self.resetValues()
+              })
+              .catch(error => {
+                console.log(error)
+              })
           }
         }
       })

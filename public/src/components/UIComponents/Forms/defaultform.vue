@@ -3,8 +3,7 @@
     <div class="col-lg-12 btn btn-round btn-fill default-form">
       <div class="row">
         <div class="col-md-12">
-          <h4 class="text-center">
-            {{ $t(defaultViewDescritivo)}}
+          <h4 class="text-center" v-html="$t(defaultViewDescritivo)">
           </h4>
         </div>
       </div>

@@ -33,8 +33,8 @@
         </router-link>
       </ul>
       <moving-arrow :move-y='arrowMovePx'>
-
       </moving-arrow>
+      <div class="img-help"><img src="static/img/tv_remote2.png" alt=""></div>
     </div>
   </div>
 </template>
@@ -122,7 +122,7 @@ export default {
     controlSideBar() {
       var self = this
       EventBus.$on('move-sidebar', function(cmd) {
-        if (cmd === "enter") {
+        if (cmd === "ok_btn") {
           EventBus.currentComponent = EventBus.correntRightComponent
           EventBus.$emit('move-components', 'right')
         } else {
@@ -146,6 +146,8 @@ export default {
   },
   mounted() {
     this.findActiveLink()
+    let elem = document.getElementsByClassName('img-help')[0]
+    elem.style.width = document.getElementsByClassName("sidebar")[0].offsetWidth + 'px'
   },
   watch: {
     $route: function(newRoute, oldRoute) {
@@ -228,5 +230,16 @@ export default {
 }
 .sidebar-wrapper .active a {
   border-left: 5px solid #f7931d;
+}
+
+.img-help {
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+}
+.img-help img {
+  width: 100%;
+  height: auto;
 }
 </style>

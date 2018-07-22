@@ -64,7 +64,6 @@ export default {
   data() {
     return {
       flg_once: false,
-      listData: ['item1', 'item2', 'item3'],
       msgUser: 'diagnosisHistory.msgUser',
       msgExam: 'diagnosisHistory.msgExam',
       msgExit: 'diagnosisHistory.msgExit',
@@ -73,7 +72,7 @@ export default {
       chartsBarAllData: {},
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
-      posExameelected: -1,
+      posExameSelected: -1,
       patientsList: [],
       patientId: '',
       btnExams: [],
@@ -219,7 +218,7 @@ export default {
         .get('/api/sensorsble/' + this.patientId + '-' + examMac + '/' + this.lastHistRecords)
         .then(response => {
           if (response.data.status === true) {
-            this.posExameelected = EventBus.currentActiveRightComp
+            this.posExameSelected = EventBus.currentActiveRightComp
             let dataIterat = response.data.data
             this.chartsBarAllData = {
               lastUpdate: EventBus.dateFormat(dataIterat[0].value[dataIterat[0].value.length - 1].time),
@@ -368,7 +367,7 @@ export default {
           switch (cmd) {
             // evento do 'OK'
             case 'ok_btn':
-              if (self.posExameelected === -1) {
+              if (self.posExameSelected === -1) {
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
                 EventBus.elementControl[EventBus.currentActiveRightComp].click()
                 if (!self.posPatientSelected >= 0) {
@@ -383,7 +382,7 @@ export default {
               break
             // evento para sair para a sidebar ou para a lista anterior
             case 'exit':
-              if (self.posExameelected > -1) {
+              if (self.posExameSelected > -1) {
                 // remove o preenchimento
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
@@ -392,8 +391,8 @@ export default {
                 // Constroi a lista com os elementos da class dos exames
                 EventBus.elementControl = document.getElementsByClassName(self.classEvent)
                 // Atualiza para elemento anteriormente ativo
-                EventBus.currentActiveRightComp = self.posExameelected
-                self.posExameelected = -1
+                EventBus.currentActiveRightComp = self.posExameSelected
+                self.posExameSelected = -1
                 let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
                 elem.focus()
                 elem.classList.add('btn-fill')
@@ -429,7 +428,12 @@ export default {
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-              if (self.posExameelected > -1) {
+              if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
+                return EventBus.$emit('move-components', 'exit')
+              }
+              let moveFirstTime = EventBus.firstRightEvent
+              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
+              if (self.posExameSelected > -1) {
                 document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
               } else if (self.posPatientSelected > -1) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
@@ -443,8 +447,6 @@ export default {
                 self.$refs.DefaultView.show()
                 self.resetValues()
               }
-              let moveFirstTime = EventBus.firstRightEvent
-              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
               break
             default:
               break

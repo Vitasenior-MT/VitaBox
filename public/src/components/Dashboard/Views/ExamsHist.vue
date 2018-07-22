@@ -483,6 +483,14 @@ export default {
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
+              if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
+                return EventBus.$emit('move-components', 'exit')
+              }
+              let moveFirstTime = EventBus.firstRightEvent
+              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
+              if (EventBus.elementControl.length > 1 || moveFirstTime) {
+                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+              }
               if (self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgExam)
@@ -491,16 +499,6 @@ export default {
               } else {
                 document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
                 self.dataCharsExists = false
-                self.$refs.DefaultView.setMsg(self.msgUser)
-                self.$refs.DefaultView.show()
-                self.resetValues()
-              }
-              let moveFirstTime = EventBus.firstRightEvent
-              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
-              if (EventBus.elementControl.length > 1 || moveFirstTime) {
-                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-              }
-              if (self.posPatientSelected < 0) {
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
                 self.resetValues()
