@@ -64,6 +64,7 @@ export default {
   data() {
     return {
       flg_once: false,
+      flg_audio: false,
       listData: ['item1', 'item2', 'item3'],
       msgUser: 'diagnosisHistory.msgUser',
       msgExam: 'diagnosisHistory.msgExam',
@@ -288,6 +289,40 @@ export default {
         this.chartsBarAllData = {}
       }
     },
+    movement(type) {
+      let data = document.getElementsByClassName(type + ' btn-fill')[0]
+      if (!data) {
+        EventBus.$emit('move-components', 'right')
+        self.audioPlayer(data.dataset)
+      }
+    },
+    check(type) {
+      if (document.getElementsByClassName(type).length - 1 === EventBus.currentActiveRightComp) { 
+        EventBus.$emit('move-components', 'exit')
+        EventBus.$emit('move-components', 'right')
+        setTimeout(() => {
+          this.audioPlayer(document.getElementsByClassName(type + ' btn-fill')[0].dataset)
+        }, 300);
+      } else {
+        EventBus.$emit('move-components', 'right')
+        setTimeout(() => {
+          console.log(document.getElementsByClassName(type + ' btn-fill')[0].dataset)
+          this.audioPlayer(document.getElementsByClassName(type + ' btn-fill')[0].dataset)
+        }, 300);
+      }
+    },
+    componentsRotationRevised() {
+      var self = this
+      if (this.sidebarStore.mode.auto) {
+        this.resetValues()
+        this.dataCharsExists = false
+        EventBus.startRotation((end) => {
+          EventBus.autoMovement(['control-remote-patient', 'control-remote', 'control-remote-results'], (data) =>{
+            this.audioPlayer(data)
+          })
+        }, 'control-remote-patient')
+      }
+    },
     componentsRotation() {
       var self = this
       if (this.sidebarStore.mode.auto) {
@@ -310,6 +345,7 @@ export default {
             setTimeout(() => {
               console.log(document.getElementsByClassName('control-remote-results btn-fill')[0])
               if (!document.getElementsByClassName('control-remote-results btn-fill')[0]) {
+                self.flg_audio = true
                 EventBus.$emit('move-components', 'right')
               }
             }, 300);
@@ -318,35 +354,48 @@ export default {
             EventBus.$emit('move-components', 'exit')
             EventBus.$emit('move-components', 'right')
             exam = null
-          }
-          if (!patient) {
-            EventBus.$emit('move-components', 'right')
+            data = null
             setTimeout(() => {
-              patient = document.getElementsByClassName('control-remote-patient btn-fill')[0]
-              self.audioPlayer(patient.dataset)
-            }, 300);
-          } else {
-            if (!exam) {
-              EventBus.$emit('move-components', 'ok_btn')
-              setTimeout(() => {
-                exam = document.getElementsByClassName('control-remote btn-fill')[0]
+              exam = document.getElementsByClassName('control-remote btn-fill')[0]
+              if (!exam) {
+                EventBus.$emit('move-components', 'right')
+                self.flg_audio = true
                 self.audioPlayer(exam.dataset)
+              }
+            }, 300);
+          }
+          if(!self.flg_audio){
+            if (!patient) {
+              EventBus.$emit('move-components', 'right')
+              setTimeout(() => {
+                patient = document.getElementsByClassName('control-remote-patient btn-fill')[0]
+                self.audioPlayer(patient.dataset)
               }, 300);
             } else {
-              if (!data) {
+              if (!exam) {
                 EventBus.$emit('move-components', 'ok_btn')
                 setTimeout(() => {
-                  data = document.getElementsByClassName('control-remote-results btn-fill')[0]
-                  self.audioPlayer(data.dataset)
+                  exam = document.getElementsByClassName('control-remote btn-fill')[0]
+                  self.audioPlayer(exam.dataset)
                 }, 300);
               } else {
-                EventBus.$emit('move-components', 'right')
-                setTimeout(() => {
-                  data = document.getElementsByClassName('control-remote-results btn-fill')[0]
-                  self.audioPlayer(data.dataset)
-                }, 300);
+                if (!data) {
+                  EventBus.$emit('move-components', 'ok_btn')
+                  setTimeout(() => {
+                    data = document.getElementsByClassName('control-remote-results btn-fill')[0]
+                    self.audioPlayer(data.dataset)
+                  }, 300);
+                } else {
+                  EventBus.$emit('move-components', 'right')
+                  setTimeout(() => {
+                    data = document.getElementsByClassName('control-remote-results btn-fill')[0]
+                    self.audioPlayer(data.dataset)
+                  }, 300);
+                }
               }
             }
+          }else {
+            self.flg_audio = false
           }
         }, 'control-remote-patient')
       }
@@ -465,7 +514,7 @@ export default {
     this.$http
       .get('/api/patient/getAll')
       .then(response => {
-        this.componentsRotation()
+        this.componentsRotationRevised()
         let data = response.data.data
         for (var index in data) {
           this.patientsList.push({

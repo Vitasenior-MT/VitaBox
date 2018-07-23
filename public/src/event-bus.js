@@ -14,11 +14,91 @@ export const EventBus = new Vue({
     currentLanguage: 'pt',
     flgStartRotation: false,
     flg_sound: true,
+    currentSelectionValue: -1,
     next: null,
     className: '',
     examEmExec: false             // flag para validação da execução dos exames
   },
   methods: {
+    checkWidth() {
+      
+    },
+    checkHeight(arr) {
+      let count = -1
+      for (let data in arr) {
+        let comp = document.getElementsByClassName( arr[data] + ' btn-fill')[0]
+        if (comp) {
+          count += 1
+        }
+      }
+    },
+    autoMovementRevised(arr, callback, value) {
+
+    },
+    autoMovement(arr, callback, value) {
+      let count = -1
+      for (let data in arr) {
+        let comp = document.getElementsByClassName( arr[data] + ' btn-fill')[0]
+        if (comp) {
+          count += 1
+        }
+      }
+      console.log('Count: ', count)
+      console.log('-: ', this.currentSelectionValue)
+      console.log('-: ', count === -1)
+      console.log('-: ', count > this.currentSelectionValue)
+      console.log('-: ', count < this.currentSelectionValue)
+      console.log('-: ', document.getElementsByClassName(arr[count]).length - 1)
+      console.log('-: ', EventBus.currentActiveRightComp)
+      console.log('-: ', value)
+      if (count === -1) {
+        this.currentSelectionValue = count
+        EventBus.$emit('move-components', 'right')
+        setTimeout(() => {
+          EventBus.autoMovement(arr, callback)
+        }, 300)
+      } else if (count > this.currentSelectionValue) {
+        this.currentSelectionValue = count
+        callback(document.getElementsByClassName(arr[count] + ' btn-fill')[0].dataset)
+      } else if(count === this.currentSelectionValue){
+        if (value === count) {
+          if (document.getElementsByClassName(arr[count]).length - 1 === EventBus.currentActiveRightComp) {
+            EventBus.$emit('move-components', 'exit')
+            EventBus.autoMovement(arr, callback)
+          } else {
+            EventBus.$emit('move-components', 'right')
+            setTimeout(() => {
+              callback(document.getElementsByClassName(arr[count] + ' btn-fill')[0].dataset)
+            }, 300)
+          }
+        } else {
+          EventBus.$emit('move-components', 'ok_btn')
+          setTimeout(() => {
+            EventBus.autoMovement(arr, callback, count)
+          }, 300)
+        }
+      }
+      
+      
+      
+      /*else if (count > this.currentSelectionValue) {
+        this.currentSelectionValue = count
+        callback(document.getElementsByClassName(arr[count] + ' btn-fill')[0].dataset)
+      } else if (count < this.currentSelectionValue) {
+        this.currentSelectionValue = count
+        callback(document.getElementsByClassName(arr[count] + ' btn-fill')[0].dataset)
+      } else {
+        this.currentSelectionValue = count
+        EventBus.$emit('move-components', 'ok_btn')
+        EventBus.autoMovement(arr, callback)
+         if (document.getElementsByClassName(arr[count]).length - 1 === EventBus.currentActiveRightComp) {
+          EventBus.$emit('move-components', 'exit')
+        } else {
+          EventBus.$emit('move-components', 'right')
+          EventBus.autoMovement(arr, callback)
+        } 
+      }*/
+    },
     rotation() {
       if (this.flgStartRotation) {
         if (this.currentActiveRightComp + 1 >= this.elementControl.length) {
