@@ -27,12 +27,12 @@
   },
   "sidebar": {
     "diagnosis": {
-      "title": "Medições",
-      "text": "Medições."
+      "title": "Exames",
+      "text": "Exames."
     },
     "diagnosisHistory": {
-      "title": "Histórico das medições",
-      "text": "Histórico das medições."
+      "title": "Histórico Exames",
+      "text": "Histórico Exames."
     },
     "diagnosisHistoryBasic": {
       "title": "Hist. de Diag. Basic",
@@ -58,31 +58,31 @@
   "tooltips": {
     "diagnosis": {
       "user":{
-        "title": "Pessione em [OK] para selecionar o utilizador.",
+        "title": "Pressione em [OK] para selecionar o utilizador.",
         "text": ""
       },
       "exam":{
-        "title": "Pessione em [OK] para selecionar o exame.",
+        "title": "Pressione em [OK] para selecionar o exame.",
         "text": ""
       }
     },
     "diagnosisHistory": {
       "user":{
-        "title": "Pessione em [OK] para selecionar o utilizador.",
+        "title": "Pressione em [OK] para selecionar o utilizador.",
         "text": ""
       },
       "history":{
-        "title": "Pessione em [OK] para visualizar o histórico.",
+        "title": "Pressione em [OK] para visualizar o histórico.",
         "text": ""
       }
     },
     "ambienteHistory": {
       "sensor":{
-        "title": "Pessione em [OK] para selecionar o sensor.",
+        "title": "Pressione em [OK] para selecionar o sensor.",
         "text": ""
       },
       "history":{
-        "title": "Pessione em [OK] para mostrar / esconder o histórico do sensor.",
+        "title": "Pressione em [OK] para mostrar / esconder o histórico do sensor.",
         "text": ""
       }
     }
@@ -222,7 +222,7 @@
     "lastHistRecords": "Histórico - Últimos {lastHistRecords} dados recolhidos.",
     "biosensors": {
       "bodypulse": "pulsometro. . . .",
-      "bodyscale": "peso. . . .",
+      "bodyscale": "balança. . . .",
       "bodytemperature": "temperatura. . . .",
       "bloodpressure": "pressão arterial. . . .",
       "bloodglucose": "glucose. . . .",
