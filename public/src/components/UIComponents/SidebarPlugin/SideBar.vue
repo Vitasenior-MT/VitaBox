@@ -34,7 +34,10 @@
       </ul>
       <moving-arrow :move-y='arrowMovePx'>
       </moving-arrow>
-      <div class="img-help"><img src="static/img/tv_remote2.png" alt=""></div>
+      <div class="img-help">
+        <img class="ajust-img" src="static/img/tv_remote3.png" alt="">
+        <div v-show="showHelp" class="img-help-info green"><img class="ajust-img" src="static/img/id.svg" alt=""></div>
+      </div>
     </div>
   </div>
 </template>
@@ -102,11 +105,12 @@ export default {
     return {
       linkHeight: 60,
       activeLinkIndex: 0,
-
       windowWidth: 0,
       isWindows: false,
       hasAutoHeight: false,
-      interval: null
+      interval: null,
+      showHelp: false,
+      keyHelpTimer: null
     }
   },
   methods: {
@@ -138,6 +142,21 @@ export default {
           EventBus.correntRightComponent = self.sidebarLinks[index].path
         }
       })
+    },
+    controlKeyHelp() {
+      var self = this
+      EventBus.$on('key-help', function(key) {
+        self.showHelp = false
+        clearTimeout(self.keyHelpTimer)
+        let keyReleased = document.getElementsByClassName('img-help-info')[0]
+        keyReleased.className = ""
+        keyReleased.classList.add('img-help-info')
+        keyReleased.classList.add(key)
+        self.showHelp = true
+        self.keyHelpTimer = setTimeout(() => {
+          self.showHelp = false
+        }, 500);
+      })
     }
   },
   beforeDestroy() {
@@ -157,6 +176,7 @@ export default {
   created() {
     var self = this
     this.controlSideBar()
+    this.controlKeyHelp()
     EventBus.$on('changeTab', function() {
       let path = '/vitabox/warnings'
       if (self.$route.path !== path) {
@@ -238,8 +258,75 @@ export default {
   left: 0;
   position: fixed;
 }
-.img-help img {
+.ajust-img {
   width: 100%;
   height: auto;
+}
+.img-help-info {
+  position: absolute;
+  background-color: beige;
+  border-radius: 30px;
+  width: 18%;
+  height: 11%;
+}
+
+.red {
+    top: 9%;
+    left: 8%;
+}
+
+.settings {
+    top: 9%;
+    left: 29%;
+}
+
+.yellow {
+    top: 9%;
+    left: 52%;
+}
+
+.blue {
+    top: 9%;
+    left: 74%;
+}
+
+.ok_btn {
+    top: 47%;
+    left: 40%;
+}
+
+.left {
+    top: 47%;
+    left: 20%;
+}
+
+.right {
+    top: 47%;
+    left: 62%;
+}
+
+.up {
+    top: 30%;
+    left: 40%;
+}
+
+.down {
+    top: 62%;
+    left: 41%;
+}
+
+.exit {
+    top: 69%;
+    left: 11%;
+}
+
+.one {
+    top: 85%;
+    left: 13%;
+}
+
+.two {
+    top: 85%;
+    left: 41%;
 }
 </style>
