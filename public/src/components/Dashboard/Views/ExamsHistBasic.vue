@@ -288,6 +288,28 @@ export default {
         this.chartsBarAllData = {}
       }
     },
+    movement(type) {
+      let data = document.getElementsByClassName(type + ' btn-fill')[0]
+      if (!data) {
+        EventBus.$emit('move-components', 'right')
+        self.audioPlayer(data.dataset)
+      }
+    },
+    check(type) {
+      if (document.getElementsByClassName(type).length - 1 === EventBus.currentActiveRightComp) {
+        EventBus.$emit('move-components', 'exit')
+        EventBus.$emit('move-components', 'right')
+        setTimeout(() => {
+          this.audioPlayer(document.getElementsByClassName(type + ' btn-fill')[0].dataset)
+        }, 300);
+      } else {
+        EventBus.$emit('move-components', 'right')
+        setTimeout(() => {
+          console.log(document.getElementsByClassName(type + ' btn-fill')[0].dataset)
+          this.audioPlayer(document.getElementsByClassName(type + ' btn-fill')[0].dataset)
+        }, 300);
+      }
+    },
     componentsRotationRevised() {
       var self = this
       if (this.sidebarStore.mode.auto) {

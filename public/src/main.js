@@ -130,6 +130,7 @@ export const app = new Vue({
       this.$socket.emit('ttsText', this.$t("remote.text"))
     },
     cmd: function(cmd) {
+      EventBus.$emit('key-help', cmd)
       if (!this.settings) {
         switch (cmd) {
           case 'up':
