@@ -194,6 +194,9 @@ export default {
             self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             break
           case 'left': // tecla para a esquerda
+            if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
+              return EventBus.$emit('move-components', 'exit')
+            }
             EventBus.moveLeftRightInView(-1)
             self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             break

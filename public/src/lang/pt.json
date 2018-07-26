@@ -89,18 +89,13 @@
   },
   "diagnosis": {
     "msgUser": "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
-    "msgExit": "Pressione seta direita do comando para selecionar...",
+    "msgExit": "Pressione direita ou [OK] no comando para entrar e selecionar...",
     "user": {
       "bodytemperature": {
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "temperatura.",
-          "1": "1 . No comando pressione no ok para iniciar .",
-          "2": "2 . Coloque o equipamento de acordo com a imagem .",
-          "3": "3 . Pressione no botão até que o equipamento ligue .",
-          "4": "4 . Aguarde até que todos os valores apareçam na televisão .",
-          "5": "5 . Pode retirar o equipamento e desligá-lo .",
-          "6": "6 . É importante que o equipamento seja desligado de forma a ecónomizar a bateria"
+          "1": "Pressione no ok ."
         },
         "fig": {
           "0": "Fig.1",
@@ -130,12 +125,8 @@
         },
         "title": "Modo de Utilização",
         "audioDescription":{
-          "0": "pulsometro.",
-          "1": "1 . No comando pressione no ok para iniciar .",
-          "2": "2 . Coloque o equipamento no dedo conforme apresentado na imagem .",
-          "3": "3 . Pressione no botão até que o equipamento ligue .",
-          "4": "4 . Aguarde até que todos os valores apareçam na televisão .",
-          "5": "6 . Pode retirar o equipamento do dedo e o mesmo desliga-se automaticamente ."
+          "0": "Oxímetro.",
+          "1": "Pressione no ok ."
         },
         "0": {
           "0": "No comando pressione em",
@@ -153,13 +144,8 @@
       "bodyscale": {
         "title": "Modo de Utilização",
         "audioDescription":{
-          "0": "peso.",
-          "1": "1 . Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição .",
-          "2": "2 . No comando pressione no ok para iniciar .",
-          "3": "3 . Descalce-se e suba para a balança .",
-          "4": "4 . O equipamento liga-se automaticamente .",
-          "5": "5 . Quando o valor obtido estabilizar o mesmo irá piscar .",
-          "6": "6 . Após a correta recolha dos dados o equipamento desliga-se automaticamente ."
+          "0": "Peso.",
+          "1": "Pressione no ok ."
         },
         "0": "Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição.",
         "1": {
@@ -179,10 +165,7 @@
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "pressão arterial.",
-          "1": "1 . Coloque a bracelete no braço .",
-          "2": "2 . No comando pressione no ok para iniciar .",
-          "3": "3 . Pressione no botão até que o equipamento ligue .",
-          "4": "4 . Aguarde até o processo terminar ."
+          "1": "Pressione no ok ."
         },
         "0": "Coloque a bracelete no braço.",
         "1": "Ajuste a bracelete conforme mostrado na imagem (Fig.1).",
@@ -207,7 +190,7 @@
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "bracelete.",
-          "1": "1 . Assegure-se de que possui a banda corretamente colocada no pulso ."
+          "1": "Pressione no ok ."
         },
         "0": "Assegure-se de que possui a banda corretamente colocada no pulso."
       }
@@ -216,7 +199,7 @@
   "diagnosisHistory": {
     "msgUser": "Selecione e pressione [OK] para visualizar o histórico dos exames do utilizador.",
     "msgExam": "Selecione o exame e pressione [OK] para visualizar o histórico.",
-    "msgExit": "Pressione seta direita do comando para selecionar...",
+    "msgExit": "Pressione direita ou [OK] no comando para entrar e selecionar...",
     "msgSensor": "Selecione e pressione [OK] para visualizar o histórico do sensor.",
     "lastExecution": "Ultima execução: ",
     "lastHistRecords": "Histórico - Últimos {lastHistRecords} dados recolhidos.",
@@ -232,7 +215,7 @@
   },
   "histambi": {
     "msgSensor": "Selecione e pressione [OK] para visualizar o histórico do sensor.",
-    "msgExit": "Pressione seta direita do comando para selecionar...",
+    "msgExit": "Pressione direita ou [OK] no comando para entrar e selecionar...",
     "info": {
       "temp": "temperatura.",
       "humi": "humidade.",
@@ -244,7 +227,7 @@
   },
   "exams": {
     "msgUser": "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
-    "msgExit": "Pressione seta direita do comando para selecionar..."
+    "msgExit": "Pressione direita ou [OK] no comando para entrar e selecionar..."
   },
   "showdata": {
     "msgSensor": "Sem sensores.",

@@ -9,95 +9,115 @@ export const EventBus = new Vue({
     currentActiveRightCompModal: 0,    // posição do array para o elemento ativo
     firstRightEvent: true,        // validação se é a primeira vez que foi precionado a tecla para a direita para entrar na view
     firstRightEventModal: true,        // validação se é a primeira vez que foi precionado a tecla para a direita para entrar na modal
-    elementControl: [],           // Array com os elemento perencentes a uma class especifica
+    elementControl: [],           // Array com os elemento pertencentes a uma class especifica
+    oldElementControl: [],           // Array com os elemento anteriores pertencentes a uma class especifica
     elementControlModal: [],           // Array com os elemento perencentes a uma class especifica
     currentLanguage: 'pt',
     flgStartRotation: false,
     flg_sound: true,
-    currentSelectionValue: -1,
+    currentSelectionOld: -1,
+    currentSelection: -1,
+    currentSelectionY: -1,
+    currentSelectionYOld: -1,
+    flg_currentSelectionEnd: false,
+    flg_readOnce: true,
+    currentSelectedComp: '',
     next: null,
     className: '',
     examEmExec: false             // flag para validação da execução dos exames
   },
   methods: {
-    checkWidth() {
-      
+    audioPlayer(dataset) {
+      this.$socket.emit('ttsText', dataset.type ? this.$t('diagnosisHistory.biosensors.' + dataset.type) : this.$t('dictionary.press_user'))
     },
-    checkHeight(arr) {
+    check(arr) {
       let count = -1
       for (let data in arr) {
-        let comp = document.getElementsByClassName( arr[data] + ' btn-fill')[0]
+        let comp = document.getElementsByClassName(arr[data] + ' btn-fill')[0]
         if (comp) {
           count += 1
         }
       }
+      this.currentSelection = count
     },
-    autoMovementRevised(arr, callback, value) {
-
-    },
-    autoMovement(arr, callback, value) {
-      let count = -1
-      for (let data in arr) {
-        let comp = document.getElementsByClassName( arr[data] + ' btn-fill')[0]
-        if (comp) {
-          count += 1
-        }
-      }
-      console.log('Count: ', count)
-      console.log('-: ', this.currentSelectionValue)
-      console.log('-: ', count === -1)
-      console.log('-: ', count > this.currentSelectionValue)
-      console.log('-: ', count < this.currentSelectionValue)
-      console.log('-: ', document.getElementsByClassName(arr[count]).length - 1)
-      console.log('-: ', EventBus.currentActiveRightComp)
-      console.log('-: ', value)
-      if (count === -1) {
-        this.currentSelectionValue = count
+    right(arr) {
+      if (EventBus.currentActiveRightComp === document.getElementsByClassName(arr[this.currentSelection]).length - 1) {
+        EventBus.$emit('move-components', 'exit')
+        setTimeout(() => {
+          this.right(arr)
+        }, 300)
+        /* EventBus.$emit('move-components', 'right')
+        setTimeout(() => {
+          this.check(arr)
+          this.audioPlayer(document.getElementsByClassName(arr[this.currentSelection] + ' btn-fill')[0].dataset)
+        }, 300) */
+      } else {
         EventBus.$emit('move-components', 'right')
         setTimeout(() => {
-          EventBus.autoMovement(arr, callback)
+          this.check(arr)
+          this.audioPlayer(document.getElementsByClassName(arr[this.currentSelection] + ' btn-fill')[0].dataset)
         }, 300)
-      } else if (count > this.currentSelectionValue) {
-        this.currentSelectionValue = count
-        callback(document.getElementsByClassName(arr[count] + ' btn-fill')[0].dataset)
-      } else if(count === this.currentSelectionValue){
-        if (value === count) {
-          if (document.getElementsByClassName(arr[count]).length - 1 === EventBus.currentActiveRightComp) {
-            EventBus.$emit('move-components', 'exit')
-            EventBus.autoMovement(arr, callback)
-          } else {
-            EventBus.$emit('move-components', 'right')
-            setTimeout(() => {
-              callback(document.getElementsByClassName(arr[count] + ' btn-fill')[0].dataset)
-            }, 300)
-          }
-        } else {
-          EventBus.$emit('move-components', 'ok_btn')
-          setTimeout(() => {
-            EventBus.autoMovement(arr, callback, count)
-          }, 300)
-        }
       }
-      
-      
-      
-      /*else if (count > this.currentSelectionValue) {
-        this.currentSelectionValue = count
-        callback(document.getElementsByClassName(arr[count] + ' btn-fill')[0].dataset)
-      } else if (count < this.currentSelectionValue) {
-        this.currentSelectionValue = count
-        callback(document.getElementsByClassName(arr[count] + ' btn-fill')[0].dataset)
+    },
+    checkEnd(callback) {
+      if (this.currentActiveRightComp === this.elementControl.length - 1) {
+        EventBus.$emit('move-components', 'exit')
+        this.checkEnd()
       } else {
-        this.currentSelectionValue = count
-        EventBus.$emit('move-components', 'ok_btn')
-        EventBus.autoMovement(arr, callback)
-         if (document.getElementsByClassName(arr[count]).length - 1 === EventBus.currentActiveRightComp) {
-          EventBus.$emit('move-components', 'exit')
+        EventBus.$emit('move-components', 'right', () => {
+          this.oldElementControl = this.elementControl
+          callback(this.elementControl[this.currentActiveRightComp].dataset)
+        })
+      }
+    },
+    autoMovementRevised(callback) {
+      if (this.firstRightEvent) {
+        this.firstRightEvent = false
+        EventBus.$emit('move-components', 'right', () => {
+          callback(this.elementControl[this.currentActiveRightComp].dataset)
+        })
+      } else {
+        if (this.elementControl === this.oldElementControl) {
+          this.checkEnd(callback)
         } else {
-          EventBus.$emit('move-components', 'right')
-          EventBus.autoMovement(arr, callback)
-        } 
-      }*/
+          this.oldElementControl = this.elementControl
+          EventBus.$emit('move-components', 'ok_btn', () => {
+            setTimeout(() => {
+              callback(this.elementControl[this.currentActiveRightComp].dataset)
+            }, 300)
+          })
+        }
+        /*
+        if (this.currentActiveRightComp === this.elementControl.length - 1) {
+          EventBus.$emit('move-components', 'exit', () => {
+            this.oldElementControl = this.elementControl
+            callback(this.elementControl[this.currentActiveRightComp].dataset)
+          })
+        }
+        */
+      }
+      console.log(this.currentActiveRightComp)
+      console.log(this.elementControl)
+      console.log(this.elementControl[this.currentActiveRightComp].dataset)
+      /* if (this.currentSelection === -1) {
+        console.log(this.currentSelection)
+        EventBus.$emit('move-components', 'right')
+        setTimeout(() => {
+          this.check(arr)
+          this.audioPlayer(document.getElementsByClassName(arr[0] + ' btn-fill')[0].dataset)
+        }, 300)
+      } else {
+        EventBus.$emit('move-components', 'ok_btn')
+        setTimeout(() => {
+          this.check(arr)
+          if (this.currentSelectionOld === this.currentSelection) {
+            this.right(arr)
+          } else {
+            this.currentSelectionOld = this.currentSelection
+            this.audioPlayer(document.getElementsByClassName(arr[this.currentSelection] + ' btn-fill')[0].dataset)
+          }
+        }, 300)
+      } */
     },
     rotation() {
       if (this.flgStartRotation) {

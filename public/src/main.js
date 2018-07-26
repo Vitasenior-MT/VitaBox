@@ -137,7 +137,7 @@ export const app = new Vue({
               EventBus.$emit('move-sidebar', -1)
             } else {
               if (EventBus.currentComponent !== EventBus.sidebarName) {
-                EventBus.$emit('move-components', 'up')
+                EventBus.$emit('move-components', cmd)
               }
             }
             break;
@@ -146,7 +146,7 @@ export const app = new Vue({
               EventBus.$emit('move-sidebar', 1)
             } else {
               if (EventBus.currentComponent !== EventBus.sidebarName) {
-                EventBus.$emit('move-components', 'down')
+                EventBus.$emit('move-components', cmd)
               }
             }
             break;
@@ -155,9 +155,15 @@ export const app = new Vue({
             EventBus.$emit('move-components', cmd)
             break;
           case 'left':
-          case 'ok_btn':
           case 'exit':
             if (EventBus.currentComponent !== EventBus.sidebarName) {
+              EventBus.$emit('move-components', cmd)
+            }
+            break;
+          case 'ok_btn':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', cmd)
+            } else {
               EventBus.$emit('move-components', cmd)
             }
             break;

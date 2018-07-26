@@ -6,8 +6,8 @@ module.exports = {
   coapConfigs: {
     rate: {
       hour: 0,
-      min: 1,
-      sec: 0, 
+      min: 0,
+      sec: 5
     },
     warningArraySize: 5,
     avgSize: 15
@@ -54,8 +54,10 @@ module.exports = {
   ServerConfigs: {
     key: fs.readFileSync('.key').toString().trim(),
     pass: 'passvita',
-    port: 443,
-    host: 'vitasenior-test.eu-gb.mybluemix.net'
+    //port: 443,
+    port: 8080,
+   // host: 'vitasenior-test.eu-gb.mybluemix.net'
+    host: '192.168.161.53'
   },
   serverHttp: {
     port: 8080

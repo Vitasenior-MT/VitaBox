@@ -781,6 +781,9 @@ export default {
     }
   },
   sockets: {
+    audioPlayer(data) {
+      this.$socket.emit('ttsText', read)
+    },
     bloodglucoseFim: function(data) {
       let resData = data
       if (resData.status === true) {
@@ -948,6 +951,7 @@ export default {
      */
     bleExecFimScale: function(data) {
       let resData = data
+      let read = ''
       if (resData.status === true) {
         if (resData.data.length > 0) {
           this.dataBodyScale.panelPrincipal = false
@@ -957,7 +961,9 @@ export default {
           this.dataBodyScale[resData.data[dataVal].tag] = resData.data[dataVal].value
           this.dataBodyScale[resData.data[dataVal].tag + 'Name'] = resData.data[dataVal].measure
           this.dataBodyScale[resData.data[dataVal].tag + 'Show'] = true
+          read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
         }
+        this.$socket.emit('ttsText', read)
       } else {
         this.$notifications.notify({
           message: '<h4>' + data.data + '</h4>',
@@ -1000,6 +1006,7 @@ export default {
      */
     bleExecFimPulse: function(data) {
       let resData = data
+      let read = ''
       if (resData.status === true) {
         for (let dataVal in resData.data) {
           switch (resData.data[dataVal].tag) {
@@ -1009,6 +1016,7 @@ export default {
               this.databodypulse.spoVal = resData.data[dataVal].value
               this.databodypulse.spoValName = resData.data[dataVal].measure
               this.databodypulse.spoValShow = true
+              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
               break;
             case "pulse":
               this.databodypulse.panelPrincipal = false
@@ -1016,11 +1024,15 @@ export default {
               this.databodypulse.pulseVal = resData.data[dataVal].value
               this.databodypulse.pulseValName = resData.data[dataVal].measure
               this.databodypulse.pulseValShow = true
+              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
               break;
             default:
               break;
           }
         }
+        console.log('*****************************')
+        console.log(read)
+        this.$socket.emit('ttsText', read)
       } else {
         console.log('Receive error', data)
         this.$notifications.notify({
@@ -1049,6 +1061,7 @@ export default {
      */
     bleExecFimTemp: function(data) {
       let resData = data
+      let read = ''
       if (resData.status === true) {
         for (let dataVal in resData.data) {
           switch (resData.data[dataVal].tag) {
@@ -1058,6 +1071,7 @@ export default {
               this.databodytemperature.battery = resData.data[dataVal].data
               this.databodytemperature.batteryName = resData.data[dataVal].measure
               this.databodytemperature.batteryShow = true
+              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
               break;
             case "bodytemp":
               this.databodytemperature.panelPrincipal = false
@@ -1067,11 +1081,13 @@ export default {
               this.databodytemperature.tempCorpShow = true
               this.execProcess = false
               EventBus.examEmExec = false
+              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
               break;
             default:
               break;
           }
         }
+        this.$socket.emit('ttsText', read)
       } else {
         // console.log('Receive error', data)
         this.$notifications.notify({
@@ -1102,6 +1118,7 @@ export default {
      */
     bleExecFimPress: function(data) {
       let resData = data
+      let read = ''
       if (resData.status === true) {
         for (let dataVal in resData.data) {
           switch (resData.data[dataVal].tag) {
@@ -1112,6 +1129,7 @@ export default {
               this.dataPressArt.pressmax = resData.data[dataVal].value
               this.dataPressArt.pressmaxName = resData.data[dataVal].measure
               this.dataPressArt.pressmaxShow = true
+              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
               break;
             case "diastolic":
               this.dataPressArt.panelPrincipal = false
@@ -1120,6 +1138,7 @@ export default {
               this.dataPressArt.pressmin = resData.data[dataVal].value
               this.dataPressArt.pressminName = resData.data[dataVal].measure
               this.dataPressArt.pressminShow = true
+              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
               break;
             case "pulse":
               this.dataPressArt.panelPrincipal = false
@@ -1128,11 +1147,13 @@ export default {
               this.dataPressArt.pulso = resData.data[dataVal].value
               this.dataPressArt.pulsoName = resData.data[dataVal].measure
               this.dataPressArt.pulsoShow = true
+              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
               break;
             default:
               break;
           }
         }
+        this.$socket.emit('ttsText', read)
       } else {
         // console.log('Receive error', data)
         this.$notifications.notify({
@@ -1528,6 +1549,16 @@ export default {
                 let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
                 elem.focus()
                 elem.classList.add('btn-fill')
+                // apaga a opção de exame selecionada
+                self.examEvent = ''
+                self.examMac = ''
+                // desloca a div para o inicio
+                document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
+                // limpa a lista dos botões dos exames disponiveis do user
+                self.btnExams = []
+                self.resetValues()
+                self.$refs.DefaultView.setMsg(self.msgUser)
+                self.$refs.DefaultView.show()
                 self.flg_once = false
               } else {
                 // remove o preenchimento
@@ -1537,26 +1568,14 @@ export default {
                 self.$refs.DefaultView.setMsg(self.msgExit)
                 self.$refs.DefaultView.show()
                 EventBus.setSidebar()
+                console.log('if exit', cmd, EventBus.currentActiveRightComp)
               }
-              // apaga a opção de exame selecionada
-              self.examEvent = ''
-              self.examMac = ''
-              // desloca a div para o inicio
-              document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
-              // limpa a lisa dos botões disponiveis para o user
-              self.btnExams = []
-              self.resetValues()
-              self.$refs.DefaultView.setMsg(self.msgUser)
-              self.$refs.DefaultView.show()
-              console.log('if exit', cmd, EventBus.currentActiveRightComp)
               break
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-              if (self.posPatientSelected >= 0) {
-                document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
-              } else {
-                document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
+              if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
+                return EventBus.$emit('move-components', 'exit')
               }
               let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
@@ -1564,15 +1583,39 @@ export default {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
               if (self.posPatientSelected >= 0) {
+                document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
                 self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
               } else {
+                document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
               }
               break
             default:
               break
+          }
+        } else {
+          if (cmd === 'exit') {
+            self.$http
+              .get('/api/ble/cancelExam')
+              .then(response => {
+                let data = response.data.data
+                console.log("Cancel", data)
+                self.$notifications.notify({
+                  message: '<h4>' + response.data.data + '</h4>',
+                  icon: 'ti-bell',
+                  horizontalAlign: 'right',
+                  verticalAlign: 'top',
+                  type: 'warning'
+                })
+                self.execProcess = false
+                EventBus.examEmExec = false
+                self.resetValues()
+              })
+              .catch(error => {
+                console.log(error)
+              })
           }
         }
       })
@@ -1615,24 +1658,10 @@ export default {
   border-radius: 20px;
   border-width: 4px;
   border-style: solid;
-  /* border-color: #f7931d;
-  background-color: white; */
   border-color: #f7931d;
   background-color:  #f05a28;
   color: white;
-  /* animation: blinker 5s linear infinite; */
 }
-/*
-@keyframes blinker {
-  0% {
-     background-color: white; 
-    border-color: white;
-  }
-  50% {*/
-    /* background-color: #f05a28;
-    border-color: #f7931d;
-  }
-} */
 
 .results-val div, .results-val div p, .results-val p {
   background-color: transparent;

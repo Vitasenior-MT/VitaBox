@@ -65,7 +65,6 @@ export default {
     return {
       flg_once: false,
       flg_audio: false,
-      listData: ['item1', 'item2', 'item3'],
       msgUser: 'diagnosisHistory.msgUser',
       msgExam: 'diagnosisHistory.msgExam',
       msgExit: 'diagnosisHistory.msgExit',
@@ -74,7 +73,7 @@ export default {
       chartsBarAllData: {},
       classEvent: 'control-remote-patient',
       posPatientSelected: -1,
-      posExameelected: -1,
+      posExameSelected: -1,
       patientsList: [],
       patientId: '',
       btnExams: [],
@@ -220,7 +219,7 @@ export default {
         .get('/api/sensorsble/' + this.patientId + '-' + examMac + '/' + this.lastHistRecords)
         .then(response => {
           if (response.data.status === true) {
-            this.posExameelected = EventBus.currentActiveRightComp
+            this.posExameSelected = EventBus.currentActiveRightComp
             let dataIterat = response.data.data
             this.chartsBarAllData = {
               lastUpdate: EventBus.dateFormat(dataIterat[0].value[dataIterat[0].value.length - 1].time),
@@ -289,114 +288,18 @@ export default {
         this.chartsBarAllData = {}
       }
     },
-    movement(type) {
-      let data = document.getElementsByClassName(type + ' btn-fill')[0]
-      if (!data) {
-        EventBus.$emit('move-components', 'right')
-        self.audioPlayer(data.dataset)
-      }
-    },
-    check(type) {
-      if (document.getElementsByClassName(type).length - 1 === EventBus.currentActiveRightComp) { 
-        EventBus.$emit('move-components', 'exit')
-        EventBus.$emit('move-components', 'right')
-        setTimeout(() => {
-          this.audioPlayer(document.getElementsByClassName(type + ' btn-fill')[0].dataset)
-        }, 300);
-      } else {
-        EventBus.$emit('move-components', 'right')
-        setTimeout(() => {
-          console.log(document.getElementsByClassName(type + ' btn-fill')[0].dataset)
-          this.audioPlayer(document.getElementsByClassName(type + ' btn-fill')[0].dataset)
-        }, 300);
-      }
-    },
     componentsRotationRevised() {
       var self = this
       if (this.sidebarStore.mode.auto) {
         this.resetValues()
         this.dataCharsExists = false
         EventBus.startRotation((end) => {
-          EventBus.autoMovement(['control-remote-patient', 'control-remote', 'control-remote-results'], (data) =>{
+          /* EventBus.autoMovementRevised(['control-remote-patient', 'control-remote', 'control-remote-results'], (data) => {
+            this.audioPlayer(data)
+          }) */
+          EventBus.autoMovementRevised((data) => {
             this.audioPlayer(data)
           })
-        }, 'control-remote-patient')
-      }
-    },
-    componentsRotation() {
-      var self = this
-      if (this.sidebarStore.mode.auto) {
-        this.resetValues()
-        this.dataCharsExists = false
-        EventBus.startRotation((end) => {
-          let patient = document.getElementsByClassName('control-remote-patient btn-fill')[0]
-          let exam = document.getElementsByClassName('control-remote btn-fill')[0]
-          let data = document.getElementsByClassName('control-remote-results btn-fill')[0]
-          let patientLength = document.getElementsByClassName('control-remote-patient').length
-          let examLength = document.getElementsByClassName('control-remote').length
-          let dataLength = document.getElementsByClassName('control-remote-results').length
-          console.log(dataLength - 1)
-          console.log(EventBus.currentActiveRightComp)
-          console.log(dataLength - 1 === EventBus.currentActiveRightComp)
-          if (dataLength - 1 === EventBus.currentActiveRightComp) {
-            EventBus.$emit('move-components', 'exit')
-            EventBus.$emit('move-components', 'right')
-            data = null
-            setTimeout(() => {
-              console.log(document.getElementsByClassName('control-remote-results btn-fill')[0])
-              if (!document.getElementsByClassName('control-remote-results btn-fill')[0]) {
-                self.flg_audio = true
-                EventBus.$emit('move-components', 'right')
-              }
-            }, 300);
-          }
-          if (examLength - 1 === EventBus.currentActiveRightComp) {
-            EventBus.$emit('move-components', 'exit')
-            EventBus.$emit('move-components', 'right')
-            exam = null
-            data = null
-            setTimeout(() => {
-              exam = document.getElementsByClassName('control-remote btn-fill')[0]
-              if (!exam) {
-                EventBus.$emit('move-components', 'right')
-                self.flg_audio = true
-                self.audioPlayer(exam.dataset)
-              }
-            }, 300);
-          }
-          if(!self.flg_audio){
-            if (!patient) {
-              EventBus.$emit('move-components', 'right')
-              setTimeout(() => {
-                patient = document.getElementsByClassName('control-remote-patient btn-fill')[0]
-                self.audioPlayer(patient.dataset)
-              }, 300);
-            } else {
-              if (!exam) {
-                EventBus.$emit('move-components', 'ok_btn')
-                setTimeout(() => {
-                  exam = document.getElementsByClassName('control-remote btn-fill')[0]
-                  self.audioPlayer(exam.dataset)
-                }, 300);
-              } else {
-                if (!data) {
-                  EventBus.$emit('move-components', 'ok_btn')
-                  setTimeout(() => {
-                    data = document.getElementsByClassName('control-remote-results btn-fill')[0]
-                    self.audioPlayer(data.dataset)
-                  }, 300);
-                } else {
-                  EventBus.$emit('move-components', 'right')
-                  setTimeout(() => {
-                    data = document.getElementsByClassName('control-remote-results btn-fill')[0]
-                    self.audioPlayer(data.dataset)
-                  }, 300);
-                }
-              }
-            }
-          }else {
-            self.flg_audio = false
-          }
         }, 'control-remote-patient')
       }
     },
@@ -408,7 +311,7 @@ export default {
       /**
        * TODO: Monitorização dos eventos do controlo remoto
        */
-      EventBus.$on('move-components', function(cmd) {
+      EventBus.$on('move-components', function(cmd, callback) {
         if (!self.$refs.loading.getLoadingState()) {
           EventBus.elementControl = document.getElementsByClassName(self.classEvent)
           if (EventBus.elementControl.length === 0) {
@@ -417,38 +320,23 @@ export default {
           switch (cmd) {
             // evento do 'OK'
             case 'ok_btn':
-              if (self.posExameelected === -1) {
-                EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
-                EventBus.elementControl[EventBus.currentActiveRightComp].click()
-                if (!self.posPatientSelected >= 0) {
-                  document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
-                }
-                let typeSel = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
-                if (!typeSel) {
-                  self.$refs.DefaultView.setMsg(self.msgExam)
-                  self.$refs.DefaultView.show()
-                }
+              EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
+              EventBus.elementControl[EventBus.currentActiveRightComp].click()
+              if (!self.posPatientSelected >= 0) {
+                document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
+              }
+              let typeSel = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+              if (!typeSel) {
+                self.$refs.DefaultView.setMsg(self.msgExam)
+                self.$refs.DefaultView.show()
               }
               break
             // evento para sair para a sidebar ou para a lista anterior
             case 'exit':
-              if (self.posExameelected > -1) {
-                // remove o preenchimento
-                EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-                EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-                EventBus.elementControl[EventBus.currentActiveRightComp].blur()
-                self.classEvent = 'control-remote'
-                // Constroi a lista com os elementos da class dos exames
-                EventBus.elementControl = document.getElementsByClassName(self.classEvent)
-                // Atualiza para elemento anteriormente ativo
-                EventBus.currentActiveRightComp = self.posExameelected
-                self.posExameelected = -1
-                let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-                elem.focus()
-                elem.classList.add('btn-fill')
-              } else if (self.posPatientSelected >= 0) {
-                // iniicializa a variavel para selecionar a lsta do user
-                self.classEvent = 'control-remote-patient'
+              // iniicializa a variavel para selecionar a lsta do user
+              self.classEvent = 'control-remote-patient'
+              // se existir um user selecionado é porque se está na lista dos equipamentos
+              if (self.posPatientSelected >= 0) {
                 // Constroi a lista com os elementos da class dos users
                 EventBus.elementControl = document.getElementsByClassName(self.classEvent)
                 // Atualiza para elemento anteriormente ativo
@@ -458,11 +346,16 @@ export default {
                 let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
                 elem.focus()
                 elem.classList.add('btn-fill')
+                self.flg_once = false
+                // desloca a div para o inicio
+                document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
                 // limpa a lisa dos botões disponiveis para o user
                 self.btnExams = []
                 self.resetValues()
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
+                console.log('if exit', cmd, EventBus.currentActiveRightComp)
+                EventBus.endRotation()
               } else {
                 // remove o preenchimento
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
@@ -471,16 +364,19 @@ export default {
                 self.$refs.DefaultView.setMsg(self.msgExit)
                 self.$refs.DefaultView.show()
                 EventBus.setSidebar()
+                EventBus.firstRightEvent = true
                 console.log('if exit', cmd, EventBus.currentActiveRightComp)
-                EventBus.endRotation()
               }
               break
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-              if (self.posExameelected > -1) {
-                document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
-              } else if (self.posPatientSelected > -1) {
+              if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
+                return EventBus.$emit('move-components', 'exit')
+              }
+              let moveFirstTime = EventBus.firstRightEvent
+              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
+              if (self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgExam)
                 self.$refs.DefaultView.show()
@@ -492,11 +388,12 @@ export default {
                 self.$refs.DefaultView.show()
                 self.resetValues()
               }
-              let moveFirstTime = EventBus.firstRightEvent
-              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
               break
             default:
               break
+          }
+          if (callback) {
+            callback()
           }
         }
       })
