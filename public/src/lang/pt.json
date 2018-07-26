@@ -95,7 +95,7 @@
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "temperatura.",
-          "1": "Pressione no ok para iniciar."
+          "1": "Pressione ok."
         },
         "fig": {
           "0": "Fig.1",
@@ -126,7 +126,7 @@
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "Oxímetro.",
-          "1": "Pressione no ok para iniciar."
+          "1": "Pressione ok."
         },
         "0": {
           "0": "No comando pressione em",
@@ -145,7 +145,7 @@
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "Peso.",
-          "1": "Pressione no ok para iniciar."
+          "1": "Pressione ok."
         },
         "0": "Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição.",
         "1": {
@@ -165,7 +165,7 @@
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "pressão arterial.",
-          "1": "Pressione no ok para iniciar."
+          "1": "Pressione ok."
         },
         "0": "Coloque a bracelete no braço.",
         "1": "Ajuste a bracelete conforme mostrado na imagem (Fig.1).",
@@ -190,7 +190,7 @@
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "bracelete.",
-          "1": "Pressione no ok para iniciar."
+          "1": "Pressione ok."
         },
         "0": "Assegure-se de que possui a banda corretamente colocada no pulso."
       }
@@ -204,8 +204,8 @@
     "lastExecution": "Ultima execução: ",
     "lastHistRecords": "Histórico - Últimos {lastHistRecords} dados recolhidos.",
     "biosensors": {
-      "bodypulse": "pulsometro. . . .",
-      "bodyscale": "balança. . . .",
+      "bodypulse": "oximetro. . . .",
+      "bodyscale": "peso. . . .",
       "bodytemperature": "temperatura. . . .",
       "bloodpressure": "pressão arterial. . . .",
       "bloodglucose": "glucose. . . .",
