@@ -333,7 +333,7 @@ export default {
       /**
        * TODO: Monitorização dos eventos do controlo remoto
        */
-      EventBus.$on('move-components', function(cmd, callback) {
+      EventBus.$on('move-components', function(cmd) {
         if (!self.$refs.loading.getLoadingState()) {
           EventBus.elementControl = document.getElementsByClassName(self.classEvent)
           if (EventBus.elementControl.length === 0) {
@@ -342,24 +342,38 @@ export default {
           switch (cmd) {
             // evento do 'OK'
             case 'ok_btn':
-              EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
-              EventBus.elementControl[EventBus.currentActiveRightComp].click()
-              if (!self.posPatientSelected >= 0) {
-                document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
-              }
-              let typeSel = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
-              if (!typeSel) {
-                self.$refs.DefaultView.setMsg(self.msgExam)
-                self.$refs.DefaultView.show()
+              if (self.posExameelected === -1) {
+                EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
+                EventBus.elementControl[EventBus.currentActiveRightComp].click()
+                if (!self.posPatientSelected >= 0) {
+                  document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
+                }
+                let typeSel = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+                if (!typeSel) {
+                  self.$refs.DefaultView.setMsg(self.msgExam)
+                  self.$refs.DefaultView.show()
+                }
               }
               break
             // evento para sair para a sidebar ou para a lista anterior
             case 'exit':
-              EventBus.removeAudio()
-              // iniicializa a variavel para selecionar a lsta do user
-              self.classEvent = 'control-remote-patient'
-              // se existir um user selecionado é porque se está na lista dos equipamentos
-              if (self.posPatientSelected >= 0) {
+              if (self.posExameelected > -1) {
+                // remove o preenchimento
+                EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
+                EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
+                EventBus.elementControl[EventBus.currentActiveRightComp].blur()
+                self.classEvent = 'control-remote'
+                // Constroi a lista com os elementos da class dos exames
+                EventBus.elementControl = document.getElementsByClassName(self.classEvent)
+                // Atualiza para elemento anteriormente ativo
+                EventBus.currentActiveRightComp = self.posExameelected
+                self.posExameelected = -1
+                let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+                elem.focus()
+                elem.classList.add('btn-fill')
+              } else if (self.posPatientSelected >= 0) {
+                // iniicializa a variavel para selecionar a lsta do user
+                self.classEvent = 'control-remote-patient'
                 // Constroi a lista com os elementos da class dos users
                 EventBus.elementControl = document.getElementsByClassName(self.classEvent)
                 // Atualiza para elemento anteriormente ativo
@@ -369,16 +383,11 @@ export default {
                 let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
                 elem.focus()
                 elem.classList.add('btn-fill')
-                self.flg_once = false
-                // desloca a div para o inicio
-                document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
                 // limpa a lisa dos botões disponiveis para o user
                 self.btnExams = []
                 self.resetValues()
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
-                console.log('if exit', cmd, EventBus.currentActiveRightComp)
-                EventBus.endRotation()
               } else {
                 // remove o preenchimento
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
@@ -387,19 +396,16 @@ export default {
                 self.$refs.DefaultView.setMsg(self.msgExit)
                 self.$refs.DefaultView.show()
                 EventBus.setSidebar()
-                EventBus.firstRightEvent = true
                 console.log('if exit', cmd, EventBus.currentActiveRightComp)
+                EventBus.endRotation()
               }
               break
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
-              if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
-                return EventBus.$emit('move-components', 'exit')
-              }
-              let moveFirstTime = EventBus.firstRightEvent
-              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
-              if (self.posPatientSelected >= 0) {
+              if (self.posExameelected > -1) {
+                document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
+              } else if (self.posPatientSelected > -1) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgExam)
                 self.$refs.DefaultView.show()
@@ -411,12 +417,11 @@ export default {
                 self.$refs.DefaultView.show()
                 self.resetValues()
               }
+              let moveFirstTime = EventBus.firstRightEvent
+              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
               break
             default:
               break
-          }
-          if (callback) {
-            callback()
           }
         }
       })
