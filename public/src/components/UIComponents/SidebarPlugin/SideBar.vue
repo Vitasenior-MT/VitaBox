@@ -10,10 +10,10 @@
     <div class='sidebar-wrapper' id='style-3'>
       <div class='logo'>
         <a href='#' class='simple-text'>
-            <div class='logo-img'>
+            <h3><div class='logo-img'>
                 <img src='static/img/logo2_B.gif' alt=''>
             </div>
-          VitaSénior - VitaBox
+          VitaSénior - VitaBox</h3>
         </a>
       </div>
       <slot>
@@ -26,18 +26,14 @@
         :ref='link.name'
         :key='link.name + index'>
           <a>
-            <i :class='link.icon'></i>
-            <p>{{ $t(link.name) }}
-            </p>
+            <h2 style="margin: 0; padding: 0;"><i :class='link.icon'></i>
+            {{ $t(link.name) }}
+            </h2>
           </a>
         </router-link>
       </ul>
       <moving-arrow :move-y='arrowMovePx'>
       </moving-arrow>
-      <div class="img-help">
-        <img class="ajust-img" src="static/img/tv_remote3.png" alt="">
-        <div v-show="showHelp" class="img-help-info green"><img class="ajust-img" src="static/img/id.svg" alt=""></div>
-      </div>
     </div>
   </div>
 </template>
@@ -103,14 +99,12 @@ export default {
   },
   data() {
     return {
-      linkHeight: 60,
+      linkHeight: 72,
       activeLinkIndex: 0,
       windowWidth: 0,
       isWindows: false,
       hasAutoHeight: false,
-      interval: null,
-      showHelp: false,
-      keyHelpTimer: null
+      interval: null
     }
   },
   methods: {
@@ -142,21 +136,6 @@ export default {
           EventBus.correntRightComponent = self.sidebarLinks[index].path
         }
       })
-    },
-    controlKeyHelp() {
-      var self = this
-      EventBus.$on('key-help', function(key) {
-        self.showHelp = false
-        clearTimeout(self.keyHelpTimer)
-        let keyReleased = document.getElementsByClassName('img-help-info')[0]
-        keyReleased.className = ""
-        keyReleased.classList.add('img-help-info')
-        keyReleased.classList.add(key)
-        self.showHelp = true
-        self.keyHelpTimer = setTimeout(() => {
-          self.showHelp = false
-        }, 500);
-      })
     }
   },
   beforeDestroy() {
@@ -165,8 +144,6 @@ export default {
   },
   mounted() {
     this.findActiveLink()
-    let elem = document.getElementsByClassName('img-help')[0]
-    elem.style.width = document.getElementsByClassName("sidebar")[0].offsetWidth + 'px'
   },
   watch: {
     $route: function(newRoute, oldRoute) {
@@ -176,7 +153,6 @@ export default {
   created() {
     var self = this
     this.controlSideBar()
-    this.controlKeyHelp()
     EventBus.$on('changeTab', function() {
       let path = '/vitabox/warnings'
       if (self.$route.path !== path) {
@@ -250,83 +226,5 @@ export default {
 }
 .sidebar-wrapper .active a {
   border-left: 5px solid #f7931d;
-}
-
-.img-help {
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  position: fixed;
-}
-.ajust-img {
-  width: 100%;
-  height: auto;
-}
-.img-help-info {
-  position: absolute;
-  background-color: beige;
-  border-radius: 30px;
-  width: 18%;
-  height: 11%;
-}
-
-.red {
-    top: 9%;
-    left: 8%;
-}
-
-.settings {
-    top: 9%;
-    left: 29%;
-}
-
-.yellow {
-    top: 9%;
-    left: 52%;
-}
-
-.blue {
-    top: 9%;
-    left: 74%;
-}
-
-.ok_btn {
-    top: 47%;
-    left: 40%;
-}
-
-.left {
-    top: 47%;
-    left: 20%;
-}
-
-.right {
-    top: 47%;
-    left: 62%;
-}
-
-.up {
-    top: 30%;
-    left: 40%;
-}
-
-.down {
-    top: 62%;
-    left: 41%;
-}
-
-.exit {
-    top: 69%;
-    left: 11%;
-}
-
-.one {
-    top: 85%;
-    left: 13%;
-}
-
-.two {
-    top: 85%;
-    left: 41%;
 }
 </style>
