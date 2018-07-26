@@ -29,10 +29,6 @@ const routes = [
         name: 'Hist. de Diagnósticos',
         component: ExamsHist
       }, {
-        path: 'exameshistoricobasic',
-        name: 'Hist. de Diag. Basic',
-        component: ExamsHistBasic
-      }, {
         path: 'ambientehistorico',
         name: 'Hist. Sen. Ambientais',
         component: AmbientHist

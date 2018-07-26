@@ -74,18 +74,6 @@ export default {
   },
   methods: {
     audioPlayer(dataset) {
-      // let i = 0
-      // let text = ''
-      /* while (true) {
-        if (self.$t('diagnosis.user.' + self.examEvent + '.audioDescription.' + i) === 'diagnosis.user.' + self.examEvent + '.audioDescription.' + i) {
-          text.substring(0, text.length - 1);
-          break;
-        } else {
-          text += self.$t('diagnosis.user.' + self.examEvent + '.audioDescription.' + i) + ' '
-        }
-        i++
-      } */
-      console.log(dataset)
       this.$socket.emit('ttsText', this.$t('showdata.info', {sensortype: dataset.reading, location: dataset.location, avg: dataset.avg}))
     },
     dateFormat(data) {
