@@ -958,10 +958,11 @@ export default {
           this.dataBodyScale.panelResults = true
         }
         for (let dataVal in resData.data) {
+          console.log(resData.data[dataVal])
           this.dataBodyScale[resData.data[dataVal].tag] = resData.data[dataVal].value
           this.dataBodyScale[resData.data[dataVal].tag + 'Name'] = resData.data[dataVal].measure
           this.dataBodyScale[resData.data[dataVal].tag + 'Show'] = true
-          read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
+          read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
         }
         this.$socket.emit('ttsText', read)
       } else {
@@ -1016,7 +1017,7 @@ export default {
               this.databodypulse.spoVal = resData.data[dataVal].value
               this.databodypulse.spoValName = resData.data[dataVal].measure
               this.databodypulse.spoValShow = true
-              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
+              read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
               break;
             case "pulse":
               this.databodypulse.panelPrincipal = false
@@ -1024,7 +1025,7 @@ export default {
               this.databodypulse.pulseVal = resData.data[dataVal].value
               this.databodypulse.pulseValName = resData.data[dataVal].measure
               this.databodypulse.pulseValShow = true
-              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
+              read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
               break;
             default:
               break;
@@ -1071,7 +1072,7 @@ export default {
               this.databodytemperature.battery = resData.data[dataVal].data
               this.databodytemperature.batteryName = resData.data[dataVal].measure
               this.databodytemperature.batteryShow = true
-              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
+              read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
               break;
             case "bodytemp":
               this.databodytemperature.panelPrincipal = false
@@ -1081,7 +1082,7 @@ export default {
               this.databodytemperature.tempCorpShow = true
               this.execProcess = false
               EventBus.examEmExec = false
-              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
+              read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
               break;
             default:
               break;
@@ -1129,7 +1130,7 @@ export default {
               this.dataPressArt.pressmax = resData.data[dataVal].value
               this.dataPressArt.pressmaxName = resData.data[dataVal].measure
               this.dataPressArt.pressmaxShow = true
-              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
+              read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
               break;
             case "diastolic":
               this.dataPressArt.panelPrincipal = false
@@ -1138,7 +1139,7 @@ export default {
               this.dataPressArt.pressmin = resData.data[dataVal].value
               this.dataPressArt.pressminName = resData.data[dataVal].measure
               this.dataPressArt.pressminShow = true
-              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
+              read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
               break;
             case "pulse":
               this.dataPressArt.panelPrincipal = false
@@ -1147,7 +1148,7 @@ export default {
               this.dataPressArt.pulso = resData.data[dataVal].value
               this.dataPressArt.pulsoName = resData.data[dataVal].measure
               this.dataPressArt.pulsoShow = true
-              read += resData.data[dataVal].measure + ', ' + resData.data[dataVal].value + ' . '
+              read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
               break;
             default:
               break;
@@ -1536,6 +1537,7 @@ export default {
               break
             // evento para sair para a sidebar ou para a lista anterior
             case 'exit':
+              EventBus.removeAudio()
               // iniicializa a variavel para selecionar a lsta do user
               self.classEvent = 'control-remote-patient'
               // se existir um user selecionado é porque se está na lista dos equipamentos

@@ -127,6 +127,7 @@ export default {
             break
             // evento para sair para a sidebar
           case 'exit':
+            EventBus.removeAudio()
             // remove o preenchimento
             console.log("Elem num - ", EventBus.currentActiveRightComp)
             EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')

@@ -446,6 +446,7 @@ export default {
               break
             // evento para sair para a sidebar ou para a lista anterior
             case 'exit':
+              EventBus.removeAudio()
               // iniicializa a variavel para selecionar a lsta do user
               self.classEvent = 'control-remote-patient'
               // se existir um user selecionado é porque se está na lista dos equipamentos
