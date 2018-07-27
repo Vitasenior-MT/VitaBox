@@ -84,9 +84,6 @@ export default {
   sockets: {},
   methods: {
     audioPlayer(dataset) {
-      console.log('-------------------------->')
-      console.log(dataset)
-      console.log(this.$t('histambi.info.' + dataset.type))
       this.$socket.emit('ttsText', this.$t('histambi.info.' + dataset.type))
     },
     hideShowLocationLine() {

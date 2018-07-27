@@ -48,7 +48,7 @@ const basic = [
   {
     name: 'sidebar.showData.title',
     icon: 'ti-bell',
-    path: '/vitabox/showdata',
+    path: '/vitabox/showDataBasic',
     text: 'sidebar.showData.text'
   },
   {
