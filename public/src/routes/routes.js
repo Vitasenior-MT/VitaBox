@@ -9,6 +9,7 @@ import ExamsHistBasic from 'src/components/Dashboard/Views/ExamsHistBasic.vue'
 import AmbientHist from 'src/components/Dashboard/Views/HistAmbi.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import ShowData from 'src/components/Dashboard/Views/ShowData.vue'
+import ShowDataBasic from 'src/components/Dashboard/Views/ShowDataBasic.vue'
 
 const routes = [
   {
@@ -40,6 +41,10 @@ const routes = [
         path: 'showData',
         name: 'showData',
         component: ShowData
+      }, {
+        path: 'showDataBasic',
+        name: 'showDataBasic',
+        component: ShowDataBasic
       }
     ]
   },

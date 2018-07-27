@@ -129,6 +129,7 @@ export default {
             // define o elemento ativo coomo sendo a barra lateral
             EventBus.currentComponent = EventBus.sidebarName
             console.log('if exit', cmd, EventBus.currentActiveRightComp)
+            EventBus.endRotation()
             EventBus.setSidebar()
             break
           case 'up':
@@ -197,6 +198,7 @@ export default {
     }
   },
   beforeDestroy() {
+    EventBus.endRotation()
     EventBus.setSidebar()
     EventBus.$off('move-components')
   },
@@ -234,6 +236,15 @@ export default {
             })
           }
           this.controlEventsBus()
+          if (this.sidebarStore.mode.auto) {
+            EventBus.startRotation((end) => {
+              EventBus.$emit('move-components', 'right')
+              EventBus.$emit('move-components', 'ok_btn')
+              setTimeout(() => {
+                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+              }, 10);
+            }, 'control-remote')
+          }
         } else {
           console.log('Receive error', response.data)
         }
