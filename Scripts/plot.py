@@ -100,3 +100,5 @@ def plotData(arg1, arg2):
 	
 if __name__ == "__main__":
 	plot(sys.argv[1], sys.argv[2], sys.argv[3])
+
+#sudo python plot.py 0 0 true // gerar os graficos
