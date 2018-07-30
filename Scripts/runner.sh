@@ -17,3 +17,6 @@ while true; do
 echo "Waiting for the next Action 300 secs"
 sleep 300
 done
+
+# start logs
+# ./runner.sh mongod chromium nodejs
