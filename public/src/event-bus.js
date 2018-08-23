@@ -17,6 +17,10 @@ export const EventBus = new Vue({
     currentSelectedComp: '',
     next: null,
     className: '',
+    collapseSidebar: 4.3,
+    backupSidebarWidth: 0,
+    backupMainPanelWidth: 0,
+    backupMovingArrowLeft: 0,
     examEmExec: false             // flag para validação da execução dos exames
   },
   methods: {
@@ -240,6 +244,23 @@ export const EventBus = new Vue({
         color += letters[Math.floor(Math.random() * 16)];
       }
       return color;
+    }
+  },
+  watch: {
+    currentComponent: function (value) {
+      console.log('chartline', value)
+      if (this.sidebarName === value) {
+        document.getElementsByClassName('sidebar')[0].style.width = this.backupSidebarWidth
+        document.getElementsByClassName('main-panel')[0].style.width = this.backupMainPanelWidth
+        document.getElementsByClassName('moving-arrow')[0].style.left = this.backupMovingArrowLeft
+      } else {
+        this.backupSidebarWidth = document.getElementsByClassName('sidebar')[0].style.width
+        this.backupMainPanelWidth = document.getElementsByClassName('main-panel')[0].style.width
+        this.backupMovingArrowLeft = document.getElementsByClassName('moving-arrow')[0].style.left
+        document.getElementsByClassName('sidebar')[0].style.width = this.collapseSidebar + "%"
+        document.getElementsByClassName('main-panel')[0].style.width = (100 - this.collapseSidebar) + "%"
+        document.getElementsByClassName('moving-arrow')[0].style.left = (3 * this.collapseSidebar) + "%"
+      }
     }
   }
 });
