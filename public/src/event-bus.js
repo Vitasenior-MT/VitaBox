@@ -42,7 +42,7 @@ export const EventBus = new Vue({
       this.next = null
       this.className = ''
     },
-    audioBasicMode: function(path) {
+    audioBasicMode: function(path, callback) {
       if (this.flg_sound) {
         let self = this
         let audio = document.createElement('audio')
@@ -53,6 +53,9 @@ export const EventBus = new Vue({
         audio.onended = function() {
           audio.remove()
           self.$socket.emit('ttsDelete')
+          if (callback) {
+            callback()
+          }
           if (self.flgStartRotation) {
             self.rotation()
           }
@@ -62,7 +65,6 @@ export const EventBus = new Vue({
     },
     removeAudio: function(type) {
       if (type === 'off') {
-        console.log(type)
         this.flg_sound = false
         let audio = document.getElementById('audioElem')
         if (audio) {

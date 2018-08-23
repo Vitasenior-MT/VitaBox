@@ -19,6 +19,12 @@ const advanced = [
     text: 'sidebar.diagnosisHistory.text'
   },
   {
+    name: 'sidebar.showData.title',
+    icon: 'ti-bell',
+    path: '/vitabox/showdata',
+    text: 'sidebar.showData.text'
+  },
+  {
     name: 'sidebar.ambienteHistory.title',
     icon: 'ti-rss-alt',
     path: '/vitabox/ambientehistorico',
@@ -29,12 +35,6 @@ const advanced = [
     icon: 'ti-bell',
     path: '/vitabox/warnings',
     text: 'sidebar.warning.text'
-  },
-  {
-    name: 'sidebar.showData.title',
-    icon: 'ti-bell',
-    path: '/vitabox/showdata',
-    text: 'sidebar.showData.text'
   }
 ]
 

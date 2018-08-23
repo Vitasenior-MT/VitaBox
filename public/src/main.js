@@ -70,7 +70,7 @@ export const app = new Vue({
   data: {
     Chartist: Chartist,
     interval: null,
-    show: true,
+    show: false,
     settings: false
   },
   mounted() {
@@ -86,30 +86,30 @@ export const app = new Vue({
       }
     },
     ttsPath(path) {
+      var self = this
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
       }
-      EventBus.audioBasicMode('./static/.temp/' + path)
+      EventBus.audioBasicMode('./static/.temp/' + path, () => {
+        if (self.show) {
+          self.show = false
+          self.$modal.hide('alert')
+          setTimeout(() => {
+            self.$modal.show('alert', '')
+            self.$socket.emit('ttsText', self.$t('dictionary.warnings.warning'))
+          }, 5000);
+        }
+      })
     },
     hdmistatus: function(data) {
       console.log('Receive hdmistatus', data)
     },
     vitaWarning: function(data) {
-      let self = this
-      this.$modal.show('alert', data)
+      this.show = true
+      this.$modal.show('alert', '')
       this.$socket.emit('ttsText', this.$t('dictionary.warnings.warning'))
       this.$marqueemsg.show('Ver Mensagem', 'Aviso')
       EventBus.$emit('changeTab')
-      clearInterval(this.interval)
-      this.interval = setInterval(() => {
-        if (self.show) {
-          self.$modal.show('alert', data)
-          self.show = false
-        } else {
-          self.$modal.hide('alert')
-          self.show = true
-        }
-      }, 3000)
     },
     informationVita: function(data) {
       this.$marqueemsg.show(data.shortMessage, data.longMessage)
