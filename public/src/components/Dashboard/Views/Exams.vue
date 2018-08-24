@@ -1302,10 +1302,10 @@ export default {
                     this.btns[4].nome = devacesArray[index].name
                     btnopt = this.btns[4]
                     break
-                  case 'bandfitness':
+                  /* case 'bandfitness':
                     this.btns[5].nome = devacesArray[index].name
                     btnopt = this.btns[5]
-                    break
+                    break */
                   default:
                     break
                 }

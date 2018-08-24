@@ -71,7 +71,8 @@ export const app = new Vue({
     Chartist: Chartist,
     interval: null,
     show: false,
-    settings: false
+    settings: false,
+    timeout: null
   },
   mounted() {
   },
@@ -90,16 +91,17 @@ export const app = new Vue({
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
       }
-      EventBus.audioBasicMode('./static/.temp/' + path, () => {
-        if (self.show) {
-          self.show = false
+      if (this.show) {
+        EventBus.audioBasicMode('./static/.temp/' + path, () => {
           self.$modal.hide('alert')
-          setTimeout(() => {
+          self.timeout = setTimeout(() => {
             self.$modal.show('alert', '')
             self.$socket.emit('ttsText', self.$t('dictionary.warnings.warning'))
-          }, 5000);
-        }
-      })
+          }, 5000)
+        })
+      } else {
+        EventBus.audioBasicMode('./static/.temp/' + path, null)
+      }
     },
     hdmistatus: function(data) {
       console.log('Receive hdmistatus', data)
@@ -116,8 +118,10 @@ export const app = new Vue({
     },
     unblock: function() {
       this.$marqueemsg.hide()
+      EventBus.removeAudio('off')
+      this.show = false
+      clearTimeout(this.timeout)
       this.$modal.hide('alert')
-      clearInterval(this.interval)
     },
     blocked: function() {
       this.$notifications.notify({
@@ -131,77 +135,63 @@ export const app = new Vue({
     },
     cmd: function(cmd) {
       EventBus.$emit('key-help', cmd)
-      if (!this.settings) {
-        switch (cmd) {
-          case 'up':
-            if (EventBus.currentComponent === EventBus.sidebarName) {
-              EventBus.$emit('move-sidebar', -1)
-            } else {
-              if (EventBus.currentComponent !== EventBus.sidebarName) {
-                EventBus.$emit('move-components', cmd)
-              }
-            }
-            break;
-          case 'down':
-            if (EventBus.currentComponent === EventBus.sidebarName) {
-              EventBus.$emit('move-sidebar', 1)
-            } else {
-              if (EventBus.currentComponent !== EventBus.sidebarName) {
-                EventBus.$emit('move-components', cmd)
-              }
-            }
-            break;
-          case 'right':
-            EventBus.currentComponent = EventBus.correntRightComponent
-            EventBus.$emit('move-components', cmd)
-            break;
-          case 'left':
-          case 'exit':
+      switch (cmd) {
+        case 'up':
+          if (EventBus.currentComponent === EventBus.sidebarName) {
+            EventBus.$emit('move-sidebar', -1)
+          } else {
             if (EventBus.currentComponent !== EventBus.sidebarName) {
               EventBus.$emit('move-components', cmd)
             }
-            break;
-          case 'ok_btn':
-            if (EventBus.currentComponent === EventBus.sidebarName) {
-              EventBus.$emit('move-sidebar', cmd)
-            } else {
+          }
+          break;
+        case 'down':
+          if (EventBus.currentComponent === EventBus.sidebarName) {
+            EventBus.$emit('move-sidebar', 1)
+          } else {
+            if (EventBus.currentComponent !== EventBus.sidebarName) {
               EventBus.$emit('move-components', cmd)
             }
-            break;
-          case 'mode':
-            // if (!EventBus.examEmExec) {
-            //   EventBus.$emit('mode')
-            // }
-            break;
-          case 'settings':
-            if (!EventBus.examEmExec) {
-              console.log('app settings')
-              if (this.settings) {
-                this.settings = false
-                this.$modal.hide('settings')
-              } else {
-                this.settings = true
-                this.$modal.show('settings')
-              }
-            }
-            break;
-          case 'menu':
-            break;
-          default:
-            break;
-        }
-      } else {
-        EventBus.$emit('move-components-modal', cmd)
-        if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ (cmd === 'exit' && !EventBus.examEmExec)) {
-          console.log('app settings')
-          if (this.settings) {
-            this.settings = false
-            this.$modal.hide('settings')
-          } else {
-            this.settings = true
-            this.$modal.show('settings')
           }
-        }
+          break;
+        case 'right':
+          EventBus.currentComponent = EventBus.correntRightComponent
+          EventBus.$emit('move-components', cmd)
+          break;
+        case 'left':
+        case 'exit':
+          if (EventBus.currentComponent !== EventBus.sidebarName) {
+            EventBus.$emit('move-components', cmd)
+          }
+          if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ (cmd === 'exit' && !EventBus.examEmExec)) {
+            if (this.settings) {
+              this.settings = false
+              this.$modal.hide('settings')
+            }
+          }
+          break;
+        case 'ok_btn':
+          if (EventBus.currentComponent === EventBus.sidebarName) {
+            EventBus.$emit('move-sidebar', cmd)
+          } else {
+            EventBus.$emit('move-components', cmd)
+          }
+          break;
+        case 'settings':
+          if (!EventBus.examEmExec) {
+            if (this.settings) {
+              this.settings = false
+              this.$modal.hide('settings')
+            } else {
+              this.settings = true
+              this.$modal.show('settings')
+            }
+          }
+          break;
+        case 'menu':
+          break;
+        default:
+          break;
       }
     }
   }
