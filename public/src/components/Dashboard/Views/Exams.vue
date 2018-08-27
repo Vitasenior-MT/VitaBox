@@ -40,13 +40,14 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-5">
+                      <div class="col-md-4">
                         <figure>
                           <img src='static/img/bloodpressure.png' alt="" class="img-fit">
                           <figcaption>{{ $t('diagnosis.user.bloodpressure.fig.0') }}</figcaption>
                         </figure>
                       </div>
-                      <div class="col-md-5">
+                      <div class="col-md-4">&nbsp;</div>
+                      <div class="col-md-4">
                         <figure>
                           <img src='static/img/bloodpressure.gif' alt="" class="img-fit">
                           <figcaption>{{ $t('diagnosis.user.bloodpressure.fig.1') }}</figcaption>
@@ -118,16 +119,8 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-10 text-justify text-div-wrap">
-                        <li>{{ $t('diagnosis.user.bodyscale.0') }}</li>
-                        <li>{{ $t('diagnosis.user.bodyscale.1.0') }} <i class="ti-new-window"></i> {{ $t('diagnosis.user.bodyscale.1.1') }}</li>
-                        <li>{{ $t('diagnosis.user.bodyscale.2') }}</li>
-                        <li>{{ $t('diagnosis.user.bodyscale.3') }}</li>
-                        <li>{{ $t('diagnosis.user.bodyscale.4') }}</li>
-                        <li>{{ $t('diagnosis.user.bodyscale.5') }}</li>
-                      </div>
-                      <div class="col-md-2">
-                        <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                      <div class="col-md-4">&nbsp;</div>
+                      <div class="col-md-4">
                         <img src='static/img/bodyscale.png' alt="" class="img-fit">
                       </div>
                     </div>
@@ -244,24 +237,14 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-10 text-justify text-div-wrap">
-                        <li>{{ $t('diagnosis.user.bodytemperature.0.0') }} <i class="ti-new-window"></i> {{ $t('diagnosis.user.bodytemperature.0.1') }}</li>
-                        <li>{{ $t('diagnosis.user.bodytemperature.1') }}</li>
-                        <li>{{ $t('diagnosis.user.bodytemperature.2') }}</li>
-                        <li>{{ $t('diagnosis.user.bodytemperature.3') }}</li>
-                        <li>{{ $t('diagnosis.user.bodytemperature.4') }}</li>
-                        <li>{{ $t('diagnosis.user.bodytemperature.5') }}</li>
-                        <li>{{ $t('diagnosis.user.bodytemperature.6') }}</li>
-                        <li>{{ $t('diagnosis.user.bodytemperature.7') }}</li>
-                        <li>{{ $t('diagnosis.user.bodytemperature.8.0') }} <b class="ti-power-off"></b> {{ $t('diagnosis.user.bodytemperature.8.1') }}</li>
-                        <li>{{ $t('diagnosis.user.bodytemperature.9') }}</li>
-                      </div>
-                      <div class="col-md-2">
+                      <div class="col-md-3">
                         <figure>
                           <img src='static/img/bodytemp.png' alt="" class="img-fit">
                           <figcaption>{{ $t('diagnosis.user.bodytemperature.fig.0') }}</figcaption>
                         </figure>
-                        <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                      </div>
+                      <div class="col-md-4">&nbsp;</div>
+                      <div class="col-md-3">
                         <figure>
                           <img src='static/img/bodytemp.gif' alt="" class="img-fit">
                           <figcaption>{{ $t('diagnosis.user.bodytemperature.fig.1') }}</figcaption>
@@ -325,20 +308,14 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-10 text-justify text-div-wrap">
-                        <li>{{ $t('diagnosis.user.bodypulse.0.0') }} <i class="ti-new-window"></i> {{ $t('diagnosis.user.bodypulse.0.1') }}</li>
-                        <li>{{ $t('diagnosis.user.bodypulse.1') }}</li>
-                        <li>{{ $t('diagnosis.user.bodypulse.2.0') }} <b class="ti-power-off"></b> {{ $t('diagnosis.user.bodypulse.2.1') }}</li>
-                        <li>{{ $t('diagnosis.user.bodypulse.3') }}</li>
-                        <li>{{ $t('diagnosis.user.bodypulse.4') }}</li>
-                        <li>{{ $t('diagnosis.user.bodypulse.5') }}</li>
-                      </div>
-                      <div class="col-md-2">
+                      <div class="col-md-4">
                         <figure>
                           <img src='static/img/pulse.png' alt="" class="img-fit">
                           <figcaption>{{ $t('diagnosis.user.bodypulse.fig.0') }}</figcaption>
                         </figure>
-                        <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                      </div>
+                      <div class="col-md-4">&nbsp;</div>
+                      <div class="col-md-4">
                         <figure>
                           <img src='static/img/pulse.gif' alt="" class="img-fit">
                           <figcaption>{{ $t('diagnosis.user.bodypulse.fig.1') }}</figcaption>
