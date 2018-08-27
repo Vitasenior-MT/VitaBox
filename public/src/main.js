@@ -188,8 +188,6 @@ export const app = new Vue({
             }
           }
           break;
-        case 'menu':
-          break;
         default:
           break;
       }

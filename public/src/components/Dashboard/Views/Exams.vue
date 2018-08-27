@@ -40,22 +40,13 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-10 text-justify text-div-wrap">
-                        <li>{{ $t('diagnosis.user.bloodpressure.0') }}</li>
-                        <li>{{ $t('diagnosis.user.bloodpressure.1') }}</li>
-                        <li>{{ $t('diagnosis.user.bloodpressure.2.0') }} <i class="ti-new-window"></i> {{ $t('diagnosis.user.bloodpressure.2.1') }}</li>
-                        <li>{{ $t('diagnosis.user.bloodpressure.3.0') }} <b class="ti-power-off"></b> {{ $t('diagnosis.user.bloodpressure.3.1') }}</li>
-                        <li>{{ $t('diagnosis.user.bloodpressure.4') }}</li>
-                        <li>{{ $t('diagnosis.user.bloodpressure.5') }}</li>
-                        <li>{{ $t('diagnosis.user.bloodpressure.6') }}</li>
-                        <li>{{ $t('diagnosis.user.bloodpressure.7') }}</li>
-                      </div>
-                      <div class="col-md-2">
+                      <div class="col-md-5">
                         <figure>
                           <img src='static/img/bloodpressure.png' alt="" class="img-fit">
                           <figcaption>{{ $t('diagnosis.user.bloodpressure.fig.0') }}</figcaption>
                         </figure>
-                        <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                      </div>
+                      <div class="col-md-5">
                         <figure>
                           <img src='static/img/bloodpressure.gif' alt="" class="img-fit">
                           <figcaption>{{ $t('diagnosis.user.bloodpressure.fig.1') }}</figcaption>
