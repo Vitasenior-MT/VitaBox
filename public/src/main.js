@@ -135,61 +135,75 @@ export const app = new Vue({
     },
     cmd: function(cmd) {
       EventBus.$emit('key-help', cmd)
-      switch (cmd) {
-        case 'up':
-          if (EventBus.currentComponent === EventBus.sidebarName) {
-            EventBus.$emit('move-sidebar', -1)
-          } else {
-            if (EventBus.currentComponent !== EventBus.sidebarName) {
-              EventBus.$emit('move-components', cmd)
-            }
-          }
-          break;
-        case 'down':
-          if (EventBus.currentComponent === EventBus.sidebarName) {
-            EventBus.$emit('move-sidebar', 1)
-          } else {
-            if (EventBus.currentComponent !== EventBus.sidebarName) {
-              EventBus.$emit('move-components', cmd)
-            }
-          }
-          break;
-        case 'right':
-          EventBus.currentComponent = EventBus.correntRightComponent
-          EventBus.$emit('move-components', cmd)
-          break;
-        case 'left':
-        case 'exit':
-          if (EventBus.currentComponent !== EventBus.sidebarName) {
-            EventBus.$emit('move-components', cmd)
-          }
-          if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ (cmd === 'exit' && !EventBus.examEmExec)) {
-            if (this.settings) {
-              this.settings = false
-              this.$modal.hide('settings')
-            }
-          }
-          break;
-        case 'ok_btn':
-          if (EventBus.currentComponent === EventBus.sidebarName) {
-            EventBus.$emit('move-sidebar', cmd)
-          } else {
-            EventBus.$emit('move-components', cmd)
-          }
-          break;
-        case 'settings':
-          if (!EventBus.examEmExec) {
-            if (this.settings) {
-              this.settings = false
-              this.$modal.hide('settings')
+      if (!this.settings) {
+        switch (cmd) {
+          case 'up':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', -1)
             } else {
-              this.settings = true
-              this.$modal.show('settings')
+              if (EventBus.currentComponent !== EventBus.sidebarName) {
+                EventBus.$emit('move-components', cmd)
+              }
             }
+            break;
+          case 'down':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', 1)
+            } else {
+              if (EventBus.currentComponent !== EventBus.sidebarName) {
+                EventBus.$emit('move-components', cmd)
+              }
+            }
+            break;
+          case 'right':
+            EventBus.currentComponent = EventBus.correntRightComponent
+            EventBus.$emit('move-components', cmd)
+            break;
+          case 'left':
+          case 'exit':
+            if (EventBus.currentComponent !== EventBus.sidebarName) {
+              EventBus.$emit('move-components', cmd)
+            }
+            if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ (cmd === 'exit' && !EventBus.examEmExec)) {
+              if (this.settings) {
+                this.settings = false
+                this.$modal.hide('settings')
+              }
+            }
+            break;
+          case 'ok_btn':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', cmd)
+            } else {
+              EventBus.$emit('move-components', cmd)
+            }
+            break;
+          case 'settings':
+            if (!EventBus.examEmExec) {
+              if (this.settings) {
+                this.settings = false
+                this.$modal.hide('settings')
+              } else {
+                this.settings = true
+                this.$modal.show('settings')
+              }
+            }
+            break;
+          default:
+            break;
+        }
+      } else {
+        EventBus.$emit('move-components-modal', cmd)
+        if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ ((cmd === 'settings' || cmd === 'exit') && !EventBus.examEmExec)) {
+          console.log('app settings')
+          if (this.settings) {
+            this.settings = false
+            this.$modal.hide('settings')
+          } else {
+            this.settings = true
+            this.$modal.show('settings')
           }
-          break;
-        default:
-          break;
+        }
       }
     }
   }
