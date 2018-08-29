@@ -139,6 +139,45 @@ export default {
           break
       }
     },
+    saveItens() {
+      var data = []
+      for (let index = 0; index < this.items.length; index++) {
+        let object = {
+          type: this.items[index].type,
+          default: this.items[index].default
+        }
+        data.push(object)
+        // updateItem(this.items[index].default, this.items[index].type, index)
+      }
+      this.$http
+        .get('/api/sensor/allCriticalSensors')
+        .then(response => {
+          var datasensores = response.data.data
+          for (var index in datasensores) {
+            this.warningCards.push({
+              id: datasensores[index].board_id,
+              idchart: 'chartid-' + index,
+              avg: datasensores[index].avg.toFixed(),
+              threshold_max_acceptable: datasensores[index].threshold_max_acceptable === undefined ? 100 : datasensores[index].threshold_max_acceptable,
+              threshold_max_possible: datasensores[index].threshold_max_possible === undefined ? 100 : datasensores[index].threshold_max_possible,
+              threshold_min_acceptable: datasensores[index].threshold_min_acceptable === undefined ? 100 : datasensores[index].threshold_min_acceptable,
+              threshold_min_possible: datasensores[index].threshold_min_possible === undefined ? 100 : datasensores[index].threshold_min_possible,
+              sensor: datasensores[index].sensortype,
+              location: datasensores[index].location,
+              measure: datasensores[index].measure,
+              symbol: datasensores[index].unit,
+              to_read: datasensores[index].to_read,
+              dateupdate: this.dateFormat(datasensores[index].avgLastUpdate),
+              footerIcon: 'ti-reload'
+            })
+          }
+          this.$refs.DefaultView.hide()
+        })
+        .catch(error => {
+          console.log(error)
+        })
+        console.log(data)
+    },
     /**
      * TODO: Metodo para controlar os eventos do comando remoto quando esta é a view ativa no momento
      */
@@ -196,6 +235,7 @@ export default {
       EventBus.currentLanguage === 'pt' ? this.items[2].default = true : this.items[2].default = false
     },
     beforeClosed(event) {
+      this.saveItens()
       window.removeEventListener('keyup', this.onKeyUp)
       this.params = {}
       this.$emit('before-closed', event)
