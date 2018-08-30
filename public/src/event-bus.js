@@ -21,6 +21,7 @@ export const EventBus = new Vue({
     backupSidebarWidth: 0,
     backupMainPanelWidth: 0,
     backupMovingArrowLeft: 0,
+    settingsData: {},
     examEmExec: false             // flag para validação da execução dos exames
   },
   methods: {

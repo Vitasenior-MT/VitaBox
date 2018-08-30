@@ -72,8 +72,7 @@ export const app = new Vue({
     interval: null,
     show: false,
     settings: false,
-    timeout: null,
-    settingsData: {}
+    timeout: null
   },
   mounted() {
     var self = this
@@ -82,7 +81,7 @@ export const app = new Vue({
       .then(response => {
         if (response.body.data) {
           var appSettings = JSON.parse(response.body.data.app_settings)
-          self.settingsData = appSettings
+          EventBus.settingsData = appSettings
           self.sidebarStore.mode.advanced = appSettings['mode'].value
           EventBus.flg_sound = appSettings['sound'].value
           EventBus.currentLanguage = appSettings['language'].value
@@ -127,6 +126,8 @@ export const app = new Vue({
     },
     vitaWarning: function(data) {
       this.show = true
+      this.settings = false
+      this.$modal.hide('settings')
       this.$modal.show('alert', '')
       this.$socket.emit('ttsText', this.$t('dictionary.warnings.warning'))
       this.$marqueemsg.show('Ver Mensagem', 'Aviso')
@@ -204,7 +205,7 @@ export const app = new Vue({
                 this.$modal.hide('settings')
               } else {
                 this.settings = true
-                this.$modal.show('settings', this.settingsData)
+                this.$modal.show('settings')
               }
             }
             break;
@@ -220,7 +221,7 @@ export const app = new Vue({
             this.$modal.hide('settings')
           } else {
             this.settings = true
-            this.$modal.show('settings', this.settingsData)
+            this.$modal.show('settings')
           }
         }
       }

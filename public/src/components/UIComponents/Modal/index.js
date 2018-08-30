@@ -29,7 +29,6 @@ const Plugin = {
       hide(name, params) {
         Plugin.event.$emit('toggle', name, false, params)
       },
-
       toggle(name, params) {
         Plugin.event.$emit('toggle', name, undefined, params)
       }

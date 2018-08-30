@@ -171,6 +171,7 @@ export default {
           value: this.items[index].default ? this.items[index].values[0] : this.items[index].values[1]
         }
       }
+      EventBus.settingsData = data
       this.$socket.emit('saveSettings', JSON.stringify(data))
     },
     /**
@@ -225,16 +226,18 @@ export default {
       this.params = event.params || {}
       this.$emit('before-opened', event)
       this.controlEventsBus()
+      console.log('EventBus.settingsData')
+      console.log(EventBus.settingsData)
       for (var index in this.items) {
         switch (this.items[index].type) {
           case 'mode':
-            this.items[index].default = this.params['mode'].default
+            this.items[index].default = EventBus.settingsData['mode'].default
             break
           case 'sound':
-            this.items[index].default = this.params['sound'].default
+            this.items[index].default = EventBus.settingsData['sound'].default
             break
           case 'language':
-            this.items[index].default = this.params['language'].default
+            this.items[index].default = EventBus.settingsData['language'].default
             break
           default:
             break
