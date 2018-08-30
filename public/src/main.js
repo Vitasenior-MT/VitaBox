@@ -72,9 +72,28 @@ export const app = new Vue({
     interval: null,
     show: false,
     settings: false,
-    timeout: null
+    timeout: null,
+    settingsData: {}
   },
   mounted() {
+    var self = this
+    this.$http
+      .get('/api/settings/get')
+      .then(response => {
+        if (response.body.data) {
+          var appSettings = JSON.parse(response.body.data.app_settings)
+          self.settingsData = appSettings
+          self.sidebarStore.mode.advanced = appSettings['mode'].value
+          EventBus.flg_sound = appSettings['sound'].value
+          EventBus.currentLanguage = appSettings['language'].value
+          self.$store.dispatch('setLangNew', EventBus.currentLanguage)
+        } else {
+          console.log('Receive error', response)
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
   },
   beforeCreate() {
   },
@@ -185,7 +204,7 @@ export const app = new Vue({
                 this.$modal.hide('settings')
               } else {
                 this.settings = true
-                this.$modal.show('settings')
+                this.$modal.show('settings', this.settingsData)
               }
             }
             break;
@@ -201,7 +220,7 @@ export const app = new Vue({
             this.$modal.hide('settings')
           } else {
             this.settings = true
-            this.$modal.show('settings')
+            this.$modal.show('settings', this.settingsData)
           }
         }
       }

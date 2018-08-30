@@ -114,10 +114,33 @@ export default {
     }
   },
   mounted() {
-    /* var i = 0
-    setInterval(() => {
-      this.updateItem(!this.items[i].default, this.items[i], i)
-    }, 10000) */
+    this.$http
+      .get('/api/settings/get')
+      .then(response => {
+        if (response.body.data) {
+          var appSettings = JSON.parse(response.body.data.app_settings)
+          for (var index in this.items) {
+            switch (this.items[index].type) {
+              case 'mode':
+                this.items[index].default = appSettings['mode'].default
+                break
+              case 'sound':
+                this.items[index].default = appSettings['sound'].default
+                break
+              case 'language':
+                this.items[index].default = appSettings['language'].default
+                break
+              default:
+                break
+            }
+          }
+        } else {
+          console.log('Receive error', response)
+        }
+      })
+      .catch(error => {
+        console.log('----> ', error)
+      })
   },
   methods: {
     updateItem(toggle, type, i) {
@@ -140,26 +163,15 @@ export default {
       }
     },
     saveItens() {
-      var data = []
+      var data = {}
       for (let index = 0; index < this.items.length; index++) {
-        let object = {
+        data[this.items[index].type] = {
           type: this.items[index].type,
-          default: this.items[index].default
+          default: this.items[index].default,
+          value: this.items[index].default ? this.items[index].values[0] : this.items[index].values[1]
         }
-        data.push(object)
-        // updateItem(this.items[index].default, this.items[index].type, index)
       }
-      this.$http
-        .post('/api/settings/save')
-        .then(response => {
-          console.log(response)
-          this.data = response
-        })
-        .catch(error => {
-          this.data = error
-          console.log(error)
-        })
-        console.log(data)
+      this.$socket.emit('saveSettings', JSON.stringify(data))
     },
     /**
      * TODO: Metodo para controlar os eventos do comando remoto quando esta é a view ativa no momento
@@ -213,9 +225,21 @@ export default {
       this.params = event.params || {}
       this.$emit('before-opened', event)
       this.controlEventsBus()
-      this.items[0].default = this.sidebarStore.mode.advanced
-      this.items[1].default = EventBus.flg_sound
-      EventBus.currentLanguage === 'pt' ? this.items[2].default = true : this.items[2].default = false
+      for (var index in this.items) {
+        switch (this.items[index].type) {
+          case 'mode':
+            this.items[index].default = this.params['mode'].default
+            break
+          case 'sound':
+            this.items[index].default = this.params['sound'].default
+            break
+          case 'language':
+            this.items[index].default = this.params['language'].default
+            break
+          default:
+            break
+        }
+      }
     },
     beforeClosed(event) {
       this.saveItens()
