@@ -75,35 +75,10 @@ export const app = new Vue({
     timeout: null
   },
   mounted() {
-    var self = this
-    this.$http
-      .get('/api/settings/get')
-      .then(response => {
-        if (response.body.data) {
-          var appSettings = JSON.parse(response.body.data.app_settings)
-          EventBus.settingsData = appSettings
-          self.sidebarStore.mode.advanced = appSettings['mode'].value
-          EventBus.flg_sound = appSettings['sound'].value
-          EventBus.currentLanguage = appSettings['language'].value
-          self.$store.dispatch('setLangNew', EventBus.currentLanguage)
-        } else {
-          console.log('Receive error', response)
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
   },
   beforeCreate() {
   },
   sockets: {
-    connect: (val) => {
-      if (val) {
-        console.log('socket connected -> val: ', val)
-      } else {
-        console.log('socket connected')
-      }
-    },
     ttsPath(path) {
       var self = this
       if (document.getElementById('audioElem')) {
@@ -120,9 +95,6 @@ export const app = new Vue({
       } else {
         EventBus.audioBasicMode('./static/.temp/' + path, null)
       }
-    },
-    hdmistatus: function(data) {
-      console.log('Receive hdmistatus', data)
     },
     vitaWarning: function(data) {
       this.show = true

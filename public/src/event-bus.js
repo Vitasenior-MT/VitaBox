@@ -47,6 +47,12 @@ export const EventBus = new Vue({
       this.next = null
       this.className = ''
     },
+    soundTTS: function(text) {
+      console.log(this.flg_sound)
+      if (this.flg_sound) {
+        this.$socket.emit('ttsText', text)
+      }
+    },
     audioBasicMode: function(path, callback) {
       let self = this
       if (this.flg_sound && !callback) {

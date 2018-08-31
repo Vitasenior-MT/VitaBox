@@ -95,7 +95,8 @@
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "temperatura.",
-          "1": "Pressione ok."
+          "1": "Pressione ok.",
+          "2": "Coloque o aparelho conforme as imagens."
         },
         "fig": {
           "0": "Fig.1",
@@ -126,7 +127,8 @@
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "Oxímetro.",
-          "1": "Pressione ok."
+          "1": "Pressione ok.",
+          "2": "Coloque o aparelho conforme as imagens."
         },
         "0": {
           "0": "No comando pressione em",
@@ -145,7 +147,8 @@
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "Peso.",
-          "1": "Pressione ok."
+          "1": "Pressione ok.",
+          "2": "Suba para cima do aparelho."
         },
         "0": "Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição.",
         "1": {
@@ -160,7 +163,8 @@
       "bloodpressure": {
         "fig": {
           "0": "Fig.1",
-          "1": "Fig.2"
+          "1": "Fig.2",
+          "2": "Coloque o aparelho conforme as imagens."
         },
         "title": "Modo de Utilização",
         "audioDescription":{

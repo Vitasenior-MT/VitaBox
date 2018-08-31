@@ -127,7 +127,7 @@ export default {
   sockets: {},
   methods: {
     audioPlayer(dataset) {
-      this.$socket.emit('ttsText', dataset.type ? this.$t('diagnosisHistory.biosensors.' + dataset.type) : this.$t('dictionary.press_user'))
+      EventBus.soundTTS(dataset.type ? this.$t('diagnosisHistory.biosensors.' + dataset.type) : this.$t('dictionary.press_user'))
     },
     bleGetListExam(btnPatient) {
       this.patientId = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.id

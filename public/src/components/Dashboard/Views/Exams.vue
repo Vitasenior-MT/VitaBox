@@ -750,7 +750,7 @@ export default {
   },
   sockets: {
     audioPlayer(data) {
-      this.$socket.emit('ttsText', read)
+      EventBus.soundTTS(data)
     },
     bloodglucoseFim: function(data) {
       let resData = data
@@ -932,7 +932,7 @@ export default {
           this.dataBodyScale[resData.data[dataVal].tag + 'Show'] = true
           read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
         }
-        this.$socket.emit('ttsText', read)
+        EventBus.soundTTS(read)
       } else {
         this.$notifications.notify({
           message: '<h4>' + data.data + '</h4>',
@@ -1001,7 +1001,7 @@ export default {
         }
         console.log('*****************************')
         console.log(read)
-        this.$socket.emit('ttsText', read)
+        EventBus.soundTTS(read)
       } else {
         console.log('Receive error', data)
         this.$notifications.notify({
@@ -1056,7 +1056,7 @@ export default {
               break;
           }
         }
-        this.$socket.emit('ttsText', read)
+        EventBus.soundTTS(read)
       } else {
         // console.log('Receive error', data)
         this.$notifications.notify({
@@ -1122,7 +1122,7 @@ export default {
               break;
           }
         }
-        this.$socket.emit('ttsText', read)
+        EventBus.soundTTS(read)
       } else {
         // console.log('Receive error', data)
         this.$notifications.notify({
@@ -1234,7 +1234,7 @@ export default {
       } else {
         text = this.$t('dictionary.press_user')
       }
-      this.$socket.emit('ttsText', text)
+      EventBus.soundTTS(text)
     },
     bleGetListExam(btnPatient) {
       this.patientId = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.id

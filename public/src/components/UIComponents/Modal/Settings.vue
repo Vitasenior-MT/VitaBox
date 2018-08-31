@@ -146,7 +146,7 @@ export default {
     updateItem(toggle, type, i) {
       switch (type.type) {
         case 'mode':
-          EventBus.$emit('mode')
+          EventBus.$emit('mode', toggle)
           this.items[i].default = toggle
           break
         case 'sound':
@@ -226,8 +226,8 @@ export default {
       this.params = event.params || {}
       this.$emit('before-opened', event)
       this.controlEventsBus()
-      console.log('EventBus.settingsData')
       console.log(EventBus.settingsData)
+      console.log(this.items)
       for (var index in this.items) {
         switch (this.items[index].type) {
           case 'mode':

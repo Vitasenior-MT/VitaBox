@@ -61,7 +61,7 @@ const basic = [
 
 const SidebarStore = {
   showSidebar: false,
-  sidebarLinks: mode.advanced ? advanced : basic,
+  sidebarLinks: basic,
   mode: mode,
   sidebarLinksMode: {
     advanced: advanced,

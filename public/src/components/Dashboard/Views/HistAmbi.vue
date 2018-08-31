@@ -84,7 +84,7 @@ export default {
   sockets: {},
   methods: {
     audioPlayer(dataset) {
-      this.$socket.emit('ttsText', this.$t('histambi.info.' + dataset.type))
+      EventBus.soundTTS(this.$t('histambi.info.' + dataset.type))
     },
     hideShowLocationLine() {
       this.hideShowItem = -1

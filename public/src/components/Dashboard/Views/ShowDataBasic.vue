@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     audioPlayer(dataset) {
-      this.$socket.emit('ttsText', this.$t('showdata.info', {sensortype: dataset.reading, location: dataset.location, avg: dataset.avg}))
+      EventBus.soundTTS(this.$t('showdata.info', {sensortype: dataset.reading, location: dataset.location, avg: dataset.avg}))
     },
     dateFormat(data) {
       let date = new Date(data)

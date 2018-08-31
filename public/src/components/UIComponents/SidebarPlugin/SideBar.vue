@@ -131,7 +131,7 @@ export default {
           if (index > self.sidebarLinks.length - 1) {
             index = 0
           }
-          self.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
+          EventBus.soundTTS(self.$t(self.sidebarLinks[index].text))
           self.$router.push({ path: self.sidebarLinks[index].path })
           EventBus.correntRightComponent = self.sidebarLinks[index].path
         }
@@ -141,6 +141,26 @@ export default {
   beforeDestroy() {
     clearInterval(this.interval)
     EventBus.$off('move-components')
+  },
+  beforeCreate() {
+    var self = this
+    this.$http
+      .get('/api/settings/get')
+      .then(response => {
+        if (response.body.data) {
+          var appSettings = JSON.parse(response.body.data.app_settings)
+          EventBus.settingsData = appSettings
+          EventBus.$emit('mode', appSettings['mode'].default)
+          EventBus.flg_sound = appSettings['sound'].default
+          EventBus.currentLanguage = appSettings['language'].value
+          self.$store.dispatch('setLangNew', EventBus.currentLanguage)
+        } else {
+          console.log('Receive error', response)
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
   },
   mounted() {
     this.findActiveLink()
@@ -156,11 +176,10 @@ export default {
     EventBus.$on('changeTab', function() {
       let path = '/vitabox/warnings'
       if (self.$route.path !== path) {
-        let sideBar = self.sidebarLinks
-        for (var index in sideBar) {
-          if (sideBar[index].path === path) {
+        for (var index in self.sidebarLinks) {
+          if (self.sidebarLinks[index].path === path) {
             self.activeLinkIndex = index
-            self.$router.push({ path: sideBar[index].path })
+            self.$router.push({ path: self.sidebarLinks[index].path })
             // atribui para que passe a seer novamento a primenra vez que entra nesta view
             EventBus.firstRightEvent = true
             // define como o elemento ativo seja o '0'
@@ -172,10 +191,14 @@ export default {
         }
       }
     })
-    EventBus.$on('mode', function() {
-      self.sidebarStore.mode.advanced = !self.sidebarStore.mode.advanced
-      self.sidebarStore.mode.auto = !self.sidebarStore.mode.auto
-      self.sidebarLinks = self.sidebarStore.mode.advanced ? self.sidebarStore.sidebarLinksMode.advanced : self.sidebarStore.sidebarLinksMode.basic
+    EventBus.$on('mode', function(manualChange) {
+      if (manualChange !== undefined) {
+        self.sidebarStore.mode.advanced = manualChange
+      } else {
+        self.sidebarStore.mode.advanced = !self.sidebarStore.mode.advanced
+      }
+      self.sidebarStore.mode.auto = !self.sidebarStore.mode.advanced
+      self.sidebarStore.sidebarLinks = self.sidebarStore.mode.advanced ? self.sidebarStore.sidebarLinksMode.advanced : self.sidebarStore.sidebarLinksMode.basic
       self.$notifications.notify({
         message: '<h4>' + (self.sidebarStore.mode.advanced ? self.$t("dictionary.advanced.title") : self.$t("dictionary.basic.title")) + '</h4>',
         icon: 'ti-bell',
@@ -183,31 +206,11 @@ export default {
         verticalAlign: 'top',
         type: 'info'
       })
-      /* if (self.sidebarStore.mode.auto) {
-        clearInterval(self.interval)
-        self.interval = setInterval(() => {
-          console.log('Auto On ')
-          let index = self.activeLinkIndex + 1
-          if (index < 0) {
-            index = self.sidebarLinks.length - 1
-          }
-          if (index > self.sidebarLinks.length - 1) {
-            index = 0
-          }
-          // this.$socket.emit('ttsText', self.$t(self.sidebarLinks[index].text))
-          self.$router.push({ path: self.sidebarLinks[index].path })
-          EventBus.correntRightComponent = self.sidebarLinks[index].path
-        }, EventBus.timeCalculator(0, 0, 50))
-      } else {
-        clearInterval(self.interval)
-        console.log('Auto Off ')
-      } */
       if (self.$route.path !== '/vitabox/exames') {
-        let sideBar = self.sidebarLinks
-        for (var index in sideBar) {
-          if (sideBar[index].path === '/vitabox/exames') {
+        for (var index in self.sidebarLinks) {
+          if (self.sidebarLinks[index].path === '/vitabox/exames') {
             self.activeLinkIndex = index
-            self.$router.push({ path: sideBar[index].path })
+            self.$router.push({ path: self.sidebarLinks[index].path })
             EventBus.setSidebar()
             return
           }
