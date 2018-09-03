@@ -48,7 +48,6 @@ export const EventBus = new Vue({
       this.className = ''
     },
     soundTTS: function(text) {
-      console.log(this.flg_sound)
       if (this.flg_sound) {
         this.$socket.emit('ttsText', text)
       }
@@ -85,7 +84,6 @@ export const EventBus = new Vue({
     },
     removeAudio: function(type) {
       if (type === 'off') {
-        this.flg_sound = false
         let audio = document.getElementById('audioElem')
         if (audio) {
           audio.pause()
@@ -93,8 +91,6 @@ export const EventBus = new Vue({
           audio.remove()
           this.$socket.emit('ttsDelete')
         }
-      } else {
-        this.flg_sound = true
       }
     },
     findOne: function(arr, obj) {
