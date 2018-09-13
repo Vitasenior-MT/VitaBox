@@ -1,0 +1,24 @@
+[Unit]
+Description=VitaBox
+#Requires=After=mongod.service       # Requires the mongo service to run first
+
+[Service]
+Environment=NODE_ENV=PROD
+ExecStart=/usr/bin/node FOLDERVITABOX/main.js
+#ExecStart=/usr/bin/npm run prod FOLDERVITABOX/main.js
+##Required on some systems
+WorkingDirectory=FOLDERVITABOX
+Restart=always
+##Restart service after 10 seconds if node service crashes
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=VitaBox
+
+[Install]
+WantedBy=multi-user.target
+
+## Clean syslog
+#sudo dd if=/dev/null of=/var/log/syslog
+##to get the last 25 lines of the syslog file
+#tail -25 /var/log/syslog

@@ -17,12 +17,14 @@ export const EventBus = new Vue({
     currentSelectedComp: '',
     next: null,
     className: '',
-    collapseSidebar: 4.3,
-    backupSidebarWidth: 0,
-    backupMainPanelWidth: 0,
-    backupMovingArrowLeft: 0,
+    collapseSidebar: 4.3,       // tamanho em precentagem que o main painel vai aumentar
+    marginPaddingPanel: 9.5,    // Paddin a atribuir para não fical debaixo do comando de ajuda
+    backupMainPanelPadding: 0,  // baackup do padding inicial antes da alteração
+    backupSidebarWidth: 0,      // backup do tamanho da sidebar
+    backupMainPanelWidth: 0,    // backup da largura do mail panel
+    backupMovingArrowLeft: 0,   // backup da posição da seta da sidebar
     settingsData: {},
-    examEmExec: false             // flag para validação da execução dos exames
+    examEmExec: false           // flag para validação da execução dos exames
   },
   methods: {
     rotation() {
@@ -269,13 +271,18 @@ export const EventBus = new Vue({
         document.getElementsByClassName('sidebar')[0].style.width = this.backupSidebarWidth
         document.getElementsByClassName('main-panel')[0].style.width = this.backupMainPanelWidth
         document.getElementsByClassName('moving-arrow')[0].style.left = this.backupMovingArrowLeft
+        document.getElementsByClassName('main-panel')[0].style.paddingLeft = this.backupMainPanelPadding
+        document.getElementsByClassName('main-panel')[0].style.boxShadow = ''
       } else {
         this.backupSidebarWidth = document.getElementsByClassName('sidebar')[0].style.width
         this.backupMainPanelWidth = document.getElementsByClassName('main-panel')[0].style.width
         this.backupMovingArrowLeft = document.getElementsByClassName('moving-arrow')[0].style.left
+        this.backupMainPanelPadding = document.getElementsByClassName('main-panel')[0].style.paddingLeft
         document.getElementsByClassName('sidebar')[0].style.width = this.collapseSidebar + "%"
         document.getElementsByClassName('main-panel')[0].style.width = (100 - this.collapseSidebar) + "%"
         document.getElementsByClassName('moving-arrow')[0].style.left = (3 * this.collapseSidebar) + "%"
+        document.getElementsByClassName('main-panel')[0].style.paddingLeft = this.marginPaddingPanel + "%"
+        document.getElementsByClassName('main-panel')[0].style.boxShadow = 'rgb(221, 221, 221) 1px 0px 0px 0px inset'
       }
     }
   }
