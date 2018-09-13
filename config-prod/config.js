@@ -6,8 +6,8 @@ module.exports = {
   coapConfigs: {
     rate: {
       hour: 0,
-      min: 0,
-      sec: 5
+      min: 1,
+      sec: 0
     },
     warningArraySize: 5,
     avgSize: 15

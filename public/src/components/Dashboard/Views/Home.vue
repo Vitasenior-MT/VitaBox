@@ -1,12 +1,11 @@
 <template>
-  <div>
-    <div class="row container-data-sensors">
-      <div class="col-lg-4" v-for="warningCard in warningCards" :key="warningCard.id">
+  <div class="row">
+    <div class='col-sm-12 container-data-sensors'>
+      <div class='col-sm-4' v-for='warningCard in warningCards' :key='warningCard.id'>
         <card-warning :key="warningCard.id" :warningCard="warningCard"
         :data-avg="warningCard.avg"
-        :data-sensortype="warningCard.measure + ' (' + warningCard.symbol + ')'"
+        :data-sensortype="warningCard.measure + ' (' + warningCard.unit + ')'"
         :data-reading="warningCard.to_read"
-        :data-symbol="warningCard.symbol"
         :data-threshold="warningCard.threshold_max_possible"
         :data-location="warningCard.location"></card-warning>
       </div>
@@ -24,13 +23,69 @@ export default {
     DefaultForm
   },
   sockets: {
-    sensorUpdate: function(data) {
+    vitaWarning: function(data) {
+      var self = this
+      this.updateSensor(data)
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+        self.warningCards = []
+        self.$refs.DefaultView.setMsg(this.msg)
+        self.$refs.DefaultView.show()
+      }, EventBus.timeCalculator(0, 16, 0))
+    }
+  },
+  data() {
+    return {
+      msg: 'warning.msgSensor',
+      warningCards: [],
+      elem: '',
+      content: '',
+      numberCol: '',
+      movepos: '',
+      timeout: null
+    }
+  },
+  methods: {
+    audioPlayer(dataset) {
+      // let i = 0
+      // let text = ''
+      /* while (true) {
+        if (self.$t('diagnosis.user.' + self.examEvent + '.audioDescription.' + i) === 'diagnosis.user.' + self.examEvent + '.audioDescription.' + i) {
+          text.substring(0, text.length - 1);
+          break;
+        } else {
+          text += self.$t('diagnosis.user.' + self.examEvent + '.audioDescription.' + i) + ' '
+        }
+        i++
+      } */
+      console.log(dataset)
+      this.$socket.emit('ttsText', this.$t('showdata.info', {sensortype: dataset.reading, location: dataset.location, avg: dataset.avg}))
+    },
+    dateFormat(data) {
+      let date = new Date(data)
+      return (
+        (date.getMonth() + 1 < 10
+          ? '0' + (date.getMonth() + 1)
+          : date.getMonth() + 1) +
+        '/' +
+        (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+        '/' +
+        date.getFullYear() +
+        ' ' +
+        (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+        ':' +
+        (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+        ':' +
+        (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+      )
+    },
+    updateSensor(data) {
       if (this.warningCards.length > 0) {
         let card = EventBus.findOne(this.warningCards, data)
         if (card) {
           card.avg = data.avg.toFixed()
           card.avgLastUpdate = data.avgLastUpdate
-          card.dateupdate = EventBus.dateFormat(data.avgLastUpdate)
+          card.dateupdate = this.dateFormat(data.avgLastUpdate)
         }
       } else {
         this.$http
@@ -51,7 +106,7 @@ export default {
                 measure: datasensores[index].measure,
                 symbol: datasensores[index].unit,
                 to_read: datasensores[index].to_read,
-                dateupdate: EventBus.dateFormat(datasensores[index].avgLastUpdate),
+                dateupdate: this.dateFormat(datasensores[index].avgLastUpdate),
                 footerIcon: 'ti-reload'
               })
             }
@@ -61,36 +116,6 @@ export default {
             console.log(error)
           })
       }
-    }
-  },
-  data() {
-    return {
-      msg: 'warning3.msgSensor',
-      warningCards: [],
-      elem: '',
-      content: '',
-      numberCol: '',
-      movepos: '',
-      locationList: []
-    }
-  },
-  methods: {
-    audioPlayer(dataset) {
-      EventBus.soundTTS(this.$t('showdata.info', {sensortype: dataset.reading, location: dataset.location, avg: dataset.avg, symbol: dataset.symbol}))
-    },
-    getAllSensors() {
-      this.$refs.loading.show()
-      this.resetValues()
-      this.division = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.division
-      this.$http
-        .get('/api/sensor/getSensorsInfo/' + this.division)
-        .then(response => {
-          console.log(response)
-          console.log(response.data.data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
     },
     controlEventsBus() {
       var self = this
@@ -102,7 +127,11 @@ export default {
         if (EventBus.elementControl.length === 0) {
           self.$refs.DefaultView.setMsg(self.msg)
           self.$refs.DefaultView.show()
-          EventBus.setSidebar()
+          EventBus.currentActiveRightComp = 0
+          EventBus.firstRightEvent = true
+          EventBus.elementControl = []
+          EventBus.currentComponent = EventBus.sidebarName
+          return
         }
         self.$refs.DefaultView.hide()
         switch (cmd) {
@@ -115,7 +144,6 @@ export default {
           case 'exit':
             EventBus.removeAudio()
             // remove o preenchimento
-            console.log("Elem num - ", EventBus.currentActiveRightComp)
             EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
             EventBus.elementControl[EventBus.currentActiveRightComp].blur()
             // atribui para que passe a seer novamento a primenra vez que entra nesta view
@@ -127,7 +155,6 @@ export default {
             // define o elemento ativo coomo sendo a barra lateral
             EventBus.currentComponent = EventBus.sidebarName
             console.log('if exit', cmd, EventBus.currentActiveRightComp)
-            EventBus.setSidebar()
             break
           case 'up':
             try {
@@ -194,20 +221,6 @@ export default {
       })
     }
   },
-  beforeDestroy() {
-    EventBus.setSidebar()
-    EventBus.$off('move-components')
-  },
-  beforeCreate() {
-    this.$http
-      .get('/api/sensor/getListOfLocations')
-      .then(response => {
-        this.locationList = response.data.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  },
   mounted() {
     if (this.warningCards.length === 0) {
       this.$refs.DefaultView.setMsg(this.msg)
@@ -216,9 +229,8 @@ export default {
   },
   created() {
     this.$http
-      .get('/api/sensor/allSensorsInfo')
-      .then(response => {
-        if (response.data.status === true) {
+        .get('/api/sensor/allCriticalSensors')
+        .then(response => {
           var datasensores = response.data.data
           for (var index in datasensores) {
             this.warningCards.push({
@@ -232,20 +244,20 @@ export default {
               sensor: datasensores[index].sensortype,
               location: datasensores[index].location,
               measure: datasensores[index].measure,
-              to_read: datasensores[index].to_read,
               symbol: datasensores[index].unit,
-              dateupdate: EventBus.dateFormat(datasensores[index].avgLastUpdate),
+              to_read: datasensores[index].to_read,
+              dateupdate: this.dateFormat(datasensores[index].avgLastUpdate),
               footerIcon: 'ti-reload'
             })
           }
           this.controlEventsBus()
-        } else {
-          console.log('Receive error', response.data)
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+        })
+        .catch(error => {
+          console.log(error)
+        })
+  },
+  beforeDestroy() {
+    EventBus.$off('move-components')
   }
 }
 </script>

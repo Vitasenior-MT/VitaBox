@@ -428,13 +428,6 @@ export default {
             case 'ok_btn':
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
-              if (!self.flg_once) {
-                self.flg_once = true
-                setTimeout(() => {
-                  let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
-                  self.audioPlayer(datas)
-                }, 300);
-              }
               if (!self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
               }
