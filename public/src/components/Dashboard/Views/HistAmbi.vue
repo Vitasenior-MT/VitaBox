@@ -11,25 +11,6 @@
         </div>
       </div>
     </div>
-    <div class="row btnLocation">
-      <div class="col-md-2" v-for="btn in btnLocation"  :key='btn.id'>
-        <div class="card clear-padding">
-          <div class="content">
-            <button
-              v-tooltip.bottom="$t('tooltips.ambienteHistory.history.title')"
-              class="btn btn-block btn-success control-remote"
-              type="button"
-              :data-id="btn.id"
-              :data-select="'false'"
-              :data-type="btn.type"
-              v-on:click="hideShowLocationLine">
-              <!-- <h2><b :class="btn.icon"></b></h2> -->
-              <h5>{{ btn.nome }}</h5>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
     <default-form ref="DefaultView"></default-form>
     <div class="row show-charts-history clear-margin" v-if="dataCharsExists">
       <div class="col-md-12 btn btn-round btn-fill">
@@ -154,18 +135,10 @@ export default {
               })
             }
             this.dataCharsExists = true
-            this.classEvent = 'control-remote'
-
             setTimeout(() => {
               EventBus.elementControl = document.getElementsByClassName(this.classEvent)
               this.$refs.loading.hide()
               this.$refs.DefaultView.hide()
-              EventBus.currentActiveRightComp = 0
-              // ativa o novo elemento adiconando a class que simboliza o elemento activo
-              let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-              elem.focus()
-              elem.classList.add('btn-fill')
-              elem.scrollIntoView(false)
               document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
             }, 10)
           } else {
@@ -219,17 +192,8 @@ export default {
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
-              console.log(self.flg_once)
-              console.log(EventBus.currentActiveRightComp)
-              setTimeout(() => {
-                if (!self.flg_once) {
-                  self.flg_once = true
-                  let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
-                  self.audioPlayer(datas)
-                }
-              }, 300);
               if (self.posSensorSelected < 0) {
-                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
+                // document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgExam)
                 self.$refs.DefaultView.show()
               }
@@ -280,13 +244,9 @@ export default {
               if (EventBus.elementControl.length > 1 || moveFirstTime) {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
-              if (self.posSensorSelected >= 0) {
-                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
-              } else {
-                document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
-                self.$refs.DefaultView.setMsg(self.msgSensor)
-                self.$refs.DefaultView.show()
-              }
+              document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
+              self.$refs.DefaultView.setMsg(self.msgSensor)
+              self.$refs.DefaultView.show()
               break
 
             default:

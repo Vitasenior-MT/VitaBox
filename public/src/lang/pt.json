@@ -235,7 +235,7 @@
   },
   "showdata": {
     "msgSensor": "Sem sensores.",
-    "info": "{location}, {sensortype}, {avg}"
+    "info": "{location}, {sensortype}, {avg} {symbol}"
   },
   "warning": {
     "msgSensor": "Sem sensores em alarme."
