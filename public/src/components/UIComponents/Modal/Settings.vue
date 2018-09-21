@@ -151,6 +151,7 @@ export default {
           break
         case 'sound':
           EventBus.removeAudio(toggle ? type.values[0] : type.values[1])
+          EventBus.flg_sound = toggle
           this.items[i].default = toggle
           break
         case 'language':
@@ -184,6 +185,7 @@ export default {
        */
       EventBus.$on('move-components-modal', function(cmd) {
         EventBus.elementControlModal = document.getElementsByClassName('control-modal')
+        console.log(EventBus.elementControlModal)
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
@@ -220,14 +222,13 @@ export default {
       })
     },
     beforeOpened(event) {
+      console.log('----------------------')
       EventBus.firstRightEventModal = true
       EventBus.currentActiveRightCompModal = 0
       window.addEventListener('keyup', this.onKeyUp)
       this.params = event.params || {}
       this.$emit('before-opened', event)
       this.controlEventsBus()
-      console.log(EventBus.settingsData)
-      console.log(this.items)
       for (var index in this.items) {
         switch (this.items[index].type) {
           case 'mode':
@@ -271,28 +272,4 @@ export default {
 }
 </script>
 <style>
-.vue-settings {
-  margin-left: 25% !important;
-  margin-top: 10%;
-  width: 50%;
-  position: absolute;
-  background-color: rgba(255, 255, 255, 1);
-}
-
-.background-opacity {
-  background-color: rgba(0, 0, 0, 0.5) !important;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-}
-.changed-font {
-  font-size: 25px !important;
-}
-.btn-shadow label {
-  border-bottom: 5px solid black;
-  border-radius: 100px;
-}
 </style>

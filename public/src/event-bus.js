@@ -17,14 +17,118 @@ export const EventBus = new Vue({
     currentSelectedComp: '',
     next: null,
     className: '',
-    collapseSidebar: 4.3,
-    backupSidebarWidth: 0,
-    backupMainPanelWidth: 0,
-    backupMovingArrowLeft: 0,
+    collapseSidebar: 4.3,       // tamanho em precentagem que o main painel vai aumentar
+    marginPaddingPanel: 9.5,    // Paddin a atribuir para não fical debaixo do comando de ajuda
+    backupMainPanelPadding: 0,  // baackup do padding inicial antes da alteração
+    backupSidebarWidth: 0,      // backup do tamanho da sidebar
+    backupMainPanelWidth: 0,    // backup da largura do mail panel
+    backupMovingArrowLeft: 0,   // backup da posição da seta da sidebar
     settingsData: {},
-    examEmExec: false             // flag para validação da execução dos exames
+    examEmExec: false,           // flag para validação da execução dos exames
+    welcome: true,
+    settings: false,
+    notifications: false
   },
   methods: {
+    cmd(cmd) {
+      EventBus.$emit('key-help', cmd)
+      if (EventBus.cmdRestritions()) {
+        if (EventBus.welcome) {
+          if (cmd === 'ok_btn') {
+            this.$modal.hide('welcome')
+            EventBus.welcome = false
+          }
+        }
+        if (EventBus.notifications) {
+          if ((cmd === 'ok_btn' || cmd === 'exit')) {
+            this.$modal.hide('notifications')
+            EventBus.notifications = false
+            this.$marqueemsg.hide()
+          }
+        }
+        if (EventBus.settings) {
+          EventBus.$emit('move-components-modal', cmd)
+          if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ ((cmd === 'settings' || cmd === 'exit') && !EventBus.examEmExec)) {
+            console.log('app settings')
+            if (EventBus.settings) {
+              EventBus.settings = false
+              this.$modal.hide('settings')
+            } else {
+              EventBus.settings = true
+              this.$modal.show('settings')
+            }
+          }
+        }
+      } else {
+        switch (cmd) {
+          case 'up':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', -1)
+            } else {
+              if (EventBus.currentComponent !== EventBus.sidebarName) {
+                EventBus.$emit('move-components', cmd)
+              }
+            }
+            break;
+          case 'down':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', 1)
+            } else {
+              if (EventBus.currentComponent !== EventBus.sidebarName) {
+                EventBus.$emit('move-components', cmd)
+              }
+            }
+            break;
+          case 'right':
+            EventBus.currentComponent = EventBus.correntRightComponent
+            EventBus.$emit('move-components', cmd)
+            break;
+          case 'left':
+          case 'exit':
+            if (EventBus.currentComponent !== EventBus.sidebarName) {
+              EventBus.$emit('move-components', cmd)
+            }
+            if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ (cmd === 'exit' && !EventBus.examEmExec)) {
+              if (EventBus.settings) {
+                EventBus.settings = false
+                this.$modal.hide('settings')
+              }
+            }
+            break;
+          case 'ok_btn':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', cmd)
+            } else {
+              EventBus.$emit('move-components', cmd)
+            }
+            break;
+          case 'settings':
+            if (!EventBus.examEmExec) {
+              if (EventBus.settings) {
+                EventBus.settings = false
+                this.$modal.hide('settings')
+              } else {
+                EventBus.settings = true
+                this.$modal.show('settings')
+              }
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    },
+    cmdRestritions() {
+      if (EventBus.welcome) {
+        return true
+      }
+      if (EventBus.notifications) {
+        return true
+      }
+      if (EventBus.settings) {
+        return true
+      }
+    },
     rotation() {
       if (this.flgStartRotation) {
         if (this.currentActiveRightComp + 1 >= this.elementControl.length) {
@@ -265,13 +369,18 @@ export const EventBus = new Vue({
         document.getElementsByClassName('sidebar')[0].style.width = this.backupSidebarWidth
         document.getElementsByClassName('main-panel')[0].style.width = this.backupMainPanelWidth
         document.getElementsByClassName('moving-arrow')[0].style.left = this.backupMovingArrowLeft
+        document.getElementsByClassName('main-panel')[0].style.paddingLeft = this.backupMainPanelPadding
+        document.getElementsByClassName('main-panel')[0].style.boxShadow = ''
       } else {
         this.backupSidebarWidth = document.getElementsByClassName('sidebar')[0].style.width
         this.backupMainPanelWidth = document.getElementsByClassName('main-panel')[0].style.width
         this.backupMovingArrowLeft = document.getElementsByClassName('moving-arrow')[0].style.left
+        this.backupMainPanelPadding = document.getElementsByClassName('main-panel')[0].style.paddingLeft
         document.getElementsByClassName('sidebar')[0].style.width = this.collapseSidebar + "%"
         document.getElementsByClassName('main-panel')[0].style.width = (100 - this.collapseSidebar) + "%"
         document.getElementsByClassName('moving-arrow')[0].style.left = (3 * this.collapseSidebar) + "%"
+        document.getElementsByClassName('main-panel')[0].style.paddingLeft = this.marginPaddingPanel + "%"
+        document.getElementsByClassName('main-panel')[0].style.boxShadow = 'rgb(221, 221, 221) 1px 0px 0px 0px inset'
       }
     }
   }

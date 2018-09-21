@@ -75,6 +75,7 @@ export const app = new Vue({
     timeout: null
   },
   mounted() {
+    this.$modal.show('welcome', '')
   },
   beforeCreate() {
   },
@@ -100,20 +101,31 @@ export const app = new Vue({
       this.show = true
       this.settings = false
       this.$modal.hide('settings')
+      this.$modal.hide('notifications')
+      this.$modal.hide('welcome')
       this.$modal.show('alert', '')
       this.$socket.emit('ttsText', this.$t('dictionary.warnings.warning'))
-      this.$marqueemsg.show('Ver Mensagem', 'Aviso')
+      this.$marqueemsg.show('Informação', 'Prima ok para desbloquear a aplicação.')
       EventBus.$emit('changeTab')
     },
     informationVita: function(data) {
+      this.$modal.show('notifications')
+      this.$modal.hide('settings')
+      this.$modal.hide('welcome')
+      EventBus.notifications = true
       this.$marqueemsg.show(data.shortMessage, data.longMessage)
     },
-    unblock: function() {
+    unblock: function(type) {
       this.$marqueemsg.hide()
-      EventBus.removeAudio('off')
-      this.show = false
-      clearTimeout(this.timeout)
-      this.$modal.hide('alert')
+      if (type === 'alert') {
+        EventBus.removeAudio('off')
+        this.show = false
+        clearTimeout(this.timeout)
+        this.$modal.hide('alert')
+      }
+      if (type === 'notification') {
+        this.$modal.hide('notifications')
+      }
     },
     blocked: function() {
       this.$notifications.notify({
@@ -126,77 +138,7 @@ export const app = new Vue({
       this.$socket.emit('ttsText', this.$t("remote.text"))
     },
     cmd: function(cmd) {
-      EventBus.$emit('key-help', cmd)
-      if (!this.settings) {
-        switch (cmd) {
-          case 'up':
-            if (EventBus.currentComponent === EventBus.sidebarName) {
-              EventBus.$emit('move-sidebar', -1)
-            } else {
-              if (EventBus.currentComponent !== EventBus.sidebarName) {
-                EventBus.$emit('move-components', cmd)
-              }
-            }
-            break;
-          case 'down':
-            if (EventBus.currentComponent === EventBus.sidebarName) {
-              EventBus.$emit('move-sidebar', 1)
-            } else {
-              if (EventBus.currentComponent !== EventBus.sidebarName) {
-                EventBus.$emit('move-components', cmd)
-              }
-            }
-            break;
-          case 'right':
-            EventBus.currentComponent = EventBus.correntRightComponent
-            EventBus.$emit('move-components', cmd)
-            break;
-          case 'left':
-          case 'exit':
-            if (EventBus.currentComponent !== EventBus.sidebarName) {
-              EventBus.$emit('move-components', cmd)
-            }
-            if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ (cmd === 'exit' && !EventBus.examEmExec)) {
-              if (this.settings) {
-                this.settings = false
-                this.$modal.hide('settings')
-              }
-            }
-            break;
-          case 'ok_btn':
-            if (EventBus.currentComponent === EventBus.sidebarName) {
-              EventBus.$emit('move-sidebar', cmd)
-            } else {
-              EventBus.$emit('move-components', cmd)
-            }
-            break;
-          case 'settings':
-            if (!EventBus.examEmExec) {
-              if (this.settings) {
-                this.settings = false
-                this.$modal.hide('settings')
-              } else {
-                this.settings = true
-                this.$modal.show('settings')
-              }
-            }
-            break;
-          default:
-            break;
-        }
-      } else {
-        EventBus.$emit('move-components-modal', cmd)
-        if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ ((cmd === 'settings' || cmd === 'exit') && !EventBus.examEmExec)) {
-          console.log('app settings')
-          if (this.settings) {
-            this.settings = false
-            this.$modal.hide('settings')
-          } else {
-            this.settings = true
-            this.$modal.show('settings')
-          }
-        }
-      }
+      EventBus.cmd(cmd)
     }
   }
 })

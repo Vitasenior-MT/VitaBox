@@ -92,15 +92,16 @@
     "msgExit": "Pressione direita ou [OK] no comando para entrar e selecionar...",
     "user": {
       "bodytemperature": {
+        "fig": {
+          "0": "Colocar o aparelho conforme a imagem.",
+          "1": "Pressionar no botão do aparelho."
+        },
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "temperatura.",
-          "1": "Pressione ok.",
-          "2": "Coloque o aparelho conforme as imagens."
-        },
-        "fig": {
-          "0": "Fig.1",
-          "1": "Fig.2"
+          "1": "Pressione ok. .",
+          "2": "Colocar o aparelho conforme a imagem.",
+          "3": "Pressionar no botão do aparelho."
         },
         "0": {
           "0": "No comando pressione em",
@@ -121,14 +122,15 @@
       },
       "bodypulse": {
         "fig": {
-          "0": "Fig.1",
-          "1": "Fig.2"
+          "0": "Colocar o aparelho conforme a imagem.",
+          "1": "Pressionar no botão do aparelho."
         },
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "Oxímetro.",
-          "1": "Pressione ok.",
-          "2": "Coloque o aparelho conforme as imagens."
+          "1": "Pressione ok. .",
+          "2": "Colocar o aparelho conforme a imagem.",
+          "3": "Pressionar no botão do aparelho."
         },
         "0": {
           "0": "No comando pressione em",
@@ -144,10 +146,13 @@
         "5": "Pode retirar o equipamento do dedo e o mesmo desliga-se automaticamente."
       },
       "bodyscale": {
+        "fig": {
+          "0": "Suba para cima do aparelho."
+        },
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "Peso.",
-          "1": "Pressione ok.",
+          "1": "Pressione ok. .",
           "2": "Suba para cima do aparelho."
         },
         "0": "Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição.",
@@ -162,41 +167,16 @@
       },
       "bloodpressure": {
         "fig": {
-          "0": "Fig.1",
-          "1": "Fig.2",
-          "2": "Coloque o aparelho conforme as imagens."
+          "0": "Colocar o aparelho conforme a imagem.",
+          "1": "Pressionar no botão do aparelho."
         },
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "pressão arterial.",
-          "1": "Pressione ok."
-        },
-        "0": "Coloque a bracelete no braço.",
-        "1": "Ajuste a bracelete conforme mostrado na imagem (Fig.1).",
-        "2": {
-          "0": "No comando pressione em",
-          "1": "para iniciar."
-        },
-        "3": {
-          "0": "Pressione no botão",
-          "1": "do equipamento para ligar e iniciar o processo (Fig.2)."
-        },
-        "4": "A luz indicadora de equipamento ligado pisca.",
-        "5": "Após o equpamento ser detectado a luz deixa de piscar ficando sempre ligada.",
-        "6": "Aguarde até o processo terminar.",
-        "7": "Após todos os dados aparecerem na televisão o equipamento desliga-se automaticamente."
-      },
-      "bandfitness": {
-        "fig": {
-          "0": "Fig.1",
-          "1": "Fig.2"
-        },
-        "title": "Modo de Utilização",
-        "audioDescription":{
-          "0": "bracelete.",
-          "1": "Pressione ok."
-        },
-        "0": "Assegure-se de que possui a banda corretamente colocada no pulso."
+          "1": "Pressione ok. .",
+          "2": "Colocar o aparelho conforme a imagem.",
+          "3": "Pressionar no botão do aparelho."
+        }
       }
     }
   },
@@ -261,6 +241,12 @@
         "checked": "PT",
         "unchecked": "EN"
       }
+    },
+    "welcome": {
+      "title": "Seja bem vindo"
+    },
+    "notifications": {
+      "title": "Notificações"
     }
   }
 }

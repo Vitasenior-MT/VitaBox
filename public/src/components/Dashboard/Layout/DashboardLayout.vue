@@ -6,7 +6,11 @@
     <notifications>
 
     </notifications>
-    <div class="main-panel" id="app" style="background-color: black;opacity: 0.85">
+    <div class="img-help">
+      <img class="ajust-img" src="static/img/tv_remote3.png" alt="">
+      <div v-show="showHelp" class="img-help-info green"><img style="width: 100%; height: auto;" src="static/img/id.svg" alt=""></div>
+    </div>
+    <div class="main-panel" id="app" style="background-color: #212120">
     <!-- <div class="main-panel" id="app"> -->
       <!-- <top-navbar></top-navbar> -->
 
@@ -14,10 +18,7 @@
 
       </dashboard-content>
 
-      <div class="img-help">
-        <img class="ajust-img" src="static/img/tv_remote3.png" alt="">
-        <div v-show="showHelp" class="img-help-info green"><img style="width: 100%; height: auto;" src="static/img/id.svg" alt=""></div>
-      </div>
+
       <!-- <content-footer></content-footer> -->
     </div>
   </div>
