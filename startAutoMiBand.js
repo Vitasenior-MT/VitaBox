@@ -60,8 +60,12 @@ Main.prototype.execBleMiBand = function (pacientInfo) {
     }
   });
   child.on('exit', function (data) {
-    console.log("process End");
-    process.exit(0);
+    if (self.allPatientes.length > 0) {
+      self.execBleMiBand(self.allPatientes.pop());
+    } else {
+      console.log("process End");
+      process.exit(0);
+    }   
   })
 }
 
