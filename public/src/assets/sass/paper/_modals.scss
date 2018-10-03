@@ -1,0 +1,57 @@
+.card-layout-in {
+  border-radius: 20px;
+  border-width: 4px;
+  border-style: solid;
+  border-color: #f7931d;
+  background-color:  #f05a28;
+  color: white;
+}
+.card-layout-in-selected {
+  border-color: green;
+}
+.card-layout-out {
+  border-radius: 20px;
+  border-width: 4px;
+  height: 50%;
+  border-style: solid;
+  border-color: black;
+  background-color:  gray;
+  color: white;
+}
+.vue-welcome {
+  margin-left: 17% !important;
+  margin-top: 5%;
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 1);
+}
+.vue-settings {
+  margin-left: 25% !important;
+  margin-top: 10%;
+  width: 50%;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 1);
+}
+.vue-height-out {
+  height: 100%;
+}
+.vue-height-in {
+  height: 70%;
+}
+.background-opacity {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+.changed-font {
+  font-size: 25px !important;
+}
+.btn-shadow label {
+  border-bottom: 5px solid black;
+  border-radius: 100px;
+}

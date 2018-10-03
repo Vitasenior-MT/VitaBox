@@ -11,7 +11,9 @@
       <div class='icon-big vue-alert-img' :class='`icon-${cardStyle.type}`' slot='header'>
         <img src='static/img/vitabox/warning.svg' class='size-img'>
       </div>
-      <div class='center font-size-b' slot='content'>
+      <div class='center font-size-a' slot='content01'>
+      </div>
+      <div class='center font-size-b' slot='content02'>
         <b>{{cardStyle.title}}</b>
       </div>
     </card-style>
@@ -120,5 +122,8 @@ export default {
 
 .font-size-b b {
   font-size: 70px !important;
+}
+.font-size-a b {
+  font-size: 30px !important;
 }
 </style>

@@ -2,7 +2,10 @@
   <div :class="{'nav-open': $sidebar.showSidebar}">
     <router-view></router-view>
     <v-dialog/>
+    <v-notifications/>
+    <v-welcome/>
     <v-settings/>
+    <v-wifi-settings/>
     <v-alert/>
     <v-marquee-msg/>
   </div>

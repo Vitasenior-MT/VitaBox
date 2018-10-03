@@ -5,8 +5,11 @@
         <div class="col-xs-12">
           <slot name="header"></slot>
         </div>
-        <div class="col-xs-12">
-          <slot name="content"></slot>
+        <div class="col-xs-6">
+          <slot name="content01"></slot>
+        </div>
+        <div class="col-xs-6">
+          <slot name="content02"></slot>
         </div>
       </div>
     </div>

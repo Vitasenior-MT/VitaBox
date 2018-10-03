@@ -76,7 +76,7 @@ before_reboot(){
 	exec_cmd "curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -"
 
 	print_status "Install all aplications."
-	exec_cmd "sudo apt-get install -y chromium-browser xscreensaver cec-utils mongodb git unclutter bluetooth bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs"
+	exec_cmd "sudo apt-get install -y chromium-browser xscreensaver cec-utils mongodb git unclutter bluetooth bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
 }
 
 after_reboot(){

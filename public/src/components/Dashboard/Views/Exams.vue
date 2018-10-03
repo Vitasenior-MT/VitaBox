@@ -122,6 +122,7 @@
                       <div class="col-md-4">&nbsp;</div>
                       <div class="col-md-4">
                         <img src='static/img/bodyscale.png' alt="" class="img-fit">
+                        <figcaption>{{ $t('diagnosis.user.bodyscale.fig.0') }}</figcaption>
                       </div>
                     </div>
                   </h4>
@@ -360,123 +361,6 @@
           </div>
           <div class="col-md-12">
             <h5>{{ $t('dictionary.press_ok') }}</h5>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row bandfitness clear-margin" v-show="examEvent == 'bandfitness'">
-      <div class="col-md-12 btn btn-round btn-fill">
-        <div class="row" v-show="dataBandFitness.panelPrincipal">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="content">
-                <h4 class="title">{{ $t('diagnosis.user.bandfitness.title') }}</h4><hr>
-                <ul>
-                  <h4>
-                    <li class="text-justify text-div-wrap">{{ $t('diagnosis.user.bandfitness.0') }}</li>
-                  </h4>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row" v-show="dataBandFitness.panelResults">
-          <div class="col-md-12">
-            <h5>{{ $t('dictionary.results') }}</h5>
-          </div>
-          <din class="col-md-12 blink-results">
-            <div class="col-md-4 results-val" v-show="dataBandFitness.batterystatus.battery_levelShow">
-              <stats-card>
-                <div class="icon-big text-center" slot="header">
-                  <span v-show="this.dataBandFitness.batterystatus.battery_level < 15">
-                  <i class="fas fa-battery-empty"></i>
-                  </span>
-                  <span v-show="this.dataBandFitness.batterystatus.battery_level >= 15 && this.dataBandFitness.batterystatus.battery_level < 40">
-                    <i class="fas fa-battery-quarter"></i>
-                  </span>
-                  <span v-show="this.dataBandFitness.batterystatus.battery_level >= 40 && this.dataBandFitness.batterystatus.battery_level < 65">
-                    <i class="fas fa-battery-half"></i>
-                  </span>
-                  <span v-show="this.dataBandFitness.batterystatus.battery_level >= 65 && this.dataBandFitness.batterystatus.battery_level < 90">
-                    <i class="fas fa-battery-three-quarters"></i>
-                  </span>
-                  <span v-show="this.dataBandFitness.batterystatus.battery_level >= 90">
-                    <i class="fas fa-battery-full"></i>
-                  </span>
-                  <!-- <hr> -->
-                </div>
-                <div class="numbers" slot="content">
-                <p>{{dataBandFitness.batterystatus.battery_levelName}} </p>
-                {{dataBandFitness.batterystatus.battery_level}} %
-                </div>
-              </stats-card>
-            </div>
-            <div class="col-md-4 results-val" v-show="dataBandFitness.steps.stepsShow">
-              <stats-card>
-                <div class="icon-big text-center" slot="header">
-                  <i class="fas fa-capsules"></i>
-                  <!-- <hr> -->
-                </div>
-                <div class="numbers" slot="content">
-                  <p>{{dataBandFitness.steps.stepsName}} </p>
-                  {{dataBandFitness.steps.steps}}
-                </div>
-              </stats-card>
-            </div>
-            <div class="col-md-4 results-val" v-show="dataBandFitness.steps.metersShow">
-              <stats-card>
-                <div class="icon-big text-center" slot="header">
-                  <i class="fas fa-flag-checkered"></i>
-                  <!-- <hr> -->
-                </div>
-                <div class="numbers" slot="content">
-                  <p>{{dataBandFitness.steps.metersName}}</p>
-                  {{dataBandFitness.steps.meters}}
-                </div>
-              </stats-card>
-            </div>
-            <div class="col-md-4 results-val" v-show="dataBandFitness.steps.calloriesShow">
-              <stats-card>
-                <div class="icon-big text-center" slot="header">
-                  <i class="fas fa-diagnoses"></i>
-                  <!-- <hr> -->
-                </div>
-                <div class="numbers" slot="content">
-                  <p>{{dataBandFitness.steps.calloriesName}}</p>
-                  {{dataBandFitness.steps.callories}}
-                </div>
-              </stats-card>
-            </div>
-            <div class="col-md-4 results-val" v-show="dataBandFitness.heartrate.heartrateavgShow">
-              <stats-card>
-                <div class="icon-big text-center" slot="header">
-                  <i class="fas fa-hand-holding-heart"></i>
-                  <!-- <hr> -->
-                </div>
-                <div class="numbers" slot="content">
-                  <p>{{dataBandFitness.heartrate.heartrateavgName}}</p>
-                  {{dataBandFitness.heartrate.heartrateavg}}
-                </div>
-              </stats-card>
-            </div>
-          </din>
-          <div class="col-md-12">
-            <h5>{{ $t('dictionary.press_ok') }}</h5>
-          </div>
-        </div>
-        <div class="row" v-show="dataBandFitness.panelGraph">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="content">
-                <h4 class="title"><b>Pulsação</b></h4>
-                <chart-line
-                  :id="'chartLine-1'"
-                  :lineChartId="'chartLine-1'"
-                  :dataChart="this.dataBandFitness.heartrate.heartrateArr"
-                  :dataChartAvg="this.dataBandFitness.heartrate.heartrateavg" >
-                </chart-line>
-              </div>
-            </div>
           </div>
         </div>
       </div>

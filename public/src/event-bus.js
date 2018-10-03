@@ -24,9 +24,123 @@ export const EventBus = new Vue({
     backupMainPanelWidth: 0,    // backup da largura do mail panel
     backupMovingArrowLeft: 0,   // backup da posição da seta da sidebar
     settingsData: {},
-    examEmExec: false           // flag para validação da execução dos exames
+    examEmExec: false,           // flag para validação da execução dos exames
+    welcome: true,
+    settings: false,
+    notifications: false,
+    wifi: false
   },
   methods: {
+    cmd(cmd) {
+      EventBus.$emit('key-help', cmd)
+      if (EventBus.cmdRestritions()) {
+        if (EventBus.welcome) {
+          if (cmd === 'ok_btn') {
+            this.$modal.hide('welcome')
+            EventBus.welcome = false
+          }
+        }
+        if (EventBus.notifications) {
+          if ((cmd === 'ok_btn' || cmd === 'exit')) {
+            this.$modal.hide('notifications')
+            EventBus.notifications = false
+            this.$marqueemsg.hide()
+          }
+        }
+        if (EventBus.settings) {
+          EventBus.$emit('move-components-modal', cmd)
+          if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ ((cmd === 'settings' || cmd === 'exit') && !EventBus.examEmExec)) {
+            console.log('app settings')
+            if (EventBus.settings) {
+              EventBus.settings = false
+              this.$modal.hide('settings')
+            } else {
+              EventBus.settings = true
+              this.$modal.show('settings')
+            }
+          }
+        }
+        if (EventBus.wifi) {
+          EventBus.$emit('move-components-wifi-modal', cmd)
+          if (cmd === 'exit' && !EventBus.examEmExec) {
+            console.log('app wifi-settings')
+            EventBus.wifi = false
+            this.$modal.hide('wifi-settings')
+          }
+        }
+      } else {
+        switch (cmd) {
+          case 'up':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', -1)
+            } else {
+              if (EventBus.currentComponent !== EventBus.sidebarName) {
+                EventBus.$emit('move-components', cmd)
+              }
+            }
+            break;
+          case 'down':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', 1)
+            } else {
+              if (EventBus.currentComponent !== EventBus.sidebarName) {
+                EventBus.$emit('move-components', cmd)
+              }
+            }
+            break;
+          case 'right':
+            EventBus.currentComponent = EventBus.correntRightComponent
+            EventBus.$emit('move-components', cmd)
+            break;
+          case 'left':
+          case 'exit':
+            if (EventBus.currentComponent !== EventBus.sidebarName) {
+              EventBus.$emit('move-components', cmd)
+            }
+            if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ (cmd === 'exit' && !EventBus.examEmExec)) {
+              if (EventBus.settings) {
+                EventBus.settings = false
+                this.$modal.hide('settings')
+              }
+            }
+            break;
+          case 'ok_btn':
+            if (EventBus.currentComponent === EventBus.sidebarName) {
+              EventBus.$emit('move-sidebar', cmd)
+            } else {
+              EventBus.$emit('move-components', cmd)
+            }
+            break;
+          case 'settings':
+            if (!EventBus.examEmExec) {
+              if (EventBus.settings) {
+                EventBus.settings = false
+                this.$modal.hide('settings')
+              } else {
+                EventBus.settings = true
+                this.$modal.show('settings')
+              }
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    },
+    cmdRestritions() {
+      if (EventBus.welcome) {
+        return true
+      }
+      if (EventBus.notifications) {
+        return true
+      }
+      if (EventBus.settings) {
+        return true
+      }
+      if (EventBus.wifi) {
+        return true
+      }
+    },
     rotation() {
       if (this.flgStartRotation) {
         if (this.currentActiveRightComp + 1 >= this.elementControl.length) {
