@@ -27,7 +27,8 @@ export const EventBus = new Vue({
     examEmExec: false,           // flag para validação da execução dos exames
     welcome: true,
     settings: false,
-    notifications: false
+    notifications: false,
+    wifi: false
   },
   methods: {
     cmd(cmd) {
@@ -57,6 +58,14 @@ export const EventBus = new Vue({
               EventBus.settings = true
               this.$modal.show('settings')
             }
+          }
+        }
+        if (EventBus.wifi) {
+          EventBus.$emit('move-components-wifi-modal', cmd)
+          if (cmd === 'exit' && !EventBus.examEmExec) {
+            console.log('app wifi-settings')
+            EventBus.wifi = false
+            this.$modal.hide('wifi-settings')
           }
         }
       } else {
@@ -126,6 +135,9 @@ export const EventBus = new Vue({
         return true
       }
       if (EventBus.settings) {
+        return true
+      }
+      if (EventBus.wifi) {
         return true
       }
     },

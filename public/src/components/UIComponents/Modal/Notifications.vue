@@ -21,7 +21,7 @@
           <div class="col-md-12 card-layout-out">
             <div v-for="(item, i) in items" v-bind:key='item.key'>
               <div class="col-md-8 card-layout-in">
-                <stats-card>
+                <notification-card>
                   <div class="icon-big text-center" slot="header">
                     <i class="fas fa-tachometer-alt"></i>
                     <!-- <hr> -->
@@ -29,7 +29,7 @@
                   <div class="numbers" slot="content">
                   <p>info {{ i }}</p>
                   </div>
-                </stats-card>
+                </notification-card>
               </div>
             </div>
           </div>

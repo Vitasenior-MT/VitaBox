@@ -12,7 +12,6 @@
         <img src='static/img/vitabox/warning.svg' class='size-img'>
       </div>
       <div class='center font-size-a' slot='content01'>
-        <b>Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição.</b>
       </div>
       <div class='center font-size-b' slot='content02'>
         <b>{{cardStyle.title}}</b>

@@ -80,6 +80,17 @@ export const app = new Vue({
   beforeCreate() {
   },
   sockets: {
+    connectionsList(list) {
+      console.log(list)
+      this.show = false
+      EventBus.settings = false
+      EventBus.wifi = true
+      this.$modal.hide('settings')
+      this.$modal.hide('notifications')
+      this.$modal.hide('welcome')
+      this.$modal.hide('alert')
+      this.$modal.show('wifi-settings', list)
+    },
     ttsPath(path) {
       var self = this
       if (document.getElementById('audioElem')) {
@@ -99,7 +110,7 @@ export const app = new Vue({
     },
     vitaWarning: function(data) {
       this.show = true
-      this.settings = false
+      EventBus.settings = false
       this.$modal.hide('settings')
       this.$modal.hide('notifications')
       this.$modal.hide('welcome')
@@ -109,7 +120,9 @@ export const app = new Vue({
       EventBus.$emit('changeTab')
     },
     informationVita: function(data) {
-      this.$modal.show('notifications')
+      if (!data.alert) {
+        this.$modal.show('notifications')
+      }
       this.$modal.hide('settings')
       this.$modal.hide('welcome')
       EventBus.notifications = true

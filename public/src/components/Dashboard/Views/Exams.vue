@@ -1138,10 +1138,10 @@ export default {
                     this.btns[0].nome = devacesArray[index].name
                     btnopt = this.btns[0]
                     break
-                  /* case 'bodytemperature':
+                  case 'bodytemperature':
                     this.btns[1].nome = devacesArray[index].name
                     btnopt = this.btns[1]
-                    break */
+                    break
                   case 'bodypulse':
                     this.btns[2].nome = devacesArray[index].name
                     btnopt = this.btns[2]

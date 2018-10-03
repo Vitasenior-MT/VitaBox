@@ -43,7 +43,7 @@ module.exports = {
     remoteserver: "192.168.161.132",
     remoteport: 8080
   },
-  ServerBoardListenerConfigs: {
+  ServerBoardWarningConfigs: {
     port: 10000,
     host: 'fd00::1'
   },
@@ -54,10 +54,10 @@ module.exports = {
   ServerConfigs: {
     key: fs.readFileSync('.key').toString().trim(),
     pass: 'passvita',
-    port: 443,
-    //port: 8080,
-    host: 'vitasenior-test.eu-gb.mybluemix.net'
-    //host: '192.168.161.53'
+    //port: 443,
+    port: 8080,
+    //host: 'vitasenior-test.eu-gb.mybluemix.net'
+    host: '192.168.161.53'
   },
   serverHttp: {
     port: 8080

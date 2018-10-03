@@ -2,6 +2,7 @@ import Modal from './Modal.vue'
 import Dialog from './Dialog.vue'
 import Alert from './Alert.vue'
 import Settings from './Settings.vue'
+import WifiSettings from './WifiSettings.vue'
 import Notifications from './Notifications.vue'
 import Welcome from './Welcome.vue'
 
@@ -43,6 +44,7 @@ const Plugin = {
     Vue.component(componentName, Modal)
     Vue.component('v-alert', Alert)
     Vue.component('v-settings', Settings)
+    Vue.component('v-wifi-settings', WifiSettings)
     Vue.component('v-notifications', Notifications)
     Vue.component('v-welcome', Welcome)
     /**

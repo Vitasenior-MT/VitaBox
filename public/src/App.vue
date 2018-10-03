@@ -5,6 +5,7 @@
     <v-notifications/>
     <v-welcome/>
     <v-settings/>
+    <v-wifi-settings/>
     <v-alert/>
     <v-marquee-msg/>
   </div>

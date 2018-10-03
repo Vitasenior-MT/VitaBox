@@ -19,19 +19,7 @@
             <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> {{ $t('modal.welcome.title') }}</h2>
           </div>
           <div class="col-md-12 card-layout-out vue-height-in">
-            <div v-for="(item, i) in items" v-bind:key='item.key'>
-              <div class="col-md-8 card-layout-in">
-                <stats-card>
-                  <div class="icon-big text-center" slot="header">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <!-- <hr> -->
-                  </div>
-                  <div class="numbers" slot="content">
-                  <p>info {{ i }}</p>
-                  </div>
-                </stats-card>
-              </div>
-            </div>
+            <h4>Mais informação aqui.</h4>
           </div>
           <div class="col-md-12">
             <h4>Pressione [OK] para sair.</h4>
