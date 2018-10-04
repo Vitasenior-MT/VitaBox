@@ -23,8 +23,7 @@
           </div>
           <div class="col-md-12 card-layout-out">
             <div v-for="(item, i) in params" v-bind:key='item.key'>
-              <!-- <div class="col-md-8 card-layout-in control-modal" :data-ssid="params[i].ssid">{{params[i].ssid}}</div> -->
-              <show-ssid :data="params[i]"></show-ssid>
+              <show-ssid :data="params[i]" :data-ssid="params[i].ssid"></show-ssid>
             </div>
           </div>
           <div class="col-md-12">
