@@ -11,6 +11,25 @@
         </div>
       </div>
     </div>
+    <div class="row btnLocation">
+      <div class="col-md-2" v-for="btn in btnLocation"  :key='btn.id'>
+        <div class="card clear-padding">
+          <div class="content">
+            <button
+              v-tooltip.bottom="$t('tooltips.ambienteHistory.history.title')"
+              class="btn btn-block btn-success control-remote"
+              type="button"
+              :data-id="btn.id"
+              :data-select="'false'"
+              :data-type="btn.type"
+              v-on:click="getDataSensor()">
+              <!-- <h2><b :class="btn.icon"></b></h2> -->
+              <h5>{{ btn.nome }}</h5>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <default-form ref="DefaultView"></default-form>
     <div class="row show-charts-history clear-margin" v-if="dataCharsExists">
       <div class="col-md-12 btn btn-round btn-fill">
@@ -52,6 +71,7 @@ export default {
       dataCharsExists: false,
       sensorList: [],
       sensorType: '',
+      location: '',
       hideShowItem: 0,
       chartData: {
         data: {
@@ -93,6 +113,56 @@ export default {
           if (response.data.status === true) {
             this.posSensorSelected = EventBus.currentActiveRightComp
             let dataArray = response.data.data
+            for (let index = 0; index < dataArray.length; index++) {
+              this.btnLocation.push({
+                id: index,
+                type: dataArray[index].location,
+                nome: dataArray[index].location
+              })
+            }
+            this.dataCharsExists = true
+            this.classEvent = 'control-remote'
+
+            setTimeout(() => {
+              EventBus.elementControl = document.getElementsByClassName(this.classEvent)
+              this.$refs.loading.hide()
+              this.$refs.DefaultView.hide()
+              EventBus.currentActiveRightComp = 0
+              // ativa o novo elemento adiconando a class que simboliza o elemento activo
+              let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+              elem.focus()
+              elem.click()
+              elem.classList.add('btn-fill')
+              elem.scrollIntoView(false)
+              document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
+            }, 10)
+          } else {
+            this.posSensorSelected = -1
+            this.$refs.loading.hide()
+            this.$notifications.notify({
+              message: '<h4>' + response.data.data + '</h4>',
+              icon: 'ti-bell',
+              horizontalAlign: 'right',
+              verticalAlign: 'top',
+              type: 'warning'
+            })
+            this.$refs.DefaultView.setMsg(this.msgSensor)
+            this.$refs.DefaultView.show()
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    getDataSensor() {
+      this.$refs.loading.show()
+      this.resetValues()
+      this.location = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+      this.$http
+        .get('/api/rawsensor/getdatalt/' + this.sensorType + '/' + this.location)
+        .then(response => {
+          if (response.data.status === true) {
+            let dataArray = response.data.data
             this.chartData = {
               data: {
                 labels: [],
@@ -128,19 +198,12 @@ export default {
                 backgroundColor: 'rgba(0, 0, 0, 0)',
                 data: dataArray[index].value
               })
-              this.btnLocation.push({
-                id: index,
-                type: dataArray[index].location,
-                nome: dataArray[index].location
-              })
             }
             this.dataCharsExists = true
-            setTimeout(() => {
-              EventBus.elementControl = document.getElementsByClassName(this.classEvent)
-              this.$refs.loading.hide()
-              this.$refs.DefaultView.hide()
-              document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
-            }, 10)
+            this.classEvent = 'control-remote'
+
+            this.$refs.loading.hide()
+            this.$refs.DefaultView.hide()
           } else {
             this.posSensorSelected = -1
             this.$refs.loading.hide()
@@ -192,8 +255,17 @@ export default {
               EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
+              console.log(self.flg_once)
+              console.log(EventBus.currentActiveRightComp)
+              setTimeout(() => {
+                if (!self.flg_once) {
+                  self.flg_once = true
+                  let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
+                  self.audioPlayer(datas)
+                }
+              }, 300);
               if (self.posSensorSelected < 0) {
-                // document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
+                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgExam)
                 self.$refs.DefaultView.show()
               }
@@ -244,9 +316,13 @@ export default {
               if (EventBus.elementControl.length > 1 || moveFirstTime) {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
-              document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
-              self.$refs.DefaultView.setMsg(self.msgSensor)
-              self.$refs.DefaultView.show()
+              if (self.posSensorSelected >= 0) {
+                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
+              } else {
+                document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
+                self.$refs.DefaultView.setMsg(self.msgSensor)
+                self.$refs.DefaultView.show()
+              }
               break
 
             default:

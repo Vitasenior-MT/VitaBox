@@ -85,6 +85,8 @@ export const app = new Vue({
       this.show = false
       EventBus.settings = false
       EventBus.wifi = true
+      EventBus.welcome = false
+      EventBus.notifications = false
       this.$modal.hide('settings')
       this.$modal.hide('notifications')
       this.$modal.hide('welcome')
@@ -110,6 +112,9 @@ export const app = new Vue({
     },
     vitaWarning: function(data) {
       this.show = true
+      EventBus.welcome = false
+      EventBus.notifications = false
+      EventBus.wifi = false
       EventBus.settings = false
       this.$modal.hide('settings')
       this.$modal.hide('notifications')
@@ -126,6 +131,9 @@ export const app = new Vue({
       this.$modal.hide('settings')
       this.$modal.hide('welcome')
       EventBus.notifications = true
+      EventBus.welcome = false
+      EventBus.wifi = false
+      EventBus.settings = false
       this.$marqueemsg.show(data.shortMessage, data.longMessage)
     },
     unblock: function(type) {
