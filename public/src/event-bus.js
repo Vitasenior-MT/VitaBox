@@ -63,7 +63,6 @@ export const EventBus = new Vue({
         if (EventBus.wifi) {
           EventBus.$emit('move-components-wifi-modal', cmd)
           if (cmd === 'exit' && !EventBus.examEmExec) {
-            console.log('app wifi-settings')
             EventBus.wifi = false
             this.$modal.hide('wifi-settings')
           }

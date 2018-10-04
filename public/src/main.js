@@ -116,6 +116,7 @@ export const app = new Vue({
       EventBus.notifications = false
       EventBus.wifi = false
       EventBus.settings = false
+      this.$modal.hide('wifi-settings')
       this.$modal.hide('settings')
       this.$modal.hide('notifications')
       this.$modal.hide('welcome')
@@ -127,10 +128,10 @@ export const app = new Vue({
     informationVita: function(data) {
       if (!data.alert) {
         this.$modal.show('notifications')
+        EventBus.notifications = true
       }
       this.$modal.hide('settings')
       this.$modal.hide('welcome')
-      EventBus.notifications = true
       EventBus.welcome = false
       EventBus.wifi = false
       EventBus.settings = false

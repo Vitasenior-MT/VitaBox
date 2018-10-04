@@ -6,11 +6,21 @@ module.exports = {
   coapConfigs: {
     rate: {
       hour: 0,
-      min: 1,
+      min: 5,
       sec: 0
     },
     warningArraySize: 5,
     avgSize: 15
+  },
+  postRate: {
+    hour: 0,
+    min: 1,
+    sec: 0,
+    noData: {
+      hour: 0,
+      min: 5,
+      sec: 0
+    }
   },
   ReconnectRate: {
     hour: 0,
