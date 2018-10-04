@@ -630,7 +630,7 @@
                 </div>
                 <div class="stats" slot="footer">
                   <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{databloodglucose.lastbloodglucosetime}}
-                   - Resultado: &nbsp;{{databloodglucose.lastbloodglucose}}</h4>
+                   - Resultado: &nbsp;{{databloodglucose.lastbloodglucose}}</h5>
                 </div>
               </stats-card>
             </div>
