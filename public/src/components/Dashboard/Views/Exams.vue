@@ -65,39 +65,50 @@
             <h5>{{ $t('dictionary.results') }}</h5>
           </div>
           <div class="col-md-12 blink-results">
-            <div class="col-md-6 results-val" v-show="dataPressArt.pressmaxShow">
+            <div class="col-md-6 results-val" v-show="dataPressArt.systolicShow">
               <stats-card>
                 <div class="icon-big text-center" slot="header">
                   <i class="ti-stats-up"></i>
                   <!-- <hr> -->
                 </div>
                 <div class="numbers" slot="content">
-                  <p>{{dataPressArt.pressmaxName}} </p>
-                  {{dataPressArt.pressmax}}
+                  <p>{{dataPressArt.systolicName}} </p>
+                  {{dataPressArt.systolic}}
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataPressArt.lastsystolictime}}
+                   - Resultado: &nbsp;{{dataPressArt.lastsystolic}}</h4>
                 </div>
               </stats-card>
             </div>
-            <div class="col-md-6 results-val" v-show="dataPressArt.pressminShow">
+            <div class="col-md-6 results-val" v-show="dataPressArt.diastolicShow">
               <stats-card>
                 <div class="icon-big text-center" slot="header">
                   <i class="ti-stats-down"></i>
                   <!-- <hr> -->
                 </div>
                 <div class="numbers" slot="content">
-                  <p>{{dataPressArt.pressminName}} </p>
-                  {{dataPressArt.pressmin}}
+                  <p>{{dataPressArt.diastolicName}} </p>
+                  {{dataPressArt.diastolic}}
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataPressArt.lastdiastolictime}} - Resultado: &nbsp;{{dataPressArt.lastdiastolic}}</h4>
                 </div>
               </stats-card>
             </div>
-            <div class="col-md-6 results-val" v-show="dataPressArt.pulsoShow">
+            <div class="col-md-6 results-val" v-show="dataPressArt.pulseShow">
               <stats-card>
                 <div class="icon-big text-center" slot="header">
                   <i class="ti-pulse"></i>
                   <!-- <hr> -->
                 </div>
                 <div class="numbers" slot="content">
-                  <p>{{dataPressArt.pulsoName}} </p>
-                  {{dataPressArt.pulso}}
+                  <p>{{dataPressArt.pulseName}} </p>
+                  {{dataPressArt.pulse}}
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataPressArt.lastpulsetime}}
+                   - Resultado: &nbsp;{{dataPressArt.lastpulse}}</h4>
                 </div>
               </stats-card>
             </div>
@@ -146,6 +157,10 @@
                 <p>{{dataBodyScale.weightName}} </p>
                 {{dataBodyScale.weight}} Kg
                 </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastweighttime}}
+                   - Resultado: &nbsp;{{dataBodyScale.lastweight}}</h4>
+                </div>
               </stats-card>
             </div>
             <div class="col-md-6 results-val" v-show="dataBodyScale.caloriesShow">
@@ -157,6 +172,10 @@
                 <div class="numbers" slot="content">
                 <p>{{dataBodyScale.caloriesName}}</p>
                 {{dataBodyScale.calories}} Kcal
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastcaloriestime}}
+                   - Resultado: &nbsp;{{dataBodyScale.lastcalories}}</h4>
                 </div>
               </stats-card>
             </div>
@@ -170,6 +189,10 @@
                 <p>{{dataBodyScale.waterName}}</p>
                 {{dataBodyScale.water}} %
                 </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastwatertime}}
+                   - Resultado: &nbsp;{{dataBodyScale.lastwater}}</h4>
+                </div>
               </stats-card>
             </div>
             <div class="col-md-6 results-val" v-show="dataBodyScale.musclemassShow">
@@ -181,6 +204,10 @@
                 <div class="numbers" slot="content">
                 <p>{{dataBodyScale.musclemassName}}</p>
                 {{dataBodyScale.musclemass}} %
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastmusclemasstime}}
+                   - Resultado: &nbsp;{{dataBodyScale.lastmusclemass}}</h4>
                 </div>
               </stats-card>
             </div>
@@ -194,6 +221,10 @@
                   <p>{{dataBodyScale.bodyfatName}}</p>
                   {{dataBodyScale.bodyfat}} %
                 </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastbodyfattime}}
+                   - Resultado: &nbsp;{{dataBodyScale.lastbodyfat}}</h4>
+                </div>
               </stats-card>
             </div>
             <div class="col-md-6 results-val" v-show="dataBodyScale.bonemassShow">
@@ -206,6 +237,10 @@
                   <p>{{dataBodyScale.bonemassName}}</p>
                   {{dataBodyScale.bonemass}} %
                 </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastbonemasstime}}
+                   - Resultado: &nbsp;{{dataBodyScale.lastbonemass}}</h4>
+                </div>
               </stats-card>
             </div>
             <div class="col-md-6 results-val" v-show="dataBodyScale.visceralfatShow">
@@ -217,6 +252,10 @@
                 <div class="numbers" slot="content">
                   <p>{{dataBodyScale.visceralfatName}}</p>
                   {{dataBodyScale.visceralfat}} %
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastvisceralfattime}}
+                   - Resultado: &nbsp;{{dataBodyScale.lastvisceralfat}}</h4>
                 </div>
               </stats-card>
             </div>
@@ -289,6 +328,10 @@
                   <p>{{databodytemperature.tempCorpName}} </p>
                   {{databodytemperature.tempCorp}} ºC
                 </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{databodytemperature.lastbodytemptime}}
+                   - Resultado: &nbsp;{{databodytemperature.lastbodytemp}}</h4>
+                </div>
               </stats-card>
             </div>
           </div>
@@ -334,33 +377,174 @@
             <h5>{{ $t('dictionary.results') }}</h5>
           </div>
           <div class="col-md-12 blink-results">
-            <div class="col-md-6 results-val" v-show="databodypulse.spoValShow">
+            <div class="col-md-6 results-val" v-show="databodypulse.spo2Show">
               <stats-card>
                 <div class="icon-big text-center" slot="header">
                   <i class="fas fa-fire"></i>
                   <!-- <hr> -->
                 </div>
                 <div class="numbers" slot="content">
-                  <p>{{databodypulse.spoValName}} </p>
-                  {{databodypulse.spoVal}} %
+                  <p>{{databodypulse.spo2Name}} </p>
+                  {{databodypulse.spo2}} %
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{databodypulse.lastspo2time}}
+                   - Resultado: &nbsp;{{databodypulse.lastspo2}}</h4>
                 </div>
               </stats-card>
             </div>
-            <div class="col-md-6 results-val" v-show="databodypulse.pulseValShow">
+            <div class="col-md-6 results-val" v-show="databodypulse.pulseShow">
               <stats-card>
                 <div class="icon-big text-center" slot="header">
                   <i class="fas fa-heartbeat"></i>
                   <!-- <hr> -->
                 </div>
                 <div class="numbers" slot="content">
-                <p>{{databodypulse.pulseValName}} </p>
-                {{databodypulse.pulseVal}} PPM
+                <p>{{databodypulse.pulseName}} </p>
+                {{databodypulse.pulse}} PPM
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{databodypulse.lastpulsetime}}
+                   - Resultado: &nbsp;{{databodypulse.lastpulse}}</h4>
                 </div>
               </stats-card>
             </div>
           </div>
           <div class="col-md-12">
             <h5>{{ $t('dictionary.press_ok') }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row bandfitness clear-margin" v-show="examEvent == 'bandfitness'">
+      <div class="col-md-12 btn btn-round btn-fill">
+        <div class="row" v-show="dataBandFitness.panelPrincipal">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="content">
+                <h4 class="title">{{ $t('diagnosis.user.bandfitness.title') }}</h4><hr>
+                <ul>
+                  <h4>
+                    <li class="text-justify text-div-wrap">{{ $t('diagnosis.user.bandfitness.0') }}</li>
+                  </h4>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" v-show="dataBandFitness.panelResults">
+          <div class="col-md-12">
+            <h5>{{ $t('dictionary.results') }}</h5>
+          </div>
+          <din class="col-md-12 blink-results">
+            <div class="col-md-4 results-val" v-show="dataBandFitness.batterystatus.battery_levelShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <span v-show="this.dataBandFitness.batterystatus.battery_level < 15">
+                  <i class="fas fa-battery-empty"></i>
+                  </span>
+                  <span v-show="this.dataBandFitness.batterystatus.battery_level >= 15 && this.dataBandFitness.batterystatus.battery_level < 40">
+                    <i class="fas fa-battery-quarter"></i>
+                  </span>
+                  <span v-show="this.dataBandFitness.batterystatus.battery_level >= 40 && this.dataBandFitness.batterystatus.battery_level < 65">
+                    <i class="fas fa-battery-half"></i>
+                  </span>
+                  <span v-show="this.dataBandFitness.batterystatus.battery_level >= 65 && this.dataBandFitness.batterystatus.battery_level < 90">
+                    <i class="fas fa-battery-three-quarters"></i>
+                  </span>
+                  <span v-show="this.dataBandFitness.batterystatus.battery_level >= 90">
+                    <i class="fas fa-battery-full"></i>
+                  </span>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                <p>{{dataBandFitness.batterystatus.battery_levelName}} </p>
+                {{dataBandFitness.batterystatus.battery_level}} %
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-4 results-val" v-show="dataBandFitness.steps.stepsShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-capsules"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataBandFitness.steps.stepsName}} </p>
+                  {{dataBandFitness.steps.steps}}
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBandFitness.steps.laststepstime}}
+                   - Resultado: &nbsp;{{dataBandFitness.steps.laststeps}}</h4>
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-4 results-val" v-show="dataBandFitness.steps.metersShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-flag-checkered"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataBandFitness.steps.metersName}}</p>
+                  {{dataBandFitness.steps.meters}}
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBandFitness.steps.lastmeterstime}}
+                   - Resultado: &nbsp;{{dataBandFitness.steps.lastmeters}}</h4>
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-4 results-val" v-show="dataBandFitness.steps.calloriesShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-diagnoses"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataBandFitness.steps.calloriesName}}</p>
+                  {{dataBandFitness.steps.callories}}
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBandFitness.steps.lastcalloriestime}}
+                   - Resultado: &nbsp;{{dataBandFitness.steps.lastcallories}}</h4>
+                </div>
+              </stats-card>
+            </div>
+            <div class="col-md-4 results-val" v-show="dataBandFitness.heartrate.heartrateavgShow">
+              <stats-card>
+                <div class="icon-big text-center" slot="header">
+                  <i class="fas fa-hand-holding-heart"></i>
+                  <!-- <hr> -->
+                </div>
+                <div class="numbers" slot="content">
+                  <p>{{dataBandFitness.heartrate.heartrateavgName}}</p>
+                  {{dataBandFitness.heartrate.heartrateavg}}
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBandFitness.heartrate.lastheartratetime}}
+                   - Resultado: &nbsp;{{dataBandFitness.heartrate.lastheartrate}}</h4>
+                </div>
+              </stats-card>
+            </div>
+          </din>
+          <div class="col-md-12">
+            <h5>{{ $t('dictionary.press_ok') }}</h5>
+          </div>
+        </div>
+        <div class="row" v-show="dataBandFitness.panelGraph">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="content">
+                <h4 class="title"><b>Pulsação</b></h4>
+                <chart-line
+                  :id="'chartLine-1'"
+                  :lineChartId="'chartLine-1'"
+                  :dataChart="this.dataBandFitness.heartrate.heartrateArr"
+                  :dataChartAvg="this.dataBandFitness.heartrate.heartrateavg" >
+                </chart-line>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -372,10 +556,42 @@
             <div class="card">
               <div class="content">
                 <h4 class="title">Modo de Utilização</h4>
+                <!-- <h4 class="title">{{ $t('diagnosis.user.databloodglucose.title') }}</h4> -->
                 <hr>
                 <ol>
                   <h4>
-                    ----------------
+                    <div class="row">
+                      <div class="col-md-1">
+                        <figure>
+                          <img src='static/img/cmd.png' alt="" class="img-fit">
+                          <figcaption class="text-div-wrap">1º Acione o sistema na TV.</figcaption>
+                        </figure>
+                      </div>
+                      <div class="col-md-3">
+                        <figure>
+                          <img src='static/img/glucometer3.png' alt="" class="img-fit">
+                          <figcaption class="text-div-wrap">2º Coloque a fita no equipamento.</figcaption>
+                        </figure>
+                      </div>
+                      <div class="col-md-3">
+                        <figure>
+                          <img src='static/img/glucometer2.jpg' alt="" class="img-fit">
+                          <figcaption class="text-div-wrap">3º Pique o dedo e coloque uma gota de sangue na fita.</figcaption>
+                        </figure>
+                      </div>
+                      <div class="col-md-2">
+                        <figure>
+                          <img src='static/img/logo_B.png' alt="" class="img-fit">
+                          <figcaption class="text-div-wrap">4º Aguarde.</figcaption>
+                        </figure>
+                      </div>
+                      <div class="col-md-3">
+                        <figure>
+                          <img src='static/img/glucometer3.png' alt="" class="img-fit">
+                          <figcaption class="text-div-wrap">5º Depois de aparecerem os resultados pode retirar a fita..</figcaption>
+                        </figure>
+                      </div>
+                    </div>
                   </h4>
                 </ol>
               </div>
@@ -410,7 +626,11 @@
                 </div>
                 <div class="numbers" slot="content">
                   <p>{{databloodglucose.glucoseName}} </p>
-                  {{databloodglucose.glucose}} (mg/dl)
+                  {{databloodglucose.glucose}} mg/dl
+                </div>
+                <div class="stats" slot="footer">
+                  <h4 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{databloodglucose.lastbloodglucosetime}}
+                   - Resultado: &nbsp;{{databloodglucose.lastbloodglucose}}</h4>
                 </div>
               </stats-card>
             </div>
@@ -475,15 +695,21 @@ export default {
         panelResults: false,
         val: 0,
         max: 100,
-        pulso: 0,
-        pulsoName: '',
-        pulsoShow: false,
-        pressmax: 0,
-        pressmaxName: '',
-        pressmaxShow: false,
-        pressmin: 0,
-        pressminName: '',
-        pressminShow: false
+        pulse: 0,
+        pulseName: '',
+        pulseShow: false,
+        systolic: 0,
+        systolicName: '',
+        systolicShow: false,
+        diastolic: 0,
+        diastolicName: '',
+        diastolicShow: false,
+        lastpulse: '-',
+        lastpulsetime: '---',
+        lastsystolic: '-',
+        lastsystolictime: '---',
+        lastdiastolic: '-',
+        lastdiastolictime: '---'
       },
       // definição do objecto para os dados da balança
       dataBodyScale: {
@@ -509,7 +735,21 @@ export default {
         waterShow: false,
         calories: 0,
         caloriesName: '',
-        caloriesShow: false
+        caloriesShow: false,
+        lastweight: '-',
+        lastweighttims: '---',
+        lastbodyfat: '-',
+        lastbodyfattime: '---',
+        lastbonemass: '-',
+        lastbonemasstime: '---',
+        lastmusclemass: '-',
+        lastmusclemasstime: '---',
+        lastvisceralfat: '-',
+        lastvisceralfattime: '---',
+        lastwater: '-',
+        lastwatertime: '---',
+        lastcalories: '-',
+        lastcaloriestime: '---'
       },
       // definição do objecto para os dados da temperatura corporal
       databodytemperature: {
@@ -520,18 +760,24 @@ export default {
         batteryShow: false,
         tempCorp: 0,
         tempCorpName: '',
-        tempCorpShow: false
+        tempCorpShow: false,
+        lastbodytemp: '-',
+        lastbodytemptime: '---'
       },
       // definição do objecto para os dados da pulsiometro
       databodypulse: {
         panelPrincipal: true,
         panelResults: false,
-        spoVal: 0,
-        spoValName: '',
-        spoValShow: false,
-        pulseVal: 0,
-        pulseValName: '',
-        pulseValShow: false
+        spo2: 0,
+        spo2Name: '',
+        spo2Show: false,
+        pulse: 0,
+        pulseName: '',
+        pulseShow: false,
+        lastspo2: '-',
+        lastspo2time: '---',
+        lastpulse: '-',
+        lastpulsetime: '---'
       },
       // definição do objecto para os dados da banda / pulseira
       dataBandFitness: {
@@ -542,7 +788,9 @@ export default {
           heartrateArr: [],
           heartrateavg: 0,
           heartrateavgName: '',
-          heartrateavgShow: false
+          heartrateavgShow: false,
+          lastheartrate: '-',
+          lastheartratetime: '---'
         },
         steps: {
           steps: 0,
@@ -553,7 +801,13 @@ export default {
           metersShow: false,
           callories: 0,
           calloriesName: '',
-          calloriesShow: false
+          calloriesShow: false,
+          lastmeters: '-',
+          lastmeterstime: '---',
+          lastcalories: '-',
+          lastcaloriestime: '---',
+          laststeps: '-',
+          laststepstime: '---'
         },
         batterystatus: {
           battery_level: 0,
@@ -585,7 +839,9 @@ export default {
         batteryShow: false,
         glucose: 0,
         glucoseName: '',
-        glucoseShow: false
+        glucoseShow: false,
+        lastbloodglucose: '-',
+        lastbloodglucosetime: '---'
       },
       examEvent: '', // frag para mostrar o elemento selecionado
       examMac: '',
@@ -638,6 +894,7 @@ export default {
     },
     bloodglucoseFim: function(data) {
       let resData = data
+      console.log("Glucose val", resData)
       if (resData.status === true) {
         for (let dataVal in resData.data) {
           switch (resData.data[dataVal].tag) {
@@ -649,7 +906,6 @@ export default {
               this.databloodglucose.batteryShow = true
               break;
             case 'bloodglucose':
-              console.log("AAA")
               this.databloodglucose.panelPrincipal = false
               this.databloodglucose.panelResults = true
               this.databloodglucose.glucose = resData.data[dataVal].value
@@ -676,7 +932,9 @@ export default {
           batteryShow: false,
           glucose: 0,
           glucoseName: '',
-          glucoseShow: false
+          glucoseShow: false,
+          lastbloodglucose: '-',
+          lastbloodglucosetime: '---'
         }
       }
     },
@@ -690,25 +948,13 @@ export default {
           console.log("band", resData.data[dataVal].tag, resData.data[dataVal])
           switch (resData.data[dataVal].tag) {
             case "steps":
-              this.dataBandFitness.panelPrincipal = false
-              this.dataBandFitness.panelResults = true
-              this.dataBandFitness.steps.steps = resData.data[dataVal].value
-              this.dataBandFitness.steps.stepsName = resData.data[dataVal].measure
-              this.dataBandFitness.steps.stepsShow = true
-              break;
             case "meters":
-              this.dataBandFitness.panelPrincipal = false
-              this.dataBandFitness.panelResults = true
-              this.dataBandFitness.steps.meters = resData.data[dataVal].value
-              this.dataBandFitness.steps.metersName = resData.data[dataVal].measure
-              this.dataBandFitness.steps.metersShow = true
-              break;
             case "calories":
               this.dataBandFitness.panelPrincipal = false
               this.dataBandFitness.panelResults = true
-              this.dataBandFitness.steps.callories = resData.data[dataVal].value
-              this.dataBandFitness.steps.calloriesName = resData.data[dataVal].measure
-              this.dataBandFitness.steps.calloriesShow = true
+              this.dataBandFitness.steps[resData.data[dataVal].tag] = resData.data[dataVal].value
+              this.dataBandFitness.steps[resData.data[dataVal].tag + 'Name'] = resData.data[dataVal].measure
+              this.dataBandFitness.steps[resData.data[dataVal].tag + 'Show'] = true
               break;
             case 'heartrateChart':
               this.dataBandFitness.panelPrincipal = false
@@ -735,11 +981,9 @@ export default {
             case "heartrate":
               this.dataBandFitness.panelPrincipal = false
               this.dataBandFitness.panelResults = true
-              this.dataBandFitness.heartrate.heartrateavg = Math.round(resData.data[dataVal].value)
+              this.dataBandFitness.heartrate.heartrateavg = Math.round(resData.data[dataVal].value * 100) / 100
               this.dataBandFitness.heartrate.heartrateavgName = resData.data[dataVal].measure
               this.dataBandFitness.heartrate.heartrateavgShow = true
-              this.execProcess = false
-              EventBus.examEmExec = false
               break
             default:
               break;
@@ -761,7 +1005,9 @@ export default {
             heartrateArr: [],
             heartrateavg: 0,
             heartrateavgName: '',
-            heartrateavgShow: false
+            heartrateavgShow: false,
+            lastheartrate: '-',
+            lastheartratetime: '---'
           },
           steps: {
             steps: 0,
@@ -772,7 +1018,13 @@ export default {
             metersShow: false,
             callories: 0,
             calloriesName: '',
-            calloriesShow: false
+            calloriesShow: false,
+            lastmeters: '-',
+            lastmeterstime: '---',
+            lastcalories: '-',
+            lastcaloriestime: '---',
+            laststeps: '-',
+            laststepstime: '---'
           },
           batterystatus: {
             battery_level: 0,
@@ -810,8 +1062,8 @@ export default {
           this.dataBodyScale.panelResults = true
         }
         for (let dataVal in resData.data) {
-          console.log(resData.data[dataVal])
-          this.dataBodyScale[resData.data[dataVal].tag] = resData.data[dataVal].value
+          // console.log(resData.data[dataVal])
+          this.dataBodyScale[resData.data[dataVal].tag] = Math.round(resData.data[dataVal].value * 100) / 100
           this.dataBodyScale[resData.data[dataVal].tag + 'Name'] = resData.data[dataVal].measure
           this.dataBodyScale[resData.data[dataVal].tag + 'Show'] = true
           read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
@@ -848,11 +1100,25 @@ export default {
           waterShow: false,
           calories: 0,
           caloriesName: '',
-          caloriesShow: false
+          caloriesShow: false,
+          lastweight: '-',
+          lastweighttims: '---',
+          lastbodyfat: '-',
+          lastbodyfattime: '---',
+          lastbonemass: '-',
+          lastbonemasstime: '---',
+          lastmusclemass: '-',
+          lastmusclemasstime: '---',
+          lastvisceralfat: '-',
+          lastvisceralfattime: '---',
+          lastwater: '-',
+          lastwatertime: '---',
+          lastcalories: '-',
+          lastcaloriestime: '---'
         }
+        this.execProcess = false
+        EventBus.examEmExec = false
       }
-      this.execProcess = false
-      EventBus.examEmExec = false
     },
     /**
      * TODO: Recebe do socket toda a informação referente ao pulsiometro
@@ -864,27 +1130,20 @@ export default {
         for (let dataVal in resData.data) {
           switch (resData.data[dataVal].tag) {
             case "spo2":
-              this.databodypulse.panelPrincipal = false
-              this.databodypulse.panelResults = true
-              this.databodypulse.spoVal = resData.data[dataVal].value
-              this.databodypulse.spoValName = resData.data[dataVal].measure
-              this.databodypulse.spoValShow = true
-              read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
-              break;
             case "pulse":
               this.databodypulse.panelPrincipal = false
               this.databodypulse.panelResults = true
-              this.databodypulse.pulseVal = resData.data[dataVal].value
-              this.databodypulse.pulseValName = resData.data[dataVal].measure
-              this.databodypulse.pulseValShow = true
+              this.databodypulse[resData.data[dataVal].tag] = resData.data[dataVal].value * 1
+              this.databodypulse[resData.data[dataVal].tag + 'Name'] = resData.data[dataVal].measure
+              this.databodypulse[resData.data[dataVal].tag + 'Show'] = true
               read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
               break;
             default:
               break;
           }
         }
-        console.log('*****************************')
-        console.log(read)
+        // console.log('*****************************')
+        // console.log(read)
         EventBus.soundTTS(read)
       } else {
         console.log('Receive error', data)
@@ -898,16 +1157,20 @@ export default {
         this.databodypulse = {
           panelPrincipal: true,
           panelResults: false,
-          spoVal: 0,
-          spoValName: '',
-          spoValShow: false,
-          pulseVal: 0,
-          pulseValName: '',
-          pulseValShow: false
+          spo2: 0,
+          spo2Name: '',
+          spo2Show: false,
+          pulse: 0,
+          pulseName: '',
+          pulseShow: false,
+          lastspo2: '-',
+          lastspo2time: '---',
+          lastpulse: '-',
+          lastpulsetime: '---'
         }
+        this.execProcess = false
+        EventBus.examEmExec = false
       }
-      this.execProcess = false
-      EventBus.examEmExec = false
     },
     /**
      * TODO: Recebe do socket a informação da temperatura corporal
@@ -929,11 +1192,9 @@ export default {
             case "bodytemp":
               this.databodytemperature.panelPrincipal = false
               this.databodytemperature.panelResults = true
-              this.databodytemperature.tempCorp = resData.data[dataVal].value
+              this.databodytemperature.tempCorp = resData.data[dataVal].value * 1
               this.databodytemperature.tempCorpName = resData.data[dataVal].measure
               this.databodytemperature.tempCorpShow = true
-              this.execProcess = false
-              EventBus.examEmExec = false
               read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
               break;
             default:
@@ -976,30 +1237,14 @@ export default {
         for (let dataVal in resData.data) {
           switch (resData.data[dataVal].tag) {
             case "systolic":
-              this.dataPressArt.panelPrincipal = false
-              this.dataPressArt.panelResults = true
-              this.dataPressArt.val = 0
-              this.dataPressArt.pressmax = resData.data[dataVal].value
-              this.dataPressArt.pressmaxName = resData.data[dataVal].measure
-              this.dataPressArt.pressmaxShow = true
-              read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
-              break;
             case "diastolic":
-              this.dataPressArt.panelPrincipal = false
-              this.dataPressArt.panelResults = true
-              this.dataPressArt.val = 0
-              this.dataPressArt.pressmin = resData.data[dataVal].value
-              this.dataPressArt.pressminName = resData.data[dataVal].measure
-              this.dataPressArt.pressminShow = true
-              read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
-              break;
             case "pulse":
               this.dataPressArt.panelPrincipal = false
               this.dataPressArt.panelResults = true
               this.dataPressArt.val = 0
-              this.dataPressArt.pulso = resData.data[dataVal].value
-              this.dataPressArt.pulsoName = resData.data[dataVal].measure
-              this.dataPressArt.pulsoShow = true
+              this.dataPressArt[resData.data[dataVal].tag] = resData.data[dataVal].value * 1
+              this.dataPressArt[resData.data[dataVal].tag + 'Name'] = resData.data[dataVal].measure
+              this.dataPressArt[resData.data[dataVal].tag + 'Show'] = true
               read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
               break;
             default:
@@ -1021,19 +1266,25 @@ export default {
           panelResults: false,
           val: 0,
           max: 100,
-          pulso: 0,
-          pulsoName: '',
-          pulsoShow: false,
-          pressmax: 0,
-          pressmaxName: '',
-          pressmaxShow: false,
-          pressmin: 0,
-          pressminName: '',
-          pressminShow: false
+          pulse: 0,
+          pulseName: '',
+          pulseShow: false,
+          systolic: 0,
+          systolicName: '',
+          systolicShow: false,
+          diastolic: 0,
+          diastolicName: '',
+          diastolicShow: false,
+          lastpulse: 0,
+          lastpulsetime: 0,
+          lastsystolic: 0,
+          lastsystolictime: 0,
+          lastdiastolic: 0,
+          lastdiastolictime: 0
         }
+        this.execProcess = false
+        EventBus.examEmExec = false
       }
-      this.execProcess = false
-      EventBus.examEmExec = false
     },
     /**
      * TODO: Recebe do socket as mensagens
@@ -1041,6 +1292,13 @@ export default {
     bleMsg: function(data) {
       // console.log('BleMsg', data)
       if (data.status === true) {
+        if (typeof data.data === 'object') {
+          if (data.data.enableApp === true) {
+            this.execProcess = false
+            EventBus.examEmExec = false
+          }
+          data.data = data.data.msg
+        }
         this.$notifications.notify({
           message: '<h4>' + data.data + '</h4>',
           icon: 'ti-info',
@@ -1212,6 +1470,36 @@ export default {
               verticalAlign: 'top',
               type: 'success'
             })
+
+            for (let lastsnr in response.data.lastExec.dataSensor) {
+              switch (response.data.lastExec.action) {
+                case 'bloodpressure':
+                  this.dataPressArt['last' + response.data.lastExec.dataSensor[lastsnr].tag] = Math.round(response.data.lastExec.dataSensor[lastsnr].value * 100) / 100
+                  this.dataPressArt['last' + response.data.lastExec.dataSensor[lastsnr].tag + 'time'] = EventBus.dateFormat(response.data.lastExec.dataSensor[lastsnr].time)
+                  break
+                case 'bodytemperature':
+                  this.databodytemperature['last' + response.data.lastExec.dataSensor[lastsnr].tag] = Math.round(response.data.lastExec.dataSensor[lastsnr].value * 100) / 100
+                  this.databodytemperature['last' + response.data.lastExec.dataSensor[lastsnr].tag + 'time'] = EventBus.dateFormat(response.data.lastExec.dataSensor[lastsnr].time)
+                  break;
+                case 'bodypulse':
+                  this.databodypulse['last' + response.data.lastExec.dataSensor[lastsnr].tag] = Math.round(response.data.lastExec.dataSensor[lastsnr].value * 100) / 100
+                  this.databodypulse['last' + response.data.lastExec.dataSensor[lastsnr].tag + 'time'] = EventBus.dateFormat(response.data.lastExec.dataSensor[lastsnr].time)
+                  break;
+                case 'bodyscale':
+                  this.dataBodyScale['last' + response.data.lastExec.dataSensor[lastsnr].tag] = Math.round(response.data.lastExec.dataSensor[lastsnr].value * 100) / 100
+                  this.dataBodyScale['last' + response.data.lastExec.dataSensor[lastsnr].tag + 'time'] = EventBus.dateFormat(response.data.lastExec.dataSensor[lastsnr].time)
+                  break;
+                case 'bloodglucose':
+                  this.databloodglucose['last' + response.data.lastExec.dataSensor[lastsnr].tag] = Math.round(response.data.lastExec.dataSensor[lastsnr].value * 100) / 100
+                  this.databloodglucose['last' + response.data.lastExec.dataSensor[lastsnr].tag + 'time'] = EventBus.dateFormat(response.data.lastExec.dataSensor[lastsnr].time)
+                  break;
+                case 'bandfitness':
+
+                  break;
+                default:
+                  break;
+              }
+            }
           } else {
             this.$notifications.notify({
               message: '<h4>' + response.data.data + '</h4>',
@@ -1266,22 +1554,42 @@ export default {
         waterShow: false,
         calories: 0,
         caloriesName: '',
-        caloriesShow: false
+        caloriesShow: false,
+        lastweight: '-',
+        lastweighttims: '---',
+        lastbodyfat: '-',
+        lastbodyfattime: '---',
+        lastbonemass: '-',
+        lastbonemasstime: '---',
+        lastmusclemass: '-',
+        lastmusclemasstime: '---',
+        lastvisceralfat: '-',
+        lastvisceralfattime: '---',
+        lastwater: '-',
+        lastwatertime: '---',
+        lastcalories: '-',
+        lastcaloriestime: '---'
       }
       this.dataPressArt = {
         panelPrincipal: true,
         panelResults: false,
         val: 0,
         max: 100,
-        pulso: 0,
-        pulsoName: '',
-        pulsoShow: false,
-        pressmax: 0,
-        pressmaxName: '',
-        pressmaxShow: false,
-        pressmin: 0,
-        pressminName: '',
-        pressminShow: false
+        pulse: 0,
+        pulseName: '',
+        pulseShow: false,
+        systolic: 0,
+        systolicName: '',
+        systolicShow: false,
+        diastolic: 0,
+        diastolicName: '',
+        diastolicShow: false,
+        lastpulse: '-',
+        lastpulsetime: '---',
+        lastsystolic: '-',
+        lastsystolictime: '---',
+        lastdiastolic: '-',
+        lastdiastolictime: '---'
       }
       this.dataBandFitness = {
         panelPrincipal: true,
@@ -1290,7 +1598,9 @@ export default {
           heartrateArr: [],
           heartrateavg: 0,
           heartrateavgName: '',
-          heartrateavgShow: false
+          heartrateavgShow: false,
+          lastheartrate: '-',
+          lastheartratetime: '---'
         },
         steps: {
           steps: 0,
@@ -1301,7 +1611,13 @@ export default {
           metersShow: false,
           callories: 0,
           calloriesName: '',
-          calloriesShow: false
+          calloriesShow: false,
+          lastmeters: '-',
+          lastmeterstime: '---',
+          lastcalories: '-',
+          lastcaloriestime: '---',
+          laststeps: '-',
+          laststepstime: '---'
         },
         batterystatus: {
           battery_level: 0,
@@ -1338,12 +1654,16 @@ export default {
       this.databodypulse = {
         panelPrincipal: true,
         panelResults: false,
-        spoVal: 0,
-        spoValName: '',
-        spoValShow: false,
-        pulseVal: 0,
-        pulseValName: '',
-        pulseValShow: false
+        spo2: 0,
+        spo2Name: '',
+        spo2Show: false,
+        pulse: 0,
+        pulseName: '',
+        pulseShow: false,
+        lastspo2: '-',
+        lastspo2time: '---',
+        lastpulse: '-',
+        lastpulsetime: '---'
       }
       this.databloodglucose = {
         panelPrincipal: true,
@@ -1353,7 +1673,9 @@ export default {
         batteryShow: false,
         glucose: 0,
         glucoseName: '',
-        glucoseShow: false
+        glucoseShow: false,
+        lastbloodglucose: '-',
+        lastbloodglucosetime: '---'
       }
     },
     /**
@@ -1513,11 +1835,13 @@ export default {
   border-width: 4px;
   border-style: solid;
   border-color: #f7931d;
-  background-color:  #f05a28;
+  background-color: #f05a28;
   color: white;
 }
 
-.results-val div, .results-val div p, .results-val p {
+.results-val div,
+.results-val div p,
+.results-val p {
   background-color: transparent;
 }
 
@@ -1570,7 +1894,8 @@ export default {
 .clear-padding {
   border-radius: 20px !important;
 }
-.btnUsers .btn-fill, .btnsExams .btn-fill {
+.btnUsers .btn-fill,
+.btnsExams .btn-fill {
   box-shadow: 3px 3px 10px black;
 }
 .on-shadow {
@@ -1585,5 +1910,9 @@ body {
 }
 .text-div-wrap {
   white-space: pre-line;
+}
+.ajust-last-records {
+  color: white;
+  margin: 0 !important;
 }
 </style>
