@@ -22,17 +22,11 @@
             </div>
           </div>
           <div class="col-md-12 card-layout-out">
-            <div v-for="(item, i) in params" v-bind:key='item.key'>
+            <div v-for="(item, i) in params" v-bind:key='item.key' v-show="ssid">
               <show-ssid :data="params[i]" :data-ssid="params[i].ssid"></show-ssid>
             </div>
-          </div>
-          <div class="col-md-12">
-            <div class="col-md-3">
-              <h3>Password</h3>
-            </div>
-            <div class="col-md-9">
-                <input class="changed-font" type="password" v-model="password"><br>
-            </div>
+            <h3 v-show="!ssid">Password</h3>
+            <input class="input-font-color-black" type="password" v-model="password" v-show="!ssid" ref="psswrd">
           </div>
           <div class="col-md-12">
             <h4>Pressione [OK] para alterar o estado. <br> Pressione [EXIT] para sair.</h4>
@@ -68,6 +62,7 @@ export default {
     return {
       params: {},
       password: null,
+      ssid: true,
       defaultButtons: [{ title: 'CLOSE' }]
     }
   },
@@ -105,17 +100,19 @@ export default {
           // evento do 'OK'
           case 'ok_btn':
             let elem = EventBus.elementControlModal[EventBus.currentActiveRightCompModal]
-            console.log(elem.dataset.ssid)
-            console.log(self.password)
-            self.saveItens(elem.dataset.ssid, self.password)
-            /* try {
-              let elem = EventBus.elementControlModal[EventBus.currentActiveRightCompModal].dataset
-              console.log('Teste btn - ', elem)
-              // @change="updateItem($event.value, items[i], i)"
-              self.updateItem(!self.items[elem.itempos].default, self.items[elem.itempos], elem.itempos)
-            } catch (e) {
-              console.log('error btn ok change.')
-            } */
+            if (elem.dataset.ssid) {
+              if (self.ssid) {
+                self.ssid = false
+                setTimeout(() => {
+                  self.$refs.psswrd.focus()
+                }, 100);
+              } else {
+                if (self.password) {
+                  self.saveItens(elem.dataset.ssid, self.password)
+                  self.$modal.hide('wifi-settings')
+                }
+              }
+            }
             break
           // evento para sair para a sidebar ou para a lista anterior
           case 'exit':
@@ -145,7 +142,6 @@ export default {
       this.controlEventsBus()
     },
     beforeClosed(event) {
-      // this.saveItens()
       window.removeEventListener('keyup', this.onKeyUp)
       this.params = {}
       this.$emit('before-closed', event)

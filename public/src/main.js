@@ -81,7 +81,6 @@ export const app = new Vue({
   },
   sockets: {
     connectionsList(list) {
-      console.log(list)
       this.show = false
       EventBus.settings = false
       EventBus.wifi = true

@@ -61,13 +61,17 @@ module.exports = {
     port: 10001,
     host: 'fd00::1'
   },
+  websockets: {
+    host: 'vitasenior-ws.eu-gb.mybluemix.net'
+  },
   ServerConfigs: {
     key: fs.readFileSync('.key').toString().trim(),
-    pass: 'passvita',
-    //port: 443,
-    port: 8080,
-    //host: 'vitasenior-test.eu-gb.mybluemix.net'
-    host: '192.168.161.53'
+    //pass: 'passvita',
+    pass: 'Z59T8V0Eu9',
+    port: 443,
+    //port: 8080,
+    host: 'vitasenior.eu-gb.mybluemix.net'
+    //host: '192.168.161.94'
   },
   serverHttp: {
     port: 8080
