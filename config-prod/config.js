@@ -1,7 +1,6 @@
 'use strict'
 var fs = require('fs');
 
-
 module.exports = {
   coapConfigs: {
     rate: {

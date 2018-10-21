@@ -18,7 +18,7 @@ export const EventBus = new Vue({
     next: null,
     className: '',
     collapseSidebar: 4.3,       // tamanho em precentagem que o main painel vai aumentar
-    marginPaddingPanel: 9.5,    // Paddin a atribuir para não fical debaixo do comando de ajuda
+    marginPaddingPanel: 9.5,    // Paddin a atribuir para não ficar debaixo do comando de ajuda
     backupMainPanelPadding: 0,  // baackup do padding inicial antes da alteração
     backupSidebarWidth: 0,      // backup do tamanho da sidebar
     backupMainPanelWidth: 0,    // backup da largura do mail panel
@@ -375,7 +375,7 @@ export const EventBus = new Vue({
   },
   watch: {
     currentComponent: function (value) {
-      console.log('chartline', value)
+      // console.log('chartline', value)
       if (this.sidebarName === value) {
         document.getElementsByClassName('sidebar')[0].style.width = this.backupSidebarWidth
         document.getElementsByClassName('main-panel')[0].style.width = this.backupMainPanelWidth
