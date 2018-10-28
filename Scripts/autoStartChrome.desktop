@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=StartApp chromium Autostart
+Exec=chromium-browser http://localhost:8080 --0 --noerordialogs --disable-notifications --disable-device-discovery-notifications --no-managed-user-acknowledgment-check --ash-disable-smooth-screen-rotation --ash-disable-touch-exploration-mode --disable-session-crashed-bubble --disable-infobars --kiosk --aggressive-cache-discard --disk-cache-size=1 --allow-file-access-from-files --enable-speech-dispatcher --media-cache-size=1 --disable-translate --incognito
+Type=Application
+Terminal=true
