@@ -77,6 +77,12 @@ before_reboot(){
 
 	print_status "Install all aplications."
 	exec_cmd "sudo apt-get install -y chromium-browser xscreensaver cec-utils mongodb git unclutter bluetooth bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
+	print_bold \
+	"                         VITASENIOR - VITABOX                         " "\
+		${bold} Wait this system restart.
+		Then ...
+		See log in ${folderRoot}/logfile.log.
+	"
 }
 
 after_reboot(){
@@ -87,6 +93,7 @@ after_reboot(){
 
 	cd
 	exec_cmd "sudo rm -rf ${folderVitabox}"
+	cd
 
 	print_status "Clone git repository VitaBox"
 	exec_cmd "git clone https://github.com/nelsonmpg/VitaBox"
@@ -119,11 +126,11 @@ after_reboot(){
 	exec_cmd "sudo systemctl start nodeAutostart.service || true"
 
 	print_status "VitaBox - Chromium config and autostart"
-	# exec_cmd "mkdir -p ${folderRoot}/.config/autostart && cat ${folderVitabox}/Scripts/autoStartChrome.desktop > ${folderRoot}/.config/autostart/autoStartChrome.desktop"
+	exec_cmd "mkdir -p ${folderRoot}/.config/autostart && cat ${folderVitabox}/Scripts/autoStartChrome.desktop > ${folderRoot}/.config/autostart/autoStartChrome.desktop"
 	
-	exec_cmd "mkdir -p ${folderRoot}/.config/lxsession/LXDE-pi/autostart" 
-	sudo echo "@sh ${folderVitabox}/Scripts/autoStartChrome.sh" >> ${folderRoot}/.config/lxsession/LXDE-pi/autostart/autoStartChrome.sh
-	sudo chmod +x ${folderRoot}/.config/lxsession/LXDE-pi/autostart/autoStartChrome.sh
+	# exec_cmd "mkdir -p ${folderRoot}/.config/lxsession/LXDE-pi/autostart" 
+	# sudo echo "@sh ${folderVitabox}/Scripts/autoStartChrome.sh" >> ${folderRoot}/.config/lxsession/LXDE-pi/autostart/autoStartChrome.sh
+	# sudo chmod +x ${folderRoot}/.config/lxsession/LXDE-pi/autostart/autoStartChrome.sh
 
 	print_status "VitaBox - sensors config and autostart"
 	cd
@@ -152,31 +159,23 @@ after_reboot(){
 	Autores: Nelson Gomes & Dário Jorge	  		"
 
 	print_status "VitaBox - Restart System"
-	echo "Wait ..."
-	sleep 15
 }
 
 testExistCron=''
-# crontab -l | grep -q '/home/pi/script.sh'  && testExistCron='true' || testExistCron='false'
-exec_cmd "[ -f ${folderRoot}/${0}/.config/autostart/continueScript.desktop ] && testExistCron='true' || testExistCron='false'"
+crontab -l | grep -q '/home/pi/script.sh'  && testExistCron='true' || testExistCron='false'
 
 if "${testExistCron}" = "true"; then
  	after_reboot
-	exec_cmd "sudo rm -rf ${folderRoot}/${0}/.config/autostart/continueScript.desktop"
+ 	exec_cmd "crontab -l | grep -v '${folderRoot}/${0}'  | crontab -"
 	echo "System Reboot"
+	echo "Wait ..."
+	sleep 15
 	exec_cmd "sudo reboot"
 else
 	before_reboot
-	echo "[Desktop Entry] /
-		Version=0.99 /
-		Name=Terminal Run Script /
-		Comment=Run Script /
-		Exec=${folderRoot}/${0} /
-		Icon=/usr/share/app-install/icons/terminal-tango.svg /
-		Terminal=true /
-		Type=Application /
-		Categories=Application" > ${folderRoot}/${0}/.config/autostart/continueScript.desktop
-	exec_cmd "sudo chmod +x ${folderRoot}/${0}/.config/autostart/continueScript.desktop"
+	exec_cmd "sudo chmod 755 ${folderRoot}/${0}"
+	exec_cmd "(crontab -l; echo '@reboot ${folderRoot}/${0} 2>&1 > ${folderRoot}/logfile.log') | crontab -"
+	echo "Wait ..."
 	sleep 10
 	exec_cmd "sudo reboot"
 fi
