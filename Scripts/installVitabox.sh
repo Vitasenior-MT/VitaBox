@@ -28,6 +28,13 @@ print_status() {
 		echo "## $1"
 		echo
 	fi
+
+	if [ -f /etc/os-release ]; then	  
+		echo
+		echo "## $1"
+		echo
+
+	fi
 }
 
 if test -t 1; then # if terminal
@@ -128,10 +135,6 @@ after_reboot(){
 	print_status "VitaBox - Chromium config and autostart"
 	exec_cmd "mkdir -p ${folderRoot}/.config/autostart && cat ${folderVitabox}/Scripts/autoStartChrome.desktop > ${folderRoot}/.config/autostart/autoStartChrome.desktop"
 	
-	# exec_cmd "mkdir -p ${folderRoot}/.config/lxsession/LXDE-pi/autostart" 
-	# sudo echo "@sh ${folderVitabox}/Scripts/autoStartChrome.sh" >> ${folderRoot}/.config/lxsession/LXDE-pi/autostart/autoStartChrome.sh
-	# sudo chmod +x ${folderRoot}/.config/lxsession/LXDE-pi/autostart/autoStartChrome.sh
-
 	print_status "VitaBox - sensors config and autostart"
 	cd
 	exec_cmd "sudo rm -rf ${folderRoot}/contiki-ng"
@@ -156,26 +159,26 @@ after_reboot(){
 	"                         VITASENIOR - VITABOX                         " "\
 		${bold} This install complete.
 
-	Autores: Nelson Gomes & Dário Jorge	  		"
-
-	print_status "VitaBox - Restart System"
+	Autores: Nelson Gomes & Dário Jorge	  		
+	
+	VitaBox - Restart System"
 }
 
 testExistCron=''
-crontab -l | grep -q '/home/pi/script.sh'  && testExistCron='true' || testExistCron='false'
+crontab -l | grep -q "@reboot ${folderRoot}/${0} 2>&1 > ${folderRoot}/logfile.log"  && testExistCron='true' || testExistCron='false'
 
 if "${testExistCron}" = "true"; then
  	after_reboot
- 	exec_cmd "crontab -l | grep -v '${folderRoot}/${0}'  | crontab -"
-	echo "System Reboot"
-	echo "Wait ..."
-	sleep 15
+ 	exec_cmd "crontab -l | grep -v '@reboot ${folderRoot}/${0} 2>&1 > ${folderRoot}/logfile.log'  | crontab -"
+	rint_status "System Reboot"
+	rint_status "Wait ... 10s"
+	sleep 10
 	exec_cmd "sudo reboot"
 else
 	before_reboot
 	exec_cmd "sudo chmod 755 ${folderRoot}/${0}"
 	exec_cmd "(crontab -l; echo '@reboot ${folderRoot}/${0} 2>&1 > ${folderRoot}/logfile.log') | crontab -"
-	echo "Wait ..."
+	rint_status "Wait ... 10s"
 	sleep 10
 	exec_cmd "sudo reboot"
 fi
