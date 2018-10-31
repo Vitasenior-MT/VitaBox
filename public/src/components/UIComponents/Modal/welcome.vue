@@ -19,7 +19,18 @@
             <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> {{ $t('modal.welcome.title') }}</h2>
           </div>
           <div class="col-md-12 card-layout-out vue-height-in">
-            <h4>Mais informação aqui.</h4>
+            <div class="row size-100">
+              <div class="col-md-6 size-100">
+                <iframe class="iframe-size" v-show="districtToGet!=null && localityToGet!=null" scrolling="no"
+                :src="'//farmaciasdeservico.net/widget/?localidade='+districtToGet+'%7C'+localityToGet+'&cor_fundo=%23FFFFFF&cor_titulo=%23000000&cor_texto=%23333333&margem=10&v=1'"
+                frameborder="0" target="_top"></iframe>
+              </div>
+              <div class="col-md-6">
+                <div class="dialog-content">
+                  Info Here!
+                </div>
+              </div>
+            </div>
           </div>
           <div class="col-md-12">
             <h4>Pressione [OK] para sair.</h4>
@@ -49,33 +60,9 @@ export default {
   },
   data() {
     return {
-      items: [
-        {
-          title: this.$t('modal.settings.mode.title'),
-          type: 'mode',
-          default: true,
-          labels: {checked: this.$t('modal.settings.mode.checked'), unchecked: this.$t('modal.settings.mode.unchecked')},
-          color: {checked: '#f7931d', unchecked: '#f05a28'},
-          values: ['advanced', 'basic']
-        },
-        {
-          title: this.$t('modal.settings.sound.title'),
-          type: 'sound',
-          default: true,
-          labels: {checked: this.$t('modal.settings.sound.checked'), unchecked: this.$t('modal.settings.sound.unchecked')},
-          color: {checked: '#f7931d', unchecked: '#f05a28'},
-          values: ['on', 'off']
-        },
-        {
-          title: this.$t('modal.settings.language.title'),
-          type: 'language',
-          default: true,
-          labels: {checked: this.$t('modal.settings.language.checked'), unchecked: this.$t('modal.settings.language.unchecked')},
-          color: {checked: '#f7931d', unchecked: '#f05a28'},
-          values: ['pt', 'en']
-        }
-      ],
       params: {},
+      districtToGet: '',
+      localityToGet: '',
       defaultButtons: [{ title: 'CLOSE' }]
     }
   },
@@ -101,6 +88,33 @@ export default {
       EventBus.currentActiveRightCompModal = 0
       window.addEventListener('keyup', this.onKeyUp)
       this.params = event.params || {}
+      this.$http
+          .get('/api/connectServer/getDistrict')
+          .then(responce => {
+            this.districtToGet = responce.data.data.district.toLowerCase()
+            .replace(/[éèêÉÈÊ]/g, "e")
+            .replace(/[úùûÚÙÛ]/g, "u")
+            .replace(/[áàãâAÁÀÃÂ]/g, "a")
+            .replace(/[çÇ]/g, "c")
+            .replace(/[íìîÍÌÎ]/g, "i")
+            .replace(/[ñÑ]/g, "n")
+            .replace(/[úùûÚÙÛ]/g, "u")
+            .replace(/[óòõôÓÒÔÕ]/g, "o")
+            .replace(/[ ]/g, "_")
+            this.localityToGet = responce.data.data.locality.toLowerCase()
+            .replace(/[éèêÉÈÊ]/g, "e")
+            .replace(/[úùûÚÙÛ]/g, "u")
+            .replace(/[áàãâAÁÀÃÂ]/g, "a")
+            .replace(/[çÇ]/g, "c")
+            .replace(/[íìîÍÌÎ]/g, "i")
+            .replace(/[ñÑ]/g, "n")
+            .replace(/[úùûÚÙÛ]/g, "u")
+            .replace(/[óòõôÓÒÔÕ]/g, "o")
+            .replace(/[ ]/g, "_")
+          })
+          .catch(error => {
+            console.log(error)
+          })
       this.$emit('before-opened', event)
     },
     beforeClosed(event) {
@@ -129,4 +143,11 @@ export default {
 }
 </script>
 <style>
+.iframe-size {
+  width: 50%;
+  height: 90%;
+}
+.size-100 {
+  height: 100%;
+}
 </style>
