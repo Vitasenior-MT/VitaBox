@@ -84,15 +84,26 @@ before_reboot(){
 
 	print_status "Install all aplications."
 	exec_cmd "sudo apt-get install -y chromium-browser xscreensaver cec-utils mongodb git unclutter bluetooth bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
+	
+	print_status "Create Job to ruun after reboot."
+	script="[Desktop Entry]
+Name=StartApp Script Continue
+Exec=lxterminal --command \"${folderRoot}/${0}\"
+Type=Application
+Terminal=true
+"
+	exec_cmd "mkdir -p ${folderRoot}/.config/autostart && echo ${script} > ${folderRoot}/.config/autostart/scriptcontinue.desktop"
+	
 	print_bold \
 	"                         VITASENIOR - VITABOX                         " "\
 		${bold} Wait this system restart.
-		Then ...
-		See log in ${folderRoot}/logfile.log.
 	"
 }
 
 after_reboot(){
+	print_status "Remove sctipt runs after reboot."
+	exec_cmd "sudo rm -f ${folderRoot}/.config/autostart/scriptcontinue.desktop"
+
 	print_status "Install npm global models."
 	exec_cmd "sudo npm install -g node-gyp || true"
 	exec_cmd "sudo npm install -g node-pre-gyp || true"
@@ -107,12 +118,6 @@ after_reboot(){
 
 	print_status "Install node models VitaBox"
 	exec_cmd "cd ${folderVitabox}/ && npm install || true"
-
-	print_status "Install node models VitaBox - Interface"
-	exec_cmd "cd ${folderVitabox}/public && npm install || true"
-
-	print_status "Build VitaBox - Interface"
-	exec_cmd "cd ${folderVitabox}/public && npm run build || true"
 
 	print_bold \
 	"                            VITASENIOR - VITABOX                           " "\
@@ -154,6 +159,13 @@ after_reboot(){
 
 	print_status "VitaBox - disable Screen aver"
 	exec_cmd "cd ${folderVitabox}/Scripts && sudo sh xscreensaver.sh || true"
+	# exec_cmd "cd ${folderVitabox}/Scripts && cat screensaveroff.txt >> ${folderRoot}/.config/lxsession/LXDE-pi/autostart || true"
+
+	print_status "VitaBox - Add auto run collect fitness band data."
+	exec_cmd "cp ${folderVitabox}/Scripts/autorunband.txt ${folderVitabox}/Scripts/autorunband.sh"
+	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/autorunband.sh"
+	exec_cmd "sudo chmod 755 ${folderVitabox}/Scripts/autorunband.sh"
+	exec_cmd "(crontab -l; echo '*/30 * * * * ${folderVitabox}/Scripts/autorunband.sh') | crontab -"
 
 	print_bold \
 	"                         VITASENIOR - VITABOX                         " "\
@@ -165,11 +177,12 @@ after_reboot(){
 }
 
 testExistCron=''
-crontab -l | grep -q "@reboot ${folderRoot}/${0} 2>&1 > ${folderRoot}/logfile.log"  && testExistCron='true' || testExistCron='false'
+[ -f ${folderRoot}/.config/autostart/scriptcontinue.desktop ] && testExistCron='true' || testExistCron='false'
+#crontab -l | grep -q "@reboot ${folderRoot}/${0} 2>&1 > ${folderRoot}/logfile.log"  && testExistCron='true' || testExistCron='false'
 
 if "${testExistCron}" = "true"; then
  	after_reboot
- 	exec_cmd "crontab -l | grep -v '@reboot ${folderRoot}/${0} 2>&1 > ${folderRoot}/logfile.log'  | crontab -"
+ 	# exec_cmd "crontab -l | grep -v '@reboot ${folderRoot}/${0} 2>&1 > ${folderRoot}/logfile.log'  | crontab -"
 	rint_status "System Reboot"
 	rint_status "Wait ... 10s"
 	sleep 10
@@ -177,7 +190,7 @@ if "${testExistCron}" = "true"; then
 else
 	before_reboot
 	exec_cmd "sudo chmod 755 ${folderRoot}/${0}"
-	exec_cmd "(crontab -l; echo '@reboot ${folderRoot}/${0} 2>&1 > ${folderRoot}/logfile.log') | crontab -"
+	# exec_cmd "(crontab -l; echo '@reboot ${folderRoot}/${0} 2>&1 > ${folderRoot}/logfile.log') | crontab -"
 	rint_status "Wait ... 10s"
 	sleep 10
 	exec_cmd "sudo reboot"
