@@ -146,8 +146,8 @@ after_reboot(){
 	exec_cmd "cd ${folderVitabox}/Scripts && sudo sh mousehide.sh || true"
 
 	print_status "VitaBox - disable Screen aver"
-	exec_cmd "cd ${folderVitabox}/Scripts && sudo sh xscreensaver.sh || true"
-	# exec_cmd "cd ${folderVitabox}/Scripts && cat screensaveroff.txt >> ${folderRoot}/.config/lxsession/LXDE-pi/autostart || true"
+	# exec_cmd "cd ${folderVitabox}/Scripts && sudo sh xscreensaver.sh || true"
+	exec_cmd "cd ${folderVitabox}/Scripts && cat screensaveroff.txt >> ${folderRoot}/.config/lxsession/LXDE-pi/autostart || true"
 
 	print_status "VitaBox - Add auto run collect fitness band data."
 	exec_cmd "cp ${folderVitabox}/Scripts/autorunband.txt ${folderVitabox}/Scripts/autorunband.sh"
