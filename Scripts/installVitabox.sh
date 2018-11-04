@@ -177,12 +177,12 @@ else
 	before_reboot
 	exec_cmd "sudo chmod 755 ${folderRoot}/${0}"
 	print_status "Create Job to run after reboot."
-	exec_cmd "mkdir -p ${folderRoot}/.config/autostart || true"	
-  echo "[Desktop Entry]" > ${folderRoot}/.config/autostart/scriptcontinue.desktop
-  echo "Name=StartApp Script Continue" >> ${folderRoot}/.config/autostart/scriptcontinue.desktop
-  echo "Exec=lxterminal --command \"${folderRoot}/${0}\"" >> ${folderRoot}/.config/autostart/scriptcontinue.desktop
-  echo "Type=Application" >> ${folderRoot}/.config/autostart/scriptcontinue.desktop
-  echo "Terminal=true" >> ${folderRoot}/.config/autostart/scriptcontinue.desktop	
+	exec_cmd "mkdir -p ${folderRoot}/.config/autostart || true"
+	echo "[Desktop Entry]" > ${folderRoot}/.config/autostart/scriptcontinue.desktop
+	echo "Name=StartApp Script Continue" >> ${folderRoot}/.config/autostart/scriptcontinue.desktop
+	echo "Exec=lxterminal --command \"${folderRoot}/${0}\"" >> ${folderRoot}/.config/autostart/scriptcontinue.desktop
+	echo "Type=Application" >> ${folderRoot}/.config/autostart/scriptcontinue.desktop
+	echo "Terminal=true" >> ${folderRoot}/.config/autostart/scriptcontinue.desktop
 	print_status "Wait ... 10s"
 	sleep 10
 	exec_cmd "sudo reboot"
