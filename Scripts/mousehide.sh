@@ -1,3 +1,3 @@
 #!/bin/sh
 
-unclutter -display :0 -noevents -grab
+unclutter -idle 0 -display :0 -noevents -grab &
