@@ -113,6 +113,7 @@ after_reboot(){
 
 	exec_cmd "cd ${folderVitabox}/Scripts && sudo dos2unix ./*"
 	exec_cmd "cd ${folderVitabox}/Scripts && sudo chmod +x *.sh || true"
+	exec_cmd "mkdir ${folderVitabox}/ScriptsRun || true"
 
 	print_status "VitaBox - Node autostart"
 	exec_cmd "sudo rm -rf /etc/systemd/system/nodeAutostart.service || true"
@@ -150,10 +151,16 @@ after_reboot(){
 	exec_cmd "cd ${folderVitabox}/Scripts && cat screensaveroff.txt >> ${folderRoot}/.config/lxsession/LXDE-pi/autostart || true"
 
 	print_status "VitaBox - Add auto run collect fitness band data."
-	exec_cmd "cp ${folderVitabox}/Scripts/autorunband.txt ${folderVitabox}/Scripts/autorunband.sh"
-	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/autorunband.sh"
-	exec_cmd "sudo chmod 755 ${folderVitabox}/Scripts/autorunband.sh"
-	exec_cmd "(crontab -l; echo '*/30 * * * * ${folderVitabox}/Scripts/autorunband.sh') | crontab -"
+	exec_cmd "cp ${folderVitabox}/Scripts/autorunband.txt ${folderVitabox}/ScriptsRun/autorunband.sh"
+	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/autorunband.sh"
+	exec_cmd "sudo chmod 755 ${folderVitabox}/ScriptsRun/autorunband.sh"
+	exec_cmd "(crontab -l; echo '*/30 * * * * ${folderVitabox}/ScriptsRun/autorunband.sh') | crontab -"
+
+	print_status "VitaBox - Check last GIT version and restart system."
+	exec_cmd "cp ${folderVitabox}/Scripts/syncVitabox.txt ${folderVitabox}/ScriptsRun/syncVitabox.sh"
+	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/syncVitabox.sh"
+	exec_cmd "sudo chmod 755 ${folderVitabox}/ScriptsRun/syncVitabox.sh"
+	exec_cmd "(crontab -l; echo '0 4 * * * ${folderVitabox}/ScriptsRun/syncVitabox.sh') | crontab -"
 
 	print_bold \
 	"                         VITASENIOR - VITABOX                         " "\

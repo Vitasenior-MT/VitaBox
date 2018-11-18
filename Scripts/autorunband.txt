@@ -1,8 +1,8 @@
 #!/bin/bash
 
 rootFolder="FOLDERVITABOX"
-OUTLOGFILE="${rootFolder}/Scripts/mibandstdout.log"
-ERRLOGFILE="${rootFolder}/Scripts/mibandstderr.log"
+OUTLOGFILE="${rootFolder}/logs/mibandstdout.log"
+ERRLOGFILE="${rootFolder}/logs/mibandstderr.log"
 rm "$OUTLOGFILE"
 rm "$ERRLOGFILE"
 cd ${rootFolder}
