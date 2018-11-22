@@ -16,9 +16,9 @@
       <div class="row vue-settings">
         <div class="col-md-12">
           <div class="dialog-content">
-            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> Configurações</h2>
+            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i>{{$t('modal.settings.title')}}</h2>
           <div>
-            <h4>Utilize as <i class="fas fa-arrows-alt"></i> do comando para navegar nas configurações.</h4>
+            <h4>{{$t('modal.settings.navigation.0')}}<i class="fas fa-arrows-alt"></i>{{$t('modal.settings.navigation.1')}}</h4>
           </div>
           </div>
           <div v-for="(item, i) in items" v-bind:key='item.key'>
@@ -41,8 +41,18 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-3">
+                <h3> {{ $t('modal.settings.wifi.title') }}</h3>
+              </div>
+              <div class="col-md-9 control-modal" :data-itempos="items.length">
+                <button class="btn btn-round btn-info changed-font" v-on:click="open()">{{$t('modal.settings.wifi.open')}}</button>
+              </div>
+            </div>
+            </div>
           <div>
-            <h4>Pressione [OK] para alterar o estado. <br> Pressione [EXIT] para sair.</h4>
+            <h4>{{$t('modal.settings.exit.0')}} <br> {{$t('modal.settings.exit.1')}}</h4>
           </div>
         </div>
       </div>
@@ -143,6 +153,9 @@ export default {
       })
   },
   methods: {
+    open() {
+      this.$socket.emit('openWIFI', '')
+    },
     updateItem(toggle, type, i) {
       switch (type.type) {
         case 'mode':
@@ -193,13 +206,17 @@ export default {
               let elem = EventBus.elementControlModal[EventBus.currentActiveRightCompModal].dataset
               console.log('Teste btn - ', elem)
               // @change="updateItem($event.value, items[i], i)"
-              self.updateItem(!self.items[elem.itempos].default, self.items[elem.itempos], elem.itempos)
+              if (elem.itempos < self.items.length - 1) {
+                self.updateItem(!self.items[elem.itempos].default, self.items[elem.itempos], elem.itempos)
+              } else {
+                self.open()
+              }
             } catch (e) {
               console.log('error btn ok change.')
             }
             break
-          // evento para sair para a sidebar ou para a lista anterior
-          case 'exit':
+          // evento para sair para a sidebar  para a lista anterior
+          case 'exit':ou
             // this.$modal.hide('settings')
             break
           case 'right': // tecla para a direita

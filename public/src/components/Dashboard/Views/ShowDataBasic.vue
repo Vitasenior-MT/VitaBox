@@ -64,7 +64,7 @@ export default {
   },
   data() {
     return {
-      msg: 'warning3.msgSensor',
+      msg: 'warning.msgSensor',
       warningCards: [],
       elem: '',
       content: '',
@@ -235,6 +235,7 @@ export default {
               footerIcon: 'ti-reload'
             })
           }
+          this.warningCards.sort((a, b) => a['id'].localeCompare(b['id']))
           this.controlEventsBus()
           if (this.sidebarStore.mode.auto) {
             EventBus.startRotation((end) => {

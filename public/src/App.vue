@@ -7,6 +7,7 @@
     <v-settings/>
     <v-wifi-settings/>
     <v-alert/>
+    <v-procedure/>
     <v-marquee-msg/>
   </div>
 </template>

@@ -7,14 +7,9 @@
     @before-close='beforeClosed'
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
-    <card-style>
+    <card-style class="modelAlert">
       <div class='icon-big vue-alert-img' :class='`icon-${cardStyle.type}`' slot='header'>
         <img src='static/img/vitabox/warning.svg' class='size-img'>
-      </div>
-      <div class='center font-size-a' slot='content01'>
-      </div>
-      <div class='center font-size-b' slot='content02'>
-        <b>{{cardStyle.title}}</b>
       </div>
     </card-style>
   </modal>
@@ -106,9 +101,8 @@ export default {
   font-size: 45px;
 }
 
-.background-opacity {
-  background-color: rgba(255, 255, 255, 0.3) !important;
-  height: 100%;
+.modelAlert {
+  height: 50% !important;
 }
 
 .size-100 {

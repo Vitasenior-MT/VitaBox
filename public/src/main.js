@@ -71,11 +71,12 @@ export const app = new Vue({
     Chartist: Chartist,
     interval: null,
     show: false,
-    settings: false,
-    timeout: null
+    timeout: null,
+    warning_type: null
   },
   mounted() {
-    this.$modal.show('welcome', '')
+    //self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
+    // self.$t('modal.procedure.' + EventBus.warning_type + '.1') + self.$t('modal.procedure.' + EventBus.warning_type + '.2'))
   },
   beforeCreate() {
   },
@@ -84,12 +85,8 @@ export const app = new Vue({
       this.show = false
       EventBus.settings = false
       EventBus.wifi = true
-      EventBus.welcome = false
       EventBus.notifications = false
       this.$modal.hide('settings')
-      this.$modal.hide('notifications')
-      this.$modal.hide('welcome')
-      this.$modal.hide('alert')
       this.$modal.show('wifi-settings', list)
     },
     ttsPath(path) {
@@ -103,6 +100,8 @@ export const app = new Vue({
           self.timeout = setTimeout(() => {
             self.$modal.show('alert', '')
             self.$socket.emit('ttsText', self.$t('dictionary.warnings.warning'))
+            // self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
+            // self.$t('modal.procedure.' + EventBus.warning_type + '.1') + self.$t('modal.procedure.' + EventBus.warning_type + '.2'))
           }, 5000)
         })
       } else {
@@ -110,31 +109,39 @@ export const app = new Vue({
       }
     },
     vitaWarning: function(data) {
+      EventBus.warning_type = data.warning_type
       this.show = true
-      EventBus.welcome = false
       EventBus.notifications = false
       EventBus.wifi = false
       EventBus.settings = false
       this.$modal.hide('wifi-settings')
       this.$modal.hide('settings')
-      this.$modal.hide('notifications')
-      this.$modal.hide('welcome')
       this.$modal.show('alert', '')
-      this.$socket.emit('ttsText', this.$t('dictionary.warnings.warning'))
+      this.$modal.show('procedure', data)
+      // this.$socket.emit('ttsText', this.$t('modal.procedure.' + EventBus.warning_type + '.0') +
+      // this.$t('modal.procedure.' + EventBus.warning_type + '.1') + this.$t('modal.procedure.' + EventBus.warning_type + '.2'))
+      self.$socket.emit('ttsText', self.$t('dictionary.warnings.warning'))
       this.$marqueemsg.show('Informação', 'Prima ok para desbloquear a aplicação.')
       EventBus.$emit('changeTab')
     },
     informationVita: function(data) {
-      if (!data.alert) {
-        this.$modal.show('notifications')
-        EventBus.notifications = true
+      if (EventBus.notificationList.length === 5) {
+        EventBus.notificationList.shift()
       }
-      this.$modal.hide('settings')
-      this.$modal.hide('welcome')
-      EventBus.welcome = false
-      EventBus.wifi = false
-      EventBus.settings = false
-      this.$marqueemsg.show(data.shortMessage, data.longMessage)
+      EventBus.notificationList.push({
+        type: data.type,
+        message: data.msg,
+        date: EventBus.dateFormat(new Date())
+      })
+      if (!data.alert && !EventBus.examEmExec) {
+        EventBus.$emit('changeTab', '/vitabox/bemvindo')
+        EventBus.notifications = true
+        EventBus.$emit('notification', '')
+        this.$modal.hide('settings')
+        EventBus.wifi = false
+        EventBus.settings = false
+        this.$marqueemsg.show(data.shortMessage, data.longMessage)
+      }
     },
     unblock: function(type) {
       this.$marqueemsg.hide()
@@ -143,9 +150,7 @@ export const app = new Vue({
         this.show = false
         clearTimeout(this.timeout)
         this.$modal.hide('alert')
-      }
-      if (type === 'notification') {
-        this.$modal.hide('notifications')
+        this.$modal.hide('procedure')
       }
     },
     blocked: function() {

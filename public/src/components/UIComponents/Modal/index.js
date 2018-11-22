@@ -1,6 +1,7 @@
 import Modal from './Modal.vue'
 import Dialog from './Dialog.vue'
 import Alert from './Alert.vue'
+import Procedure from './Procedure.vue'
 import Settings from './Settings.vue'
 import WifiSettings from './WifiSettings.vue'
 import Notifications from './Notifications.vue'
@@ -24,7 +25,7 @@ const Plugin = {
      */
     Vue.prototype.$modal = {
       show(name, params) {
-        if (name === 'alert') {
+        if (name === 'procedure') {
           Plugin.event.$emit('sendData', params)
         }
         Plugin.event.$emit('toggle', name, true, params)
@@ -43,6 +44,7 @@ const Plugin = {
     console.log('componentName:', componentName)
     Vue.component(componentName, Modal)
     Vue.component('v-alert', Alert)
+    Vue.component('v-procedure', Procedure)
     Vue.component('v-settings', Settings)
     Vue.component('v-wifi-settings', WifiSettings)
     Vue.component('v-notifications', Notifications)

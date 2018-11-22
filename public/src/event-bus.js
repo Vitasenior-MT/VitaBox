@@ -25,24 +25,18 @@ export const EventBus = new Vue({
     backupMovingArrowLeft: 0,   // backup da posição da seta da sidebar
     settingsData: {},
     examEmExec: false,           // flag para validação da execução dos exames
-    welcome: true,
     settings: false,
     notifications: false,
-    wifi: false
+    wifi: false,
+    notificationList: []     // lista de todas as notificações
   },
   methods: {
     cmd(cmd) {
       EventBus.$emit('key-help', cmd)
       if (EventBus.cmdRestritions()) {
-        if (EventBus.welcome) {
-          if (cmd === 'ok_btn') {
-            this.$modal.hide('welcome')
-            EventBus.welcome = false
-          }
-        }
         if (EventBus.notifications) {
           if ((cmd === 'ok_btn' || cmd === 'exit')) {
-            this.$modal.hide('notifications')
+            this.$socket.emit('sendConfirmation', '')
             EventBus.notifications = false
             this.$marqueemsg.hide()
           }
@@ -127,9 +121,6 @@ export const EventBus = new Vue({
       }
     },
     cmdRestritions() {
-      if (EventBus.welcome) {
-        return true
-      }
       if (EventBus.notifications) {
         return true
       }
@@ -341,6 +332,7 @@ export const EventBus = new Vue({
       )
     },
     smallDateFormat(data) {
+      console.log(data)
       let date = new Date(data)
       return (
         date.getFullYear() /* .toString().substr(2, 2) */ + '/' +
