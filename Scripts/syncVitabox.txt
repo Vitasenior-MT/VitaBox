@@ -1,0 +1,10 @@
+#!/bin/bash
+
+rootFolder="FOLDERVITABOX"
+# OUTLOGFILE="${rootFolder}/logs/syncVitaboxstdout.log"
+# ERRLOGFILE="${rootFolder}/logs/syncVitaboxstderr.log"
+rm "$OUTLOGFILE"
+rm "$ERRLOGFILE"
+cd ${rootFolder}
+git pull
+sudo reboot
