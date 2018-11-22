@@ -642,7 +642,7 @@
       </div>
     </div>
     <div id="loader-wrapper" v-show="execProcess">
-      <div v-show="examEvent == 'bloodpressure'" id="loader-chart">
+      <!-- <div v-show="examEvent == 'bloodpressure'" id="loader-chart">
         <ChartGauge :id="dataPressArt.id"
           :typechartdonut="false"
           :chartid="dataPressArt.id"
@@ -656,7 +656,8 @@
         </h4>
         <h1 class="text-center">{{ $t('dictionary.waiting') }}</h1>
       </div>
-      <div v-show="examEvent != 'bloodpressure'" id="loader">
+      <div v-show="examEvent != 'bloodpressure'" id="loader">-->
+      <div v-show="examEvent != 'allExams'" id="loader">
         <h4 class="text-center">
           <img src='static/img/load3_B.gif' alt=''>
         </h4>
@@ -1322,27 +1323,27 @@ export default {
     /**
      * TODO: Recebe do socket os dasos da execução do processode medição da pressão arterial
      */
-    bleExec: function(data) {
-      // console.log('bleExec', data)
-      if (data.status === true) {
-        var val = data.data
-        // console.log('bleExec', data, val.replace(/\D/g, ''))
-        if (val.length < 5) {
-          this.dataPressArt.val = val.replace(/\D/g, '')
-        }
-      } else {
-        // console.log('Receive error', data)
-        this.$notifications.notify({
-          message: '<h4>' + data.data + '</h4>',
-          icon: 'ti-bell',
-          horizontalAlign: 'right',
-          verticalAlign: 'top',
-          type: 'warning'
-        })
-        this.execProcess = false
-        EventBus.examEmExec = false
-      }
-    },
+    // bleExec: function(data) {
+    //   // console.log('bleExec', data)
+    //   if (data.status === true) {
+    //     var val = data.data
+    //     // console.log('bleExec', data, val.replace(/\D/g, ''))
+    //     if (val.length < 5) {
+    //       this.dataPressArt.val = val.replace(/\D/g, '')
+    //     }
+    //   } else {
+    //     // console.log('Receive error', data)
+    //     this.$notifications.notify({
+    //       message: '<h4>' + data.data + '</h4>',
+    //       icon: 'ti-bell',
+    //       horizontalAlign: 'right',
+    //       verticalAlign: 'top',
+    //       type: 'warning'
+    //     })
+    //     this.execProcess = false
+    //     EventBus.examEmExec = false
+    //   }
+    // },
     /**
      * TODO: Recebe do socket os erros na execução do processo de medição da pressão arterial
      */

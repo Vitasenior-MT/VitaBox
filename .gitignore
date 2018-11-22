@@ -39,7 +39,7 @@ ServerSendDataSensor/node_modules/
 .vagrant
 .vscode
 public/node_modules/
-public/dist/
+# public/dist/
 .log
 
 # Typescript v1 declaration files
@@ -62,4 +62,3 @@ typings/
 
 # dotenv environment variables file
 .env
-public/dist/

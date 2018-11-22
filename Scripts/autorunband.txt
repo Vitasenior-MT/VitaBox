@@ -1,0 +1,9 @@
+#!/bin/bash
+
+rootFolder="FOLDERVITABOX"
+OUTLOGFILE="${rootFolder}/Scripts/mibandstdout.log"
+ERRLOGFILE="${rootFolder}/Scripts/mibandstderr.log"
+rm "$OUTLOGFILE"
+rm "$ERRLOGFILE"
+cd ${rootFolder}
+sudo NODE_ENV=prod node startAutoMiBand.js >> "${OUTLOGFILE}" 2>> "${ERRLOGFILE}"

@@ -6,10 +6,20 @@ module.exports = {
     rate: {
       hour: 0,
       min: 1,
-      sec: 0, 
+      sec: 0
     },
     warningArraySize: 5,
     avgSize: 15
+  },
+  postRate: {
+    hour: 0,
+    min: 1,
+    sec: 0,
+    noData: {
+      hour: 0,
+      min: 5,
+      sec: 0
+    }
   },
   ReconnectRate: {
     hour: 0,
@@ -42,13 +52,16 @@ module.exports = {
     remoteserver: "192.168.161.132",
     remoteport: 8080
   },
-  ServerBoardListenerConfigs: {
+  ServerBoardWarningConfigs: {
     port: 10000,
     host: 'fd00::1'
   },
   ServerBoardRegisterConfigs: {
     port: 10001,
     host: 'fd00::1'
+  },
+  websockets: {
+    host: 'vitasenior-ws.eu-gb.mybluemix.net'
   },
   ServerConfigs: {
     key: fs.readFileSync('.key').toString().trim(),

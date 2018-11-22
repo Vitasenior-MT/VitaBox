@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 bail() {
 	echo 'Error executing command, exiting'
@@ -27,6 +27,13 @@ print_status() {
 		echo
 		echo "## $1"
 		echo
+	fi
+
+	if [ -f /etc/os-release ]; then	  
+		echo
+		echo "## $1"
+		echo
+
 	fi
 }
 
@@ -68,37 +75,37 @@ print_bold \
 ${bold} Install VITABOX ${normal}"
 
 cd
-folderVitabox=$(pwd)/VitaBox
 folderRoot=$(pwd)
+folderVitabox=${folderRoot}/VitaBox
 
 before_reboot(){
 	print_status "Install nodejs version 9."
 	exec_cmd "curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -"
 
 	print_status "Install all aplications."
-	exec_cmd "sudo apt-get install -y chromium-browser xscreensaver cec-utils mongodb git unclutter bluetooth bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
+	exec_cmd "sudo apt-get install -y chromium-browser cec-utils mongodb git unclutter bluetooth bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
+	
+	print_bold \
+	"                         VITASENIOR - VITABOX                         " "\
+		${bold} Wait this system restart.
+	"
 }
 
 after_reboot(){
 	print_status "Install npm global models."
-	exec_cmd "sudo npm install -g node-gyp"
-	exec_cmd "sudo npm install -g node-pre-gyp"
-	exec_cmd "sudo npm install -g cross-env"
+	exec_cmd "sudo npm install -g node-gyp || true"
+	exec_cmd "sudo npm install -g node-pre-gyp || true"
+	exec_cmd "sudo npm install -g cross-env || true"
 
 	cd
 	exec_cmd "sudo rm -rf ${folderVitabox}"
+	cd
 
 	print_status "Clone git repository VitaBox"
 	exec_cmd "git clone https://github.com/nelsonmpg/VitaBox"
 
 	print_status "Install node models VitaBox"
-	exec_cmd "cd ${folderVitabox}/ && npm install"
-
-	print_status "Install node models VitaBox - Interface"
-	exec_cmd "cd ${folderVitabox}/public && npm install"
-
-	print_status "Build VitaBox - Interface"
-	exec_cmd "cd ${folderVitabox}/public && npm run build"
+	exec_cmd "cd ${folderVitabox}/ && npm install || true"
 
 	print_bold \
 	"                            VITASENIOR - VITABOX                           " "\
@@ -110,56 +117,73 @@ after_reboot(){
 	print_status "VitaBox - Node autostart"
 	exec_cmd "sudo rm -rf /etc/systemd/system/nodeAutostart.service || true"
 
-	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/nodeAutostart.txt"
-	exec_cmd "sudo cp ${folderVitabox}/Scripts/nodeAutostart.txt /etc/systemd/system/nodeAutostart.service"
-	exec_cmd "sudo rm -rf ${folderVitabox}/Scripts/nodeAutostart.txt"
+	exec_cmd "cp ${folderVitabox}/Scripts/nodeAutostart.txt ${folderVitabox}/Scripts/nodeAutostart.txt.service"
+	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/nodeAutostart.txt.service"
+	exec_cmd "sudo cp ${folderVitabox}/Scripts/nodeAutostart.txt.service /etc/systemd/system/nodeAutostart.service"
+	exec_cmd "sudo rm -rf ${folderVitabox}/Scripts/nodeAutostart.txt.service"
 
 	exec_cmd "sudo systemctl enable nodeAutostart.service || true"
 	exec_cmd "sudo systemctl start nodeAutostart.service || true"
 
 	print_status "VitaBox - Chromium config and autostart"
-	sudo echo "@sh ${folderVitabox}/Scripts/autoStartChrome.sh" >> ${folderRoot}/.config/lxsession/LXDE-pi/autostart
-	sudo chmod +x autoStartChrome.sh
-
+	exec_cmd "mkdir -p ${folderRoot}/.config/autostart && cat ${folderVitabox}/Scripts/autoStartChrome.desktop > ${folderRoot}/.config/autostart/autoStartChrome.desktop"
+	
 	print_status "VitaBox - sensors config and autostart"
+	cd
+	exec_cmd "sudo rm -rf ${folderRoot}/contiki-ng"
 	exec_cmd "cd ${folderRoot}"
 	exec_cmd "git clone https://github.com/contiki-ng/contiki-ng.git"
-	exec_cmd "git submodule init"
-	exec_cmd "git submodule update"
-	exec_cmd "make TARGET=zoul --directory contiki/examples/ipv6/rpl-border-router/ savetarget"
-	exec_cmd "make --directory contiki/examples/ipv6/rpl-border-router/ border-router.upload && make --directory contiki/examples/ipv6/rpl-border-router/ connect-router"
+	exec_cmd "cd ${folderRoot}/contiki-ng/ && git submodule init"
+	exec_cmd "cd ${folderRoot}/contiki-ng/ && git submodule update"
+	exec_cmd "cd ${folderRoot}/contiki-ng/ && make TARGET=zoul --directory contiki/examples/ipv6/rpl-border-router/ savetarget || true"
+	exec_cmd "cd ${folderRoot}/contiki-ng/ && make --directory contiki/examples/ipv6/rpl-border-router/ border-router.upload && make --directory contiki/examples/ipv6/rpl-border-router/ connect-router || true"
 
 	print_status "VitaBox - config rpi boot"
 	exec_cmd "sudo rm -f /boot/config.txt || true"
 	exec_cmd "sudo cp ${folderVitabox}/bootConfig.txt /boot/config.txt"
 
 	print_status "VitaBox - hide mouse"
-	exec_cmd "sudo sh mousehide.sh || true"
+	exec_cmd "cd ${folderVitabox}/Scripts && sudo sh mousehide.sh || true"
 
 	print_status "VitaBox - disable Screen aver"
-	exec_cmd "sudo sh xscreensaver.sh || true"
+	exec_cmd "cd ${folderVitabox}/Scripts && sudo sh xscreensaver.sh || true"
+	# exec_cmd "cd ${folderVitabox}/Scripts && cat screensaveroff.txt >> ${folderRoot}/.config/lxsession/LXDE-pi/autostart || true"
+
+	print_status "VitaBox - Add auto run collect fitness band data."
+	exec_cmd "cp ${folderVitabox}/Scripts/autorunband.txt ${folderVitabox}/Scripts/autorunband.sh"
+	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/autorunband.sh"
+	exec_cmd "sudo chmod 755 ${folderVitabox}/Scripts/autorunband.sh"
+	exec_cmd "(crontab -l; echo '*/30 * * * * ${folderVitabox}/Scripts/autorunband.sh') | crontab -"
 
 	print_bold \
 	"                         VITASENIOR - VITABOX                         " "\
 		${bold} This install complete.
 
-	Autores: Nelson Gomes & Dário Jorge	  		"
-
-	print_status "VitaBox - Restart System"
+	Autores: Nelson Gomes & Dário Jorge	  		
+	
+	VitaBox - Restart System"
 }
 
-if [ -f /var/run/rebooting-for-updates ]; then
-	after_reboot
-	exec_cmd "sudo rm /var/run/rebooting-for-updates"
-	exec_cmd "sudo update-rc.d InstallVitaBox remove"
-	exec_cmd "sudo rm -rf /etc/init.d/InstallVitaBox"
+
+if [ -f ${folderRoot}/.config/autostart/scriptcontinue.desktop ]; then
+ 	after_reboot
+	print_status "Remove sctipt runs after reboot."
+	exec_cmd "sudo rm -f ${folderRoot}/.config/autostart/scriptcontinue.desktop"
+	print_status "System Reboot"
+	print_status "Wait ... 10s"
+	sleep 10
 	exec_cmd "sudo reboot"
 else
 	before_reboot
-	exec_cmd "sudo cat $(pwd)/${0} > InstallVitaBox"
-	exec_cmd "sudo chmod 755 $(pwd)/InstallVitaBox"
-	exec_cmd "sudo mv $(pwd)/InstallVitaBox > /etc/init.d/InstallVitaBox"
-	exec_cmd "sudo touch /var/run/rebooting-for-updates"
-	exec_cmd "sudo update-rc.d InstallVitaBox defaults"
+	exec_cmd "sudo chmod 755 ${folderRoot}/${0}"
+	print_status "Create Job to run after reboot."
+	exec_cmd "mkdir -p ${folderRoot}/.config/autostart || true"	
+  echo "[Desktop Entry]" > ${folderRoot}/.config/autostart/scriptcontinue.desktop
+  echo "Name=StartApp Script Continue" >> ${folderRoot}/.config/autostart/scriptcontinue.desktop
+  echo "Exec=lxterminal --command \"${folderRoot}/${0}\"" >> ${folderRoot}/.config/autostart/scriptcontinue.desktop
+  echo "Type=Application" >> ${folderRoot}/.config/autostart/scriptcontinue.desktop
+  echo "Terminal=true" >> ${folderRoot}/.config/autostart/scriptcontinue.desktop	
+	print_status "Wait ... 10s"
+	sleep 10
 	exec_cmd "sudo reboot"
 fi
