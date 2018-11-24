@@ -5,20 +5,18 @@ module.exports = {
   coapConfigs: {
     rate: {
       hour: 0,
-      min: 5,
+      min: 15,
       sec: 0
-    },
-    warningArraySize: 5,
-    avgSize: 15
+    }
   },
   postRate: {
     hour: 0,
-    min: 1,
-    sec: 0,
+    min: 0,
+    sec: 5,
     noData: {
       hour: 0,
-      min: 5,
-      sec: 0
+      min: 0,
+      sec: 10
     }
   },
   ReconnectRate: {
@@ -61,17 +59,17 @@ module.exports = {
     host: 'fd00::1'
   },
   websockets: {
-    host: 'vitasenior-ws.eu-gb.mybluemix.net'
-    //host: 'http://192.168.161.13:8008/'
+    //host: 'vitasenior-ws.eu-gb.mybluemix.net'
+    host: 'http://192.168.161.115:8008/'
   },
   ServerConfigs: {
     key: fs.readFileSync('.key').toString().trim(),
-    //pass: 'passvita',
-    pass: 'Mqa1Uf8pFy',
-    port: 443,
-    //port: 8080,
-    host: 'vitasenior.eu-gb.mybluemix.net'
-    //host: '192.168.161.94'
+    pass: 'passvita',
+    //pass: 'Mqa1Uf8pFy',
+    //port: 443,
+    port: 8080,
+    //host: 'vitasenior.eu-gb.mybluemix.net'
+    host: '192.168.161.94'
   },
   serverHttp: {
     port: 8080

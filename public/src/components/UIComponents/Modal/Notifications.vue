@@ -108,25 +108,6 @@ export default {
   mounted() {
   },
   methods: {
-    updateItem(toggle, type, i) {
-      switch (type.type) {
-        case 'mode':
-          EventBus.$emit('mode', toggle)
-          this.items[i].default = toggle
-          break
-        case 'sound':
-          EventBus.removeAudio(toggle ? type.values[0] : type.values[1])
-          this.items[i].default = toggle
-          break
-        case 'language':
-          EventBus.currentLanguage = toggle ? type.values[0] : type.values[1]
-          this.$store.dispatch('setLangNew', EventBus.currentLanguage)
-          this.items[i].default = toggle
-          break
-        default:
-          break
-      }
-    },
     beforeOpened(event) {
       EventBus.firstRightEventModal = true
       EventBus.currentActiveRightCompModal = 0

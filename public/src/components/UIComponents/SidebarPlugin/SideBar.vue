@@ -206,9 +206,21 @@ export default {
         verticalAlign: 'top',
         type: 'info'
       })
-      if (self.$route.path !== '/vitabox/exames') {
+      if (self.$route.path !== '/vitabox/bemvindo') {
         for (var index in self.sidebarLinks) {
-          if (self.sidebarLinks[index].path === '/vitabox/exames') {
+          if (self.sidebarLinks[index].path === '/vitabox/bemvindo') {
+            self.activeLinkIndex = index
+            self.$router.push({ path: self.sidebarLinks[index].path })
+            EventBus.setSidebar()
+            return
+          }
+        }
+      }
+    })
+    EventBus.$on('changeTab', function(path) {
+      if (self.$route.path !== path) {
+        for (var index in self.sidebarLinks) {
+          if (self.sidebarLinks[index].path === path) {
             self.activeLinkIndex = index
             self.$router.push({ path: self.sidebarLinks[index].path })
             EventBus.setSidebar()

@@ -65,7 +65,7 @@ export default {
   },
   data() {
     return {
-      msg: 'warning3.msgSensor',
+      msg: 'warning.msgSensor',
       warningCards: [],
       elem: '',
       content: '',
@@ -237,6 +237,7 @@ export default {
               dateupdate: EventBus.dateFormat(datasensores[index].avgLastUpdate),
               footerIcon: 'ti-reload'
             })
+            this.warningCards.sort((a, b) => a['id'].localeCompare(b['id']))
           }
           this.controlEventsBus()
         } else {

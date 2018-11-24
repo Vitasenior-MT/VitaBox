@@ -1,38 +1,53 @@
 <template>
   <div class="row">
-    <div class='col-sm-12 container-data-sensors'>
-      <div class='col-sm-4' v-for='warningCard in warningCards' :key='warningCard.id'>
-        <card-warning :key="warningCard.id" :warningCard="warningCard"
-        :data-avg="warningCard.avg"
-        :data-sensortype="warningCard.measure + ' (' + warningCard.unit + ')'"
-        :data-reading="warningCard.to_read"
-        :data-threshold="warningCard.threshold_max_possible"
-        :data-location="warningCard.location"></card-warning>
+    <div class="col-md-12 card-layout-out vue-height-in">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="dialog-content">
+            <div id="clock">
+              <p class="date">{{ date }}</p>
+              <p class="time">{{ time }}</p>
+          </div>
+        </div>
+        </div>
+        <div class="col-md-12 size-80">
+          <iframe class="iframe-size" v-show="this.districtToGet!=null && this.localityToGet!=null" scrolling="no"
+          :src="'//farmaciasdeservico.net/widget/?localidade='+this.districtToGet+'%7C'+this.localityToGet+'&cor_fundo=%23FFFFFF&cor_titulo=%23000000&cor_texto=%23333333&margem=10&v=1'"
+          frameborder="0" target="_top"></iframe>
+        </div>
       </div>
     </div>
-    <default-form ref="DefaultView"></default-form>
+    <div class="col-md-12 card-layout-out notifications">
+      <div class="dialog-content">
+          <p>{{ $t('dictionary.notifications') }}</p>
+      </div>
+      <div v-for="item in items.slice().reverse()" v-bind:key='item.key'>
+        <div class="col-md-12 card-layout-in">
+          <notification-card>
+            <div class="numbers" slot="content">
+              <div v-show="item.type === 'notification'">
+                <div class="row">
+                  <p class="col-md-6">{{ $t('dictionary.from') }} {{ item.message.from }}</p>
+                  <p class="col-md-6" v-show="item.message.to">{{ $t('dictionary.to') }} {{ item.message.to }}</p>
+                </div>
+                <p>{{ $t('dictionary.message') }} {{ item.message.message }}</p>
+              </div>
+              <div class="row" v-show="item.type === 'schedule'">
+                <p class="col-md-6"> {{ item.date }}</p>
+                <p class="col-md-6">{{ $t('dictionary.message') }} {{ item.message.message }}</p>
+              </div>
+            </div>
+        </notification-card>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import CardWarning from 'components/UIComponents/Cards/ShowDataCard.vue'
 import { EventBus } from '../../../event-bus.js'
 import DefaultForm from 'components/UIComponents/Forms/defaultform.vue'
 export default {
   components: {
-    CardWarning,
     DefaultForm
-  },
-  sockets: {
-    vitaWarning: function(data) {
-      var self = this
-      this.updateSensor(data)
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
-        self.warningCards = []
-        self.$refs.DefaultView.setMsg(this.msg)
-        self.$refs.DefaultView.show()
-      }, EventBus.timeCalculator(0, 16, 0))
-    }
   },
   data() {
     return {
@@ -42,98 +57,41 @@ export default {
       content: '',
       numberCol: '',
       movepos: '',
-      timeout: null
+      timeout: null,
+      districtToGet: '',
+      localityToGet: '',
+      items: [],
+      timerID: 0,
+      time: 0,
+      date: 0
     }
   },
   methods: {
     audioPlayer(dataset) {
-      // let i = 0
-      // let text = ''
-      /* while (true) {
-        if (self.$t('diagnosis.user.' + self.examEvent + '.audioDescription.' + i) === 'diagnosis.user.' + self.examEvent + '.audioDescription.' + i) {
-          text.substring(0, text.length - 1);
-          break;
-        } else {
-          text += self.$t('diagnosis.user.' + self.examEvent + '.audioDescription.' + i) + ' '
-        }
-        i++
-      } */
-      console.log(dataset)
-      this.$socket.emit('ttsText', this.$t('showdata.info', {sensortype: dataset.reading, location: dataset.location, avg: dataset.avg}))
+      EventBus.soundTTS(this.$t('showdata.info', {sensortype: dataset.reading, location: dataset.location, avg: dataset.avg}))
     },
-    dateFormat(data) {
-      let date = new Date(data)
-      return (
-        (date.getMonth() + 1 < 10
-          ? '0' + (date.getMonth() + 1)
-          : date.getMonth() + 1) +
-        '/' +
-        (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
-        '/' +
-        date.getFullYear() +
-        ' ' +
-        (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
-        ':' +
-        (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
-        ':' +
-        (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
-      )
+    updateTime() {
+      this.time = this.zero(new Date().getHours(), 2) + ':' + this.zero(new Date().getMinutes(), 2) + ':' + this.zero(new Date().getSeconds(), 2);
+      this.date = this.zero(new Date().getFullYear(), 4) + '-' + this.zero(new Date().getMonth() + 1, 2) + '-' + this.zero(new Date().getDate(), 2) + ' ' + this.$t('dictionary.week.' + new Date().getDay());
     },
-    updateSensor(data) {
-      if (this.warningCards.length > 0) {
-        let card = EventBus.findOne(this.warningCards, data)
-        if (card) {
-          card.avg = data.avg.toFixed()
-          card.avgLastUpdate = data.avgLastUpdate
-          card.dateupdate = this.dateFormat(data.avgLastUpdate)
-        }
-      } else {
-        this.$http
-          .get('/api/sensor/allCriticalSensors')
-          .then(response => {
-            var datasensores = response.data.data
-            for (var index in datasensores) {
-              this.warningCards.push({
-                id: datasensores[index].board_id,
-                idchart: 'chartid-' + index,
-                avg: datasensores[index].avg.toFixed(),
-                threshold_max_acceptable: datasensores[index].threshold_max_acceptable === undefined ? 100 : datasensores[index].threshold_max_acceptable,
-                threshold_max_possible: datasensores[index].threshold_max_possible === undefined ? 100 : datasensores[index].threshold_max_possible,
-                threshold_min_acceptable: datasensores[index].threshold_min_acceptable === undefined ? 100 : datasensores[index].threshold_min_acceptable,
-                threshold_min_possible: datasensores[index].threshold_min_possible === undefined ? 100 : datasensores[index].threshold_min_possible,
-                sensor: datasensores[index].sensortype,
-                location: datasensores[index].location,
-                measure: datasensores[index].measure,
-                symbol: datasensores[index].unit,
-                to_read: datasensores[index].to_read,
-                dateupdate: this.dateFormat(datasensores[index].avgLastUpdate),
-                footerIcon: 'ti-reload'
-              })
-            }
-            this.$refs.DefaultView.hide()
-          })
-          .catch(error => {
-            console.log(error)
-          })
+    zero(num, digit) {
+      var zero = '';
+      for(var i = 0; i < digit; i++) {
+          zero += '0';
       }
+      return (zero + num).slice(-digit);
     },
     controlEventsBus() {
       var self = this
-      if (self.warningCards.length > 0) {
-        self.$refs.DefaultView.hide()
-      }
       EventBus.$on('move-components', function(cmd) {
-        EventBus.elementControl = document.getElementsByClassName('control-remote')
+        EventBus.elementControl = document.getElementsByClassName('notifications')
         if (EventBus.elementControl.length === 0) {
-          self.$refs.DefaultView.setMsg(self.msg)
-          self.$refs.DefaultView.show()
           EventBus.currentActiveRightComp = 0
           EventBus.firstRightEvent = true
           EventBus.elementControl = []
           EventBus.currentComponent = EventBus.sidebarName
           return
         }
-        self.$refs.DefaultView.hide()
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
@@ -157,61 +115,17 @@ export default {
             console.log('if exit', cmd, EventBus.currentActiveRightComp)
             break
           case 'up':
-            try {
-              self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-              self.content = document.getElementsByClassName('container-data-sensors')[0]
-              self.numberCol = parseInt((self.content.clientWidth / self.elem.clientWidth))
-              self.movepos = EventBus.currentActiveRightComp - self.numberCol
-              if (self.movepos < 0) {
-                self.movepos += (EventBus.elementControl.length - 1)
-                if (self.movepos === (EventBus.elementControl.length - 1) - self.numberCol) {
-                  self.movepos += self.numberCol
-                }
-              }
-              EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-              EventBus.currentActiveRightComp = self.movepos
-              self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-              self.elem.focus()
-              self.elem.classList.add('btn-fill')
-              EventBus.scrollScreen(self.elem)
-              self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-            } catch (e) {
-              console.log('error move up', e.toStrig())
-            }
-            break
           case 'down':
-            try {
-              self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-              self.content = document.getElementsByClassName('container-data-sensors')[0]
-              self.numberCol = parseInt((self.content.clientWidth / self.elem.clientWidth))
-              self.movepos = EventBus.currentActiveRightComp + self.numberCol
-              if (self.movepos > (EventBus.elementControl.length - 1)) {
-                self.movepos -= (EventBus.elementControl.length - 1)
-                if (self.movepos === self.numberCol) {
-                  self.movepos = 0
-                }
-              }
-              EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-              EventBus.currentActiveRightComp = self.movepos
-              self.elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-              self.elem.focus()
-              self.elem.classList.add('btn-fill')
-              EventBus.scrollScreen(self.elem)
-              self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-            } catch (e) {
-              console.log('error move down', e.toStrig())
-            }
-            break
-          case 'right': // tecla para a direita
+          case 'right':
             EventBus.moveLeftRightInView(1)
-            self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+            //self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             break
-          case 'left': // tecla para a esquerda
+          case 'left':
             if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
               return EventBus.$emit('move-components', 'exit')
             }
             EventBus.moveLeftRightInView(-1)
-            self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+            // self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             break
           default:
             console.log("No key available")
@@ -221,45 +135,65 @@ export default {
       })
     }
   },
+  beforeCreate() {
+    var self = this
+    console.log('----> ', this.items)
+    EventBus.$on('notification', function(data) {
+      console.log('----> ', EventBus.notificationList)
+      self.items = EventBus.notificationList
+    })
+    this.$http
+    .get('/api/connectServer/getDistrict')
+    .then(responce => {
+      this.districtToGet = responce.data.data.district.toLowerCase()
+      .replace(/[éèêÉÈÊ]/g, "e")
+      .replace(/[úùûÚÙÛ]/g, "u")
+      .replace(/[áàãâAÁÀÃÂ]/g, "a")
+      .replace(/[çÇ]/g, "c")
+      .replace(/[íìîÍÌÎ]/g, "i")
+      .replace(/[ñÑ]/g, "n")
+      .replace(/[úùûÚÙÛ]/g, "u")
+      .replace(/[óòõôÓÒÔÕ]/g, "o")
+      .replace(/[ ]/g, "_")
+      this.localityToGet = responce.data.data.locality.toLowerCase()
+      .replace(/[éèêÉÈÊ]/g, "e")
+      .replace(/[úùûÚÙÛ]/g, "u")
+      .replace(/[áàãâAÁÀÃÂ]/g, "a")
+      .replace(/[çÇ]/g, "c")
+      .replace(/[íìîÍÌÎ]/g, "i")
+      .replace(/[ñÑ]/g, "n")
+      .replace(/[úùûÚÙÛ]/g, "u")
+      .replace(/[óòõôÓÒÔÕ]/g, "o")
+      .replace(/[ ]/g, "_")
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  },
   mounted() {
-    if (this.warningCards.length === 0) {
-      this.$refs.DefaultView.setMsg(this.msg)
-      this.$refs.DefaultView.show()
-    }
   },
   created() {
-    this.$http
-        .get('/api/sensor/allCriticalSensors')
-        .then(response => {
-          var datasensores = response.data.data
-          for (var index in datasensores) {
-            this.warningCards.push({
-              id: datasensores[index].board_id,
-              idchart: 'chartid-' + index,
-              avg: datasensores[index].avg.toFixed(),
-              threshold_max_acceptable: datasensores[index].threshold_max_acceptable === undefined ? 100 : datasensores[index].threshold_max_acceptable,
-              threshold_max_possible: datasensores[index].threshold_max_possible === undefined ? 100 : datasensores[index].threshold_max_possible,
-              threshold_min_acceptable: datasensores[index].threshold_min_acceptable === undefined ? 100 : datasensores[index].threshold_min_acceptable,
-              threshold_min_possible: datasensores[index].threshold_min_possible === undefined ? 100 : datasensores[index].threshold_min_possible,
-              sensor: datasensores[index].sensortype,
-              location: datasensores[index].location,
-              measure: datasensores[index].measure,
-              symbol: datasensores[index].unit,
-              to_read: datasensores[index].to_read,
-              dateupdate: this.dateFormat(datasensores[index].avgLastUpdate),
-              footerIcon: 'ti-reload'
-            })
-          }
-          this.controlEventsBus()
-        })
-        .catch(error => {
-          console.log(error)
-        })
+    this.controlEventsBus()
+    this.items = EventBus.notificationList
+    this.timerID = setInterval(()=> {
+      this.updateTime()
+    }, 1000)
   },
   beforeDestroy() {
+    clearInterval(this.timerID)
     EventBus.$off('move-components')
   }
 }
 </script>
 <style>
+.iframe-size {
+  width: 40%;
+  height: 290px;
+}
+.size-100 {
+  height: 100%;
+}
+.size-80 {
+  height: 80%;
+}
 </style>

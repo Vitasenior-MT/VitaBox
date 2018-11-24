@@ -7,6 +7,12 @@ const mode = {
 
 const advanced = [
   {
+    name: 'sidebar.home.title',
+    icon: 'ti-heart',
+    path: '/vitabox/bemvindo',
+    text: 'sidebar.home.text'
+  },
+  {
     name: 'sidebar.diagnosis.title',
     icon: 'ti-heart',
     path: '/vitabox/exames',
@@ -39,6 +45,12 @@ const advanced = [
 ]
 
 const basic = [
+  {
+    name: 'sidebar.home.title',
+    icon: 'ti-heart',
+    path: '/vitabox/bemvindo',
+    text: 'sidebar.home.text'
+  },
   {
     name: 'sidebar.diagnosis.title',
     icon: 'ti-heart',

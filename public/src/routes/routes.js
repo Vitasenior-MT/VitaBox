@@ -5,7 +5,7 @@ import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 // Admin pages
 import Exams from 'src/components/Dashboard/Views/Exams.vue'
 import ExamsHist from 'src/components/Dashboard/Views/ExamsHist.vue'
-import ExamsHistBasic from 'src/components/Dashboard/Views/ExamsHistBasic.vue'
+import Home from 'src/components/Dashboard/Views/Home.vue'
 import AmbientHist from 'src/components/Dashboard/Views/HistAmbi.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import ShowData from 'src/components/Dashboard/Views/ShowData.vue'
@@ -14,13 +14,18 @@ import ShowDataBasic from 'src/components/Dashboard/Views/ShowDataBasic.vue'
 const routes = [
   {
     path: '/',
-    component: Exams,
-    redirect: '/vitabox/exames'
+    component: Home,
+    redirect: '/vitabox/bemvindo'
   }, {
     path: '/vitabox',
     component: DashboardLayout,
     redirect: '/vitabox/home',
     children: [
+      {
+        path: 'bemvindo',
+        name: 'Bem Vindo',
+        component: Home
+      },
       {
         path: 'exames',
         name: 'Exames / Diagnósticos',

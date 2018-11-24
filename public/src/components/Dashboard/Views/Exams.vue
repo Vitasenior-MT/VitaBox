@@ -17,7 +17,7 @@
           <div class="content">
             <button
               v-tooltip.bottom="$t('tooltips.diagnosis.exam.title')"
-              class="btn btn-block btn-success control-remote"
+              class="btn btn-block btn-success control-remote min-height"
               type="button"
               :data-type="btn.type"
               v-on:click="bleExecExam">
@@ -76,8 +76,8 @@
                   {{dataPressArt.systolic}}
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataPressArt.lastsystolictime}}
-                   - Resultado: &nbsp;{{dataPressArt.lastsystolic}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataPressArt.lastsystolictime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataPressArt.lastsystolic}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -92,7 +92,7 @@
                   {{dataPressArt.diastolic}}
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataPressArt.lastdiastolictime}} - Resultado: &nbsp;{{dataPressArt.lastdiastolic}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataPressArt.lastdiastolictime}} {{ $t('dictionary.result') }} &nbsp;{{dataPressArt.lastdiastolic}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -107,8 +107,8 @@
                   {{dataPressArt.pulse}}
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataPressArt.lastpulsetime}}
-                   - Resultado: &nbsp;{{dataPressArt.lastpulse}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataPressArt.lastpulsetime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataPressArt.lastpulse}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -158,8 +158,8 @@
                 {{dataBodyScale.weight}} Kg
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastweighttime}}
-                   - Resultado: &nbsp;{{dataBodyScale.lastweight}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataBodyScale.lastweighttime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataBodyScale.lastweight}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -174,8 +174,8 @@
                 {{dataBodyScale.calories}} Kcal
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastcaloriestime}}
-                   - Resultado: &nbsp;{{dataBodyScale.lastcalories}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataBodyScale.lastcaloriestime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataBodyScale.lastcalories}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -190,8 +190,8 @@
                 {{dataBodyScale.water}} %
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastwatertime}}
-                   - Resultado: &nbsp;{{dataBodyScale.lastwater}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataBodyScale.lastwatertime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataBodyScale.lastwater}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -206,8 +206,8 @@
                 {{dataBodyScale.musclemass}} %
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastmusclemasstime}}
-                   - Resultado: &nbsp;{{dataBodyScale.lastmusclemass}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataBodyScale.lastmusclemasstime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataBodyScale.lastmusclemass}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -222,8 +222,8 @@
                   {{dataBodyScale.bodyfat}} %
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastbodyfattime}}
-                   - Resultado: &nbsp;{{dataBodyScale.lastbodyfat}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataBodyScale.lastbodyfattime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataBodyScale.lastbodyfat}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -238,8 +238,8 @@
                   {{dataBodyScale.bonemass}} %
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastbonemasstime}}
-                   - Resultado: &nbsp;{{dataBodyScale.lastbonemass}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataBodyScale.lastbonemasstime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataBodyScale.lastbonemass}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -254,8 +254,8 @@
                   {{dataBodyScale.visceralfat}} %
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBodyScale.lastvisceralfattime}}
-                   - Resultado: &nbsp;{{dataBodyScale.lastvisceralfat}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataBodyScale.lastvisceralfattime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataBodyScale.lastvisceralfat}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -329,8 +329,8 @@
                   {{databodytemperature.tempCorp}} ºC
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{databodytemperature.lastbodytemptime}}
-                   - Resultado: &nbsp;{{databodytemperature.lastbodytemp}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{databodytemperature.lastbodytemptime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{databodytemperature.lastbodytemp}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -388,8 +388,8 @@
                   {{databodypulse.spo2}} %
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{databodypulse.lastspo2time}}
-                   - Resultado: &nbsp;{{databodypulse.lastspo2}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{databodypulse.lastspo2time}}
+                   {{ $t('dictionary.result') }} &nbsp;{{databodypulse.lastspo2}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -404,8 +404,8 @@
                 {{databodypulse.pulse}} PPM
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{databodypulse.lastpulsetime}}
-                   - Resultado: &nbsp;{{databodypulse.lastpulse}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{databodypulse.lastpulsetime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{databodypulse.lastpulse}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -474,8 +474,8 @@
                   {{dataBandFitness.steps.steps}}
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBandFitness.steps.laststepstime}}
-                   - Resultado: &nbsp;{{dataBandFitness.steps.laststeps}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataBandFitness.steps.laststepstime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataBandFitness.steps.laststeps}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -490,8 +490,8 @@
                   {{dataBandFitness.steps.meters}}
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBandFitness.steps.lastmeterstime}}
-                   - Resultado: &nbsp;{{dataBandFitness.steps.lastmeters}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataBandFitness.steps.lastmeterstime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataBandFitness.steps.lastmeters}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -506,8 +506,8 @@
                   {{dataBandFitness.steps.callories}}
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBandFitness.steps.lastcalloriestime}}
-                   - Resultado: &nbsp;{{dataBandFitness.steps.lastcallories}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataBandFitness.steps.lastcalloriestime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataBandFitness.steps.lastcallories}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -522,8 +522,8 @@
                   {{dataBandFitness.heartrate.heartrateavg}}
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{dataBandFitness.heartrate.lastheartratetime}}
-                   - Resultado: &nbsp;{{dataBandFitness.heartrate.lastheartrate}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{dataBandFitness.heartrate.lastheartratetime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{dataBandFitness.heartrate.lastheartrate}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -629,8 +629,8 @@
                   {{databloodglucose.glucose}} mg/dl
                 </div>
                 <div class="stats" slot="footer">
-                  <h5 class="ajust-last-records">Última execução: <i class='ti-calendar'></i> {{databloodglucose.lastbloodglucosetime}}
-                   - Resultado: &nbsp;{{databloodglucose.lastbloodglucose}}</h5>
+                  <h5 class="ajust-last-records">{{ $t('dictionary.lastExecution') }} <i class='ti-calendar'></i> {{databloodglucose.lastbloodglucosetime}}
+                   {{ $t('dictionary.result') }} &nbsp;{{databloodglucose.lastbloodglucose}}</h5>
                 </div>
               </stats-card>
             </div>
@@ -1915,5 +1915,8 @@ body {
 .ajust-last-records {
   color: white;
   margin: 0 !important;
+}
+.min-height {
+  min-height: 180px;
 }
 </style>

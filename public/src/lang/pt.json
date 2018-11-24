@@ -1,10 +1,24 @@
 {
   "dictionary": {
+    "from": "De:",
+    "to": "para",
+    "message": "Mensagem:",
+    "notifications": "Notificações",
+    "week": {
+      "0": "DOMINGO",
+      "1": "SEGUNDA",
+      "2": "TERÇA",
+      "3": "QUARTA",
+      "4": "QUINTA",
+      "5": "SEXTA",
+      "6": "SÁBADO"
+    },
     "waiting": "Aguarde",
     "press_user": "Selecione o utilizador",
-    "": "Para entrar no menu Selecione a tecla direita.",
     "press_ok": "Pressione em [OK] para executar novamente.",
     "results": "Resultados",
+    "result": "- Resultado:",
+    "lastExecution": "Última execução:",
     "limit": {
       "title": "Limite",
       "text": ""
@@ -26,6 +40,10 @@
     }
   },
   "sidebar": {
+    "home": {
+      "title": "Bem Vindo",
+      "text": "Bem Vindo."
+    },
     "diagnosis": {
       "title": "Exames",
       "text": "Exames."
@@ -49,10 +67,6 @@
     "showData": {
       "title": "Sensores Ambientais",
       "text": "Sensores Ambientais."
-    },
-    "about": {
-      "title": "Ajuda",
-      "text": "Neste menu tem toda a informação acerca da aplicação, para ajudar na sua utilização."
     }
   },
   "tooltips": {
@@ -177,6 +191,19 @@
           "2": "Colocar o aparelho conforme a imagem.",
           "3": "Pressionar no botão do aparelho."
         }
+      },
+      "bloodglucose": {
+        "fig": {
+          "0": "Colocar o aparelho conforme a imagem.",
+          "1": "Pressionar no botão do aparelho."
+        },
+        "title": "Modo de Utilização",
+        "audioDescription":{
+          "0": "pressão arterial.",
+          "1": "Pressione ok. .",
+          "2": "Colocar o aparelho conforme a imagem.",
+          "3": "Pressionar no botão do aparelho."
+        }
       }
     }
   },
@@ -225,7 +252,13 @@
     "text": "O comando da Tv está bloaqueado, devido ao aviso, prima ok no comando para desbloquear"
   },
   "modal": {
+    "wifisettings": "",
     "settings": {
+      "title": "Configurações",
+      "navigation": {
+        "0": "Utilize as ",
+        "1": " do comando para navegar nas configurações."
+      },
       "sound": {
         "title": "Som",
         "checked": "Ligado",
@@ -240,13 +273,37 @@
         "title": "Linguagem",
         "checked": "PT",
         "unchecked": "EN"
+      },
+      "wifi": {
+        "title": "WIFI",
+        "open": "Abrir"
+      },
+      "exit": {
+        "0": "Pressione [OK] para alterar o estado.",
+        "1": "Pressione [EXIT] para sair."
       }
     },
-    "welcome": {
-      "title": "Seja bem vindo"
-    },
-    "notifications": {
-      "title": "Notificações"
+    "procedure": {
+      "co": {
+        "0": "Monóxido de carbono muito alto.",
+        "1": "Saia de casa.",
+        "2": "Ligue para o 112."
+      },
+      "co2": {
+        "0": "Dióxido de carbono muito alto.",
+        "1": "Saia de casa.",
+        "2": "Ligue para o 112."
+      },
+      "temp": {
+        "0": "Temperatura muito alto.",
+        "1": "Saia de casa.",
+        "2": ""
+      },
+      "humi": {
+        "0": "humidade muito alto.",
+        "1": "Saia de casa.",
+        "2": ""
+      }
     }
   }
 }
