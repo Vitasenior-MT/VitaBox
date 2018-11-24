@@ -26,9 +26,9 @@
         :ref='link.name'
         :key='link.name + index'>
           <a>
-            <h2 style="margin: 0; padding: 0;"><i :class='link.icon'></i>
+            <h3 style="margin: 0; padding: 0;"><i :class='link.icon'></i>
             {{ $t(link.name) }}
-            </h2>
+            </h3>
           </a>
         </router-link>
       </ul>
@@ -99,7 +99,7 @@ export default {
   },
   data() {
     return {
-      linkHeight: 72,
+      linkHeight: 66, // 72
       activeLinkIndex: 0,
       windowWidth: 0,
       isWindows: false,

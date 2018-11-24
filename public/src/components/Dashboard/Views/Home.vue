@@ -76,13 +76,13 @@ export default {
     },
     zero(num, digit) {
       var zero = '';
-      for(var i = 0; i < digit; i++) {
-          zero += '0';
+      for (var i = 0; i < digit; i++) {
+        zero += '0';
       }
       return (zero + num).slice(-digit);
     },
     controlEventsBus() {
-      var self = this
+      // var self = this
       EventBus.$on('move-components', function(cmd) {
         EventBus.elementControl = document.getElementsByClassName('notifications')
         if (EventBus.elementControl.length === 0) {
@@ -118,7 +118,7 @@ export default {
           case 'down':
           case 'right':
             EventBus.moveLeftRightInView(1)
-            //self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+            // self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             break
           case 'left':
             if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
@@ -175,7 +175,7 @@ export default {
   created() {
     this.controlEventsBus()
     this.items = EventBus.notificationList
-    this.timerID = setInterval(()=> {
+    this.timerID = setInterval(() => {
       this.updateTime()
     }, 1000)
   },

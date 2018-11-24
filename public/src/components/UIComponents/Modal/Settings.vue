@@ -216,7 +216,7 @@ export default {
             }
             break
           // evento para sair para a sidebar  para a lista anterior
-          case 'exit':ou
+          case 'exit':
             // this.$modal.hide('settings')
             break
           case 'right': // tecla para a direita
