@@ -58,7 +58,7 @@
       <div class="col-lg-8 btn btn-round btn-fill clear-margin">
         <div class="row dialog-content">
           <p>{{ $t('dictionary.notifications') }}</p>
-           <div class="col-md-12">
+           <div v-show="items.length <= 0" class="col-md-12">
             <img src='static/img/logo_B.png' alt=''>
           </div>
         </div>
