@@ -17,7 +17,7 @@
           <div class="content">
             <button
               v-tooltip.bottom="$t('tooltips.diagnosisHistory.history.title')"
-              class="btn btn-block btn-success control-remote"
+              class="btn btn-block btn-success control-remote min-height"
               type="button"
               :data-examname="btn.nome"
               :data-type="btn.type"

@@ -16,20 +16,20 @@
       <div class="row vue-welcome">
         <div class="col-md-12 vue-height-out">
           <div class="dialog-content">
-            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> Wifi Configuração</h2>
+            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i>{{$t('modal.wifisettings.title')}}</h2>
             <div>
-              <h4>Utilize as <i class="fas fa-arrows-alt"></i> do comando para navegar nas configurações.</h4>
+              <h4>{{$t('modal.wifisettings.navigation.0')}} <i class="fas fa-arrows-alt"></i> {{$t('modal.wifisettings.navigation.1')}}</h4>
             </div>
           </div>
           <div class="col-md-12 card-layout-out">
             <div v-for="(item, i) in params" v-bind:key='item.key' v-show="ssid">
               <show-ssid :data="params[i]" :data-ssid="params[i].ssid"></show-ssid>
             </div>
-            <h3 v-show="!ssid">Password</h3>
+            <h3 v-show="!ssid">{{$t('modal.wifisettings.password')}}</h3>
             <input class="input-font-color-black" type="password" v-model="password" v-show="!ssid" ref="psswrd">
           </div>
           <div class="col-md-12">
-            <h4>Pressione [OK] para alterar o estado. <br> Pressione [EXIT] para sair.</h4>
+            <h4>{{$t('modal.wifisettings.exit.0')}} <br>{{$t('modal.wifisettings.exit.1')}}</h4>
           </div>
         </div>
       </div>

@@ -11,12 +11,12 @@ module.exports = {
   },
   postRate: {
     hour: 0,
-    min: 0,
-    sec: 5,
+    min: 5,
+    sec: 0,
     noData: {
       hour: 0,
-      min: 0,
-      sec: 10
+      min: 10,
+      sec: 0
     }
   },
   ReconnectRate: {
@@ -59,17 +59,17 @@ module.exports = {
     host: 'fd00::1'
   },
   websockets: {
-    //host: 'vitasenior-ws.eu-gb.mybluemix.net'
-    host: 'http://192.168.161.115:8008/'
+    host: 'vitasenior-ws.eu-gb.mybluemix.net'
+    //host: 'http://192.168.161.115:8008/'
   },
   ServerConfigs: {
     key: fs.readFileSync('.key').toString().trim(),
-    pass: 'passvita',
-    //pass: 'Mqa1Uf8pFy',
-    //port: 443,
-    port: 8080,
-    //host: 'vitasenior.eu-gb.mybluemix.net'
-    host: '192.168.161.94'
+    pass: 'Mqa1Uf8pFy',
+    //pass: 'passvita',
+    port: 443,
+    host: 'vitasenior.eu-gb.mybluemix.net'
+    //port: 8080,
+    //host: '192.168.161.94'
   },
   serverHttp: {
     port: 8080

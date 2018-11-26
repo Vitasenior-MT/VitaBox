@@ -101,6 +101,10 @@
       }
     }
   },
+  "home": {
+    "noNotification": "Sem notificações.",
+    "noPharmacy": "Sem farmacias de Serviço"
+  },
   "diagnosis": {
     "msgUser": "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
     "msgExit": "Pressione direita ou [OK] no comando para entrar e selecionar...",
@@ -252,7 +256,18 @@
     "text": "O comando da Tv está bloaqueado, devido ao aviso, prima ok no comando para desbloquear"
   },
   "modal": {
-    "wifisettings": "",
+    "wifisettings": {
+      "title": "Wifi Configuração",
+      "navigation": {
+        "0": "Utilize as ",
+        "1": " do comando para navegar nas configurações."
+      },
+      "password": "Password",
+      "exit": {
+        "0": "Pressione [OK] para alterar o estado.",
+        "1": "Pressione [EXIT] para sair."
+      }
+    },
     "settings": {
       "title": "Configurações",
       "navigation": {

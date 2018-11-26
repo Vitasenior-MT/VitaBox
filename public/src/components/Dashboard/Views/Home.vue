@@ -1,27 +1,29 @@
 <template>
   <div class="row">
-    <div class="col-md-12 card-layout-out vue-height-in">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="dialog-content">
+    <div class="col-md-12 btn btn-round btn-fill vue-height-in">
+      <div class="row size-80">
+        <div class="col-md-6">
+          <iframe class="iframe-size col-md-12" v-show="this.districtToGet && this.localityToGet" scrolling="no"
+          :src="'//farmaciasdeservico.net/widget/?localidade='+this.districtToGet+'%7C'+this.localityToGet+'&cor_fundo=%23FFFFFF&cor_titulo=%23000000&cor_texto=%23333333&margem=10&v=1'"
+          frameborder="0" target="_top" v-on:load="onload()"></iframe>
+          <p v-show="!this.districtToGet && !this.localityToGet" class="iframe-size dialog-content col-md-12">{{ $t('home.noPharmacy') }}</p>
+        </div>
+        <div class="col-md-6">
+          <div class="dialog-content col-md-12">
             <div id="clock">
               <p class="date">{{ date }}</p>
               <p class="time">{{ time }}</p>
+            </div>
           </div>
-        </div>
-        </div>
-        <div class="col-md-12 size-80">
-          <iframe class="iframe-size" v-show="this.districtToGet!=null && this.localityToGet!=null" scrolling="no"
-          :src="'//farmaciasdeservico.net/widget/?localidade='+this.districtToGet+'%7C'+this.localityToGet+'&cor_fundo=%23FFFFFF&cor_titulo=%23000000&cor_texto=%23333333&margem=10&v=1'"
-          frameborder="0" target="_top"></iframe>
         </div>
       </div>
     </div>
-    <div class="col-md-12 card-layout-out notifications">
+    <div class="col-md-12 btn btn-round btn-fill notifications">
       <div class="dialog-content">
           <p>{{ $t('dictionary.notifications') }}</p>
       </div>
-      <div v-for="item in items.slice().reverse()" v-bind:key='item.key'>
+      <default-form v-show="!items" ref="DefaultView"></default-form>
+      <div v-show="!items" v-for="item in items.slice().reverse()" v-bind:key='item.key'>
         <div class="col-md-12 card-layout-in">
           <notification-card>
             <div class="numbers" slot="content">
@@ -58,17 +60,20 @@ export default {
       numberCol: '',
       movepos: '',
       timeout: null,
-      districtToGet: '',
-      localityToGet: '',
+      districtToGet: null,
+      localityToGet: null,
       items: [],
       timerID: 0,
       time: 0,
-      date: 0
+      date: 0,
     }
   },
   methods: {
     audioPlayer(dataset) {
       EventBus.soundTTS(this.$t('showdata.info', {sensortype: dataset.reading, location: dataset.location, avg: dataset.avg}))
+    },
+    onload() {
+      console.log('entrou?')
     },
     updateTime() {
       this.time = this.zero(new Date().getHours(), 2) + ':' + this.zero(new Date().getMinutes(), 2) + ':' + this.zero(new Date().getSeconds(), 2);
@@ -141,6 +146,12 @@ export default {
     EventBus.$on('notification', function(data) {
       console.log('----> ', EventBus.notificationList)
       self.items = EventBus.notificationList
+      if (self.items) {
+        self.$refs.DefaultView.setMsg(self.$t('home.noNotification'))
+        self.$refs.DefaultView.show()
+      } else {
+        self.$refs.DefaultView.hide()
+      }
     })
     this.$http
     .get('/api/connectServer/getDistrict')
@@ -171,6 +182,8 @@ export default {
     })
   },
   mounted() {
+    this.$refs.DefaultView.setMsg(this.$t('home.noNotification'))
+    this.$refs.DefaultView.show()
   },
   created() {
     this.controlEventsBus()
