@@ -1,43 +1,73 @@
 <template>
-  <div class="row">
-    <div class="col-md-12 card-layout-out vue-height-in">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="dialog-content">
-            <div id="clock">
-              <p class="date">{{ date }}</p>
-              <p class="time">{{ time }}</p>
+  <div class="row clear-margin">
+    <div class="row" v-show="date !== 0">
+      <div class="col-lg-12 btn btn-round btn-fill clear-margin">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <h3 class="date">{{ date }}</h3>
+            </div>
+            <div class="col-md-6 table-tempo" v-show="tempoResult !== ''">
+            </div>
           </div>
-        </div>
-        </div>
-        <div class="col-md-12 size-80">
-          <iframe class="iframe-size" v-show="this.districtToGet!=null && this.localityToGet!=null" scrolling="no"
-          :src="'//farmaciasdeservico.net/widget/?localidade='+this.districtToGet+'%7C'+this.localityToGet+'&cor_fundo=%23FFFFFF&cor_titulo=%23000000&cor_texto=%23333333&margem=10&v=1'"
-          frameborder="0" target="_top"></iframe>
         </div>
       </div>
     </div>
-    <div class="col-md-12 card-layout-out notifications">
-      <div class="dialog-content">
-          <p>{{ $t('dictionary.notifications') }}</p>
-      </div>
-      <div v-for="item in items.slice().reverse()" v-bind:key='item.key'>
-        <div class="col-md-12 card-layout-in">
-          <notification-card>
-            <div class="numbers" slot="content">
-              <div v-show="item.type === 'notification'">
-                <div class="row">
-                  <p class="col-md-6">{{ $t('dictionary.from') }} {{ item.message.from }}</p>
-                  <p class="col-md-6" v-show="item.message.to">{{ $t('dictionary.to') }} {{ item.message.to }}</p>
+    <div class="row">
+      <div class="col-lg-12">&nbsp;</div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4" v-show="farmaciasOk">
+        <div class="row btn btn-round btn-fill clear-margin">
+          <div class="col-lg-12">
+            <h4 class="h-ajust text-left">Farmácias de serviço.<br>Distrito: {{districtToGet}}<br>Concelho: {{localityToGet}}</h4>
+          </div>
+          <div class="col-md-12 col-ajust" v-for="farmacia in farmacias" :key='farmacia.id'>
+            <div class='card btn btn-info control-remote col-lg-12'>
+              <div class='content'>
+                <div class='row'>
+                  <div class='col-lg-2'>
+                    <span>
+                      <img src="static/img/vitabox/farmacy.svg" width='40' height='40'>
+                    </span>
+                  </div>
+                  <div class='col-lg-10'>
+                    <div class='numbers'>
+                      Farmácia
+                    </div>
+                    <b></b>
+                  </div>
                 </div>
-                <p>{{ $t('dictionary.message') }} {{ item.message.message }}</p>
-              </div>
-              <div class="row" v-show="item.type === 'schedule'">
-                <p class="col-md-6"> {{ item.date }}</p>
-                <p class="col-md-6">{{ $t('dictionary.message') }} {{ item.message.message }}</p>
+                <div class='content text-left'>
+                  <p v-for="(f, index) in farmacia" :key='f.id'>
+                    <span v-if="index === 0">
+                      <b>{{f}}</b>
+                    </span>
+                    <span v-else-if="f.toLowerCase().indexOf('tel.') !== -1" v-html="replaceString(f)">
+                    </span>
+                    <span v-else>
+                      {{f}}
+                    </span>
+                  </p>
+                </div>
+                <!-- <div class='footer text-center'>
+                  <hr />
+                  <i class=''> </i>
+                </div> -->
               </div>
             </div>
-        </notification-card>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 btn btn-round btn-fill clear-margin">
+        <div class="row">
+          <div class="col-lg-12">
+            <h4>Sem notificações.</h4>
+          </div>
+          <div class="col-md-12">
+            <img src='static/img/logo_B.png' alt=''>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -63,7 +93,10 @@ export default {
       items: [],
       timerID: 0,
       time: 0,
-      date: 0
+      date: 0,
+      tempoResult: "",
+      farmaciasOk: false,
+      farmacias: []
     }
   },
   methods: {
@@ -71,8 +104,10 @@ export default {
       EventBus.soundTTS(this.$t('showdata.info', {sensortype: dataset.reading, location: dataset.location, avg: dataset.avg}))
     },
     updateTime() {
-      this.time = this.zero(new Date().getHours(), 2) + ':' + this.zero(new Date().getMinutes(), 2) + ':' + this.zero(new Date().getSeconds(), 2);
-      this.date = this.zero(new Date().getFullYear(), 4) + '-' + this.zero(new Date().getMonth() + 1, 2) + '-' + this.zero(new Date().getDate(), 2) + ' ' + this.$t('dictionary.week.' + new Date().getDay());
+      this.date = this.$t('dictionary.week.' + new Date().getDay()).toLowerCase().charAt(0).toUpperCase() + this.$t('dictionary.week.' + new Date().getDay()).toLowerCase().substring(1) + " " + EventBus.dateFormat(new Date())
+      // this.time = this.zero(new Date().getHours(), 2) + ':' + this.zero(new Date().getMinutes(), 2) + ':' + this.zero(new Date().getSeconds(), 2);
+
+      // this.date = this.$t('dictionary.week.' + new Date().getDay()).toLowerCase().charAt(0).toUpperCase() + this.$t('dictionary.week.' + new Date().getDay()).toLowerCase().substring(1) + " " + this.zero(new Date().getDate(), 2) + '-' + this.zero(new Date().getMonth() + 1, 2) + '-' + this.zero(new Date().getFullYear(), 4);
     },
     zero(num, digit) {
       var zero = '';
@@ -80,6 +115,74 @@ export default {
         zero += '0';
       }
       return (zero + num).slice(-digit);
+    },
+    replaceString(str) {
+      return str.toLowerCase().replace('tel.', '<i class="fas fa-phone-square"></i> ')
+    },
+    getFarmacy() {
+      this.$http
+      .get('/api/connectServer/getFarmaciasServico')
+      .then(response => {
+        // console.log(response.data.data)
+        if (response.data.status === true) {
+          this.farmacias = response.data.data.farmacias
+          this.districtToGet = response.data.data.district
+          this.localityToGet = response.data.data.locality
+          this.farmaciasOk = true
+        } else {
+          this.$notifications.notify({
+            message: '<h4>Falha ao tentar adquirir as Farmácias de serviço do concelho ' & response.data.data.district & ', do distrito ' & response.data.data.locality & '.</h4>',
+            icon: 'ti-bell',
+            horizontalAlign: 'right',
+            verticalAlign: 'top',
+            type: 'warning'
+          })
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        this.$notifications.notify({
+          message: '<h4>Falha ao tentar adquirir as Farmácias de serviço.</h4>',
+          icon: 'ti-bell',
+          horizontalAlign: 'right',
+          verticalAlign: 'top',
+          type: 'warning'
+        })
+      })
+    },
+    getTempo() {
+      this.$http
+      .get('/api/connectServer/getTempo')
+      .then(response => {
+        // console.log(response.data.data)
+        if (response.data.status === true) {
+          this.tempoResult = response.data.data
+          document.getElementsByClassName("table-tempo")[0].innerHTML = this.tempoResult;
+          document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(0)
+          document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(1)
+          document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(1)
+          document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].getElementsByTagName("tr")[0].deleteCell(2);
+          document.getElementById("wsp_rowtable_wsp_rowtable_more_info_block").remove();
+        } else {
+          this.$notifications.notify({
+            message: '<h4>Falha ao tentar adquirir o tempo atual concelho ' & response.data.data.district & ', do distrito ' & response.data.data.locality & '.</h4>',
+            icon: 'ti-bell',
+            horizontalAlign: 'right',
+            verticalAlign: 'top',
+            type: 'warning'
+          })
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        this.$notifications.notify({
+          message: '<h4>Falha ao tentar adquirir o tempo.</h4>',
+          icon: 'ti-bell',
+          horizontalAlign: 'right',
+          verticalAlign: 'top',
+          type: 'warning'
+        })
+      })
     },
     controlEventsBus() {
       // var self = this
@@ -142,38 +245,13 @@ export default {
       console.log('----> ', EventBus.notificationList)
       self.items = EventBus.notificationList
     })
-    this.$http
-    .get('/api/connectServer/getDistrict')
-    .then(responce => {
-      this.districtToGet = responce.data.data.district.toLowerCase()
-      .replace(/[éèêÉÈÊ]/g, "e")
-      .replace(/[úùûÚÙÛ]/g, "u")
-      .replace(/[áàãâAÁÀÃÂ]/g, "a")
-      .replace(/[çÇ]/g, "c")
-      .replace(/[íìîÍÌÎ]/g, "i")
-      .replace(/[ñÑ]/g, "n")
-      .replace(/[úùûÚÙÛ]/g, "u")
-      .replace(/[óòõôÓÒÔÕ]/g, "o")
-      .replace(/[ ]/g, "_")
-      this.localityToGet = responce.data.data.locality.toLowerCase()
-      .replace(/[éèêÉÈÊ]/g, "e")
-      .replace(/[úùûÚÙÛ]/g, "u")
-      .replace(/[áàãâAÁÀÃÂ]/g, "a")
-      .replace(/[çÇ]/g, "c")
-      .replace(/[íìîÍÌÎ]/g, "i")
-      .replace(/[ñÑ]/g, "n")
-      .replace(/[úùûÚÙÛ]/g, "u")
-      .replace(/[óòõôÓÒÔÕ]/g, "o")
-      .replace(/[ ]/g, "_")
-    })
-    .catch(error => {
-      console.log(error)
-    })
   },
   mounted() {
   },
   created() {
     this.controlEventsBus()
+    this.getFarmacy()
+    this.getTempo()
     this.items = EventBus.notificationList
     this.timerID = setInterval(() => {
       this.updateTime()
@@ -186,14 +264,24 @@ export default {
 }
 </script>
 <style>
-.iframe-size {
-  width: 40%;
-  height: 290px;
+.col-ajust {
+  padding-right: 1px !important;
+  padding-left: 1px !important;
 }
-.size-100 {
-  height: 100%;
+.col-ajust .card {
+  margin-bottom: 1px !important;
 }
-.size-80 {
-  height: 80%;
+.col-ajust .btn {
+  padding: 1px 5px !important;
+}
+.col-ajust .card .content {
+  padding: 1px 1px 1px 1px !important;
+}
+.col-ajust .card .content p {
+  margin: 0px !important;
+  font-size: 18px !important;
+}
+.h-ajust {
+  margin: 0px 0px 5px 0px !important;
 }
 </style>

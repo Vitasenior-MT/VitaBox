@@ -1773,15 +1773,25 @@ body {
   z-index: 1500;
 }
 
-.iframe-size {
-  width: 40%;
-  height: 290px;
+.col-ajust {
+  padding-right: 1px !important;
+  padding-left: 1px !important;
 }
-.size-100 {
-  height: 100%;
+.col-ajust .card {
+  margin-bottom: 1px !important;
 }
-.size-80 {
-  height: 80%;
+.col-ajust .btn {
+  padding: 1px 5px !important;
+}
+.col-ajust .card .content {
+  padding: 1px 1px 1px 1px !important;
+}
+.col-ajust .card .content p {
+  margin: 0px !important;
+  font-size: 18px !important;
+}
+.h-ajust {
+  margin: 0px 0px 5px 0px !important;
 }
 
 .clear-margin {
@@ -12571,4 +12581,4 @@ textarea.form-control {
     font-size: 12px;
     padding: 20px 0 0; }
 
-/*# sourceMappingURL=app.d3f44142413dfb3e8ec90336d68f0ea9.css.map*/
+/*# sourceMappingURL=app.5f4cbcef96b29b0d9d313aae3bc4c1c9.css.map*/
