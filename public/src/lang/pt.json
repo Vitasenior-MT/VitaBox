@@ -103,7 +103,13 @@
   },
   "home": {
     "noNotification": "Sem notificações.",
-    "noPharmacy": "Sem farmacias de Serviço"
+    "noFarmacy": "Sem farmacias de Serviço",
+    "farmacy": {
+      "farmacy": "Farmácia",
+      "0": "Farmácias de serviço.",
+      "1": "Distrito: ",
+      "2": "Concelho: "
+    }
   },
   "diagnosis": {
     "msgUser": "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",

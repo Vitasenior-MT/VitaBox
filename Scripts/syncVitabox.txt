@@ -1,10 +1,11 @@
 #!/bin/bash
 
 rootFolder="FOLDERVITABOX"
-# OUTLOGFILE="${rootFolder}/logs/syncVitaboxstdout.log"
-# ERRLOGFILE="${rootFolder}/logs/syncVitaboxstderr.log"
-rm "$OUTLOGFILE"
-rm "$ERRLOGFILE"
+OUTLOGFILE="${rootFolder}/logs/syncVitaboxstdout.log"
+ERRLOGFILE="${rootFolder}/logs/syncVitaboxstderr.log"
+# rm "$OUTLOGFILE"
+# rm "$ERRLOGFILE"
 cd ${rootFolder}
-git pull
+cd ${rootFolder} && git pull >> "${OUTLOGFILE}" 2>> "${ERRLOGFILE}" || true
+cd ${rootFolder} && npm install >> "${OUTLOGFILE}" 2>> "${ERRLOGFILE}" || true
 sudo reboot

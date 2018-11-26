@@ -5,7 +5,7 @@ module.exports = {
   coapConfigs: {
     rate: {
       hour: 0,
-      min: 15,
+      min: 1,
       sec: 0
     }
   },

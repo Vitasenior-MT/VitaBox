@@ -1,4 +1,2 @@
-@xset s 0 0
-@xset s noblank
-@xset s noexpose
-@xset dpms 0 0 0
+[SeatDefaults]
+xserver-command=X -s 0 -dpms

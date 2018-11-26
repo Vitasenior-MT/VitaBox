@@ -366,7 +366,7 @@ export const EventBus = new Vue({
     }
   },
   watch: {
-    currentComponent: function (value) {
+    currentComponent: function(value) {
       // console.log('chartline', value)
       if (this.sidebarName === value) {
         document.getElementsByClassName('sidebar')[0].style.width = this.backupSidebarWidth

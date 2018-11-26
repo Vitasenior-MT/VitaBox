@@ -75,7 +75,7 @@ export const app = new Vue({
     warning_type: null
   },
   mounted() {
-    //self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
+    // self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
     // self.$t('modal.procedure.' + EventBus.warning_type + '.1') + self.$t('modal.procedure.' + EventBus.warning_type + '.2'))
   },
   beforeCreate() {
