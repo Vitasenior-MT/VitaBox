@@ -1,64 +1,22 @@
 <template>
   <div class="row clear-margin">
-    <div class="row" v-show="date !== 0">
-      <div class="col-lg-12 btn btn-round btn-fill clear-margin">
+    <div class="col-lg-8" style="padding: 0;">
+      <div class="col-lg-12 btn btn-round btn-fill clear-margin" v-show="date !== 0 || tempoResult !== ''">
         <div class="row">
-          <div class="col-md-12">
-            <div class="col-md-6">
-              <h3 class="date">{{ date }}</h3>
-            </div>
-            <div class="col-md-6 table-tempo" v-show="tempoResult !== ''">
-            </div>
+          <div class="col-md-12" v-show="date !== 0">
+            <h3 class="date">{{ date }}</h3>
+          </div>
+          <div class="col-md-12 table-tempo" v-show="tempoResult !== ''">
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">&nbsp;</div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4" v-show="farmaciasOk">
-        <div class="row btn btn-round btn-fill clear-margin">
-          <div class="col-lg-12">
-            <h4 class="h-ajust text-left">{{ $t('home.farmacy.0') }}<br>{{ $t('home.farmacy.1') }}{{districtToGet}}<br>{{ $t('home.farmacy.2') }}{{localityToGet}}</h4>
-          </div>
-          <div class="col-md-12 col-ajust" v-for="farmacia in farmacias" :key='farmacia.id'>
-            <div class='card btn btn-info control-remote col-lg-12'>
-              <div class='content'>
-                <div class='row'>
-                  <div class='col-lg-2'>
-                    <span>
-                      <img src="static/img/vitabox/farmacy.svg" width='40' height='40'>
-                    </span>
-                  </div>
-                  <div class='col-lg-10'>
-                    <div class='numbers'>
-                      {{ $t('home.farmacy.farmacy') }}
-                    </div>
-                    <b></b>
-                  </div>
-                </div>
-                <div class='content text-left'>
-                  <p v-for="(f, index) in farmacia" :key='f.id'>
-                    <span v-if="index === 0">
-                      <b>{{f}}</b>
-                    </span>
-                    <span v-else-if="f.toLowerCase().indexOf('tel.') !== -1" v-html="replaceString(f)">
-                    </span>
-                    <span v-else>
-                      {{f}}
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="row">
+        <div class="col-lg-12">&nbsp;</div>
       </div>
-      <div class="col-lg-8 btn btn-round btn-fill clear-margin">
+      <div class="col-lg-12 btn btn-round btn-fill clear-margin">
         <div class="row dialog-content">
           <p>{{ $t('dictionary.notifications') }}</p>
-           <div v-show="items.length <= 0" class="col-md-12">
+          <div v-show="items.length <= 0" class="col-md-12">
             <img src='static/img/logo_B.png' alt=''>
           </div>
         </div>
@@ -78,7 +36,46 @@
                   <p class="col-md-6">{{ $t('dictionary.message') }} {{ item.message.message }}</p>
                 </div>
               </div>
-          </notification-card>
+            </notification-card>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 clear-margin" v-show="farmaciasOk">
+      <div class="row btn btn-round btn-fill clear-margin">
+        <div class="col-lg-12">
+          <h4 class="h-ajust text-left">{{ $t('home.farmacy.0') }}<br>{{ $t('home.farmacy.1') }}{{districtToGet}}<br>{{ $t('home.farmacy.2') }}{{localityToGet}}</h4>
+        </div>
+        <div class="col-md-12 col-ajust" v-for="farmacia in farmacias" :key='farmacia.id'>
+          <div class='card btn btn-info control-remote col-lg-12'>
+            <div class='content'>
+              <div class='row'>
+                <div class='col-lg-2'>
+                  <span>
+                    <img src="static/img/vitabox/farmacy.svg" width='40' height='40'>
+                  </span>
+                </div>
+                <div class='col-lg-10'>
+                  <div class='numbers'>
+                    {{ $t('home.farmacy.farmacy') }}
+                  </div>
+                  <b></b>
+                </div>
+              </div>
+              <div class='content text-left'>
+                <p v-for="(f, index) in farmacia" :key='f.id'>
+                  <span v-if="index === 0">
+                    <b>{{f}}</b>
+                  </span>
+                  <span v-else-if="f.toLowerCase().indexOf('tel.') !== -1" v-html="replaceString(f)">
+                  </span>
+                  <span v-else>
+                    {{f}}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
