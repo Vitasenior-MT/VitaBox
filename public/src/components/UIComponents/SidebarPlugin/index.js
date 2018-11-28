@@ -8,31 +8,31 @@ const mode = {
 const advanced = [
   {
     name: 'sidebar.home.title',
-    icon: 'ti-heart',
+    icon: 'ti-home',
     path: '/vitabox/bemvindo',
     text: 'sidebar.home.text'
   },
   {
     name: 'sidebar.diagnosis.title',
-    icon: 'ti-heart',
+    icon: 'ti-heart-broken',
     path: '/vitabox/exames',
     text: 'sidebar.diagnosis.text'
   },
   {
     name: 'sidebar.diagnosisHistory.title',
-    icon: 'ti-pie-chart',
+    icon: 'ti-stats-up',
     path: '/vitabox/exameshistorico',
     text: 'sidebar.diagnosisHistory.text'
   },
   {
     name: 'sidebar.showData.title',
-    icon: 'ti-bell',
+    icon: 'ti-dashboard',
     path: '/vitabox/showdata',
     text: 'sidebar.showData.text'
   },
   {
     name: 'sidebar.ambienteHistory.title',
-    icon: 'ti-rss-alt',
+    icon: 'ti-stats-down',
     path: '/vitabox/ambientehistorico',
     text: 'sidebar.ambienteHistory.text'
   },
@@ -47,19 +47,19 @@ const advanced = [
 const basic = [
   {
     name: 'sidebar.home.title',
-    icon: 'ti-heart',
+    icon: 'ti-home',
     path: '/vitabox/bemvindo',
     text: 'sidebar.home.text'
   },
   {
     name: 'sidebar.diagnosis.title',
-    icon: 'ti-heart',
+    icon: 'ti-heart-broken',
     path: '/vitabox/exames',
     text: 'sidebar.diagnosis.text'
   },
   {
     name: 'sidebar.showData.title',
-    icon: 'ti-bell',
+    icon: 'ti-dashboard',
     path: '/vitabox/showDataBasic',
     text: 'sidebar.showData.text'
   },

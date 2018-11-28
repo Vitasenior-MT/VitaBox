@@ -81,7 +81,7 @@
   z-index: 2000;
 }
 .ajust-img {
-  width: 42%;
+  width: 53%;
   height: auto;
 }
 .img-help-info {
@@ -93,62 +93,62 @@
 }
 
 .red-help {
-    top: 9%;
-    left: 2.5%;
+    top: 8%;
+    left: 5%;
 }
 
 .settings-help {
-    top: 9%;
-    left: 11.5%;
+    top: 8%;
+    left: 16%;
 }
 
 .yellow-help {
-    top: 9%;
-    left: 21%;
+    top: 8%;
+    left: 28%;
 }
 
 .blue-help {
-    top: 9%;
-    left: 30%;
+    top: 8%;
+    left: 40%;
 }
 
 .ok_btn-help {
-    top: 45%;
-    left: 16.5%;
+    top: 46%;
+    left: 22.5%;
 }
 
 .left-help {
-    top: 44%;
-    left: 8%;
+    top: 46%;
+    left: 11%;
 }
 
 .right-help {
-    top: 44%;
-    left: 25%;
+    top: 46%;
+    left: 33%;
 }
 
 .up-help {
     top: 29%;
-    left: 17%;
+    left: 22%;
 }
 
 .down-help {
     top: 61%;
-    left: 17%;
+    left: 22%;
 }
 
 .exit-help {
-    top: 68%;
-    left: 4.5%;
+    top: 69%;
+    left: 6%;
 }
 
 .one-help {
     top: 84%;
-    left: 4.5%;
+    left: 8%;
 }
 
 .two-help {
     top: 84%;
-    left: 16.5%;
+    left: 22%;
 }
 </style>
