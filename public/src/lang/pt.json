@@ -103,7 +103,7 @@
   },
   "home": {
     "noNotification": "Sem notificações.",
-    "noFarmacy": "Sem farmacias de Serviço",
+    "noFarmacy": "Sem farmácias de Serviço",
     "farmacy": {
       "farmacy": "Farmácia",
       "0": "Farmácias de serviço.",
@@ -112,7 +112,7 @@
     }
   },
   "diagnosis": {
-    "msgUser": "Selecione e pressione [OK] para visualizar os exames disponiveis para o utilizador.",
+    "msgUser": "Selecione e pressione [OK] para visualizar os exames disponíveis para o utilizador.",
     "msgExit": "Pressione direita ou [OK] no comando para entrar e selecionar...",
     "user": {
       "bodytemperature": {
@@ -122,7 +122,7 @@
         },
         "title": "Modo de Utilização",
         "audioDescription":{
-          "0": "temperatura.",
+          "0": "Temperatura.",
           "1": "Pressione ok. .",
           "2": "Colocar o aparelho conforme a imagem.",
           "3": "Pressionar no botão do aparelho."
@@ -204,15 +204,19 @@
       },
       "bloodglucose": {
         "fig": {
-          "0": "Colocar o aparelho conforme a imagem.",
-          "1": "Pressionar no botão do aparelho."
+          "0": "1º Acione o sistema na TV.",
+          "1": "2º Coloque a fita no equipamento.",
+          "2": "3º Pique o dedo e coloque uma gota de sangue na fita.",
+          "3": "4º Aguarde.",
+          "4": "5º Depois de aparecerem os resultados pode retirar a fita."
         },
         "title": "Modo de Utilização",
         "audioDescription":{
-          "0": "pressão arterial.",
+          "0": "Glicemia.",
           "1": "Pressione ok. .",
-          "2": "Colocar o aparelho conforme a imagem.",
-          "3": "Pressionar no botão do aparelho."
+          "2": "Acione o sistema na TV.",
+          "3": "Coloque a fita no equipamento.",
+          "4": "Pique o dedo e coloque uma gota de sangue na fita."
         }
       }
     }
