@@ -59,8 +59,8 @@ module.exports = {
     host: 'fd00::1'
   },
   websockets: {
-    host: 'vitasenior-ws.eu-gb.mybluemix.net'
-    //host: 'http://192.168.161.115:8008/'
+    host: 'vitasenior-ws.eu-gb.mybluemix.net/socketio'
+    //host: 'http://192.168.161.115:8008/socketio'
   },
   ServerConfigs: {
     key: fs.readFileSync('.key').toString().trim(),
