@@ -1,11 +1,10 @@
 <template>
   <div class="wrapper">
-    <side-bar type="sidebar" :sidebar-links="$sidebar.sidebarLinks">
-
-    </side-bar>
-    <notifications>
-
-    </notifications>
+    <side-bar type="sidebar" :sidebar-links="$sidebar.sidebarLinks"></side-bar>
+    <notifications></notifications>
+    <div class="div-project-name">
+      <img src="static/img/vitasenior-logo-cor-desc3.png" alt="">
+    </div>
     <div class="img-help">
       <img class="ajust-img" src="static/img/tv_remote3.png" alt="">
       <div v-show="showHelp" class="img-help-info green"><img style="width: 100%; height: auto;" src="static/img/id.svg" alt=""></div>
@@ -13,12 +12,7 @@
     <div class="main-panel" id="app" style="background-color: #212120">
     <!-- <div class="main-panel" id="app"> -->
       <!-- <top-navbar></top-navbar> -->
-
-      <dashboard-content @click.native="toggleSidebar">
-
-      </dashboard-content>
-
-
+      <dashboard-content @click.native="toggleSidebar"></dashboard-content>
       <!-- <content-footer></content-footer> -->
     </div>
   </div>
@@ -93,62 +87,74 @@
 }
 
 .red-help {
-    top: 8%;
-    left: 5%;
+  top: 8%;
+  left: 5%;
 }
 
 .settings-help {
-    top: 8%;
-    left: 16%;
+  top: 8%;
+  left: 16%;
 }
 
 .yellow-help {
-    top: 8%;
-    left: 28%;
+  top: 8%;
+  left: 28%;
 }
 
 .blue-help {
-    top: 8%;
-    left: 40%;
+  top: 8%;
+  left: 40%;
 }
 
 .ok_btn-help {
-    top: 46%;
-    left: 22.5%;
+  top: 46%;
+  left: 22.5%;
 }
 
 .left-help {
-    top: 46%;
-    left: 11%;
+  top: 46%;
+  left: 11%;
 }
 
 .right-help {
-    top: 46%;
-    left: 33%;
+  top: 46%;
+  left: 33%;
 }
 
 .up-help {
-    top: 29%;
-    left: 22%;
+  top: 29%;
+  left: 22%;
 }
 
 .down-help {
-    top: 61%;
-    left: 22%;
+  top: 61%;
+  left: 22%;
 }
 
 .exit-help {
-    top: 69%;
-    left: 6%;
+  top: 69%;
+  left: 6%;
 }
 
 .one-help {
-    top: 84%;
-    left: 8%;
+  top: 84%;
+  left: 8%;
 }
 
 .two-help {
-    top: 84%;
-    left: 22%;
+  top: 84%;
+  left: 22%;
+}
+.div-project-name {
+  visibility: hidden;
+  z-index: 2000;
+  position: absolute;
+  margin: 0;
+  top: 1px;
+}
+.div-project-name img {
+  width: 100%;
+  height: 100%;
+  opacity: 0.25;
 }
 </style>

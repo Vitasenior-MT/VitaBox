@@ -363,6 +363,14 @@ export const EventBus = new Vue({
         color += letters[Math.floor(Math.random() * 16)];
       }
       return color;
+    },
+    getTopPos: (el) => {
+      for (var topPos = 0; el != null; topPos += el.offsetTop, el = el.offsetParent);
+      return topPos;
+    },
+    getLeftPos: (el) => {
+      for (var leftPos = 0; el != null; leftPos += el.offsetLeft, el = el.offsetParent);
+      return leftPos;
     }
   },
   watch: {
@@ -374,6 +382,7 @@ export const EventBus = new Vue({
         document.getElementsByClassName('moving-arrow')[0].style.left = this.backupMovingArrowLeft
         document.getElementsByClassName('main-panel')[0].style.paddingLeft = this.backupMainPanelPadding
         document.getElementsByClassName('main-panel')[0].style.boxShadow = ''
+        document.getElementsByClassName('div-project-name')[0].style.visibility = "hidden";
       } else {
         this.backupSidebarWidth = document.getElementsByClassName('sidebar')[0].style.width
         this.backupMainPanelWidth = document.getElementsByClassName('main-panel')[0].style.width
@@ -384,6 +393,11 @@ export const EventBus = new Vue({
         document.getElementsByClassName('moving-arrow')[0].style.left = (3 * this.collapseSidebar) + "%"
         document.getElementsByClassName('main-panel')[0].style.paddingLeft = this.marginPaddingPanel + "%"
         document.getElementsByClassName('main-panel')[0].style.boxShadow = 'rgb(221, 221, 221) 1px 0px 0px 0px inset'
+        document.getElementsByClassName('div-project-name')[0].style.visibility = "visible";
+
+        document.getElementsByClassName('div-project-name')[0].style.left = this.getLeftPos(document.getElementsByClassName('main-panel')[0]) + "px"
+        document.getElementsByClassName('div-project-name')[0].style.width = (0.95 * this.marginPaddingPanel) + "%"
+        document.getElementsByClassName('div-project-name')[0].style.height = this.getTopPos(document.getElementsByClassName('img-help')[0]) + "px"
       }
     }
   }
