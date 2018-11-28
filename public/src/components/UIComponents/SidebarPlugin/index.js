@@ -8,7 +8,7 @@ const mode = {
 const advanced = [
   {
     name: 'sidebar.home.title',
-    icon: 'home',
+    icon: 'ti-home',
     path: '/vitabox/bemvindo',
     text: 'sidebar.home.text'
   },
@@ -26,7 +26,7 @@ const advanced = [
   },
   {
     name: 'sidebar.showData.title',
-    icon: 'ti-image',
+    icon: 'ti-dashboard',
     path: '/vitabox/showdata',
     text: 'sidebar.showData.text'
   },
@@ -47,7 +47,7 @@ const advanced = [
 const basic = [
   {
     name: 'sidebar.home.title',
-    icon: 'home',
+    icon: 'ti-home',
     path: '/vitabox/bemvindo',
     text: 'sidebar.home.text'
   },
@@ -59,7 +59,7 @@ const basic = [
   },
   {
     name: 'sidebar.showData.title',
-    icon: 'ti-image',
+    icon: 'ti-dashboard',
     path: '/vitabox/showDataBasic',
     text: 'sidebar.showData.text'
   },
