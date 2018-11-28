@@ -1,10 +1,14 @@
 <template>
   <div class="row clear-margin">
-    <div class="col-lg-8" style="padding: 0;">
-      <div class="col-lg-12 btn btn-round btn-fill clear-margin" v-show="date !== 0 || tempoResult !== ''">
+    <div class="col-lg-7" style="padding: 0;">
+      <div class="col-lg-12 btn btn-round btn-fill clear-margin">
         <div class="row">
           <div class="col-md-12" v-show="date !== 0">
             <h3 class="date">{{ date }}</h3>
+          </div>
+          <div class="col-md-12 text-center" v-show="tempoResult === ''">
+            <h4>A carregar o tempo. Aguarde.&nbsp;
+            <img src='static/img/load5_B.gif' alt='' width='70' height='70'></h4>
           </div>
           <div class="col-md-12 table-tempo" v-show="tempoResult !== ''">
           </div>
@@ -41,10 +45,19 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4 clear-margin" v-show="farmaciasOk">
-      <div class="row btn btn-round btn-fill clear-margin">
+    <div class="col-lg-5 clear-margin">
+      <div class="row btn btn-round btn-fill clear-margin" v-show="!farmaciasOk">
+        <div class="col-lg-12 text-center">
+          <h4>{{ $t('home.farmacy.0') }} Aguarde.&nbsp;
+          <img src='static/img/load5_B.gif' alt='' width='70' height='70'></h4>
+        </div>
+      </div>
+      <div class="row btn btn-round btn-fill clear-margin" v-show="farmaciasOk">
         <div class="col-lg-12">
-          <h4 class="h-ajust text-left">{{ $t('home.farmacy.0') }}<br>{{ $t('home.farmacy.1') }}{{districtToGet}}<br>{{ $t('home.farmacy.2') }}{{localityToGet}}</h4>
+          <h4 class="h-ajust text-left">
+            {{ $t('home.farmacy.0') }}<br>
+            {{ $t('home.farmacy.1') }}{{districtToGet}}<br>
+            {{ $t('home.farmacy.2') }}{{localityToGet}}</h4>
         </div>
         <div class="col-md-12 col-ajust" v-for="farmacia in farmacias" :key='farmacia.id'>
           <div class='card btn btn-info control-remote col-lg-12'>
@@ -187,7 +200,8 @@ export default {
     },
     controlEventsBus() {
       EventBus.$on('move-components', function(cmd) {
-        EventBus.elementControl = document.getElementsByClassName('notifications')
+        // EventBus.elementControl = document.getElementsByClassName('notifications')
+        EventBus.elementControl = document.getElementsByClassName('control-remote')
         if (EventBus.elementControl.length === 0) {
           EventBus.currentActiveRightComp = 0
           EventBus.firstRightEvent = true
@@ -218,6 +232,8 @@ export default {
             console.log('if exit', cmd, EventBus.currentActiveRightComp)
             break
           case 'up':
+            EventBus.moveLeftRightInView(-1)
+            break;
           case 'down':
           case 'right':
             EventBus.moveLeftRightInView(1)
