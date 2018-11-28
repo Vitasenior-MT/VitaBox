@@ -6,7 +6,7 @@
           <div class="col-md-12" v-show="date !== 0">
             <h3 class="date">{{ date }}</h3>
           </div>
-          <div class="col-md-12 text-center" v-show="tempoResult === ''">
+          <div class="col-md-12 text-center" v-if="tempoResult === ''">
             <h4>A carregar o tempo. Aguarde.&nbsp;
             <img src='static/img/load5_B.gif' alt='' width='70' height='70'></h4>
           </div>
@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="col-lg-5 clear-margin">
-      <div class="row btn btn-round btn-fill clear-margin" v-show="!farmaciasOk">
+      <div class="row btn btn-round btn-fill clear-margin" v-if="!farmaciasOk">
         <div class="col-lg-12 text-center">
           <h4>{{ $t('home.farmacy.0') }} Aguarde.&nbsp;
           <img src='static/img/load5_B.gif' alt='' width='70' height='70'></h4>
