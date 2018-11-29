@@ -85,62 +85,50 @@
   width: 9%;
   height: 12%;
 }
-
 .red-help {
   top: 8%;
   left: 5%;
 }
-
 .settings-help {
   top: 8%;
   left: 16%;
 }
-
 .yellow-help {
   top: 8%;
   left: 28%;
 }
-
 .blue-help {
   top: 8%;
   left: 40%;
 }
-
 .ok_btn-help {
   top: 46%;
   left: 22.5%;
 }
-
 .left-help {
   top: 46%;
   left: 11%;
 }
-
 .right-help {
   top: 46%;
   left: 33%;
 }
-
 .up-help {
   top: 29%;
   left: 22%;
 }
-
 .down-help {
   top: 61%;
   left: 22%;
 }
-
 .exit-help {
   top: 69%;
   left: 6%;
 }
-
 .one-help {
   top: 84%;
   left: 8%;
 }
-
 .two-help {
   top: 84%;
   left: 22%;
