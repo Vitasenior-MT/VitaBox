@@ -27,6 +27,7 @@ export const EventBus = new Vue({
     examEmExec: false,           // flag para validação da execução dos exames
     settings: false,
     notifications: false,
+    warnings: false,
     wifi: false,
     notificationList: []     // lista de todas as notificações
   },

@@ -9,14 +9,12 @@
     @closed="$emit('closed', $event)">
     <div class="modelProcedure v--modal vue-dialog">
       <div class="content">
-        <div class="row">
-          <div class="col-md-12 vue-height-out">
-            <div class='col-md-2'>
-            </div>
-            <div class='col-md-10 center2 font-size-b modelProcedureComponent'>
-              <b>{{ $t('modal.procedure.'+ this.data +'.0') }}</b>
-              <b>{{ $t('modal.procedure.'+ this.data +'.1') }}</b>
-              <b>{{ $t('modal.procedure.'+ this.data +'.2') }}</b>
+        <div class="vue-height-out">
+          <div class="row">
+            <div class='col-md-12 center2 font-size-b modelProcedureComponent btn btn-round btn-fill'>
+              <b>{{ $t('modal.procedure.'+ this.data +'.0') }}</b><br>
+              <b>{{ $t('modal.procedure.'+ this.data +'.1') }}</b><br>
+              <b>{{ $t('modal.procedure.'+ this.data +'.2') }}</b><br>
             </div>
           </div>
         </div>
@@ -46,16 +44,16 @@ export default {
   data() {
     return {
       params: {},
-      data: {},
+      data: '',
       verify: []
     }
   },
   methods: {
     beforeOpened(event) {
       this.verify[event.params.warning_type] = event.params.warning_type
-      if (this.verify[event.params.warning_type] === 'co') {
+      if (this.verify[event.params.warning_type] === 'mono') {
         this.data = event.params.warning_type
-      } else if (this.verify[event.params.warning_type] === 'co2') {
+      } else if (this.verify[event.params.warning_type] === 'diox') {
         this.data = event.params.warning_type
       } else if (this.verify[event.params.warning_type] === 'temp') {
         this.data = event.params.warning_type
@@ -76,7 +74,7 @@ export default {
   left: 0;
 }
 .modelProcedureComponent {
-  background-color: darkgray;
+  background-color: white !important;
   margin-top: 5%;
 }
 .center2 b {
@@ -84,6 +82,6 @@ export default {
   display: inline-block;
   vertical-align: middle;
   color: black;
-  font-size: 45px;
+  font-size: 40px;
 }
 </style>
