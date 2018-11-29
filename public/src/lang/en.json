@@ -1,7 +1,20 @@
 {
   "dictionary": {
-    "waiting": "Aguarde",
-    "press_user": "Selecione o utilizador",
+    "from": "From:",
+    "to": "To:",
+    "message": "Message:",
+    "notifications": "No Notifications",
+    "week": {
+      "0": "SUNDAY",
+      "1": "MONDAY",
+      "2": "TUESDAY",
+      "3": "WEDNESDAY",
+      "4": "THURSDAY",
+      "5": "FRIDAY",
+      "6": "SATURDAY"
+    },
+    "waiting": "Wait",
+    "press_user": "Select user",
     "": "Para entrar no menu Selecione a tecla direita.",
     "press_ok": "Pressione em [OK] para executar novamente.",
     "results": "Resultados",

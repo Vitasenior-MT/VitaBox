@@ -18,13 +18,9 @@
         <div class="col-lg-12">&nbsp;</div>
       </div>
       <div class="col-lg-12 btn btn-round btn-fill clear-margin">
-        <div class="row dialog-content">
-          <p>{{ $t('dictionary.notifications') }}</p>
-          <div v-show="items.length <= 0" class="col-md-12">
-            <img src='static/img/logo_B.png' alt=''>
-          </div>
-        </div>
-        <div v-for="item in items.slice().reverse()" v-bind:key='item.key'>
+        <default-form v-show="items.length <= 0" ref="ViewNotifivacoes"></default-form>
+        <div class="col-md-12" v-for="item in items.slice().reverse()" v-bind:key='item.key'>
+          <!-- <card-notificatio-farmacy :objCard="item"></card-notificatio-farmacy> -->
           <div class="col-md-12 card-layout-in">
             <notification-card>
               <div class="numbers" slot="content">
@@ -60,35 +56,7 @@
             {{ $t('home.farmacy.2') }}{{localityToGet}}</h4>
         </div>
         <div class="col-md-12 col-ajust" v-for="farmacia in farmacias" :key='farmacia.id'>
-          <div class='card btn btn-info control-remote col-lg-12'>
-            <div class='content'>
-              <div class='row'>
-                <div class='col-lg-2'>
-                  <span>
-                    <img src="static/img/vitabox/farmacy.svg" width='40' height='40'>
-                  </span>
-                </div>
-                <div class='col-lg-10'>
-                  <div class='numbers'>
-                    {{ $t('home.farmacy.farmacy') }}
-                  </div>
-                  <b></b>
-                </div>
-              </div>
-              <div class='content text-left'>
-                <p v-for="(f, index) in farmacia" :key='f.id'>
-                  <span v-if="index === 0">
-                    <b>{{f}}</b>
-                  </span>
-                  <span v-else-if="f.toLowerCase().indexOf('tel.') !== -1" v-html="replaceString(f)">
-                  </span>
-                  <span v-else>
-                    {{f}}
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
+          <card-notificatio-farmacy :objCard="farmacia"></card-notificatio-farmacy>
         </div>
       </div>
     </div>
@@ -97,9 +65,11 @@
 <script>
 import { EventBus } from '../../../event-bus.js'
 import DefaultForm from 'components/UIComponents/Forms/defaultform.vue'
+import CardNotificatioFarmacy from 'components/UIComponents/Cards/CardNotifiFarmacy.vue'
 export default {
   components: {
-    DefaultForm
+    DefaultForm,
+    CardNotificatioFarmacy
   },
   data() {
     return {
@@ -131,17 +101,36 @@ export default {
     updateTime() {
       this.date = this.$t('dictionary.week.' + new Date().getDay()).toLowerCase().charAt(0).toUpperCase() + this.$t('dictionary.week.' + new Date().getDay()).toLowerCase().substring(1) + " " + EventBus.dateFormat(new Date())
     },
-    replaceString(str) {
-      return str.toLowerCase().replace('tel.', '<i class="fas fa-phone-square"></i> ')
-    },
     getFarmacy() {
       this.$http
       .get('/api/connectServer/getFarmaciasServico')
       .then(response => {
         if (response.data.status === true) {
-          this.farmacias = response.data.data.farmacias
+          let farmacyData = response.data.data.farmacias
           this.districtToGet = response.data.data.district
           this.localityToGet = response.data.data.locality
+
+          for (let farmacy in farmacyData) {
+            let farm = farmacyData[farmacy]
+            this.farmacias.push({
+              icon: '',
+              titleCard: 'home.farmacy.farmacy',
+              img: "static/img/vitabox/farmacy.svg",
+              content: (() => {
+                let txtHtml = ''
+                for (let index = 0; index < farm.length; index++) {
+                  if (index === 0) {
+                    txtHtml += '<b>' + farm[index] + '</b>'
+                  } else if (farm[index].toLowerCase().indexOf('tel.') !== -1) {
+                    txtHtml += '<br>' + farm[index].toLowerCase().replace('tel.', '<i class="fas fa-phone-square"></i> ')
+                  } else {
+                    txtHtml += '<br>' + farm[index]
+                  }
+                }
+                return txtHtml
+              })()
+            })
+          }
           this.farmaciasOk = true
         } else {
           this.$notifications.notify({
@@ -261,6 +250,8 @@ export default {
     })
   },
   mounted() {
+    this.$refs.ViewNotifivacoes.setMsg('dictionary.notifications')
+    this.$refs.ViewNotifivacoes.show()
   },
   created() {
     this.controlEventsBus()
