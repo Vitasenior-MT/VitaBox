@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class='col-sm-12 container-data-sensors'>
-      <div class='col-sm-4' v-for='warningCard in warningCards' :key='warningCard.id'>
+    <div class='col-lg-12 container-data-sensors'>
+      <div class='col-lg-3 col-ajust' v-for='warningCard in warningCards' :key='warningCard.id'>
         <card-warning :key="warningCard.id" :warningCard="warningCard"
         :data-avg="warningCard.avg"
         :data-sensortype="warningCard.measure + ' (' + warningCard.unit + ')'"
