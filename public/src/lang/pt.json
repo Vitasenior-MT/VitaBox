@@ -34,9 +34,6 @@
     "basic": {
       "title": "Modo Basico Ligado",
       "text": ""
-    },
-    "warnings": {
-      "warning": "Aviso!"
     }
   },
   "sidebar": {
@@ -309,12 +306,13 @@
       }
     },
     "procedure": {
-      "co": {
+      "warnings": "Aviso!",
+      "mono": {
         "0": "Monóxido de carbono muito alto.",
         "1": "Saia de casa.",
         "2": "Ligue para o 112."
       },
-      "co2": {
+      "diox": {
         "0": "Dióxido de carbono muito alto.",
         "1": "Saia de casa.",
         "2": "Ligue para o 112."

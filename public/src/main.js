@@ -82,7 +82,7 @@ export const app = new Vue({
   },
   sockets: {
     connectionsList(list) {
-      this.show = false
+      EventBus.warnings = false
       EventBus.settings = false
       EventBus.wifi = true
       EventBus.notifications = false
@@ -94,12 +94,12 @@ export const app = new Vue({
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
       }
-      if (this.show) {
+      if (EventBus.warnings) {
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
           self.$modal.hide('alert')
           self.timeout = setTimeout(() => {
             self.$modal.show('alert', '')
-            self.$socket.emit('ttsText', self.$t('dictionary.warnings.warning'))
+            self.$socket.emit('ttsText', self.$t('modal.procedure.warnings'))
             // self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
             // self.$t('modal.procedure.' + EventBus.warning_type + '.1') + self.$t('modal.procedure.' + EventBus.warning_type + '.2'))
           }, 5000)
@@ -110,7 +110,7 @@ export const app = new Vue({
     },
     vitaWarning: function(data) {
       EventBus.warning_type = data.warning_type
-      this.show = true
+      EventBus.warnings = true
       EventBus.notifications = false
       EventBus.wifi = false
       EventBus.settings = false
@@ -120,9 +120,9 @@ export const app = new Vue({
       this.$modal.show('procedure', data)
       // this.$socket.emit('ttsText', this.$t('modal.procedure.' + EventBus.warning_type + '.0') +
       // this.$t('modal.procedure.' + EventBus.warning_type + '.1') + this.$t('modal.procedure.' + EventBus.warning_type + '.2'))
-      self.$socket.emit('ttsText', self.$t('dictionary.warnings.warning'))
+      this.$socket.emit('ttsText', this.$t('modal.procedure.warnings'))
       this.$marqueemsg.show('Informação', 'Prima ok para desbloquear a aplicação.')
-      EventBus.$emit('changeTab')
+      EventBus.$emit('changeTab', '/vitabox/warnings')
     },
     informationVita: function(data) {
       if (EventBus.notificationList.length === 5) {
@@ -147,7 +147,7 @@ export const app = new Vue({
       this.$marqueemsg.hide()
       if (type === 'alert') {
         EventBus.removeAudio('off')
-        this.show = false
+        EventBus.warnings = false
         clearTimeout(this.timeout)
         this.$modal.hide('alert')
         this.$modal.hide('procedure')

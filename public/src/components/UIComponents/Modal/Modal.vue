@@ -355,7 +355,7 @@ export default {
      */
     overlayClass() {
       return {
-        'v--modal-overlay': true,
+        'v--modal-overlay zindex': true,
         scrollable: this.scrollable && this.isAutoHeight
       }
     },
@@ -711,5 +711,8 @@ export default {
 .nice-modal-fade-leave-active {
   opacity: 0;
   transform: translateY(-20px);
+}
+.zindex {
+   z-index: 3000;
 }
 </style>
