@@ -17,8 +17,8 @@
       <div class="row">
         <div class="col-lg-12">&nbsp;</div>
       </div>
-      <div class="col-lg-12 btn btn-round btn-fill clear-margin">
-        <default-form v-show="items.length <= 0" ref="ViewNotifivacoes"></default-form>
+      <default-form v-if="items.length <= 0" ref="ViewNotifivacoes"></default-form>
+      <div v-if="items.length > 0" class="col-lg-12 btn btn-round btn-fill clear-margin">
         <div class="col-md-12" v-for="item in items.slice().reverse()" v-bind:key='item.key'>
           <!-- <card-notificatio-farmacy :objCard="item"></card-notificatio-farmacy> -->
           <div class="col-md-12 card-layout-in">
@@ -113,9 +113,8 @@ export default {
           for (let farmacy in farmacyData) {
             let farm = farmacyData[farmacy]
             this.farmacias.push({
-              icon: '',
+              icon: '<img src="static/img/vitabox/farmacy.svg" width="40" height="40">',
               titleCard: 'home.farmacy.farmacy',
-              img: "static/img/vitabox/farmacy.svg",
               content: (() => {
                 let txtHtml = ''
                 for (let index = 0; index < farm.length; index++) {
