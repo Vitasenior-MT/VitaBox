@@ -21,6 +21,10 @@ export default {
         pointer: true,
         labelFontColor: 'black',
         donut: this.typechartdonut,
+        titleMinFontSize: 14,
+        labelMinFontSize: 14,
+        minLabelMinFontSize: 14,
+        maxLabelMinFontSize: 14,
         pointerOptions: {
           toplength: 10,
           bottomlength: 20,

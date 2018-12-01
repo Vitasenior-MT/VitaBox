@@ -44,8 +44,8 @@ export const EventBus = new Vue({
         }
         if (EventBus.settings) {
           EventBus.$emit('move-components-modal', cmd)
-          if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ ((cmd === 'settings' || cmd === 'exit') && !EventBus.examEmExec)) {
-            console.log('app settings')
+          if (((cmd === 'settings' || cmd === 'exit') && !EventBus.examEmExec)) {
+            // console.log('app settings')
             if (EventBus.settings) {
               EventBus.settings = false
               this.$modal.hide('settings')
@@ -91,7 +91,7 @@ export const EventBus = new Vue({
             if (EventBus.currentComponent !== EventBus.sidebarName) {
               EventBus.$emit('move-components', cmd)
             }
-            if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ (cmd === 'exit' && !EventBus.examEmExec)) {
+            if ((cmd === 'exit' && !EventBus.examEmExec)) {
               if (EventBus.settings) {
                 EventBus.settings = false
                 this.$modal.hide('settings')
@@ -113,6 +113,9 @@ export const EventBus = new Vue({
               } else {
                 EventBus.settings = true
                 this.$modal.show('settings')
+                setTimeout(() => {
+                  EventBus.$emit('move-components-modal', 'down')
+                }, 100);
               }
             }
             break;
@@ -288,7 +291,7 @@ export const EventBus = new Vue({
         this.firstRightEventModal = false
       }
       // remove a class que sinboliza o elemento ativo
-      this.elementControlModal[this.currentActiveRightCompModal].classList.remove('btn-fill')
+      this.elementControlModal[this.currentActiveRightCompModal].classList.remove('btn-shadow')
       this.elementControlModal[this.currentActiveRightCompModal].blur()
       // Actualiza a variavel de controlo do elemento activo
       this.currentActiveRightCompModal += cmd
@@ -304,7 +307,7 @@ export const EventBus = new Vue({
       // ativa o novo elemento adiconando a class que simboliza o elemento activo
       let elem = this.elementControlModal[this.currentActiveRightCompModal]
       elem.focus()
-      elem.classList.add('btn-fill')
+      elem.classList.add('btn-shadow')
       this.scrollScreen(elem)
     },
     setSidebar() {
