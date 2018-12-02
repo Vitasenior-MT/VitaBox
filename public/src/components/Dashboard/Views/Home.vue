@@ -159,15 +159,24 @@ export default {
         // console.log(response.data.data)
         if (response.data.status === true) {
           this.tempoResult = response.data.data
-          document.getElementsByClassName("table-tempo")[0].innerHTML = this.tempoResult;
+          document.getElementsByClassName("table-tempo")[0].innerHTML = this.tempoResult.replace("PrecipitaÃ§Ã£o", "Precipitação");
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(0)
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(1)
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(1)
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].getElementsByTagName("tr")[0].deleteCell(2);
           document.getElementById("wsp_rowtable_wsp_rowtable_more_info_block").remove();
+          let elemetsToDel = document.getElementsByClassName("degreeF")
+          while (elemetsToDel[0]) {
+            elemetsToDel[0].parentNode.removeChild(elemetsToDel[0])
+          }
+          let elemetsToDel2 = document.getElementsByClassName("wind_speed_miles")
+          while (elemetsToDel2[0]) {
+            elemetsToDel2[0].parentNode.removeChild(elemetsToDel2[0])
+          }
+          document.getElementsByClassName("table-tempo")[0].children[0].children[0].children[0].children[1].children[0].children[1].remove()
         } else {
           this.$notifications.notify({
-            message: '<h4>Falha ao tentar adquirir o tempo atual concelho ' & response.data.data.district & ', do distrito ' & response.data.data.locality & '.</h4>',
+            message: '<h4>Falha ao tentar adquirir o tempo atual, concelho ' + response.data.data.district + ', do distrito ' + response.data.data.locality + '.</h4>',
             icon: 'ti-bell',
             horizontalAlign: 'right',
             verticalAlign: 'top',
@@ -287,5 +296,8 @@ export default {
 }
 .h-ajust {
   margin: 0px 0px 5px 0px !important;
+}
+.table-tempo table tbody tr td div {
+  font-size: 20px;
 }
 </style>
