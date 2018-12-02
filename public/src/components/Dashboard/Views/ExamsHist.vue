@@ -426,7 +426,7 @@ export default {
           switch (cmd) {
             // evento do 'OK'
             case 'ok_btn':
-              EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
+              // EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               if (!self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
@@ -461,27 +461,27 @@ export default {
                 self.resetValues()
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
-                console.log('if exit', cmd, EventBus.currentActiveRightComp)
+                // console.log('if exit', cmd, EventBus.currentActiveRightComp)
                 EventBus.endRotation()
               } else {
                 // remove o preenchimento
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-                EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
+                // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
                 EventBus.elementControl[EventBus.currentActiveRightComp].blur()
                 self.$refs.DefaultView.setMsg(self.msgExit)
                 self.$refs.DefaultView.show()
                 EventBus.setSidebar()
-                console.log('if exit', cmd, EventBus.currentActiveRightComp)
+                // console.log('if exit', cmd, EventBus.currentActiveRightComp)
               }
               break
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda
-              EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
+              // // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
                 return EventBus.$emit('move-components', 'exit')
               }
               let moveFirstTime = EventBus.firstRightEvent
-              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
+              EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
               if (EventBus.elementControl.length > 1 || moveFirstTime) {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
@@ -551,9 +551,9 @@ export default {
 .btnUsers .btn-fill, .btnsExams .btn-fill {
   box-shadow: 3px 3px 10px black;
 }
-.on-shadow {
+/* .on-shadow {
   box-shadow: 3px 3px 10px black inset;
-}
+} */
 body {
   overflow-x: hidden;
 }

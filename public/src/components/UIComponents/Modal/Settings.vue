@@ -186,9 +186,11 @@ export default {
         case 'wifi':
           if (toggle === false) {
             this.items[i].default = toggle
+            EventBus.enterNewElementDefitions('wifi-settings')
+            EventBus.wifi = true
+            this.$modal.show('wifi-settings')
             this.$socket.emit('openWIFI', '')
             setTimeout(() => {
-              console.log("teste........")
               this.items[i].default = !this.items[i].default
             }, 1000);
           }
@@ -218,20 +220,20 @@ export default {
        * TODO: Monitorização dos eventos do controlo remoto
        */
       EventBus.$on('move-components-modal', function(cmd) {
-        EventBus.elementControlModal = document.getElementsByClassName('control-modal')
-        // console.log(EventBus.elementControlModal)
+        EventBus.elementControl = document.getElementsByClassName('control-modal')
+        // console.log(cmd, EventBus.elementControl)
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
             try {
-              let elem = EventBus.elementControlModal[EventBus.currentActiveRightCompModal].dataset
+              let elem = EventBus.elementControl[EventBus.currentActiveRightComp].dataset
               // console.log('Teste btn - ', self.items[elem.itempos].default, self.items[elem.itempos], elem.itempos)
               // @change="updateItem($event.value, items[i], i)"
               if (elem.itempos < self.items.length) {
                 self.updateItem(!self.items[elem.itempos].default, self.items[elem.itempos], elem.itempos)
-              } else {
+              } /* else {
                 self.open()
-              }
+              } */
             } catch (e) {
               console.log('error btn ok change.')
             }
@@ -242,13 +244,13 @@ export default {
             break
           case 'right': // tecla para a direita
           case 'left': // tecla para a esquerda
-            EventBus.moveLeftRightInModal(cmd === 'left' ? -1 : 1)
-            EventBus.firstRightEventModal = false
+            EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-shadow')
+            EventBus.firstRightEvent = false
             break
           case 'up': // tecla para a cima
           case 'down': // tecla para a baixo
-            EventBus.moveLeftRightInModal(cmd === 'up' ? -1 : 1)
-            EventBus.firstRightEventModal = false
+            EventBus.moveLeftRightInElemts(cmd === 'up' ? -1 : 1, 'btn-shadow')
+            EventBus.firstRightEvent = false
             break
           default:
             break
@@ -256,9 +258,8 @@ export default {
       })
     },
     beforeOpened(event) {
-      // console.log('----------------------')
-      EventBus.firstRightEventModal = true
-      EventBus.currentActiveRightCompModal = 0
+      EventBus.firstRightEvent = true
+      EventBus.currentActiveRightComp = 0
       window.addEventListener('keyup', this.onKeyUp)
       this.params = event.params || {}
       this.$emit('before-opened', event)

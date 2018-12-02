@@ -305,7 +305,7 @@ export default {
       } else {
         EventBus.$emit('move-components', 'right')
         setTimeout(() => {
-          console.log(document.getElementsByClassName(type + ' btn-fill')[0].dataset)
+          // console.log(document.getElementsByClassName(type + ' btn-fill')[0].dataset)
           this.audioPlayer(document.getElementsByClassName(type + ' btn-fill')[0].dataset)
         }, 300);
       }
@@ -343,7 +343,7 @@ export default {
             // evento do 'OK'
             case 'ok_btn':
               if (self.posExameelected === -1) {
-                EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
+                // EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
                 EventBus.elementControl[EventBus.currentActiveRightComp].click()
                 if (!self.posPatientSelected >= 0) {
                   document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
@@ -360,7 +360,7 @@ export default {
               if (self.posExameelected > -1) {
                 // remove o preenchimento
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-                EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
+                // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
                 EventBus.elementControl[EventBus.currentActiveRightComp].blur()
                 self.classEvent = 'control-remote'
                 // Constroi a lista com os elementos da class dos exames
@@ -391,18 +391,18 @@ export default {
               } else {
                 // remove o preenchimento
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
-                EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
+                // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
                 EventBus.elementControl[EventBus.currentActiveRightComp].blur()
                 self.$refs.DefaultView.setMsg(self.msgExit)
                 self.$refs.DefaultView.show()
                 EventBus.setSidebar()
-                console.log('if exit', cmd, EventBus.currentActiveRightComp)
+                // console.log('if exit', cmd, EventBus.currentActiveRightComp)
                 EventBus.endRotation()
               }
               break
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda
-              EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
+              // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               if (self.posExameelected > -1) {
                 document.getElementsByClassName('show-charts-history')[0].scrollIntoView(false)
               } else if (self.posPatientSelected > -1) {
@@ -418,7 +418,7 @@ export default {
                 self.resetValues()
               }
               let moveFirstTime = EventBus.firstRightEvent
-              EventBus.moveLeftRightInView(cmd === 'left' ? -1 : 1)
+              EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
               break
             default:
               break
@@ -474,9 +474,9 @@ export default {
 .btnUsers .btn-fill, .btnsExams .btn-fill {
   box-shadow: 3px 3px 10px black;
 }
-.on-shadow {
+/* .on-shadow {
   box-shadow: 3px 3px 10px black inset;
-}
+} */
 body {
   overflow-x: hidden;
 }
