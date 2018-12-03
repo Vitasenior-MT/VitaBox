@@ -555,7 +555,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="content">
-                <h4 class="title">{{ $t('bloodglucose.title') }}</h4>
+                <h4 class="title">{{ $t('diagnosis.user.bloodglucose.title') }}</h4>
                 <!-- <h4 class="title">{{ $t('diagnosis.user.databloodglucose.title') }}</h4> -->
                 <hr>
                 <ol>
@@ -564,31 +564,31 @@
                       <div class="col-md-1">
                         <figure>
                           <img src='static/img/cmd.png' alt="" class="img-fit">
-                          <figcaption class="text-div-wrap">{{ $t('bloodglucose.fig.0') }}</figcaption>
+                          <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.0') }}</figcaption>
                         </figure>
                       </div>
                       <div class="col-md-3">
                         <figure>
                           <img src='static/img/glucometer3.png' alt="" class="img-fit">
-                          <figcaption class="text-div-wrap">{{ $t('bloodglucose.fig.1') }}</figcaption>
+                          <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.1') }}</figcaption>
                         </figure>
                       </div>
                       <div class="col-md-3">
                         <figure>
                           <img src='static/img/glucometer2.jpg' alt="" class="img-fit">
-                          <figcaption class="text-div-wrap">{{ $t('bloodglucose.fig.2') }}</figcaption>
+                          <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.2') }}</figcaption>
                         </figure>
                       </div>
                       <div class="col-md-2">
                         <figure>
                           <img src='static/img/logo_B.png' alt="" class="img-fit">
-                          <figcaption class="text-div-wrap">{{ $t('bloodglucose.fig.3') }}</figcaption>
+                          <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.3') }}</figcaption>
                         </figure>
                       </div>
                       <div class="col-md-3">
                         <figure>
                           <img src='static/img/glucometer3.png' alt="" class="img-fit">
-                          <figcaption class="text-div-wrap">{{ $t('bloodglucose.fig.4') }}</figcaption>
+                          <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.4') }}</figcaption>
                         </figure>
                       </div>
                     </div>
