@@ -81,14 +81,14 @@ export const app = new Vue({
   beforeCreate() {
   },
   sockets: {
-    connectionsList(list) {
-      EventBus.warnings = false
-      EventBus.settings = false
-      EventBus.wifi = true
-      EventBus.notifications = false
-      this.$modal.hide('settings')
-      this.$modal.show('wifi-settings', list)
-    },
+    // connectionsList(list) {
+    //   EventBus.warnings = false
+    //   EventBus.settings = false
+    //   EventBus.wifi = true
+    //   EventBus.notifications = false
+    //   this.$modal.hide('settings')
+    //   this.$modal.show('wifi-settings', list)
+    // },
     ttsPath(path) {
       var self = this
       if (document.getElementById('audioElem')) {

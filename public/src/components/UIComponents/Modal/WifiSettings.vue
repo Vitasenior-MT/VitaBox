@@ -82,6 +82,11 @@ export default {
   },
   mounted() {
   },
+  sockets: {
+    connectionsList(list) {
+      this.params = list
+    }
+  },
   methods: {
     saveItens(ssid, psswd) {
       this.$socket.emit('connectWifi', { ssid: ssid, psswd: psswd })
@@ -121,12 +126,13 @@ export default {
               break
             case 'right': // tecla para a direita
             case 'left': // tecla para a esquerda
-              EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'card-layout-in-selected')
+              EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
               EventBus.firstRightEvent = false
               break
             case 'up': // tecla para a cima
             case 'down': // tecla para a baixo
-              EventBus.moveLeftRightInElemts(cmd === 'up' ? -1 : 1, 'card-layout-in-selected')
+              // EventBus.moveLeftRightInElemts(cmd === 'up' ? -1 : 1, 'card-layout-in-selected')
+              EventBus.moveLeftRightInElemts(cmd === 'up' ? -1 : 1, 'btn-fill')
               EventBus.firstRightEvent = false
               break
             default:
