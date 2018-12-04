@@ -50,10 +50,10 @@ export const EventBus = new Vue({
                 if (this.settings) {
                   this.settings = false
                   this.$modal.hide('settings')
-                  this.enterLastElementDefitions()
+                  this.enterLastElementDefinitions()
                 } /* else {
                   this.settings = true
-                  this.enterNewElementDefitions('settings')
+                  this.enterNewElementDefinitions('settings')
                   this.$modal.show('settings')
                 } */
               }
@@ -65,7 +65,7 @@ export const EventBus = new Vue({
               if (cmd === 'exit' && !this.examEmExec) {
                 this.wifi = false
                 this.$modal.hide('wifi-settings')
-                this.enterLastElementDefitions()
+                this.enterLastElementDefinitions()
               }
             }
             break;
@@ -112,7 +112,7 @@ export const EventBus = new Vue({
           case 'settings':
             if (!this.examEmExec) {
               if (!this.settings) {
-                this.enterNewElementDefitions('settings')
+                this.enterNewElementDefinitions('settings')
                 this.settings = true
                 this.$modal.show('settings')
                 setTimeout(() => {
@@ -286,7 +286,7 @@ export const EventBus = new Vue({
       elem.classList.add(classInUse)
       this.scrollScreen(elem)
     },
-    enterNewElementDefitions: function(element) {
+    enterNewElementDefinitions: function(element) {
       let oldElement = this.historyElements[this.historyElements.length - 1]
       this.historyElements.push(element)
       // console.log("ListHistory add", this.historyElements, element, this.historyElements[this.historyElements.length - 1])
@@ -300,7 +300,7 @@ export const EventBus = new Vue({
       this.elementControl = []
       this.currentActiveRightComp = 0
     },
-    enterLastElementDefitions: function() {
+    enterLastElementDefinitions: function() {
       this.historyElements.pop()
       // console.log("ListHistory remove", this.historyElements)
       let lastElement = this.historyElements[this.historyElements.length - 1]

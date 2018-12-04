@@ -186,7 +186,7 @@ export default {
         case 'wifi':
           if (toggle === false) {
             this.items[i].default = toggle
-            EventBus.enterNewElementDefitions('wifi-settings')
+            EventBus.enterNewElementDefinitions('wifi-settings')
             EventBus.wifi = true
             this.$modal.show('wifi-settings')
             this.$socket.emit('openWIFI', '')

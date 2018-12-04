@@ -116,6 +116,7 @@ export default {
                   if (self.password) {
                     self.saveItens(elem.dataset.ssid, self.password)
                     self.$modal.hide('wifi-settings')
+                    EventBus.enterLastElementDefinitions()
                   }
                 }
               }
