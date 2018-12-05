@@ -6,11 +6,8 @@ export const EventBus = new Vue({
     currentComponent: 'side-bar', // elemeto ativo por defeito é a barra lateral
     correntRightComponent: '',    // elemento ativo do lado direito
     currentActiveRightComp: 0,    // posição do array para o elemento ativo
-    currentActiveRightCompModal: 0,    // posição do array para o elemento ativo
     firstRightEvent: true,        // validação se é a primeira vez que foi precionado a tecla para a direita para entrar na view
-    firstRightEventModal: true,        // validação se é a primeira vez que foi precionado a tecla para a direita para entrar na modal
     elementControl: [],           // Array com os elemento pertencentes a uma class especifica
-    elementControlModal: [],           // Array com os elemento perencentes a uma class especifica
     currentLanguage: 'pt',
     flgStartRotation: false,
     flg_sound: true,
@@ -29,90 +26,98 @@ export const EventBus = new Vue({
     notifications: false,
     warnings: false,
     wifi: false,
-    notificationList: []     // lista de todas as notificações
+    notificationList: [],     // lista de todas as notificações
+    listHistoryElements: [],
+    historyElements: ['views']
   },
   methods: {
     cmd(cmd) {
-      EventBus.$emit('key-help', cmd)
-      if (EventBus.cmdRestritions()) {
-        if (EventBus.notifications) {
+      this.$emit('key-help', cmd)
+      if (this.cmdRestritions()) {
+        if (this.notifications) {
           if ((cmd === 'ok_btn' || cmd === 'exit')) {
             this.$socket.emit('sendConfirmation', '')
-            EventBus.notifications = false
+            this.notifications = false
             this.$marqueemsg.hide()
           }
         }
-        if (EventBus.settings) {
-          EventBus.$emit('move-components-modal', cmd)
-          if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ ((cmd === 'settings' || cmd === 'exit') && !EventBus.examEmExec)) {
-            console.log('app settings')
-            if (EventBus.settings) {
-              EventBus.settings = false
-              this.$modal.hide('settings')
-            } else {
-              EventBus.settings = true
-              this.$modal.show('settings')
+        switch (this.historyElements[this.historyElements.length - 1]) {
+          case 'settings':
+            if (this.settings) {
+              this.$emit('move-components-modal', cmd)
+              if (((/* cmd === 'settings' || */ cmd === 'exit') && !this.examEmExec)) {
+                // console.log('app settings')
+                if (this.settings) {
+                  this.settings = false
+                  this.$modal.hide('settings')
+                  this.enterLastElementDefitions()
+                } /* else {
+                  this.settings = true
+                  this.enterNewElementDefitions('settings')
+                  this.$modal.show('settings')
+                } */
+              }
             }
-          }
-        }
-        if (EventBus.wifi) {
-          EventBus.$emit('move-components-wifi-modal', cmd)
-          if (cmd === 'exit' && !EventBus.examEmExec) {
-            EventBus.wifi = false
-            this.$modal.hide('wifi-settings')
-          }
+            break;
+          case 'wifi-settings':
+            if (this.wifi) {
+              this.$emit('move-components-wifi-modal', cmd)
+              if (cmd === 'exit' && !this.examEmExec) {
+                this.wifi = false
+                this.$modal.hide('wifi-settings')
+                this.enterLastElementDefitions()
+              }
+            }
+            break;
+          default:
+            break;
         }
       } else {
         switch (cmd) {
           case 'up':
-            if (EventBus.currentComponent === EventBus.sidebarName) {
-              EventBus.$emit('move-sidebar', -1)
+            if (this.currentComponent === this.sidebarName) {
+              this.$emit('move-sidebar', -1)
             } else {
-              if (EventBus.currentComponent !== EventBus.sidebarName) {
-                EventBus.$emit('move-components', cmd)
+              if (this.currentComponent !== this.sidebarName) {
+                this.$emit('move-components', cmd)
               }
             }
             break;
           case 'down':
-            if (EventBus.currentComponent === EventBus.sidebarName) {
-              EventBus.$emit('move-sidebar', 1)
+            if (this.currentComponent === this.sidebarName) {
+              this.$emit('move-sidebar', 1)
             } else {
-              if (EventBus.currentComponent !== EventBus.sidebarName) {
-                EventBus.$emit('move-components', cmd)
+              if (this.currentComponent !== this.sidebarName) {
+                this.$emit('move-components', cmd)
               }
             }
             break;
           case 'right':
-            EventBus.currentComponent = EventBus.correntRightComponent
-            EventBus.$emit('move-components', cmd)
+            this.currentComponent = this.correntRightComponent
+            this.$emit('move-components', cmd)
             break;
           case 'left':
           case 'exit':
-            if (EventBus.currentComponent !== EventBus.sidebarName) {
-              EventBus.$emit('move-components', cmd)
-            }
-            if (/* (cmd === 'settings' && !EventBus.examEmExec) || */ (cmd === 'exit' && !EventBus.examEmExec)) {
-              if (EventBus.settings) {
-                EventBus.settings = false
-                this.$modal.hide('settings')
-              }
+            if (this.currentComponent !== this.sidebarName) {
+              this.$emit('move-components', cmd)
             }
             break;
           case 'ok_btn':
-            if (EventBus.currentComponent === EventBus.sidebarName) {
-              EventBus.$emit('move-sidebar', cmd)
+            if (this.currentComponent === this.sidebarName) {
+              this.$emit('move-sidebar', cmd)
             } else {
-              EventBus.$emit('move-components', cmd)
+              this.$emit('move-components', cmd)
             }
             break;
           case 'settings':
-            if (!EventBus.examEmExec) {
-              if (EventBus.settings) {
-                EventBus.settings = false
-                this.$modal.hide('settings')
-              } else {
-                EventBus.settings = true
+            if (!this.examEmExec) {
+              if (!this.settings) {
+                this.enterNewElementDefitions('settings')
+                this.settings = true
                 this.$modal.show('settings')
+                setTimeout(() => {
+                  this.$emit('move-components-modal', 'down')
+                }, 100);
               }
             }
             break;
@@ -122,13 +127,13 @@ export const EventBus = new Vue({
       }
     },
     cmdRestritions() {
-      if (EventBus.notifications) {
+      if (this.notifications) {
         return true
       }
-      if (EventBus.settings) {
+      if (this.settings) {
         return true
       }
-      if (EventBus.wifi) {
+      if (this.wifi) {
         return true
       }
     },
@@ -255,14 +260,14 @@ export const EventBus = new Vue({
         }
       }, 1);
     },
-    moveLeftRightInView: function(cmd) {
+    moveLeftRightInElemts: function(cmd, classInUse) {
       // primeira vez que se entra nesta view
       if (this.firstRightEvent) {
         cmd = 0
         this.firstRightEvent = false
       }
       // remove a class que sinboliza o elemento ativo
-      this.elementControl[this.currentActiveRightComp].classList.remove('btn-fill')
+      this.elementControl[this.currentActiveRightComp].classList.remove(classInUse)
       this.elementControl[this.currentActiveRightComp].blur()
       // Actualiza a variavel de controlo do elemento activo
       this.currentActiveRightComp += cmd
@@ -278,34 +283,30 @@ export const EventBus = new Vue({
       // ativa o novo elemento adiconando a class que simboliza o elemento activo
       let elem = this.elementControl[this.currentActiveRightComp]
       elem.focus()
-      elem.classList.add('btn-fill')
+      elem.classList.add(classInUse)
       this.scrollScreen(elem)
     },
-    moveLeftRightInModal: function(cmd) {
-      // primeira vez que se entra nesta view
-      if (this.firstRightEventModal) {
-        cmd = 0
-        this.firstRightEventModal = false
+    enterNewElementDefitions: function(element) {
+      let oldElement = this.historyElements[this.historyElements.length - 1]
+      this.historyElements.push(element)
+      // console.log("ListHistory add", this.historyElements, element, this.historyElements[this.historyElements.length - 1])
+      this.listHistoryElements[oldElement] = {
+        firstRightEvent: this.firstRightEvent,
+        elementControl: this.elementControl,
+        currentActiveRightComp: this.currentActiveRightComp
       }
-      // remove a class que sinboliza o elemento ativo
-      this.elementControlModal[this.currentActiveRightCompModal].classList.remove('btn-fill')
-      this.elementControlModal[this.currentActiveRightCompModal].blur()
-      // Actualiza a variavel de controlo do elemento activo
-      this.currentActiveRightCompModal += cmd
-      // verifica se chegou ao fim do array se sim volta ao principio
-      if (this.currentActiveRightCompModal >= this.elementControlModal.length) {
-        this.currentActiveRightCompModal = 0
-      }
-      // verifica se estou na posição '0' e se foi carregado para a esquerda
-      // se sim é ir para o fim da lista dos componentes ativos.
-      if (this.currentActiveRightCompModal <= -1) {
-        this.currentActiveRightCompModal = this.elementControlModal.length - 1
-      }
-      // ativa o novo elemento adiconando a class que simboliza o elemento activo
-      let elem = this.elementControlModal[this.currentActiveRightCompModal]
-      elem.focus()
-      elem.classList.add('btn-fill')
-      this.scrollScreen(elem)
+
+      this.firstRightEvent = true
+      this.elementControl = []
+      this.currentActiveRightComp = 0
+    },
+    enterLastElementDefitions: function() {
+      this.historyElements.pop()
+      // console.log("ListHistory remove", this.historyElements)
+      let lastElement = this.historyElements[this.historyElements.length - 1]
+      this.firstRightEvent = this.listHistoryElements[lastElement].firstRightEvent
+      this.elementControl = this.listHistoryElements[lastElement].elementControl
+      this.currentActiveRightComp = this.listHistoryElements[lastElement].currentActiveRightComp
     },
     setSidebar() {
       // atribui para que passe a ser novamento a primenra vez que entra nesta view
@@ -316,6 +317,12 @@ export const EventBus = new Vue({
       this.currentComponent = this.sidebarName
       // limpa lista dos elementos pertencentes à class
       this.elementControl = []
+      // linpa as variaveis guardas devido à alteração da sidebar
+      this.listHistoryElements['views'] = {
+        firstRightEvent: this.firstRightEvent,
+        elementControl: this.elementControl,
+        currentActiveRightComp: this.currentActiveRightComp
+      }
       return true
     },
     dateFormat(data) {
@@ -333,7 +340,7 @@ export const EventBus = new Vue({
       )
     },
     smallDateFormat(data) {
-      console.log(data)
+      // console.log(data)
       let date = new Date(data)
       return (
         date.getFullYear() /* .toString().substr(2, 2) */ + '/' +

@@ -2,7 +2,7 @@ import MarqueeMsg from './MarqueeMsg.vue'
 
 var MarqueeMsgPlugin = {
   install(Vue) {
-    console.log("Teste")
+    // console.log("Teste")
 
     this.event = new Vue()
 

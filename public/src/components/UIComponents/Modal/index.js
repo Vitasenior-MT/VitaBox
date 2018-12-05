@@ -41,7 +41,7 @@ const Plugin = {
      * Sets custom component name (if provided)
      */
     const componentName = options.componentName || defaultComponentName
-    console.log('componentName:', componentName)
+    // console.log('componentName:', componentName)
     Vue.component(componentName, Modal)
     Vue.component('v-alert', Alert)
     Vue.component('v-procedure', Procedure)

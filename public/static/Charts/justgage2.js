@@ -5,7 +5,7 @@
  * @author Bojan Djuricic (@Toorshia)
  **/
 
-JustGage2 = function(config) {
+JustGage2 = function (config) {
 
   var obj = this;
 
@@ -119,7 +119,7 @@ JustGage2 = function(config) {
 
     //gaugewWidthScale2 : float
     //width of inactive sections
-    gaugeWidthScale2: kvLookup('gaugeWidthScale2',config,dataset,0.2),
+    gaugeWidthScale2: kvLookup('gaugeWidthScale2', config, dataset, 0.2),
 
     // gaugeColor : string
     // background color of gauge element
@@ -272,32 +272,32 @@ JustGage2 = function(config) {
   if (obj.config.value < obj.config.min) obj.config.value = obj.config.min;
   obj.originalValue = kvLookup('value', config, dataset, -1, 'float');
 
-    //adjust custom sectors if not defined to cover full range
-    var sector_low = obj.config.max + 100;
-    var sector_high =  obj.config.min -100;
-    var loindex;
-    var hiindex;
-    //find the lowest and highest values and the sectors they belong to
-    obj.config.customSectors.forEach(function(elem,index,arr){
-        if(elem.lo < sector_low) {
-            sector_low = elem.lo;
-            loindex = index;
-        }
-        if(elem.hi > sector_high){
-            sector_high = elem.hi;
-            hiindex = index;
-        }
-    });
-    //assign the minimum range to the lowest defined custom sector
-    if (sector_low !== obj.config.min){
-        elem = obj.config.customSectors[loindex];
-        elem.lo = obj.config.min;
+  //adjust custom sectors if not defined to cover full range
+  var sector_low = obj.config.max + 100;
+  var sector_high = obj.config.min - 100;
+  var loindex;
+  var hiindex;
+  //find the lowest and highest values and the sectors they belong to
+  obj.config.customSectors.forEach(function (elem, index, arr) {
+    if (elem.lo < sector_low) {
+      sector_low = elem.lo;
+      loindex = index;
     }
-    //assign the max range to the highest defined custom sector
-    if (sector_high !== obj.config.max){
-        elem = obj.config.customSectors[hiindex];
-        elem.hi = obj.config.max;
+    if (elem.hi > sector_high) {
+      sector_high = elem.hi;
+      hiindex = index;
     }
+  });
+  //assign the minimum range to the lowest defined custom sector
+  if (sector_low !== obj.config.min) {
+    elem = obj.config.customSectors[loindex];
+    elem.lo = obj.config.min;
+  }
+  //assign the max range to the highest defined custom sector
+  if (sector_high !== obj.config.max) {
+    elem = obj.config.customSectors[hiindex];
+    elem.hi = obj.config.max;
+  }
 
   // create canvas
   if (obj.config.id !== null && (document.getElementById(obj.config.id)) !== null) {
@@ -476,14 +476,14 @@ JustGage2 = function(config) {
   canvasW, canvasH, widgetW, widgetH, aspect, dx, dy, titleFontSize, titleX, titleY, valueFontSize, valueX, valueY, labelFontSize, labelX, labelY, minFontSize, minX, minY, maxFontSize, maxX, maxY = null;
 
   // pki - custom attribute for generating gauge paths
-  obj.canvas.customAttributes.pki = function(lo,value, min, max, w, h, dx, dy, gws, donut, reverse) {
+  obj.canvas.customAttributes.pki = function (lo, value, min, max, w, h, dx, dy, gws, donut, reverse) {
 
     var alpha, theta, Ro, Ri, Cx, Cy, Xo, Yo, Xi, Yi, path;
 
     if (donut) {
       alpha = (1 - 2 * (value - min) / (max - min)) * Math.PI;
       theta = (1 - 2 * (lo - min) / (max - min)) * Math.PI;
-      Ro = (gws === obj.config.gaugeWidthScale) ? (w / 2 - w / 7) : (w/2 - w/5);
+      Ro = (gws === obj.config.gaugeWidthScale) ? (w / 2 - w / 7) : (w / 2 - w / 5);
       Ri = Ro - w / 6.666666666666667 * gws;
       Cx = w / 2 + dx;
       Cy = h / 1.95 + dy;
@@ -508,7 +508,7 @@ JustGage2 = function(config) {
       if (value > ((max - min) / 2)) {
         path += "A" + Ri + "," + Ri + " 0 0 0 " + (Xli) + "," + Yli + " ";
       }
-      path += "A" + Ri + "," + Ri + " 0 0 0 " + (Xli) + "," + Yli +" ";
+      path += "A" + Ri + "," + Ri + " 0 0 0 " + (Xli) + "," + Yli + " ";
       path += "Z ";
 
       return {
@@ -518,7 +518,7 @@ JustGage2 = function(config) {
     } else {
       alpha = (1 - (value - min) / (max - min)) * Math.PI;
       theta = (1 - (lo - min) / (max - min)) * Math.PI;
-      Ro = (gws === obj.config.gaugeWidthScale) ? (w / 2 - w / 10) : (w/2 - w/6.25);
+      Ro = (gws === obj.config.gaugeWidthScale) ? (w / 2 - w / 10) : (w / 2 - w / 6.25);
       Ri = Ro - w / 6.666666666666667 * gws;
 
       Cx = w / 2 + dx;
@@ -535,7 +535,7 @@ JustGage2 = function(config) {
       Yi = h - (h - Cy) - Ri * Math.sin(alpha);
 
       path = "M" + Xli + "," + Yli + " ";
-      path += "L" + Xlo + "," +Ylo +" ";
+      path += "L" + Xlo + "," + Ylo + " ";
       path += "A" + Ro + "," + Ro + " 0 0 1 " + Xo + "," + Yo + " ";
       path += "L" + Xi + "," + Yi + " ";
       path += "A" + Ri + "," + Ri + " 0 0 0 " + Xli + "," + Yli + " ";
@@ -551,7 +551,7 @@ JustGage2 = function(config) {
   };
 
   // ndl - custom attribute for generating needle path
-  obj.canvas.customAttributes.ndl = function(value, min, max, w, h, dx, dy, gws, donut) {
+  obj.canvas.customAttributes.ndl = function (value, min, max, w, h, dx, dy, gws, donut) {
 
     var dlt = w * 3.5 / 100;
     var dlb = w / 15;
@@ -636,36 +636,36 @@ JustGage2 = function(config) {
 
   //sectors
   var sectors = Array();
-  obj.config.customSectors.forEach(function(elem,index,arr){
-        var s = "sector"+index;
-        var sws = (obj.config.value >= elem.lo && obj.config.value <= elem.hi) ? obj.config.gaugeWidthScale : obj.config.gaugeWidthScale2; //sector width
-        var mx = obj.config.max;
-        var mn = obj.config.min;
-        var lo = elem.lo;
-        var hi = elem.hi
-        if (obj.config.reverse){
-            lo = mx + mn - elem.hi;
-            hi = mx + mn - elem.lo;
-        }
-        sectors.push(s);
-        obj[s] = obj.canvas.path().attr({
-            "stroke": "none",
-            "fill": elem.color,
-            pki:[
-                lo,
-                hi,
-                mn,
-                mx,
-                obj.params.widgetW,
-                obj.params.widgetH,
-                obj.params.dx,
-                obj.params.dy,
-                sws,
-                obj.config.donut,
-                obj.config.reverse
-            ]
-        })
-    });
+  obj.config.customSectors.forEach(function (elem, index, arr) {
+    var s = "sector" + index;
+    var sws = (obj.config.value >= elem.lo && obj.config.value <= elem.hi) ? obj.config.gaugeWidthScale : obj.config.gaugeWidthScale2; //sector width
+    var mx = obj.config.max;
+    var mn = obj.config.min;
+    var lo = elem.lo;
+    var hi = elem.hi
+    if (obj.config.reverse) {
+      lo = mx + mn - elem.hi;
+      hi = mx + mn - elem.lo;
+    }
+    sectors.push(s);
+    obj[s] = obj.canvas.path().attr({
+      "stroke": "none",
+      "fill": elem.color,
+      pki: [
+        lo,
+        hi,
+        mn,
+        mx,
+        obj.params.widgetW,
+        obj.params.widgetH,
+        obj.params.dx,
+        obj.params.dy,
+        sws,
+        obj.config.donut,
+        obj.config.reverse
+      ]
+    })
+  });
   /*
   // gauge
   obj.gauge = obj.canvas.path().attr({
@@ -704,10 +704,10 @@ JustGage2 = function(config) {
       ]
     });
     */
-    //rotate to starting angle
+  //rotate to starting angle
   if (obj.config.donut) {
-    sectors.forEach(function(elem, index, arr){
-        obj[sectors[index]].transform("r" + obj.config.donutStartAngle + ", " + (obj.params.widgetW / 2 + obj.params.dx) + ", " + (obj.params.widgetH / 1.95 + obj.params.dy));
+    sectors.forEach(function (elem, index, arr) {
+      obj[sectors[index]].transform("r" + obj.config.donutStartAngle + ", " + (obj.params.widgetW / 2 + obj.params.dx) + ", " + (obj.params.widgetH / 1.95 + obj.params.dy));
     });
     //obj.level.transform("r" + obj.config.donutStartAngle + ", " + (obj.params.widgetW / 2 + obj.params.dx) + ", " + (obj.params.widgetH / 1.95 + obj.params.dy));
   }
@@ -776,14 +776,14 @@ JustGage2 = function(config) {
   if (obj.config.reverse) {
     min = obj.config.max;
   }
-var minMaxAttrs = {
+  var minMaxAttrs = {
     "font-size": obj.params.minFontSize,
     "font-weight": "normal",
     "font-family": "Arial",
     "fill": obj.config.labelFontColor,
     "fill-opacity": (obj.config.hideMinMax || obj.config.donut) ? "0" : "1"
-}
-  obj.txtMinimum = getFormattedNum(min,obj);
+  }
+  obj.txtMinimum = getFormattedNum(min, obj);
   obj.txtMin = obj.canvas.text(obj.params.minX, obj.params.minY, obj.txtMinimum);
   obj.txtMin.attr(minMaxAttrs);
   setDy(obj.txtMin, obj.params.minFontSize, obj.params.minY);
@@ -793,45 +793,48 @@ var minMaxAttrs = {
   if (obj.config.reverse) {
     max = obj.config.min;
   }
-  obj.txtMaximum = getFormattedNum(max,obj);
+  obj.txtMaximum = getFormattedNum(max, obj);
   obj.txtMax = obj.canvas.text(obj.params.maxX, obj.params.maxY, obj.txtMaximum);
   obj.txtMax.attr(minMaxAttrs);
   setDy(obj.txtMax, obj.params.maxFontSize, obj.params.maxY);
 
-obj.config.customSectors.forEach(function(elem, index, arr){
-    var lo = getFormattedNum(elem.lo,obj);
-    var hi = getFormattedNum(elem.hi,obj);
+  obj.config.customSectors.forEach(function (elem, index, arr) {
+    var lo = getFormattedNum(elem.lo, obj);
+    var hi = getFormattedNum(elem.hi, obj);
     var mx = obj.config.max;
     var mn = obj.config.min;
     var val = obj.config.value;
     if (obj.config.reverse) val = mx + mn - val;
-    var gws = (val >=lo && val <= hi) ? obj.config.gaugeWidthScale : obj.config.gaugeWidthScale2;
+    var gws = (val >= lo && val <= hi) ? obj.config.gaugeWidthScale : obj.config.gaugeWidthScale2;
     var dx = obj.params.dx;
     var dy = obj.params.dy;
-    var name = 'txtSector'+index;
+    var name = 'txtSector' + index;
     var w = obj.params.widgetW;
     var h = obj.params.widgetH;
     if (lo > mn) {
-        theta = (1 - (lo - mn) / (mx - mn)) * Math.PI;
+      theta = (1 - (lo - mn) / (mx - mn)) * Math.PI;
 
-        Ro = (val >=lo && val <= hi) ? (w / 2 - w / 10) : (w/2 - w/6.25);
-        Ri = (Ro - w / 6.666666666666667 * gws)*.80;
+      // Ro = (val >= lo && val <= hi) ? (w / 2 - w / 10) : (w / 2 - w / 6.25);
+      // Ri = (Ro - w / 6.666666666666667 * gws) * .80;
 
-        Cx = w / 2 + dx;
-        Cy = h / 1.25 + dy;
+      Ro = (val >= lo && val <= hi) ? (w / 2 - w / 10) : (w / 2 - w / 7.50);
+      Ri = (Ro - w / 6.666666666666667 * gws) * 1.95;
 
-        Xlo = w / 2 + dx + Ro * Math.cos(theta);
-        Ylo = h - (h - Cy) - Ro * Math.sin(theta);
-        Xli = w / 2 + dx + Ri * Math.cos(theta);
-        Yli = h - (h - Cy) - Ri * Math.sin(theta);
-        //Xc = (val >=lo && val <= hi) ? Xlo : Xli;
-        //Yc = (val >=lo && val <= hi) ? Ylo : Yli;
-       obj[name] = obj.canvas.text(Xli, Yli, lo);
-       obj[name].attr(minMaxAttrs);
-       setDy(obj[name],obj.params.maxFontSize, Yli+5);
+      Cx = w / 2 + dx;
+      Cy = h / 1.25 + dy;
+
+      Xlo = w / 2 + dx + Ro * Math.cos(theta);
+      Ylo = h - (h - Cy) - Ro * Math.sin(theta);
+      Xli = w / 2 + dx + Ri * Math.cos(theta);
+      Yli = h - (h - Cy) - Ri * Math.sin(theta);
+      //Xc = (val >=lo && val <= hi) ? Xlo : Xli;
+      //Yc = (val >=lo && val <= hi) ? Ylo : Yli;
+      obj[name] = obj.canvas.text(Xli, Yli, lo);
+      obj[name].attr(minMaxAttrs);
+      setDy(obj[name], obj.params.maxFontSize, Yli + 5);
     }
-    lo,hi,mx,mn,val,gws,dx,dy,name,w,h = null;
-});
+    lo, hi, mx, mn, val, gws, dx, dy, name, w, h = null;
+  });
 
   var defs = obj.canvas.canvas.childNodes[1];
   var svg = "http://www.w3.org/2000/svg";
@@ -839,7 +842,7 @@ obj.config.customSectors.forEach(function(elem, index, arr){
   if (ie !== 'undefined' && ie < 9) {
     // VML mode - no SVG & SVG filter support
   } else if (ie !== 'undefined') {
-    onCreateElementNsReady(function() {
+    onCreateElementNsReady(function () {
       obj.generateShadow(svg, defs);
     });
   } else {
@@ -861,10 +864,10 @@ obj.config.customSectors.forEach(function(elem, index, arr){
   }
 
 
-      obj.txtValue.attr({
-        "text": obj.originalValue
-      });
-      setDy(obj.txtValue, obj.params.valueFontSize, obj.params.valueY);
+  obj.txtValue.attr({
+    "text": obj.originalValue
+  });
+  setDy(obj.txtValue, obj.params.valueFontSize, obj.params.valueY);
 
 
 
@@ -873,21 +876,21 @@ obj.config.customSectors.forEach(function(elem, index, arr){
   if (obj.config.reverse) {
     rvl = (obj.config.max * 1) + (obj.config.min * 1) - (obj.config.value * 1);
   }
-/*  obj.level.animate({
-    pki: [
-      rvl,
-      obj.config.min,
-      obj.config.max,
-      obj.params.widgetW,
-      obj.params.widgetH,
-      obj.params.dx,
-      obj.params.dy,
-      obj.config.gaugeWidthScale,
-      obj.config.donut,
-      obj.config.reverse
-    ]
-  }, obj.config.startAnimationTime, obj.config.startAnimationType);
-*/
+  /*  obj.level.animate({
+      pki: [
+        rvl,
+        obj.config.min,
+        obj.config.max,
+        obj.params.widgetW,
+        obj.params.widgetH,
+        obj.params.dx,
+        obj.params.dy,
+        obj.config.gaugeWidthScale,
+        obj.config.donut,
+        obj.config.reverse
+      ]
+    }, obj.config.startAnimationTime, obj.config.startAnimationType);
+  */
   if (obj.config.pointer) {
     obj.needle.animate({
       ndl: [
@@ -913,7 +916,7 @@ obj.config.customSectors.forEach(function(elem, index, arr){
 };
 
 /** Refresh gauge level */
-JustGage2.prototype.refresh = function(val, max) {
+JustGage2.prototype.refresh = function (val, max) {
   var obj = this;
   var displayVal, color, max = max || null;
 
@@ -973,28 +976,28 @@ JustGage2.prototype.refresh = function(val, max) {
   if (obj.config.reverse) {
     rvl = (obj.config.max * 1) + (obj.config.min * 1) - (obj.config.value * 1);
   }
-    obj.config.customSectors.forEach(function(elem,index,arr){
-        var s = "sector"+index;
-        var sws = (obj.config.value >= elem.lo && obj.config.value <= elem.hi) ? obj.config.gaugeWidthScale : obj.config.gaugeWidthScale2;
-        var mx = obj.config.max;
-        var mn = obj.config.min;
-        obj[s].animate({
-            pki:[
-                elem.lo,
-                elem.hi,
-                mn,
-                mx,
-                obj.params.widgetW,
-                obj.params.widgetH,
-                obj.params.dx,
-                obj.params.dy,
-                sws,
-                obj.config.donut,
-                obj.config.reverse
-        ],
-        "fill": elem.color
-        },obj.config.refreshAnimationTime, obj.config.refreshAnimationType );
-    });
+  obj.config.customSectors.forEach(function (elem, index, arr) {
+    var s = "sector" + index;
+    var sws = (obj.config.value >= elem.lo && obj.config.value <= elem.hi) ? obj.config.gaugeWidthScale : obj.config.gaugeWidthScale2;
+    var mx = obj.config.max;
+    var mn = obj.config.min;
+    obj[s].animate({
+      pki: [
+        elem.lo,
+        elem.hi,
+        mn,
+        mx,
+        obj.params.widgetW,
+        obj.params.widgetH,
+        obj.params.dx,
+        obj.params.dy,
+        sws,
+        obj.config.donut,
+        obj.config.reverse
+      ],
+      "fill": elem.color
+    }, obj.config.refreshAnimationTime, obj.config.refreshAnimationType);
+  });
 
   if (obj.config.pointer) {
     obj.needle.animate({
@@ -1017,7 +1020,7 @@ JustGage2.prototype.refresh = function(val, max) {
 };
 
 /** Generate shadow */
-JustGage2.prototype.generateShadow = function(svg, defs) {
+JustGage2.prototype.generateShadow = function (svg, defs) {
 
   var obj = this;
   var sid = "inner-shadow-" + obj.config.id;
@@ -1209,7 +1212,7 @@ function humanFriendlyNumber(n, d) {
   while (i) {
     s = p(10, i-- * 3);
     if (s <= n) {
-      n = Math.round(n * d2 / s) / d2 + "KMGTPE" [i];
+      n = Math.round(n * d2 / s) / d2 + "KMGTPE"[i];
     }
   }
   return n;
@@ -1228,7 +1231,7 @@ function getStyle(oElm, strCssRule) {
   if (document.defaultView && document.defaultView.getComputedStyle) {
     strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
   } else if (oElm.currentStyle) {
-    strCssRule = strCssRule.replace(/\-(\w)/g, function(strMatch, p1) {
+    strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1) {
       return p1.toUpperCase();
     });
     strValue = oElm.currentStyle[strCssRule];
@@ -1241,7 +1244,7 @@ function onCreateElementNsReady(func) {
   if (document.createElementNS !== undefined) {
     func();
   } else {
-    setTimeout(function() {
+    setTimeout(function () {
       onCreateElementNsReady(func);
     }, 100);
   }
@@ -1264,7 +1267,7 @@ function onCreateElementNsReady(func) {
 // ie < 9 // Anything less than IE9
 // ----------------------------------------------------------
 // UPDATE: Now using Live NodeList idea from @jdalton
-var ie = (function() {
+var ie = (function () {
 
   var undef,
     v = 3,
@@ -1295,11 +1298,11 @@ function extend(out) {
   return out;
 };
 
-function getFormattedNum(val,obj){
-    if (obj.config.humanFriendly) {
-        return humanFriendlyNumber(val, obj.config.humanFriendlyDecimal);
-    } else if (obj.config.formatNumber) {
-        return formatNumber(val);
-    }
-return val;
+function getFormattedNum(val, obj) {
+  if (obj.config.humanFriendly) {
+    return humanFriendlyNumber(val, obj.config.humanFriendlyDecimal);
+  } else if (obj.config.formatNumber) {
+    return formatNumber(val);
+  }
+  return val;
 }

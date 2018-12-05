@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class='col-sm-12 container-data-sensors'>
-      <div class='col-sm-4' v-for='warningCard in warningCards' :key='warningCard.id'>
+    <div class='col-lg-12 container-data-sensors'>
+      <div class='col-lg-3 col-ajust' v-for='warningCard in warningCards' :key='warningCard.id'>
         <card-warning :key="warningCard.id" :warningCard="warningCard"
         :data-avg="warningCard.avg"
         :data-sensortype="warningCard.measure + ' (' + warningCard.unit + ')'"
@@ -125,7 +125,7 @@ export default {
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
-            console.log("'Ok btn")
+            // console.log("'Ok btn")
             EventBus.elementControl[EventBus.currentActiveRightComp].click()
             break
             // evento para sair para a sidebar
@@ -142,7 +142,7 @@ export default {
             EventBus.scrollScreen(EventBus.elementControl[EventBus.currentActiveRightComp])
             // define o elemento ativo coomo sendo a barra lateral
             EventBus.currentComponent = EventBus.sidebarName
-            console.log('if exit', cmd, EventBus.currentActiveRightComp)
+            // console.log('if exit', cmd, EventBus.currentActiveRightComp)
             break
           case 'up':
             try {
@@ -191,14 +191,14 @@ export default {
             }
             break
           case 'right': // tecla para a direita
-            EventBus.moveLeftRightInView(1)
+            EventBus.moveLeftRightInElemts(1, 'btn-fill')
             self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             break
           case 'left': // tecla para a esquerda
             if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
               return EventBus.$emit('move-components', 'exit')
             }
-            EventBus.moveLeftRightInView(-1)
+            EventBus.moveLeftRightInElemts(-1, 'btn-fill')
             self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             break
           default:

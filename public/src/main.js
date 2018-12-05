@@ -81,14 +81,6 @@ export const app = new Vue({
   beforeCreate() {
   },
   sockets: {
-    connectionsList(list) {
-      EventBus.warnings = false
-      EventBus.settings = false
-      EventBus.wifi = true
-      EventBus.notifications = false
-      this.$modal.hide('settings')
-      this.$modal.show('wifi-settings', list)
-    },
     ttsPath(path) {
       var self = this
       if (document.getElementById('audioElem')) {
@@ -128,11 +120,13 @@ export const app = new Vue({
       if (EventBus.notificationList.length === 5) {
         EventBus.notificationList.shift()
       }
-      EventBus.notificationList.push({
-        type: data.type,
-        message: data.msg,
-        date: EventBus.dateFormat(new Date())
-      })
+      if (data.msg) {
+        EventBus.notificationList.push({
+          type: data.type,
+          message: data.msg,
+          date: EventBus.dateFormat(new Date())
+        })
+      }
       if (!data.alert && !EventBus.examEmExec) {
         EventBus.$emit('changeTab', '/vitabox/bemvindo')
         EventBus.notifications = true
@@ -151,6 +145,10 @@ export const app = new Vue({
         clearTimeout(this.timeout)
         this.$modal.hide('alert')
         this.$modal.hide('procedure')
+      }
+      if (type === 'notification') {
+        EventBus.removeAudio('off')
+        EventBus.notifications = false
       }
     },
     blocked: function() {

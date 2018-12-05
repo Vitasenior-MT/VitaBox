@@ -39,21 +39,24 @@
                     :height="40"/>
                 </div>
               </div>
+
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="col-md-3">
-                <h3> {{ $t('modal.settings.wifi.title') }}</h3>
-              </div>
-              <div class="col-md-9 control-modal" :data-itempos="items.length">
-                <button class="btn btn-round btn-info changed-font" v-on:click="open()">{{$t('modal.settings.wifi.open')}}</button>
+          <!-- <div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-3">
+                  <h3> {{ $t('modal.settings.wifi.title') }}</h3>
+                </div>
+                <div class="col-md-9 control-modal">
+                  <button class="btn btn-round btn-info changed-font" v-on:click="open()">{{$t('modal.settings.wifi.open')}}</button>
+                </div>
               </div>
             </div>
-            </div>
+          </div> -->
           <div>
             <h4>{{$t('modal.settings.exit.0')}} <br> {{$t('modal.settings.exit.1')}}</h4>
-          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -103,6 +106,14 @@ export default {
           labels: {checked: this.$t('modal.settings.language.checked'), unchecked: this.$t('modal.settings.language.unchecked')},
           color: {checked: '#f7931d', unchecked: '#f05a28'},
           values: ['pt', 'en']
+        },
+        {
+          title: this.$t('modal.settings.wifi.title'),
+          type: 'wifi',
+          default: true,
+          labels: {checked: this.$t('modal.settings.wifi.open'), unchecked: ''},
+          color: {checked: '#f7931d', unchecked: '#f05a28'},
+          values: ['Open', '']
         }
       ],
       params: {},
@@ -153,9 +164,9 @@ export default {
       })
   },
   methods: {
-    open() {
-      this.$socket.emit('openWIFI', '')
-    },
+    // open() {
+    //   this.$socket.emit('openWIFI', '')
+    // },
     updateItem(toggle, type, i) {
       switch (type.type) {
         case 'mode':
@@ -171,6 +182,18 @@ export default {
           EventBus.currentLanguage = toggle ? type.values[0] : type.values[1]
           this.$store.dispatch('setLangNew', EventBus.currentLanguage)
           this.items[i].default = toggle
+          break
+        case 'wifi':
+          if (toggle === false) {
+            this.items[i].default = toggle
+            EventBus.enterNewElementDefitions('wifi-settings')
+            EventBus.wifi = true
+            this.$modal.show('wifi-settings')
+            this.$socket.emit('openWIFI', '')
+            setTimeout(() => {
+              this.items[i].default = !this.items[i].default
+            }, 1000);
+          }
           break
         default:
           break
@@ -197,20 +220,20 @@ export default {
        * TODO: Monitorização dos eventos do controlo remoto
        */
       EventBus.$on('move-components-modal', function(cmd) {
-        EventBus.elementControlModal = document.getElementsByClassName('control-modal')
-        console.log(EventBus.elementControlModal)
+        EventBus.elementControl = document.getElementsByClassName('control-modal')
+        // console.log(cmd, EventBus.elementControl)
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
             try {
-              let elem = EventBus.elementControlModal[EventBus.currentActiveRightCompModal].dataset
-              console.log('Teste btn - ', elem)
+              let elem = EventBus.elementControl[EventBus.currentActiveRightComp].dataset
+              // console.log('Teste btn - ', self.items[elem.itempos].default, self.items[elem.itempos], elem.itempos)
               // @change="updateItem($event.value, items[i], i)"
-              if (elem.itempos < self.items.length - 1) {
+              if (elem.itempos < self.items.length) {
                 self.updateItem(!self.items[elem.itempos].default, self.items[elem.itempos], elem.itempos)
-              } else {
+              } /* else {
                 self.open()
-              }
+              } */
             } catch (e) {
               console.log('error btn ok change.')
             }
@@ -221,17 +244,13 @@ export default {
             break
           case 'right': // tecla para a direita
           case 'left': // tecla para a esquerda
-            EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.remove('btn-shadow')
-            EventBus.moveLeftRightInModal(cmd === 'left' ? -1 : 1)
-            EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.add('btn-shadow')
-            EventBus.firstRightEventModal = false
+            EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-shadow')
+            EventBus.firstRightEvent = false
             break
           case 'up': // tecla para a cima
           case 'down': // tecla para a baixo
-            EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.remove('btn-shadow')
-            EventBus.moveLeftRightInModal(cmd === 'up' ? -1 : 1)
-            EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.add('btn-shadow')
-            EventBus.firstRightEventModal = false
+            EventBus.moveLeftRightInElemts(cmd === 'up' ? -1 : 1, 'btn-shadow')
+            EventBus.firstRightEvent = false
             break
           default:
             break
@@ -239,9 +258,8 @@ export default {
       })
     },
     beforeOpened(event) {
-      console.log('----------------------')
-      EventBus.firstRightEventModal = true
-      EventBus.currentActiveRightCompModal = 0
+      EventBus.firstRightEvent = true
+      EventBus.currentActiveRightComp = 0
       window.addEventListener('keyup', this.onKeyUp)
       this.params = event.params || {}
       this.$emit('before-opened', event)

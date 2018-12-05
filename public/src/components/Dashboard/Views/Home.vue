@@ -17,14 +17,10 @@
       <div class="row">
         <div class="col-lg-12">&nbsp;</div>
       </div>
-      <div class="col-lg-12 btn btn-round btn-fill clear-margin">
-        <div class="row dialog-content">
-          <p>{{ $t('dictionary.notifications') }}</p>
-          <div v-show="items.length <= 0" class="col-md-12">
-            <img src='static/img/logo_B.png' alt=''>
-          </div>
-        </div>
-        <div v-for="item in items.slice().reverse()" v-bind:key='item.key'>
+      <default-form v-if="items.length <= 0" ref="ViewNotifivacoes"></default-form>
+      <div v-if="items.length > 0" class="col-lg-12 btn btn-round btn-fill clear-margin">
+        <div class="col-md-12" v-for="item in items.slice().reverse()" v-bind:key='item.key'>
+          <!-- <card-notificatio-farmacy :objCard="item"></card-notificatio-farmacy> -->
           <div class="col-md-12 card-layout-in">
             <notification-card>
               <div class="numbers" slot="content">
@@ -60,35 +56,7 @@
             {{ $t('home.farmacy.2') }}{{localityToGet}}</h4>
         </div>
         <div class="col-md-12 col-ajust" v-for="farmacia in farmacias" :key='farmacia.id'>
-          <div class='card btn btn-info control-remote col-lg-12'>
-            <div class='content'>
-              <div class='row'>
-                <div class='col-lg-2'>
-                  <span>
-                    <img src="static/img/vitabox/farmacy.svg" width='40' height='40'>
-                  </span>
-                </div>
-                <div class='col-lg-10'>
-                  <div class='numbers'>
-                    {{ $t('home.farmacy.farmacy') }}
-                  </div>
-                  <b></b>
-                </div>
-              </div>
-              <div class='content text-left'>
-                <p v-for="(f, index) in farmacia" :key='f.id'>
-                  <span v-if="index === 0">
-                    <b>{{f}}</b>
-                  </span>
-                  <span v-else-if="f.toLowerCase().indexOf('tel.') !== -1" v-html="replaceString(f)">
-                  </span>
-                  <span v-else>
-                    {{f}}
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
+          <card-notificatio-farmacy :objCard="farmacia"></card-notificatio-farmacy>
         </div>
       </div>
     </div>
@@ -97,9 +65,11 @@
 <script>
 import { EventBus } from '../../../event-bus.js'
 import DefaultForm from 'components/UIComponents/Forms/defaultform.vue'
+import CardNotificatioFarmacy from 'components/UIComponents/Cards/CardNotifiFarmacy.vue'
 export default {
   components: {
-    DefaultForm
+    DefaultForm,
+    CardNotificatioFarmacy
   },
   data() {
     return {
@@ -131,17 +101,35 @@ export default {
     updateTime() {
       this.date = this.$t('dictionary.week.' + new Date().getDay()).toLowerCase().charAt(0).toUpperCase() + this.$t('dictionary.week.' + new Date().getDay()).toLowerCase().substring(1) + " " + EventBus.dateFormat(new Date())
     },
-    replaceString(str) {
-      return str.toLowerCase().replace('tel.', '<i class="fas fa-phone-square"></i> ')
-    },
     getFarmacy() {
       this.$http
       .get('/api/connectServer/getFarmaciasServico')
       .then(response => {
         if (response.data.status === true) {
-          this.farmacias = response.data.data.farmacias
+          let farmacyData = response.data.data.farmacias
           this.districtToGet = response.data.data.district
           this.localityToGet = response.data.data.locality
+
+          for (let farmacy in farmacyData) {
+            let farm = farmacyData[farmacy]
+            this.farmacias.push({
+              icon: '<img src="static/img/vitabox/farmacy.svg" width="40" height="40">',
+              titleCard: 'home.farmacy.farmacy',
+              content: (() => {
+                let txtHtml = ''
+                for (let index = 0; index < farm.length; index++) {
+                  if (index === 0) {
+                    txtHtml += '<b>' + farm[index] + '</b>'
+                  } else if (farm[index].toLowerCase().indexOf('tel.') !== -1) {
+                    txtHtml += '<br>' + farm[index].toLowerCase().replace('tel.', '<i class="fas fa-phone-square"></i> ')
+                  } else {
+                    txtHtml += '<br>' + farm[index]
+                  }
+                }
+                return txtHtml
+              })()
+            })
+          }
           this.farmaciasOk = true
         } else {
           this.$notifications.notify({
@@ -171,15 +159,24 @@ export default {
         // console.log(response.data.data)
         if (response.data.status === true) {
           this.tempoResult = response.data.data
-          document.getElementsByClassName("table-tempo")[0].innerHTML = this.tempoResult;
+          document.getElementsByClassName("table-tempo")[0].innerHTML = this.tempoResult.replace("PrecipitaÃ§Ã£o", "Precipitação");
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(0)
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(1)
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(1)
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].getElementsByTagName("tr")[0].deleteCell(2);
           document.getElementById("wsp_rowtable_wsp_rowtable_more_info_block").remove();
+          let elemetsToDel = document.getElementsByClassName("degreeF")
+          while (elemetsToDel[0]) {
+            elemetsToDel[0].parentNode.removeChild(elemetsToDel[0])
+          }
+          let elemetsToDel2 = document.getElementsByClassName("wind_speed_miles")
+          while (elemetsToDel2[0]) {
+            elemetsToDel2[0].parentNode.removeChild(elemetsToDel2[0])
+          }
+          document.getElementsByClassName("table-tempo")[0].children[0].children[0].children[0].children[1].children[0].children[1].remove()
         } else {
           this.$notifications.notify({
-            message: '<h4>Falha ao tentar adquirir o tempo atual concelho ' & response.data.data.district & ', do distrito ' & response.data.data.locality & '.</h4>',
+            message: '<h4>Falha ao tentar adquirir o tempo atual, concelho ' + response.data.data.district + ', do distrito ' + response.data.data.locality + '.</h4>',
             icon: 'ti-bell',
             horizontalAlign: 'right',
             verticalAlign: 'top',
@@ -212,7 +209,7 @@ export default {
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
-            console.log("'Ok btn")
+            // console.log("'Ok btn")
             EventBus.elementControl[EventBus.currentActiveRightComp].click()
             break
             // evento para sair para a sidebar
@@ -229,21 +226,21 @@ export default {
             EventBus.scrollScreen(EventBus.elementControl[EventBus.currentActiveRightComp])
             // define o elemento ativo coomo sendo a barra lateral
             EventBus.currentComponent = EventBus.sidebarName
-            console.log('if exit', cmd, EventBus.currentActiveRightComp)
+            // console.log('if exit', cmd, EventBus.currentActiveRightComp)
             break
           case 'up':
-            EventBus.moveLeftRightInView(-1)
+            EventBus.moveLeftRightInElemts(-1, 'btn-fill')
             break;
           case 'down':
           case 'right':
-            EventBus.moveLeftRightInView(1)
+            EventBus.moveLeftRightInElemts(1, 'btn-fill')
             // self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             break
           case 'left':
             if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
               return EventBus.$emit('move-components', 'exit')
             }
-            EventBus.moveLeftRightInView(-1)
+            EventBus.moveLeftRightInElemts(-1, 'btn-fill')
             // self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
             break
           default:
@@ -261,12 +258,19 @@ export default {
     })
   },
   mounted() {
+    if(this.$refs.ViewNotifivacoes){
+      this.$refs.ViewNotifivacoes.setMsg('dictionary.notifications')
+      this.$refs.ViewNotifivacoes.show()
+    }
   },
   created() {
     this.controlEventsBus()
     this.getFarmacy()
     this.getTempo()
+    console.log('DAta:')
+    console.log(EventBus.notificationList)
     this.items = EventBus.notificationList
+    console.log(this.items)
     this.timerID = setInterval(() => {
       this.updateTime()
     }, 1000)
@@ -297,5 +301,8 @@ export default {
 }
 .h-ajust {
   margin: 0px 0px 5px 0px !important;
+}
+.table-tempo table tbody tr td div {
+  font-size: 20px;
 }
 </style>

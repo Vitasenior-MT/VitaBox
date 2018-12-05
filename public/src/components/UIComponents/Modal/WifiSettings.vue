@@ -82,6 +82,11 @@ export default {
   },
   mounted() {
   },
+  sockets: {
+    connectionsList(list) {
+      this.params = list
+    }
+  },
   methods: {
     saveItens(ssid, psswd) {
       this.$socket.emit('connectWifi', { ssid: ssid, psswd: psswd })
@@ -95,45 +100,44 @@ export default {
        * TODO: Monitorização dos eventos do controlo remoto
        */
       EventBus.$on('move-components-wifi-modal', function(cmd) {
-        EventBus.elementControlModal = document.getElementsByClassName('control-modal')
-        switch (cmd) {
-          // evento do 'OK'
-          case 'ok_btn':
-            let elem = EventBus.elementControlModal[EventBus.currentActiveRightCompModal]
-            if (elem.dataset.ssid) {
-              if (self.ssid) {
-                self.ssid = false
-                setTimeout(() => {
-                  self.$refs.psswrd.focus()
-                }, 100);
-              } else {
-                if (self.password) {
-                  self.saveItens(elem.dataset.ssid, self.password)
-                  self.$modal.hide('wifi-settings')
+        EventBus.elementControl = document.getElementsByClassName('control-modal-wifi')
+        if (EventBus.elementControl.length > 0) {
+          switch (cmd) {
+            // evento do 'OK'
+            case 'ok_btn':
+              let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
+              if (elem.dataset.ssid) {
+                if (self.ssid) {
+                  self.ssid = false
+                  setTimeout(() => {
+                    self.$refs.psswrd.focus()
+                  }, 100);
+                } else {
+                  if (self.password) {
+                    self.saveItens(elem.dataset.ssid, self.password)
+                    self.$modal.hide('wifi-settings')
+                  }
                 }
               }
-            }
-            break
-          // evento para sair para a sidebar ou para a lista anterior
-          case 'exit':
-            // this.$modal.hide('settings')
-            break
-          case 'right': // tecla para a direita
-          case 'left': // tecla para a esquerda
-            EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.remove('btn-shadow')
-            EventBus.moveLeftRightInModal(cmd === 'left' ? -1 : 1)
-            EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.add('btn-shadow')
-            EventBus.firstRightEventModal = false
-            break
-          case 'up': // tecla para a cima
-          case 'down': // tecla para a baixo
-            EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.remove('card-layout-in-selected')
-            EventBus.moveLeftRightInModal(cmd === 'up' ? -1 : 1)
-            EventBus.elementControlModal[EventBus.currentActiveRightCompModal].classList.add('card-layout-in-selected')
-            EventBus.firstRightEventModal = false
-            break
-          default:
-            break
+              break
+            // evento para sair para a sidebar ou para a lista anterior
+            case 'exit':
+              // this.$modal.hide('settings')
+              break
+            case 'right': // tecla para a direita
+            case 'left': // tecla para a esquerda
+              EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
+              EventBus.firstRightEvent = false
+              break
+            case 'up': // tecla para a cima
+            case 'down': // tecla para a baixo
+              // EventBus.moveLeftRightInElemts(cmd === 'up' ? -1 : 1, 'card-layout-in-selected')
+              EventBus.moveLeftRightInElemts(cmd === 'up' ? -1 : 1, 'btn-fill')
+              EventBus.firstRightEvent = false
+              break
+            default:
+              break
+          }
         }
       })
     },
@@ -145,7 +149,7 @@ export default {
       window.removeEventListener('keyup', this.onKeyUp)
       this.params = {}
       this.$emit('before-closed', event)
-      EventBus.$off('move-components-modal')
+      EventBus.$off('move-components-wifi-modal')
     },
     click(i, event, source = 'click') {
       const button = this.buttons[i]
