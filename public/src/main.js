@@ -191,7 +191,7 @@ window.addEventListener('keypress', function(e) {
   } else if (charCode === 120) { // 'x'
     sendCmd = 'd';
   } else if (charCode === 113) { // 'q'
-    sendCmd = '29';
+    sendCmd = '26';
   } else if (charCode === 99) { // 'c'
     sendCmd = 'green';
   }
