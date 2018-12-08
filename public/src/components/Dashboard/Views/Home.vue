@@ -89,7 +89,8 @@ export default {
       tempoResult: "",
       farmaciasOk: false,
       farmacias: [],
-      togreet: ''
+      togreet: '',
+      lastHupdate: 0
     }
   },
   methods: {
@@ -283,14 +284,12 @@ export default {
   watch: {
     date: function(newdate) {
       // console.log("newdate", newdate)
-      let arrLastString = this.date.split(" ")
       let arrNewString = newdate.split(" ")
-      let lastTime = arrLastString[2].split(":")
       let newTime = arrNewString[2].split(":")
-      let lastH = lastTime[0] * 1
       let newH = newTime[0] * 1
-      console.log("Watch H", lastH, newH)
-      if (lastH !== newH || this.togreet === '') {
+      // console.log("Watch H", this.lastHupdate, newH)
+      if (this.lastHupdate !== newH || this.togreet === '') {
+        this.lastHupdate = newH
         this.getFarmacy()
         this.getTempo()
         if (newH >= 8 && newH < 12) {
