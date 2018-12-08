@@ -258,14 +258,19 @@ export default {
     })
   },
   mounted() {
-    this.$refs.ViewNotifivacoes.setMsg('dictionary.notifications')
-    this.$refs.ViewNotifivacoes.show()
+    if (this.$refs.ViewNotifivacoes) {
+      this.$refs.ViewNotifivacoes.setMsg('dictionary.notifications')
+      this.$refs.ViewNotifivacoes.show()
+    }
   },
   created() {
     this.controlEventsBus()
     this.getFarmacy()
     this.getTempo()
+    console.log('DAta:')
+    console.log(EventBus.notificationList)
     this.items = EventBus.notificationList
+    console.log(this.items)
     this.timerID = setInterval(() => {
       this.updateTime()
     }, 1000)

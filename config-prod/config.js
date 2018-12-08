@@ -5,7 +5,7 @@ module.exports = {
   coapConfigs: {
     rate: {
       hour: 0,
-      min: 1,
+      min: 5,
       sec: 0
     }
   },
@@ -59,7 +59,7 @@ module.exports = {
     host: 'fd00::1'
   },
   websockets: {
-    host: 'vitasenior-ws.eu-gb.mybluemix.net/socketio'
+    host: 'vitasenior-ws.eu-gb.mybluemix.net'
     //host: 'http://192.168.161.115:8008/socketio'
   },
   ServerConfigs: {
