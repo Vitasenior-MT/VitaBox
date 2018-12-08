@@ -4,7 +4,7 @@
       <div class="col-lg-12 btn btn-round btn-fill clear-margin">
         <div class="row">
           <div class="col-md-12" v-show="date !== 0">
-            <h3 class="date">{{ date }}</h3>
+            <h3 class="date"><b>{{ togreet }}</b> {{ date }}</h3>
           </div>
           <div class="col-md-12 text-center" v-if="tempoResult === ''">
             <h4>A carregar o tempo. Aguarde.&nbsp;
@@ -88,7 +88,8 @@ export default {
       date: 0,
       tempoResult: "",
       farmaciasOk: false,
-      farmacias: []
+      farmacias: [],
+      togreet: ''
     }
   },
   methods: {
@@ -278,6 +279,29 @@ export default {
   beforeDestroy() {
     clearInterval(this.timerID)
     EventBus.$off('move-components')
+  },
+  watch: {
+    date: function(newdate) {
+      // console.log("newdate", newdate)
+      let arrLastString = this.date.split(" ")
+      let arrNewString = newdate.split(" ")
+      let lastTime = arrLastString[2].split(":")
+      let newTime = arrNewString[2].split(":")
+      let lastH = lastTime[0] * 1
+      let newH = newTime[0] * 1
+      console.log("Watch H", lastH, newH)
+      if (lastH !== newH || this.togreet === '') {
+        this.getFarmacy()
+        this.getTempo()
+        if (newH >= 8 && newH < 12) {
+          this.togreet = 'Bom dia!'
+        } else if (newH >= 12 && newH < 20) {
+          this.togreet = 'Boa tarde!'
+        } else {
+          this.togreet = 'Boa noite!'
+        }
+      }
+    }
   }
 }
 </script>
