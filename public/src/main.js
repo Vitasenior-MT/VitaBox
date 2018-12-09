@@ -109,12 +109,12 @@ export const app = new Vue({
       this.$modal.hide('wifi-settings')
       this.$modal.hide('settings')
       this.$modal.show('alert', '')
-      this.$modal.show('procedure', data)
       // this.$socket.emit('ttsText', this.$t('modal.procedure.' + EventBus.warning_type + '.0') +
       // this.$t('modal.procedure.' + EventBus.warning_type + '.1') + this.$t('modal.procedure.' + EventBus.warning_type + '.2'))
       this.$socket.emit('ttsText', this.$t('modal.procedure.warnings'))
-      this.$marqueemsg.show('Informação', 'Prima ok para desbloquear a aplicação.')
+      this.$marqueemsg.show('Informação', 'Prima ok para desbloquear a aplicação.', { speed: 15, fontSize: '3vw' })
       EventBus.$emit('changeTab', '/vitabox/warnings')
+      this.$modal.show('procedure', data)
     },
     informationVita: function(data) {
       if (EventBus.notificationList.length === 5) {

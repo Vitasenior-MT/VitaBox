@@ -111,12 +111,12 @@ export default {
           let farmacyData = response.data.data.farmacias
           this.districtToGet = response.data.data.district
           this.localityToGet = response.data.data.locality
-
+          this.farmacias = []
           for (let farmacy in farmacyData) {
             let farm = farmacyData[farmacy]
             this.farmacias.push({
               icon: '<img src="static/img/vitabox/farmacy.svg" width="40" height="40">',
-              titleCard: 'home.farmacy.farmacy',
+              titleCard: this.$t('home.farmacy.farmacy'),
               content: (() => {
                 let txtHtml = ''
                 for (let index = 0; index < farm.length; index++) {
@@ -161,7 +161,7 @@ export default {
         // console.log(response.data.data)
         if (response.data.status === true) {
           this.tempoResult = response.data.data
-          document.getElementsByClassName("table-tempo")[0].innerHTML = this.tempoResult.replace("PrecipitaÃ§Ã£o", "Precipitação");
+          document.getElementsByClassName("table-tempo")[0].innerHTML = this.tempoResult
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(0)
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(1)
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(1)
@@ -269,7 +269,6 @@ export default {
     this.controlEventsBus()
     this.getFarmacy()
     this.getTempo()
-    console.log('DAta:')
     console.log(EventBus.notificationList)
     this.items = EventBus.notificationList
     console.log(this.items)
@@ -287,8 +286,8 @@ export default {
       let arrNewString = newdate.split(" ")
       let newTime = arrNewString[2].split(":")
       let newH = newTime[0] * 1
-      // console.log("Watch H", this.lastHupdate, newH)
       if (this.lastHupdate !== newH || this.togreet === '') {
+        // console.log("Watch H", this.lastHupdate, newH)
         this.lastHupdate = newH
         this.getFarmacy()
         this.getTempo()

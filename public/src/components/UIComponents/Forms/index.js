@@ -1,14 +1,10 @@
 import MarqueeMsg from './MarqueeMsg.vue'
-
 var MarqueeMsgPlugin = {
   install(Vue) {
-    // console.log("Teste")
-
     this.event = new Vue()
-
     Vue.prototype.$marqueemsg = {
-      show(text, params) {
-        MarqueeMsgPlugin.event.$emit('displaymarqueemsg', text, params)
+      show(text, params, options) {
+        MarqueeMsgPlugin.event.$emit('displaymarqueemsg', text, params, options)
       },
       hide() {
         MarqueeMsgPlugin.event.$emit('stopdisplaymarqueemsg')
