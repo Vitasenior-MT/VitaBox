@@ -59,15 +59,15 @@ module.exports = {
     host: 'fd00::1'
   },
   websockets: {
-    host: 'vitasenior-ws.eu-gb.mybluemix.net'
+    host: 'vitasenior-ws-test.eu-gb.mybluemix.net/socketio'
     //host: 'http://192.168.161.115:8008/socketio'
   },
   ServerConfigs: {
     key: fs.readFileSync('.key').toString().trim(),
-    pass: 'Mqa1Uf8pFy',
+    pass: 'p4Fx93OKJN',
     //pass: 'passvita',
     port: 443,
-    host: 'vitasenior.eu-gb.mybluemix.net'
+    host: 'vitasenior-api-test.eu-gb.mybluemix.net'
     //port: 8080,
     //host: '192.168.161.94'
   },
