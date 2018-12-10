@@ -16,12 +16,27 @@
       <div class="row vue-welcome">
         <div class="col-md-12 vue-height-out">
           <div class="dialog-content">
-            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i>{{$t('modal.wifisettings.title')}}</h2>
+            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> &nbsp; {{$t('modal.wifisettings.title')}}</h2>
             <div>
               <h4>{{$t('modal.wifisettings.navigation.0')}} <i class="fas fa-arrows-alt"></i> {{$t('modal.wifisettings.navigation.1')}}</h4>
             </div>
           </div>
-          <div class="col-md-12 card-layout-out">
+          <div v-show="!displayWifi" class="col-lg-12 btn btn-round btn-fill resize-form-wifi">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="text-center">
+                  A carregar as redes WIFI disponiveis. Aguarde...
+                </h4>
+              </div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+              <div class="col-md-12">
+                <img src='static/img/logo_B.png' alt='' style="width:170px; height: auto;">
+              </div>
+            </div>
+          </div>
+          <div v-show="displayWifi" class="col-lg-12  card-layout-out resize-form-wifi">
             <div v-for="(item, i) in params" v-bind:key='item.key' v-show="ssid">
               <show-ssid :data="params[i]" :data-ssid="params[i].ssid"></show-ssid>
             </div>
@@ -61,6 +76,7 @@ export default {
   data() {
     return {
       params: {},
+      displayWifi: false,
       password: null,
       ssid: true,
       defaultButtons: [{ title: 'CLOSE' }]
@@ -85,6 +101,7 @@ export default {
   sockets: {
     connectionsList(list) {
       this.params = list
+      this.displayWifi = true
     }
   },
   methods: {
@@ -116,6 +133,7 @@ export default {
                   if (self.password) {
                     self.saveItens(elem.dataset.ssid, self.password)
                     self.$modal.hide('wifi-settings')
+                    EventBus.enterLastElementDefinitions()
                   }
                 }
               }
@@ -142,7 +160,7 @@ export default {
       })
     },
     beforeOpened(event) {
-      this.params = event.params || {}
+      // this.params = event.params || {}
       this.controlEventsBus()
     },
     beforeClosed(event) {
@@ -171,4 +189,10 @@ export default {
 }
 </script>
 <style>
+.resize-form-wifi {
+  width: 200px;
+  height: auto;
+  display: inline-block;
+  overflow: scroll;
+}
 </style>

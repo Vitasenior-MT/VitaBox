@@ -1,11 +1,11 @@
 
 <template>
-  <div class="row" v-if="this.marqueeactive">
+  <div class="marquee-element" v-if="this.marqueeactive">
     <div class="position-title">
       <p class="marquee-title">{{ titleMsg }}</p>
     </div>
     <div class="position-marquee">
-      <marquee-tips @interface="marqueeMooveEnd" :speed="speed" :content="contentMsg" :font="'40px'" class="marquee-text" ref="marquee" />
+      <marquee-tips @interface="marqueeMooveEnd" :speed="speed" :content="contentMsg" :font="font" class="marquee-text" ref="marquee" />
     </div>
   </div>
 </template>
@@ -20,7 +20,8 @@ export default {
   data() {
     return {
       marqueeactive: false,
-      speed: 15,
+      speed: 20,
+      font: '3vw',
       contentMsg: '',
       titleMsg: '',
       contents: [],
@@ -29,6 +30,14 @@ export default {
   },
   beforeMount() {
     MarqueeMsg.event.$on('displaymarqueemsg', (title, text, options) => {
+      if (typeof options === 'object' && options !== null) {
+        if (options.speed) {
+          this.speed = options.speed
+        }
+        if (options.fontSize) {
+          this.font = options.fontSize
+        }
+      }
       this.contents.push({
         title: title,
         text: text
@@ -47,6 +56,8 @@ export default {
       this.contentPos = 0
     })
   },
+  mounted() {
+  },
   methods: {
     marqueeActive() {
       return this.marqueeactive
@@ -62,28 +73,29 @@ export default {
       this.$refs.marquee.init()
     }
   },
-  mounted() {
-  },
   watch: {
   }
 }
 </script>
 <style>
-.position-marquee {
+.marquee-element {
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: 8%;
   display: flex;
-  flex-direction: column;
   background-color: black;
-  opacity: 0.8;
-  filter: alpha(opacity=80);
+  opacity: 0.9;
+  filter: alpha(opacity=90);
   z-index: 2000;
 }
+.position-marquee {
+  position: relative;
+  flex-direction: column;
+  height: 100%;
+}
 .position-title {
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  position: relative;
   display: flex;
   background-color: #f7931d;
   border-width: 4px;
@@ -91,17 +103,19 @@ export default {
   border-color: #f05a28;
   opacity: 1;
   filter: alpha(opacity=100);
-  z-index: 3000;
-}
-.marquee-text {
-  /* font-size: 4vh; */
-  color: white;
+  z-index: 2100;
+  height: 100%;
 }
 .marquee-title {
   display: inline;
-  padding-left: 5px;
-  padding-right: 5px;
-  font-size: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 5vh;
   color: white;
+}
+.marquee-text {
+  color: white;
+  z-index: 2050;
+  height: 100%;
 }
 </style>

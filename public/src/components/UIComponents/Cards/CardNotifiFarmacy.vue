@@ -7,10 +7,8 @@
           </span>
         </div>
         <div class='col-lg-10'>
-          <div class='numbers'>
-            {{ $t(objCard.titleCard) }}
+          <div class='numbers' v-html="objCard.titleCard">
           </div>
-          <b></b>
         </div>
       </div>
       <div class='content text-left'>

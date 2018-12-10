@@ -38,7 +38,7 @@
         deleteKeyFrame(animationName)
         insertKeyFrame(`@keyframes ${animationName} {
           0% {
-            text-indent: ${(_this.parentNode ? _this.parentNode.innerWidth || _this.parentNode.clientWidth : getWidthHeight().width) + 10}px
+            text-indent: ${(_this.parentNode ? _this.parentNode.innerWidth || _this.parentNode.clientWidth : getWidthHeight().width) + getTextWidth(this.content, this.font)}px
           }
           100% {
             text-indent: ${-getTextWidth(this.content, this.font)}px

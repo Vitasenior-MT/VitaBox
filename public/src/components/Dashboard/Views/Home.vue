@@ -4,7 +4,7 @@
       <div class="col-lg-12 btn btn-round btn-fill clear-margin">
         <div class="row">
           <div class="col-md-12" v-show="date !== 0">
-            <h3 class="date">{{ date }}</h3>
+            <h3 class="date"><b>{{ togreet }}</b> {{ date }}</h3>
           </div>
           <div class="col-md-12 text-center" v-if="tempoResult === ''">
             <h4>A carregar o tempo. Aguarde.&nbsp;
@@ -88,7 +88,9 @@ export default {
       date: 0,
       tempoResult: "",
       farmaciasOk: false,
-      farmacias: []
+      farmacias: [],
+      togreet: '',
+      lastHupdate: 0
     }
   },
   methods: {
@@ -109,12 +111,12 @@ export default {
           let farmacyData = response.data.data.farmacias
           this.districtToGet = response.data.data.district
           this.localityToGet = response.data.data.locality
-
+          this.farmacias = []
           for (let farmacy in farmacyData) {
             let farm = farmacyData[farmacy]
             this.farmacias.push({
               icon: '<img src="static/img/vitabox/farmacy.svg" width="40" height="40">',
-              titleCard: 'home.farmacy.farmacy',
+              titleCard: this.$t('home.farmacy.farmacy'),
               content: (() => {
                 let txtHtml = ''
                 for (let index = 0; index < farm.length; index++) {
@@ -159,7 +161,7 @@ export default {
         // console.log(response.data.data)
         if (response.data.status === true) {
           this.tempoResult = response.data.data
-          document.getElementsByClassName("table-tempo")[0].innerHTML = this.tempoResult.replace("PrecipitaÃ§Ã£o", "Precipitação");
+          document.getElementsByClassName("table-tempo")[0].innerHTML = this.tempoResult
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(0)
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(1)
           document.getElementsByClassName("table-tempo")[0].getElementsByTagName("table")[0].deleteRow(1)
@@ -258,7 +260,7 @@ export default {
     })
   },
   mounted() {
-    if(this.$refs.ViewNotifivacoes){
+    if (this.$refs.ViewNotifivacoes) {
       this.$refs.ViewNotifivacoes.setMsg('dictionary.notifications')
       this.$refs.ViewNotifivacoes.show()
     }
@@ -267,7 +269,6 @@ export default {
     this.controlEventsBus()
     this.getFarmacy()
     this.getTempo()
-    console.log('DAta:')
     console.log(EventBus.notificationList)
     this.items = EventBus.notificationList
     console.log(this.items)
@@ -278,6 +279,27 @@ export default {
   beforeDestroy() {
     clearInterval(this.timerID)
     EventBus.$off('move-components')
+  },
+  watch: {
+    date: function(newdate) {
+      // console.log("newdate", newdate)
+      let arrNewString = newdate.split(" ")
+      let newTime = arrNewString[2].split(":")
+      let newH = newTime[0] * 1
+      if (this.lastHupdate !== newH || this.togreet === '') {
+        // console.log("Watch H", this.lastHupdate, newH)
+        this.lastHupdate = newH
+        this.getFarmacy()
+        this.getTempo()
+        if (newH >= 8 && newH < 12) {
+          this.togreet = 'Bom dia!'
+        } else if (newH >= 12 && newH < 20) {
+          this.togreet = 'Boa tarde!'
+        } else {
+          this.togreet = 'Boa noite!'
+        }
+      }
+    }
   }
 }
 </script>

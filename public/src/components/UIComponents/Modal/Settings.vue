@@ -16,7 +16,7 @@
       <div class="row vue-settings">
         <div class="col-md-12">
           <div class="dialog-content">
-            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i>{{$t('modal.settings.title')}}</h2>
+            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> &nbsp; {{$t('modal.settings.title')}}</h2>
           <div>
             <h4>{{$t('modal.settings.navigation.0')}}<i class="fas fa-arrows-alt"></i>{{$t('modal.settings.navigation.1')}}</h4>
           </div>
@@ -186,7 +186,7 @@ export default {
         case 'wifi':
           if (toggle === false) {
             this.items[i].default = toggle
-            EventBus.enterNewElementDefitions('wifi-settings')
+            EventBus.enterNewElementDefinitions('wifi-settings')
             EventBus.wifi = true
             this.$modal.show('wifi-settings')
             this.$socket.emit('openWIFI', '')

@@ -8,7 +8,8 @@
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
     <div class="modelProcedure v--modal vue-dialog">
-      <div class="content">
+      <card-alert :objCard="dataAlert"></card-alert>
+      <!-- <div class="content">
         <div class="vue-height-out">
           <div class="row">
             <div class='col-md-12 center2 font-size-b modelProcedureComponent btn btn-round btn-fill'>
@@ -18,12 +19,12 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </modal>
 </template>
 <script>
-
+import CardAlert from 'components/UIComponents/Cards/CardNotifiFarmacy.vue'
 export default {
   name: 'Procedure',
   props: {
@@ -40,12 +41,15 @@ export default {
       default: 'fade'
     }
   },
-  components: {},
+  components: {
+    CardAlert
+  },
   data() {
     return {
       params: {},
       data: '',
-      verify: []
+      verify: [],
+      dataAlert: {}
     }
   },
   methods: {
@@ -60,16 +64,27 @@ export default {
       } else if (this.verify[event.params.warning_type] === 'humi') {
         this.data = event.params.warning_type
       }
+      this.dataAlert = {
+        icon: '<img src="static/img/vitabox/alert3.svg" width="100" height="100">',
+        titleCard: '<h2><b>Alerta</b></h2>',
+        content: (_ => {
+          let txtHtml = "<b class='text-b-ajust'>Perigo na divisão " + event.params.location + ".</b><br>"
+          txtHtml += "<b class='text-b-ajust'>Niveis elevados. <img src='static/img/vitabox/" + this.data + ".svg' width='70' height='70'></b><br>"
+          for (let i = 1; i < 3; i++) {
+            txtHtml += "<b class='text-b-ajust'>" + this.$t('modal.procedure.' + this.data + '.' + i) + "</b><br>"
+          }
+          return txtHtml
+        })()
+      }
     }
   }
 }
 </script>
 <style>
 .modelProcedure {
-  background-color: rgba(0,0,0,0.5);
+  /* background-color: rgba(0,0,0,0.5); */
   width: 100%;
-  height: 50%;
-  bottom: 0;
+  bottom: 8%;
   position: fixed;
   left: 0;
 }
@@ -83,5 +98,11 @@ export default {
   vertical-align: middle;
   color: black;
   font-size: 40px;
+}
+.text-b-ajust {
+  line-height: 0.8;
+  display: inline-block;
+  color: black;
+  font-size: 4vw;
 }
 </style>

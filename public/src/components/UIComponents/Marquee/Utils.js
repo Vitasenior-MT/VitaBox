@@ -31,7 +31,8 @@ function getWidthHeight() {
   var e = d.documentElement
   var g = d.getElementsByTagName('body')[0]
   return {
-    width: w.innerWidth || e.clientWidth || g.clientWidth, height: w.innerHeight || e.clientHeight || g.clientHeight
+    width: w.innerWidth || e.clientWidth || g.clientWidth,
+    height: w.innerHeight || e.clientHeight || g.clientHeight
   }
 }
 
@@ -40,7 +41,7 @@ function getTextWidth(text, font) {
   var context = canvas.getContext('2d')
   context.font = font
   var metrics = context.measureText(text)
-  return metrics.width * 3
+  return metrics.width * 4.5
 }
 
 export {
