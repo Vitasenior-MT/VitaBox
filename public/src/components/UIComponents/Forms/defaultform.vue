@@ -1,6 +1,6 @@
 <template>
   <div class="row clear-margin" v-show="defaultView">
-    <div class="col-lg-12 btn btn-round btn-fill default-form">
+    <div class="col-lg-12 btn btn-round btn-fill btn-block default-form">
       <div class="row">
         <div class="col-md-12">
           <h4 class="text-center" v-html="$t(defaultViewDescritivo)">

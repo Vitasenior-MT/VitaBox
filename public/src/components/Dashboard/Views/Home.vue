@@ -1,7 +1,7 @@
 <template>
   <div class="row clear-margin">
     <div class="col-lg-7" style="padding: 0;">
-      <div class="col-lg-12 btn btn-round btn-fill clear-margin">
+      <div class="col-lg-12 btn btn-round btn-fill btn-block clear-margin">
         <div class="row">
           <div class="col-md-12" v-show="date !== 0">
             <h3 class="date"><b>{{ togreet }}</b> {{ date }}</h3>
@@ -18,7 +18,7 @@
         <div class="col-lg-12">&nbsp;</div>
       </div>
       <default-form v-if="items.length <= 0" ref="ViewNotifivacoes"></default-form>
-      <div v-if="items.length > 0" class="col-lg-12 btn btn-round btn-fill clear-margin">
+      <div v-if="items.length > 0" class="col-lg-12 btn btn-round btn-fill btn-block clear-margin">
         <div class="col-md-12" v-for="item in items.slice().reverse()" v-bind:key='item.key'>
           <!-- <card-notificatio-farmacy :objCard="item"></card-notificatio-farmacy> -->
           <div class="col-md-12 card-layout-in">
@@ -42,13 +42,13 @@
       </div>
     </div>
     <div class="col-lg-5 clear-margin">
-      <div class="row btn btn-round btn-fill clear-margin" v-if="!farmaciasOk">
+      <div class="row btn btn-round btn-fill btn-block clear-margin" v-if="!farmaciasOk">
         <div class="col-lg-12 text-center">
-          <h4>{{ $t('home.farmacy.0') }} Aguarde.&nbsp;
+          <h4>{{ $t('home.farmacy.0') }} <br> Aguarde.&nbsp;
           <img src='static/img/load5_B.gif' alt='' width='70' height='70'></h4>
         </div>
       </div>
-      <div class="row btn btn-round btn-fill clear-margin" v-show="farmaciasOk">
+      <div class="row btn btn-round btn-fill btn-block clear-margin" v-show="farmaciasOk">
         <div class="col-lg-12">
           <h4 class="h-ajust text-left">
             {{ $t('home.farmacy.0') }}<br>
