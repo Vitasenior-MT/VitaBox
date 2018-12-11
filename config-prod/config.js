@@ -64,7 +64,7 @@ module.exports = {
   },
   ServerConfigs: {
     key: fs.readFileSync('.key').toString().trim(),
-    pass: 'p4Fx93OKJN',
+    pass: 'UGOag8gKL4',
     //pass: 'passvita',
     port: 443,
     host: 'vitasenior-api-test.eu-gb.mybluemix.net'
