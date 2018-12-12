@@ -138,6 +138,17 @@ after_reboot(){
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && git submodule update"
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && make TARGET=zoul --directory contiki/examples/ipv6/rpl-border-router/ savetarget || true"
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && make --directory contiki/examples/ipv6/rpl-border-router/ border-router.upload && make --directory contiki/examples/ipv6/rpl-border-router/ connect-router || true"
+	
+	exec_cmd "cp ${folderVitabox}/Scripts/borderRouter.txt ${folderVitabox}/Scripts/borderRouter.txt.service"
+	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/borderRouter.txt.service"
+	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/borderRouter.sh"
+	exec_cmd "sed -i 's#FOLDERROOT#${folderRoot}#g' ${folderVitabox}/Scripts/borderRouter.sh"
+	exec_cmd "sudo cp ${folderVitabox}/Scripts/borderRouter.txt.service /etc/systemd/system/borderRouter.service"
+	exec_cmd "sudo rm -rf ${folderVitabox}/Scripts/borderRouter.txt.service"
+	
+	exec_cmd "sudo systemctl enable borderRouter.service || true"
+	exec_cmd "sudo systemctl start borderRouter.service || true"
+
 
 	print_status "VitaBox - config rpi boot"
 	exec_cmd "sudo rm -f /boot/config.txt || true"

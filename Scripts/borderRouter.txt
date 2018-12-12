@@ -1,0 +1,21 @@
+[Unit]
+Description=BorderRouter
+
+[Service]
+ExecStart=FOLDERVITABOX/Scripts/borderRouterRun.sh
+##Required on some systems
+WorkingDirectory=FOLDERVITABOX
+Restart=always
+##Restart service after 10 seconds if node service crashes
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=VitaBoxBorderRouter
+
+[Install]
+WantedBy=multi-user.target
+
+## Clean syslog
+#sudo dd if=/dev/null of=/var/log/syslog
+##to get the last 25 lines of the syslog file
+#tail -25 /var/log/syslog
