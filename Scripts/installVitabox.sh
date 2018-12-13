@@ -131,6 +131,10 @@ after_reboot(){
 	
 	print_status "VitaBox - sensors config and autostart"
 	cd
+	
+	print_status "VitaBox - Border Router autostart"
+	exec_cmd "sudo rm -rf /etc/systemd/system/borderRouter.service || true"
+
 	exec_cmd "sudo rm -rf ${folderRoot}/contiki-ng"
 	exec_cmd "cd ${folderRoot}"
 	exec_cmd "git clone https://github.com/contiki-ng/contiki-ng.git"
