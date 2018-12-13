@@ -43,6 +43,7 @@ public/node_modules/
 .log
 .key
 ScriptsRun/
+public/dist/static/.temp/
 
 # Typescript v1 declaration files
 typings/
@@ -64,3 +65,7 @@ typings/
 
 # dotenv environment variables file
 .env
+*.key
+.key
+*.pass
+.pass

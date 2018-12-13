@@ -2,7 +2,7 @@
 Description=BorderRouter
 
 [Service]
-ExecStart=FOLDERVITABOX/Scripts/borderRouterRun.sh
+ExecStart=FOLDERVITABOX/ScriptsRun/borderRouterRun.sh
 ##Required on some systems
 WorkingDirectory=FOLDERVITABOX
 Restart=always
