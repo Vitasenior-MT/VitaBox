@@ -1,7 +1,7 @@
 #!/bin/bash
 COMMON="/home/pi/Desktop/VitaBox"
-OUTLOGFILE="$COMMON/Scripts/mibandstdout.log"
-ERRLOGFILE="$COMMON/Scripts/mibandstderr.log"
+OUTLOGFILE="$COMMON/logs/mibandstdout.log"
+ERRLOGFILE="$COMMON/logs/mibandstderr.log"
 rm "$OUTLOGFILE"
 rm "$ERRLOGFILE"
 cd /home/pi/Desktop/VitaBox

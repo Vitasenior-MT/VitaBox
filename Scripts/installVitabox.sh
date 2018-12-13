@@ -139,12 +139,12 @@ after_reboot(){
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && make TARGET=zoul --directory contiki/examples/ipv6/rpl-border-router/ savetarget || true"
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && make --directory contiki/examples/ipv6/rpl-border-router/ border-router.upload && make --directory contiki/examples/ipv6/rpl-border-router/ connect-router || true"
 	
-	exec_cmd "cp ${folderVitabox}/Scripts/borderRouter.txt ${folderVitabox}/Scripts/borderRouter.txt.service"
-	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/borderRouter.txt.service"
-	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/borderRouter.sh"
-	exec_cmd "sed -i 's#FOLDERROOT#${folderRoot}#g' ${folderVitabox}/Scripts/borderRouter.sh"
-	exec_cmd "sudo cp ${folderVitabox}/Scripts/borderRouter.txt.service /etc/systemd/system/borderRouter.service"
-	exec_cmd "sudo rm -rf ${folderVitabox}/Scripts/borderRouter.txt.service"
+	exec_cmd "cp ${folderVitabox}/Scripts/borderRouter.txt ${folderVitabox}/Scripts/borderRouter.txt.service  || true"
+	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/borderRouter.txt.service  || true"
+	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/borderRouterRun.sh  || true"
+	exec_cmd "sed -i 's#FOLDERROOT#${folderRoot}#g' ${folderVitabox}/Scripts/borderRouterRun.sh  || true"
+	exec_cmd "sudo cp ${folderVitabox}/Scripts/borderRouter.txt.service /etc/systemd/system/borderRouter.service  || true"
+	exec_cmd "sudo rm -rf ${folderVitabox}/Scripts/borderRouter.txt.service || true"
 	
 	exec_cmd "sudo systemctl enable borderRouter.service || true"
 	exec_cmd "sudo systemctl start borderRouter.service || true"

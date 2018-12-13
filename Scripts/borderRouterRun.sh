@@ -1,6 +1,6 @@
 #!/bin/bash
-OUTLOGFILE="FOLDERVITABOX/stdoutBorder.log"
-ERRLOGFILE="FOLDERVITABOX/stderrBorder.log"
+OUTLOGFILE="FOLDERVITABOX/logs/stdoutBorder.log"
+ERRLOGFILE="FOLDERVITABOX/logs/stderrBorder.log"
 rm "$OUTLOGFILE"
 rm "$ERRLOGFILE"
 cd "FOLDERROOT/contiki-ng/examples/rpl-border-router/"
