@@ -1,7 +1,8 @@
 #!/bin/bash
 
 rootFolder="FOLDERVITABOX"
-DATE=`date '+%Y-%m-%d_%H:%M:%S'`
+DATE=`date '+%Y-%m-%d'`
+sudo find ${rootFolder}/logs -type f -mtime +10 -delete
 OUTLOGFILE="${rootFolder}/logs/syncVitabox_${DATE}_stdout.log"
 ERRLOGFILE="${rootFolder}/logs/syncVitabox_${DATE}_stderr.log"
 # rm "$OUTLOGFILE"

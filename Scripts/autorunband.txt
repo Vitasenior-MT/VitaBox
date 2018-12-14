@@ -1,10 +1,9 @@
 #!/bin/bash
 
 rootFolder="FOLDERVITABOX"
-DATE=`date '+%Y-%m-%d_%H:%M:%S'`
+DATE=`date '+%Y-%m-%d'`
 OUTLOGFILE="${rootFolder}/logs/bandfit_${DATE}_stdout.log"
 ERRLOGFILE="${rootFolder}/logs/bandfit_${DATE}_stderr.log"
 # rm "$OUTLOGFILE"
 # rm "$ERRLOGFILE"
-cd ${rootFolder}
-sudo NODE_ENV=prod node startAutoMiBand.js >> "${OUTLOGFILE}" 2>> "${ERRLOGFILE}"
+cd ${rootFolder} && sudo npm run band-prod >> "${OUTLOGFILE}" 2>> "${ERRLOGFILE}" || true

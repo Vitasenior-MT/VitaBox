@@ -114,6 +114,7 @@ after_reboot(){
 	exec_cmd "cd ${folderVitabox}/Scripts && sudo dos2unix ./*"
 	exec_cmd "cd ${folderVitabox}/Scripts && sudo chmod +x *.sh || true"
 	exec_cmd "mkdir ${folderVitabox}/ScriptsRun || true"
+	exec_cmd "mkdir ${folderVitabox}/logs || true"
 
 	print_status "VitaBox - Node autostart"
 	exec_cmd "sudo rm -rf /etc/systemd/system/nodeAutostart.service || true"
@@ -154,7 +155,7 @@ after_reboot(){
 	exec_cmd "cp ${folderVitabox}/Scripts/borderRouterRun.txt ${folderVitabox}/ScriptsRun/borderRouterRun.sh || true"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/borderRouterRun.sh  || true"
 	exec_cmd "sed -i 's#FOLDERROOT#${folderRoot}#g' ${folderVitabox}/ScriptsRun/borderRouterRun.sh  || true"
-	xec_cmd "chmod 755 ${folderVitabox}/ScriptsRun/borderRouterRun.sh || true"
+	xec_cmd "sudo chmod 755 ${folderVitabox}/ScriptsRun/borderRouterRun.sh || true"
 	
 	print_status "VitaBox - config rpi boot"
 	exec_cmd "sudo rm -f /boot/config.txt || true"
