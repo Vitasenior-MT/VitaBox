@@ -1,11 +1,14 @@
 #!/bin/bash
 
 rootFolder="FOLDERVITABOX"
-OUTLOGFILE="${rootFolder}/logs/syncVitaboxstdout.log"
-ERRLOGFILE="${rootFolder}/logs/syncVitaboxstderr.log"
+DATE=`date '+%Y-%m-%d_%H:%M:%S'`
+OUTLOGFILE="${rootFolder}/logs/syncVitabox_${DATE}_stdout.log"
+ERRLOGFILE="${rootFolder}/logs/syncVitabox_${DATE}_stderr.log"
 # rm "$OUTLOGFILE"
 # rm "$ERRLOGFILE"
 cd ${rootFolder}
+# git reset --hard HEAD
+cd ${rootFolder} && git checkout . >> "${OUTLOGFILE}" 2>> "${ERRLOGFILE}" || true
 cd ${rootFolder} && git pull >> "${OUTLOGFILE}" 2>> "${ERRLOGFILE}" || true
 cd ${rootFolder} && npm install >> "${OUTLOGFILE}" 2>> "${ERRLOGFILE}" || true
 sudo reboot

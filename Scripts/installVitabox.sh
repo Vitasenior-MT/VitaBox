@@ -145,18 +145,17 @@ after_reboot(){
 	
 	exec_cmd "cp ${folderVitabox}/Scripts/borderRouter.txt ${folderVitabox}/Scripts/borderRouter.txt.service  || true"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/borderRouter.txt.service  || true"
-	exec_cmd "cp ${folderVitabox}/Scripts/borderRouterRun.sh ${folderVitabox}/ScriptsRun/borderRouterRun.sh || true"
-	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/borderRouterRun.sh  || true"
-	exec_cmd "sed -i 's#FOLDERROOT#${folderRoot}#g' ${folderVitabox}/ScriptsRun/borderRouterRun.sh  || true"
-	xec_cmd "chmod 755 ${folderVitabox}/ScriptsRun/borderRouterRun.sh || true"
-	
 	exec_cmd "sudo cp ${folderVitabox}/Scripts/borderRouter.txt.service /etc/systemd/system/borderRouter.service  || true"
 	exec_cmd "sudo rm -rf ${folderVitabox}/Scripts/borderRouter.txt.service || true"
 	
 	exec_cmd "sudo systemctl enable borderRouter.service || true"
 	exec_cmd "sudo systemctl start borderRouter.service || true"
 
-
+	exec_cmd "cp ${folderVitabox}/Scripts/borderRouterRun.txt ${folderVitabox}/ScriptsRun/borderRouterRun.sh || true"
+	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/borderRouterRun.sh  || true"
+	exec_cmd "sed -i 's#FOLDERROOT#${folderRoot}#g' ${folderVitabox}/ScriptsRun/borderRouterRun.sh  || true"
+	xec_cmd "chmod 755 ${folderVitabox}/ScriptsRun/borderRouterRun.sh || true"
+	
 	print_status "VitaBox - config rpi boot"
 	exec_cmd "sudo rm -f /boot/config.txt || true"
 	exec_cmd "sudo cp ${folderVitabox}/bootConfig.txt /boot/config.txt"

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+rootFolder="FOLDERVITABOX"
+DATE=`date '+%Y-%m-%d_%H:%M:%S'`
+OUTLOGFILE="FO${rootFolder}LDERVITABOX/logs/borderRouter_${DATE}_stdout.log"
+ERRLOGFILE="${rootFolder}/logs/borderRouter_${DATE}_stderr.log"
+# rm "$OUTLOGFILE"
+# rm "$ERRLOGFILE"
+cd "FOLDERROOT/contiki-ng/examples/rpl-border-router/"
+make TARGET=zoul savetarget >> "$OUTLOGFILE" 2>> "$ERRLOGFILE"
+make connect-router >> "$OUTLOGFILE" 2>> "$ERRLOGFILE"
