@@ -155,7 +155,7 @@ after_reboot(){
 	exec_cmd "cp ${folderVitabox}/Scripts/borderRouterRun.txt ${folderVitabox}/ScriptsRun/borderRouterRun.sh || true"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/borderRouterRun.sh  || true"
 	exec_cmd "sed -i 's#FOLDERROOT#${folderRoot}#g' ${folderVitabox}/ScriptsRun/borderRouterRun.sh  || true"
-	xec_cmd "sudo chmod 755 ${folderVitabox}/ScriptsRun/borderRouterRun.sh || true"
+	exec_cmd "sudo chmod 755 ${folderVitabox}/ScriptsRun/borderRouterRun.sh || true"
 	
 	print_status "VitaBox - config rpi boot"
 	exec_cmd "sudo rm -f /boot/config.txt || true"
