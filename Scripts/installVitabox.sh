@@ -172,12 +172,14 @@ after_reboot(){
 	exec_cmd "sudo rm -rf ${folderVitabox}/ScriptsRun/Baklightdm.conf || true"
 
 	print_status "VitaBox - Add auto run collect fitness band data."
+	exec_cmd "crontab -l | grep -v '${folderVitabox}/ScriptsRun/autorunband.sh'  | crontab -"
 	exec_cmd "cp ${folderVitabox}/Scripts/autorunband.txt ${folderVitabox}/ScriptsRun/autorunband.sh"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/autorunband.sh"
 	exec_cmd "sudo chmod 755 ${folderVitabox}/ScriptsRun/autorunband.sh"
 	exec_cmd "(crontab -l; echo '*/30 * * * * ${folderVitabox}/ScriptsRun/autorunband.sh') | crontab -"
 
 	print_status "VitaBox - Check last GIT version and restart system."
+	exec_cmd "crontab -l | grep -v '${folderVitabox}/ScriptsRun/syncVitabox.sh'  | crontab -"
 	exec_cmd "cp ${folderVitabox}/Scripts/syncVitabox.txt ${folderVitabox}/ScriptsRun/syncVitabox.sh"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/syncVitabox.sh"
 	exec_cmd "sudo chmod 755 ${folderVitabox}/ScriptsRun/syncVitabox.sh"
