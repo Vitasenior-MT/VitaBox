@@ -17,9 +17,9 @@
         <div class="col-md-12">
           <div class="dialog-content">
             <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> &nbsp; {{$t('modal.settings.title')}}</h2>
-          <div>
-            <h4>{{$t('modal.settings.navigation.0')}}<i class="fas fa-arrows-alt"></i>{{$t('modal.settings.navigation.1')}}</h4>
-          </div>
+            <div>
+              <h4>{{$t('modal.settings.navigation.0')}}<i class="fas fa-arrows-alt"></i>{{$t('modal.settings.navigation.1')}}</h4>
+            </div>
           </div>
           <div v-for="(item, i) in items" v-bind:key='item.key'>
             <div class="row">
@@ -39,21 +39,13 @@
                     :height="40"/>
                 </div>
               </div>
-
             </div>
           </div>
-          <!-- <div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="col-md-3">
-                  <h3> {{ $t('modal.settings.wifi.title') }}</h3>
-                </div>
-                <div class="col-md-9 control-modal">
-                  <button class="btn btn-round btn-info changed-font" v-on:click="open()">{{$t('modal.settings.wifi.open')}}</button>
-                </div>
-              </div>
+          <div class="row" v-if="gitlastupdate != ''">
+            <div class="col-md-12 text-right">
+              <h4><i class="ti-github"></i> Última Atualização: <i class="fas fa-calendar-alt"></i> {{ gitlastupdate }}</h4>
             </div>
-          </div> -->
+          </div>
           <div>
             <h4>{{$t('modal.settings.exit.0')}} <br> {{$t('modal.settings.exit.1')}}</h4>
         </div>
@@ -117,7 +109,8 @@ export default {
         }
       ],
       params: {},
-      defaultButtons: [{ title: 'CLOSE' }]
+      defaultButtons: [{ title: 'CLOSE' }],
+      gitlastupdate: ''
     }
   },
   computed: {
@@ -135,24 +128,46 @@ export default {
     }
   },
   mounted() {
-    this.$http
+    this.getGitLastUpdate()
+    this.getSettings()
+  },
+  methods: {
+    getGitLastUpdate() {
+      this.$http
+      .get('/api/git/gitlastupdate')
+      .then(response => {
+        if (response.data.status) {
+          this.gitlastupdate = EventBus.dateFormat(response.data.data)
+        } else {
+          console.log('getGitLastUpdate error', response.data)
+        }
+      })
+      .catch(error => {
+        console.log('----> ', error)
+      })
+    },
+    getSettings() {
+      this.$http
       .get('/api/settings/get')
       .then(response => {
-        if (response.body.data) {
-          var appSettings = JSON.parse(response.body.data.app_settings)
+        console.log("settings data", response)
+        if (response.data) {
+          var appSettings = JSON.parse(response.data.data.app_settings)
           for (var index in this.items) {
-            switch (this.items[index].type) {
-              case 'mode':
-                this.items[index].default = appSettings['mode'].default
-                break
-              case 'sound':
-                this.items[index].default = appSettings['sound'].default
-                break
-              case 'language':
-                this.items[index].default = appSettings['language'].default
-                break
-              default:
-                break
+            if (appSettings[this.items[index].type]) {
+              switch (this.items[index].type) {
+                case 'mode':
+                  this.items[index].default = appSettings['mode'].default
+                  break
+                case 'sound':
+                  this.items[index].default = appSettings['sound'].default
+                  break
+                case 'language':
+                  this.items[index].default = appSettings['language'].default
+                  break
+                default:
+                  break
+              }
             }
           }
         } else {
@@ -162,11 +177,7 @@ export default {
       .catch(error => {
         console.log('----> ', error)
       })
-  },
-  methods: {
-    // open() {
-    //   this.$socket.emit('openWIFI', '')
-    // },
+    },
     updateItem(toggle, type, i) {
       switch (type.type) {
         case 'mode':

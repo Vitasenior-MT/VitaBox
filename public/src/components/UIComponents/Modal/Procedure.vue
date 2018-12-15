@@ -9,17 +9,6 @@
     @closed="$emit('closed', $event)">
     <div class="modelProcedure v--modal vue-dialog">
       <card-alert :objCard="dataAlert"></card-alert>
-      <!-- <div class="content">
-        <div class="vue-height-out">
-          <div class="row">
-            <div class='col-md-12 center2 font-size-b modelProcedureComponent btn btn-round btn-fill'>
-              <b>{{ $t('modal.procedure.'+ this.data +'.0') }}</b><br>
-              <b>{{ $t('modal.procedure.'+ this.data +'.1') }}</b><br>
-              <b>{{ $t('modal.procedure.'+ this.data +'.2') }}</b><br>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </modal>
 </template>

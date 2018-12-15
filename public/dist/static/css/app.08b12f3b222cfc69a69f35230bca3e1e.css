@@ -749,11 +749,19 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 .resize-form-wifi {
-  width: 200px;
-  height: auto;
-  display: inline-block;
-  overflow: scroll;
+  height: 340px !important;
 }
 
 
@@ -12509,4 +12517,4 @@ textarea.form-control {
     font-size: 12px;
     padding: 20px 0 0; }
 
-/*# sourceMappingURL=app.205a1e55ae3e9616aa68620372513b5f.css.map*/
+/*# sourceMappingURL=app.08b12f3b222cfc69a69f35230bca3e1e.css.map*/
