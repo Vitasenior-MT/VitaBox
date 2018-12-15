@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <div class="overlayer"></div>
     <side-bar type="sidebar" :sidebar-links="$sidebar.sidebarLinks"></side-bar>
     <notifications></notifications>
     <div class="div-project-name">
@@ -144,5 +145,23 @@
   width: 100%;
   height: 100%;
   opacity: 0.25;
+}
+.overlayer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  z-index: 10000;
+}
+body {
+  overflow: hidden;
+}
+* {
+  cursor: none !important;
 }
 </style>

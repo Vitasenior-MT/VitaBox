@@ -150,7 +150,7 @@ export default {
       this.$http
       .get('/api/settings/get')
       .then(response => {
-        console.log("settings data", response)
+        // console.log("settings data", response)
         if (response.data) {
           var appSettings = JSON.parse(response.data.data.app_settings)
           for (var index in this.items) {
