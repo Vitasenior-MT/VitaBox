@@ -1,5 +1,5 @@
 <template>
-  <div class='card btn btn-info control-modal-wifi col-lg-3'>
+  <div class='card btn btn-info control-modal-wifi'>
     <div class='content'>
       <div class='row'>
         <div class='col-lg-2'>

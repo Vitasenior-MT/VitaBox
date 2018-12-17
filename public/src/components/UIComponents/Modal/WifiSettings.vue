@@ -36,7 +36,7 @@
             </div>
           </div>
           <div v-show="displayWifi" class="col-lg-12 btn btn-round btn-fill btn-block resize-form-wifi">
-            <div v-for="(item, i) in params" v-bind:key='item.key' v-show="ssid">
+            <div class="col-lg-4" v-for="(item, i) in params" v-bind:key='item.key' v-show="ssid">
               <show-ssid :data="params[i]" :data-ssid="params[i].ssid"></show-ssid>
             </div>
             <h3 v-show="!ssid">{{$t('modal.wifisettings.password')}}</h3>
