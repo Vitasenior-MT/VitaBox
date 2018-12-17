@@ -1,11 +1,17 @@
 <template>
-  <div class="card clear-padding">
-    <div class="content">
-      <button
-        class="btn btn-info control-modal-wifi min-height"
-        type="button">
-        <h5 class="text-div-wrap">{{data.ssid}}</h5>
-      </button>
+  <div class='card btn btn-info btn-block control-modal-wifi'>
+    <div class='content'>
+      <div class='row'>
+        <div class='col-lg-12 btn-block'>
+          <div class='numbers'>
+            <p class="text-div-wrap">{{data.ssid}}</p>
+          </div>
+        </div>
+      </div>
+      <div class='content'>
+      </div>
+      <div class='footer text-center'>
+      </div>
     </div>
   </div>
 </template>
