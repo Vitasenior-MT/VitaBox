@@ -35,7 +35,7 @@
               </div>
             </div>
           </div>
-          <div v-show="displayWifi" class="col-lg-12  card-layout-out btn-block resize-form-wifi">
+          <div v-show="displayWifi" class="col-lg-12 btn btn-round btn-fill btn-block resize-form-wifi">
             <div v-for="(item, i) in params" v-bind:key='item.key' v-show="ssid">
               <show-ssid :data="params[i]" :data-ssid="params[i].ssid"></show-ssid>
             </div>
@@ -189,6 +189,6 @@ export default {
 </script>
 <style>
 .resize-form-wifi {
-  height: 340px !important;
+  height: 30% !important;
 }
 </style>

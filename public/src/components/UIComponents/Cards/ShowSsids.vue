@@ -8,12 +8,12 @@
           <div class='numbers'>
             <p>{{data.ssid}}</p>
           </div>
-         <b></b>
         </div>
       </div>
       <div class='content'>
       </div>
       <div class='footer text-center'>
+      </div>
     </div>
   </div>
 </template>
