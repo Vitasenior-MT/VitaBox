@@ -2,11 +2,9 @@
   <div class='card btn btn-info control-modal-wifi'>
     <div class='content'>
       <div class='row'>
-        <div class='col-lg-2'>
-        </div>
-        <div class='col-lg-4'>
+        <div class='col-lg-12'>
           <div class='numbers'>
-            <p>{{data.ssid}}</p>
+            <p class="text-div-wrap">{{data.ssid}}</p>
           </div>
         </div>
       </div>
