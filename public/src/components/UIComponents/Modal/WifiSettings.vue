@@ -189,6 +189,7 @@ export default {
 </script>
 <style>
 .resize-form-wifi {
-  height: 30% !important;
+  height: 300px !important;
+  overflow: hidden;
 }
 </style>
