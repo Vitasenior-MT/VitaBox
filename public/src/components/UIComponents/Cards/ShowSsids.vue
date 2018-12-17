@@ -1,13 +1,11 @@
 <template>
   <div class='card btn btn-info btn-block control-modal-wifi'>
     <div class='content'>
-      <div class="row">&nbsp;</div>
       <div class='row'>
         <div class='col-lg-12 text-center'>
           <p class="text-div-wrap">{{data.ssid}}</p>
         </div>
       </div>
-      <div class="row">&nbsp;</div>
     </div>
   </div>
 </template>
