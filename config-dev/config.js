@@ -64,8 +64,22 @@ module.exports = {
     host: 'vitasenior-ws.eu-gb.mybluemix.net'
   },
   ServerConfigs: {
-    key: fs.readFileSync('.key').toString().trim(),
-    pass: 'passvita',
+    key: (function () {
+      try {
+        return fs.readFileSync('.key').toString().trim()
+      } catch (e) {
+        console.log("Error file .key", e.toString())
+        return ""
+      }
+    })(),
+    pass: (function () {
+      try {
+        return fs.readFileSync('.pass').toString().trim()
+      } catch (e) {
+        console.log("Error file .pass", e.toString())
+        return 'passvita'
+      }
+    })(),
     port: 443,
     host: 'vitasenior-test.eu-gb.mybluemix.net'
   },

@@ -64,9 +64,22 @@ module.exports = {
     //host: 'http://192.168.161.115:8008/socketio'
   },
   ServerConfigs: {
-    key: fs.readFileSync('.key').toString().trim(),
-    pass: '6T7ULEOqJg',
-    //pass: 'passvita',
+    key: (function () {
+      try {
+        return fs.readFileSync('.key').toString().trim()
+      } catch (e) {
+        console.log("Error file .key", e.toString())
+        return ""
+      }
+    })(),
+    pass: (function () {
+      try {
+        return fs.readFileSync('.pass').toString().trim()
+      } catch (e) {
+        console.log("Error file .pass", e.toString())
+        return '6T7ULEOqJg'
+      }
+    })(),
     port: 443,
     host: 'vitasenior-api.eu-gb.mybluemix.net'
     //host: 'vitasenior-api-test.eu-gb.mybluemix.net'
