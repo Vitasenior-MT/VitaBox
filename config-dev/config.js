@@ -48,10 +48,6 @@ module.exports = {
       sec: 0
     }
   },
-  RemoteConfigs: {
-    remoteserver: "192.168.161.132",
-    remoteport: 8080
-  },
   ServerBoardWarningConfigs: {
     port: 10000,
     host: 'fd00::1'
@@ -61,7 +57,7 @@ module.exports = {
     host: 'fd00::1'
   },
   websockets: {
-    host: 'vitasenior-ws.eu-gb.mybluemix.net'
+    host: 'vitasenior-ws-test.eu-gb.mybluemix.net/socketio'
   },
   ServerConfigs: {
     key: (function () {
@@ -77,14 +73,14 @@ module.exports = {
         return fs.readFileSync('.pass').toString().trim()
       } catch (e) {
         console.log("Error file .pass", e.toString())
-        return 'passvita'
+        return ""
       }
     })(),
     port: 443,
-    host: 'vitasenior-test.eu-gb.mybluemix.net'
+    host: 'vitasenior-api-test.eu-gb.mybluemix.net'
   },
   serverHttp: {
     port: 8080
   },
-  mongodb: 'mongodb://localhost:27017/VitaBox'
+  mongodb: 'mongodb://localhost:27017/VitaBoxDev2'
 }
