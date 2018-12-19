@@ -1,5 +1,6 @@
 'use strict'
-var fs = require('fs');
+var fs = require('fs'),
+  errorLog = require('./logger').errorlog;
 
 module.exports = {
   coapConfigs: {
@@ -62,7 +63,7 @@ module.exports = {
       try {
         return fs.readFileSync('.key').toString().trim()
       } catch (e) {
-        console.log("Error file .key", e.toString())
+        errorLog.error(`Error file .key -> ${e.toString()}`)
         return ""
       }
     })(),
@@ -70,7 +71,7 @@ module.exports = {
       try {
         return fs.readFileSync('.pass').toString().trim()
       } catch (e) {
-        console.log("Error file .pass", e.toString())
+        errorLog.error(`Error file .pass -> ${e.toString()}`)
         return ""
       }
     })(),
