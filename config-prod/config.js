@@ -1,6 +1,6 @@
 'use strict'
 var fs = require('fs'),
-  errorLog = require('./lib/logger').errorlog;
+  errorLog = require('../lib/logger').errorlog;
 
 module.exports = {
   coapConfigs: {
