@@ -1,6 +1,6 @@
-# [VitaBox](https://github.com/nelsonmpg/VitaBox) [![version][version-badge]][CHANGELOG] [![license][license-badge]][LICENSE]
+# [VitaBox](https://github.com/nelsonmpg/VitaBox) 
 
-![](https://github.com/nelsonmpg/VitaBox/blob/master/public/static/img/load2_B.gif)
+<div style="text-align:center"><img src ="https://github.com/nelsonmpg/VitaBox/blob/master/public/static/img/load2_B.gif" /></div>
 
 Plataforma desenvolvida para disonibilizar uma aplicação na TV do utilizador, explorando a tecnologia HDMI-CEC.
 
@@ -16,3 +16,11 @@ Foi utilizado um template pré desenvolvido [Vue Paper Dashboard](https://cristi
 
 ### Copiar o script [installVitabox.sh](https://github.com/nelsonmpg/VitaBox/blob/master/Scripts/installVitabox.sh) para a pasta do utilizador no Raspberry Pi III
 `./installVitabos.sh`
+
+## Imagens da apicação apresentada na TV
+<div style="display: table; table-layout: auto; width: 100%;">
+  <img style="display: inline-table; margin: .33em; width: 30%; height: auto;" src="https://github.com/nelsonmpg/VitaBox/blob/master/public/img-app/img1.png" width="400"/>
+  <img style="display: inline-table; margin: .33em; width: 30%; height: auto;" src="https://github.com/nelsonmpg/VitaBox/blob/master/public/img-app/img2.png" width="400"/>
+  <img style="display: inline-table; margin: .33em; width: 30%; height: auto;" src="https://github.com/nelsonmpg/VitaBox/blob/master/public/img-app/img3.png" width="400"/>
+  <img style="display: inline-table; margin: .33em; width: 30%; height: auto;" src="https://github.com/nelsonmpg/VitaBox/blob/master/public/img-app/img4.png" width="400"/>
+</div>
