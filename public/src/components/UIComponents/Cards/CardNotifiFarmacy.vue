@@ -1,5 +1,5 @@
 <template>
-  <div class='card btn btn-info control-remote col-lg-12'>
+  <div class='card btn col-lg-12' :class='objCard.classControl'>
     <div class='content'>
       <div class='row'>
         <div class='col-lg-2'>

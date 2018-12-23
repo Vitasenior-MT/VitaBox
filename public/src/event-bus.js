@@ -39,6 +39,9 @@ export const EventBus = new Vue({
             this.$socket.emit('sendConfirmation', '')
             this.notifications = false
             this.$marqueemsg.hide()
+            for (let index in this.notificationList) {
+              this.notificationList[index].titleCard = this.notificationList[index].titleCard.replace('unchecked', 'checked')
+            }
           }
         }
         switch (this.historyElements[this.historyElements.length - 1]) {

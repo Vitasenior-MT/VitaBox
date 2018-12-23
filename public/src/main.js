@@ -117,14 +117,34 @@ export const app = new Vue({
       this.$modal.show('procedure', data)
     },
     informationVita: function(data) {
+      var self = this
       if (EventBus.notificationList.length === 5) {
         EventBus.notificationList.shift()
       }
       if (data.msg) {
         EventBus.notificationList.push({
-          type: data.type,
-          message: data.msg,
-          date: EventBus.dateFormat(new Date())
+          classControl: 'btn-success control-remote',
+          icon: (function() {
+            let srtIcon = ""
+            if (data.msg.type === 'notification') {
+              srtIcon = '<img src="static/img/vitabox/alert4.svg" width="40" height="40">'
+            } else if (data.msg.type === 'schedule') {
+              srtIcon = '<img src="static/img/vitabox/schedule3.svg" width="40" height="40">'
+            }
+            return srtIcon
+          })(),
+          titleCard: (data.msg.type === 'notification' ? 'Mensagem' : 'Agendamento') + ' <img src="static/img/vitabox/unchecked.svg" width="30" height="30">',
+          content: (function() {
+            let str = '<h5><i>Data: </i><b>' + EventBus.dateFormat(new Date()) + '</b>'
+            if (data.msg.from) {
+              str += '<br><i>' + self.$t("dictionary.from") + '</i> ' + data.msg.from
+            }
+            if (data.msg.to) {
+              str += '<br><i>' + self.$t("dictionary.to") + '</i> ' + data.msg.to
+            }
+            str += '<br><i>' + self.$t("dictionary.message") + '</i> ' + data.msg.message + '</h5>'
+            return str
+          })()
         })
       }
       if (!data.alert && !EventBus.examEmExec) {

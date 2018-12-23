@@ -1679,7 +1679,9 @@ export default {
                 self.flg_once = true
                 setTimeout(() => {
                   // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
-                  self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
+                  try {
+                    self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
+                  } catch (e) { }
                 }, 300);
               }
               if (!self.posPatientSelected >= 0) {

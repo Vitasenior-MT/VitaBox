@@ -19,9 +19,9 @@
       </div>
       <default-form v-if="items.length <= 0" ref="ViewNotifivacoes"></default-form>
       <div v-if="items.length > 0" class="col-lg-12 btn btn-round btn-fill btn-block clear-margin">
-        <div class="col-md-12" v-for="item in items.slice().reverse()" v-bind:key='item.key'>
-          <!-- <card-notificatio-farmacy :objCard="item"></card-notificatio-farmacy> -->
-          <div class="col-md-12 card-layout-in">
+        <div class="col-md-12 col-ajust" v-for="item in items.slice().reverse()" v-bind:key='item.key'>
+          <card-notificatio-farmacy :objCard="item"></card-notificatio-farmacy>
+          <!-- <div class="col-md-12 card-layout-in">
             <notification-card>
               <div class="numbers" slot="content">
                 <div v-show="item.type === 'notification'">
@@ -37,7 +37,7 @@
                 </div>
               </div>
             </notification-card>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -115,10 +115,11 @@ export default {
           for (let farmacy in farmacyData) {
             let farm = farmacyData[farmacy]
             this.farmacias.push({
+              classControl: 'btn-info control-remote',
               icon: '<img src="static/img/vitabox/farmacy.svg" width="40" height="40">',
               titleCard: this.$t('home.farmacy.farmacy'),
               content: (() => {
-                let txtHtml = ''
+                let txtHtml = '<h5>'
                 for (let index = 0; index < farm.length; index++) {
                   if (index === 0) {
                     txtHtml += '<b>' + farm[index] + '</b>'
@@ -128,7 +129,7 @@ export default {
                     txtHtml += '<br>' + farm[index]
                   }
                 }
-                return txtHtml
+                return txtHtml + '</h5>'
               })()
             })
           }
@@ -198,8 +199,8 @@ export default {
       })
     },
     controlEventsBus() {
+      var self = this
       EventBus.$on('move-components', function(cmd) {
-        // EventBus.elementControl = document.getElementsByClassName('notifications')
         EventBus.elementControl = document.getElementsByClassName('control-remote')
         if (EventBus.elementControl.length === 0) {
           EventBus.currentActiveRightComp = 0
@@ -217,6 +218,7 @@ export default {
             // evento para sair para a sidebar
           case 'exit':
             EventBus.removeAudio()
+            self.activeClass = ''
             // remove o preenchimento
             EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
             EventBus.elementControl[EventBus.currentActiveRightComp].blur()
@@ -269,9 +271,7 @@ export default {
     this.controlEventsBus()
     this.getFarmacy()
     this.getTempo()
-    console.log(EventBus.notificationList)
     this.items = EventBus.notificationList
-    console.log(this.items)
     this.timerID = setInterval(() => {
       this.updateTime()
     }, 1000)
