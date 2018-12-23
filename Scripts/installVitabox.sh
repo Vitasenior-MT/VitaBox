@@ -141,8 +141,8 @@ after_reboot(){
 	exec_cmd "git clone https://github.com/contiki-ng/contiki-ng.git"
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && git submodule init"
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && git submodule update"
-	exec_cmd "cd ${folderRoot}/contiki-ng/ && make TARGET=zoul --directory contiki/examples/ipv6/rpl-border-router/ savetarget || true"
-	exec_cmd "cd ${folderRoot}/contiki-ng/ && make --directory contiki/examples/ipv6/rpl-border-router/ border-router.upload && make --directory contiki/examples/ipv6/rpl-border-router/ connect-router || true"
+	exec_cmd "cd ${folderRoot}/contiki-ng/ && make TARGET=zoul --directory examples/rpl-border-router/ savetarget || true"
+	exec_cmd "cd ${folderRoot}/contiki-ng/ && make --directory examples/rpl-border-router/ border-router.upload && make --directory examples/rpl-border-router/ connect-router || true"
 	
 	exec_cmd "cp ${folderVitabox}/Scripts/borderRouter.txt ${folderVitabox}/Scripts/borderRouter.txt.service  || true"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/borderRouter.txt.service  || true"
