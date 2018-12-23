@@ -159,7 +159,7 @@ after_reboot(){
 	
 	print_status "VitaBox - config rpi boot"
 	exec_cmd "sudo rm -f /boot/config.txt || true"
-	exec_cmd "sudo cp ${folderVitabox}/bootConfig.txt /boot/config.txt"
+	exec_cmd "sudo cp ${folderVitabox}/Scripts/bootConfig.txt /boot/config.txt"
 
 	print_status "VitaBox - hide mouse"
 	exec_cmd "cd ${folderVitabox}/Scripts && sudo sh mousehide.sh || true"
