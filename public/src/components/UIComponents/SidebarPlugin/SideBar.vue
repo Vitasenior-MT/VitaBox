@@ -193,7 +193,7 @@ export default {
     })
     EventBus.$on('mode', function(manualChange) {
       if (manualChange !== undefined) {
-        self.sidebarStore.mode.advanced = manualChange
+        self.sidebarStore.mode.advanced = !manualChange
       } else {
         self.sidebarStore.mode.advanced = !self.sidebarStore.mode.advanced
       }

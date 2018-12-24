@@ -288,8 +288,8 @@
       },
       "mode": {
         "title": "Modo",
-        "checked": "Avançado",
-        "unchecked": "Básico"
+        "checked": "Básico",
+        "unchecked": "Avançado"
       },
       "language": {
         "title": "Linguagem",

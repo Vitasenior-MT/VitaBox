@@ -81,7 +81,7 @@ export default {
           default: true,
           labels: {checked: this.$t('modal.settings.mode.checked'), unchecked: this.$t('modal.settings.mode.unchecked')},
           color: {checked: '#f7931d', unchecked: '#f05a28'},
-          values: ['advanced', 'basic']
+          values: ['basic', 'advanced']
         },
         {
           title: this.$t('modal.settings.sound.title'),
