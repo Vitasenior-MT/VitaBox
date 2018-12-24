@@ -27,6 +27,7 @@ export const EventBus = new Vue({
     warnings: false,
     wifi: false,
     notificationList: [],     // lista de todas as notificações
+    notificationChecked: 0,
     listHistoryElements: [],
     historyElements: ['views']
   },
@@ -37,11 +38,11 @@ export const EventBus = new Vue({
         if (this.notifications) {
           if ((cmd === 'ok_btn' || cmd === 'exit')) {
             this.$socket.emit('sendConfirmation', '')
-            this.notifications = false
-            this.$marqueemsg.hide()
-            for (let index in this.notificationList) {
-              this.notificationList[index].titleCard = this.notificationList[index].titleCard.replace('unchecked', 'checked')
-            }
+            // this.notifications = false
+            // this.$marqueemsg.hide()
+            // for (let index in this.notificationList) {
+            //   this.notificationList[index].titleCard = this.notificationList[index].titleCard.replace('unchecked', 'checked')
+            // }
           }
         }
         switch (this.historyElements[this.historyElements.length - 1]) {
@@ -409,6 +410,11 @@ export const EventBus = new Vue({
         document.getElementsByClassName('div-project-name')[0].style.left = this.getLeftPos(document.getElementsByClassName('main-panel')[0]) + "px"
         document.getElementsByClassName('div-project-name')[0].style.width = (0.95 * this.marginPaddingPanel) + "%"
         document.getElementsByClassName('div-project-name')[0].style.height = this.getTopPos(document.getElementsByClassName('img-help')[0]) + "px"
+      }
+    },
+    notificationChecked: function(value) {
+      if (this.notificationChecked === this.notificationList.length) {
+        this.$marqueemsg.hide()
       }
     }
   }

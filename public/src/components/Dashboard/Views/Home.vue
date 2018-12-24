@@ -213,7 +213,13 @@ export default {
           // evento do 'OK'
           case 'ok_btn':
             // console.log("'Ok btn")
-            EventBus.elementControl[EventBus.currentActiveRightComp].click()
+            // EventBus.elementControl[EventBus.currentActiveRightComp].click()
+            if (EventBus.currentActiveRightComp < EventBus.notificationList.length) {
+              if ((EventBus.notificationList[EventBus.notificationList.length - 1 - EventBus.currentActiveRightComp].titleCard).indexOf('unchecked') !== -1) {
+                EventBus.notificationChecked++
+              }
+              EventBus.notificationList[EventBus.notificationList.length - 1 - EventBus.currentActiveRightComp].titleCard = EventBus.notificationList[EventBus.notificationList.length - 1 - EventBus.currentActiveRightComp].titleCard.replace('unchecked', 'checked')
+            }
             break
             // evento para sair para a sidebar
           case 'exit':

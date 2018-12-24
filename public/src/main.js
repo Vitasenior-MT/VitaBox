@@ -118,9 +118,9 @@ export const app = new Vue({
     },
     informationVita: function(data) {
       var self = this
-      if (EventBus.notificationList.length === 5) {
-        EventBus.notificationList.shift()
-      }
+      // if (EventBus.notificationList.length === 5) {
+      //   EventBus.notificationList.shift()
+      // }
       if (data.msg) {
         EventBus.notificationList.push({
           classControl: 'btn-success control-remote',
@@ -133,9 +133,17 @@ export const app = new Vue({
             }
             return srtIcon
           })(),
-          titleCard: (data.msg.type === 'notification' ? 'Mensagem' : 'Agendamento') + ' <img src="static/img/vitabox/unchecked.svg" width="30" height="30">',
+          titleCard: (function() {
+            let srtTitle = ""
+            if (data.msg.type === 'notification') {
+              srtTitle = 'Mensagem'
+            } else if (data.msg.type === 'schedule') {
+              srtTitle = 'Agendamento'
+            }
+            return srtTitle + ' <img src="static/img/vitabox/unchecked.svg" width="30" height="30">'
+          })(),
           content: (function() {
-            let str = '<h5><i>Data: </i><b>' + EventBus.dateFormat(new Date()) + '</b>'
+            let str = '<h5><i>Data: </i><b>' + EventBus.dateFormat(data.msg.date) + '</b>'
             if (data.msg.from) {
               str += '<br><i>' + self.$t("dictionary.from") + '</i> ' + data.msg.from
             }
@@ -147,15 +155,16 @@ export const app = new Vue({
           })()
         })
       }
-      if (!data.alert && !EventBus.examEmExec) {
-        EventBus.$emit('changeTab', '/vitabox/bemvindo')
-        EventBus.notifications = true
-        EventBus.$emit('notification', '')
-        this.$modal.hide('settings')
-        EventBus.wifi = false
-        EventBus.settings = false
-        this.$marqueemsg.show(data.shortMessage, data.longMessage)
-      }
+      // if (!data.alert && !EventBus.examEmExec) {
+      //   EventBus.$emit('changeTab', '/vitabox/bemvindo')
+      //   EventBus.notifications = true
+      //   EventBus.$emit('notification', '')
+      //   this.$modal.hide('settings')
+      //   EventBus.wifi = false
+      //   EventBus.settings = false
+      //   this.$marqueemsg.show(data.shortMessage, data.longMessage)
+      this.$marqueemsg.show('Mensagems', 'Possui novas mensagens, utilizando o comando navegue para o separador "Bem Vindo" para verificar as mensagens.')
+      // }
     },
     unblock: function(type) {
       this.$marqueemsg.hide()
