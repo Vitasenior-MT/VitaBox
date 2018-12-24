@@ -147,13 +147,17 @@ export default {
     this.$http
       .get('/api/settings/get')
       .then(response => {
-        if (response.body.data) {
-          var appSettings = JSON.parse(response.body.data.app_settings)
-          EventBus.settingsData = appSettings
-          EventBus.$emit('mode', appSettings['mode'].default)
-          EventBus.flg_sound = appSettings['sound'].default
-          EventBus.currentLanguage = appSettings['language'].value
-          self.$store.dispatch('setLangNew', EventBus.currentLanguage)
+        if (response.data.status === true) {
+          if (response.data.data) {
+            var appSettings = JSON.parse(response.body.data.app_settings)
+            EventBus.settingsData = appSettings
+            EventBus.$emit('mode', appSettings['mode'].default)
+            EventBus.flg_sound = appSettings['sound'].default
+            EventBus.currentLanguage = appSettings['language'].value
+            self.$store.dispatch('setLangNew', EventBus.currentLanguage)
+          } else {
+            console.log('No app settings.')
+          }
         } else {
           console.log('Receive error', response)
         }
@@ -193,7 +197,7 @@ export default {
     })
     EventBus.$on('mode', function(manualChange) {
       if (manualChange !== undefined) {
-        self.sidebarStore.mode.advanced = manualChange
+        self.sidebarStore.mode.advanced = !manualChange
       } else {
         self.sidebarStore.mode.advanced = !self.sidebarStore.mode.advanced
       }

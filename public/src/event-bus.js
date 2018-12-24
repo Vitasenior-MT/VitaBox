@@ -20,7 +20,11 @@ export const EventBus = new Vue({
     backupSidebarWidth: 0,      // backup do tamanho da sidebar
     backupMainPanelWidth: 0,    // backup da largura do mail panel
     backupMovingArrowLeft: 0,   // backup da posição da seta da sidebar
-    settingsData: {},
+    settingsData: {
+      mode: { default: true },
+      sound: { default: true },
+      language: { default: true }
+    },
     examEmExec: false,           // flag para validação da execução dos exames
     settings: false,
     notifications: false,

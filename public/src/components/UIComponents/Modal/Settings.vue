@@ -81,7 +81,7 @@ export default {
           default: true,
           labels: {checked: this.$t('modal.settings.mode.checked'), unchecked: this.$t('modal.settings.mode.unchecked')},
           color: {checked: '#f7931d', unchecked: '#f05a28'},
-          values: ['advanced', 'basic']
+          values: ['basic', 'advanced']
         },
         {
           title: this.$t('modal.settings.sound.title'),
@@ -151,22 +151,24 @@ export default {
       .get('/api/settings/get')
       .then(response => {
         // console.log("settings data", response)
-        if (response.data) {
-          var appSettings = JSON.parse(response.data.data.app_settings)
-          for (var index in this.items) {
-            if (appSettings[this.items[index].type]) {
-              switch (this.items[index].type) {
-                case 'mode':
-                  this.items[index].default = appSettings['mode'].default
-                  break
-                case 'sound':
-                  this.items[index].default = appSettings['sound'].default
-                  break
-                case 'language':
-                  this.items[index].default = appSettings['language'].default
-                  break
-                default:
-                  break
+        if (response.data.status === true) {
+          if (response.data.data) {
+            var appSettings = JSON.parse(response.data.data.app_settings)
+            for (var index in this.items) {
+              if (appSettings[this.items[index].type]) {
+                switch (this.items[index].type) {
+                  case 'mode':
+                    this.items[index].default = appSettings['mode'].default
+                    break
+                  case 'sound':
+                    this.items[index].default = appSettings['sound'].default
+                    break
+                  case 'language':
+                    this.items[index].default = appSettings['language'].default
+                    break
+                  default:
+                    break
+                }
               }
             }
           }
