@@ -43,9 +43,14 @@ module.exports = {
       min: 0,
       sec: 4
     },
-    deleteRate: {
+    timeToNewAttempt: {
       hour: 0,
-      min: 10,
+      min: 0,
+      sec: 10
+    },
+    deleteRate: {
+      hour: 5,
+      min: 0,
       sec: 0
     }
   },
