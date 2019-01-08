@@ -83,7 +83,7 @@ before_reboot(){
 	exec_cmd "curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -"
 
 	print_status "Install all aplications."
-	exec_cmd "sudo apt-get install -y chromium-browser cec-utils mongodb git unclutter arm-none-eabi-gcc bluetooth bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
+	exec_cmd "sudo apt-get install -y chromium-browser cec-utils mongodb git unclutter bluetooth gcc-arm-none-eabi bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
 	
 	print_bold \
 	"                         VITASENIOR - VITABOX                         " "\
