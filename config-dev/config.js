@@ -33,6 +33,11 @@ module.exports = {
     }
   },
   TimersConfig: {
+    timeToNewAttempt: {
+      hour: 0,
+      min: 0,
+      sec: 10
+    },
     waitingTimeTillNextWarning: {
       hour: 0,
       min: 0,
