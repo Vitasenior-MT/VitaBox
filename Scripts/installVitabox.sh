@@ -83,7 +83,7 @@ before_reboot(){
 	exec_cmd "curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -"
 
 	print_status "Install all aplications."
-	exec_cmd "sudo apt-get install -y chromium-browser cec-utils mongodb git unclutter bluetooth bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
+	exec_cmd "sudo apt-get install -y chromium-browser cec-utils mongodb git unclutter arm-none-eabi-gcc bluetooth bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
 	
 	print_bold \
 	"                         VITASENIOR - VITABOX                         " "\
@@ -141,8 +141,8 @@ after_reboot(){
 	exec_cmd "git clone https://github.com/contiki-ng/contiki-ng.git"
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && git submodule init"
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && git submodule update"
-	exec_cmd "cd ${folderRoot}/contiki-ng/ && make TARGET=zoul --directory contiki/examples/ipv6/rpl-border-router/ savetarget || true"
-	exec_cmd "cd ${folderRoot}/contiki-ng/ && make --directory contiki/examples/ipv6/rpl-border-router/ border-router.upload && make --directory contiki/examples/ipv6/rpl-border-router/ connect-router || true"
+	exec_cmd "cd ${folderRoot}/contiki-ng/ && make TARGET=zoul --directory examples/rpl-border-router/ savetarget || true"
+	exec_cmd "cd ${folderRoot}/contiki-ng/ && make --directory examples/rpl-border-router/ connect-router || true"
 	
 	exec_cmd "cp ${folderVitabox}/Scripts/borderRouter.txt ${folderVitabox}/Scripts/borderRouter.txt.service  || true"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/borderRouter.txt.service  || true"
