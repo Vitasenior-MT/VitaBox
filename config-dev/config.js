@@ -58,7 +58,7 @@ module.exports = {
     host: 'fd00::1'
   },
   websockets: {
-    host: 'vitasenior-ws-test.eu-gb.mybluemix.net/socketio'
+    host: 'https://vitasenior-ws-test.eu-gb.mybluemix.net/socketio'
   },
   ServerConfigs: {
     key: (function () {
