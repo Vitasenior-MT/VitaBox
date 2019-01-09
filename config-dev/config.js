@@ -35,7 +35,7 @@ module.exports = {
   TimersConfig: {
     interfaceReset: {
       hour: 0,
-      min: 5,
+      min: 2,
       sec: 0
     },
     timeToNewAttempt: {
