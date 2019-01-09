@@ -33,6 +33,11 @@ module.exports = {
     }
   },
   TimersConfig: {
+    interfaceReset: {
+      hour: 0,
+      min: 1,
+      sec: 0
+    },
     timeToNewAttempt: {
       hour: 0,
       min: 0,
@@ -78,7 +83,7 @@ module.exports = {
       try {
         return fs.readFileSync('.pass').toString().trim()
       } catch (e) {
-        errorLog.error(`Error file .PASS -> ${e.toString()}`)
+        errorLog.error(`Error file .pass -> ${e.toString()}`)
         return ""
       }
     })(),
