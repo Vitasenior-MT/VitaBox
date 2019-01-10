@@ -142,7 +142,6 @@ after_reboot(){
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && git submodule init"
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && git submodule update"
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && make TARGET=zoul --directory examples/rpl-border-router/ savetarget || true"
-	exec_cmd "cd ${folderRoot}/contiki-ng/ && make --directory examples/rpl-border-router/ connect-router || true"
 	
 	exec_cmd "cp ${folderVitabox}/Scripts/borderRouter.txt ${folderVitabox}/Scripts/borderRouter.txt.service  || true"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/borderRouter.txt.service  || true"
