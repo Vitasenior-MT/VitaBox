@@ -38,6 +38,11 @@ module.exports = {
       min: 2,
       sec: 0
     },
+    wifiRetry: {
+      hour: 0,
+      min: 30,
+      sec: 0
+    },
     timeToNewAttempt: {
       hour: 0,
       min: 0,
