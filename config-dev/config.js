@@ -92,8 +92,8 @@ module.exports = {
         return ""
       }
     })(),
-    port: 443,
-    host: 'vitasenior-api-test.eu-gb.mybluemix.net'
+    port: 8080,
+    host: '192.168.161.94'
   },
   serverHttp: {
     port: 8080
