@@ -32,12 +32,11 @@ module.exports = {
       sec: 0
     }
   },
+  pingConfig: {
+    site: 'www.google.com',
+    numberOfTries: 5
+  },
   TimersConfig: {
-    interfaceReset: {
-      hour: 0,
-      min: 2,
-      sec: 0
-    },
     wifiRetry: {
       hour: 0,
       min: 30,
