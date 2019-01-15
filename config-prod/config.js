@@ -32,7 +32,7 @@ module.exports = {
   },
   pingConfig: {
     site: 'www.google.com',
-    numberOfTries: 5
+    number: 5
   },
   TimersConfig: {
     wifiRetry: {
