@@ -39,7 +39,7 @@ module.exports = {
   TimersConfig: {
     wifiRetry: {
       hour: 0,
-      min: 30,
+      min: 1,
       sec: 0
     },
     timeToNewAttempt: {
