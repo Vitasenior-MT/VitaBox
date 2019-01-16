@@ -31,7 +31,7 @@ module.exports = {
     }
   },
   pingConfig: {
-    site: 'www.google.com',
+    site: '1.1.1.1',
     number: 5
   },
   TimersConfig: {
