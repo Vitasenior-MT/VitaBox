@@ -28,6 +28,7 @@ export const EventBus = new Vue({
     wifi: false,
     notificationList: [],     // lista de todas as notificações
     listHistoryElements: [],
+    warningList: [],          // lista de warnings
     historyElements: ['views']
   },
   methods: {

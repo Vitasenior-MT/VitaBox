@@ -43,25 +43,15 @@ export default {
   },
   methods: {
     beforeOpened(event) {
-      this.verify[event.params.warning_type] = event.params.warning_type
-      console.log('Data: ', this.verify)
-      if (this.verify[event.params.warning_type] === 'mono') {
-        this.data = event.params.warning_type
-      } else if (this.verify[event.params.warning_type] === 'diox') {
-        this.data = event.params.warning_type
-      } else if (this.verify[event.params.warning_type] === 'temp') {
-        this.data = event.params.warning_type
-      } else if (this.verify[event.params.warning_type] === 'humi') {
-        this.data = event.params.warning_type
-      }
+      console.log('Data: ', event)
       this.dataAlert = {
         icon: '<img src="static/img/vitabox/alert3.svg" width="100" height="100">',
         titleCard: '<h2><b>Alerta</b></h2>',
         content: (_ => {
           let txtHtml = "<b class='text-b-ajust'>Perigo na divisão " + event.params.location + ".</b><br>"
-          txtHtml += "<b class='text-b-ajust'>Niveis elevados. <img src='static/img/vitabox/" + this.data + ".svg' width='70' height='70'></b><br>"
+          txtHtml += "<b class='text-b-ajust'>Niveis elevados. <img src='static/img/vitabox/" + event.params.warning_type + ".svg' width='70' height='70'></b><br>"
           for (let i = 1; i < 3; i++) {
-            txtHtml += "<b class='text-b-ajust'>" + this.$t('modal.procedure.' + this.data + '.' + i) + "</b><br>"
+            txtHtml += "<b class='text-b-ajust'>" + this.$t('modal.procedure.' + event.params.warning_type + '.' + i) + "</b><br>"
           }
           return txtHtml
         })()

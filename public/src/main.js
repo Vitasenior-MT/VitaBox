@@ -92,6 +92,7 @@ export const app = new Vue({
           self.timeout = setTimeout(() => {
             self.$modal.show('alert', '')
             self.$socket.emit('ttsText', self.$t('modal.procedure.warnings'))
+            // this.$modal.show('procedure', EventBus.warningList[data.warning_type])
             // self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
             // self.$t('modal.procedure.' + EventBus.warning_type + '.1') + self.$t('modal.procedure.' + EventBus.warning_type + '.2'))
           }, 5000)
@@ -101,20 +102,23 @@ export const app = new Vue({
       }
     },
     vitaWarning: function(data) {
-      EventBus.warning_type = data.warning_type
-      EventBus.warnings = true
-      EventBus.notifications = false
-      EventBus.wifi = false
-      EventBus.settings = false
-      this.$modal.hide('wifi-settings')
-      this.$modal.hide('settings')
-      this.$modal.show('alert', '')
-      // this.$socket.emit('ttsText', this.$t('modal.procedure.' + EventBus.warning_type + '.0') +
-      // this.$t('modal.procedure.' + EventBus.warning_type + '.1') + this.$t('modal.procedure.' + EventBus.warning_type + '.2'))
-      this.$socket.emit('ttsText', this.$t('modal.procedure.warnings'))
-      this.$marqueemsg.show('Informação', 'Prima ok para desbloquear a aplicação.', { speed: 15, fontSize: '3vw' })
-      EventBus.$emit('changeTab', '/vitabox/warnings')
-      this.$modal.show('procedure', data)
+      EventBus.warningList[data.warning_type] = data
+      console.log('Data: ', EventBus.warningList.length)
+      console.log('Data: ', EventBus.warningList[0])
+      if (!EventBus.warnings) {
+        EventBus.notifications = false
+        EventBus.wifi = false
+        EventBus.settings = false
+        EventBus.warnings = true
+
+        this.$modal.hide('wifi-settings')
+        this.$modal.hide('settings')
+        this.$modal.show('alert', '')
+        this.$socket.emit('ttsText', this.$t('modal.procedure.warnings'))
+        this.$marqueemsg.show('Informação', 'Prima ok para desbloquear a aplicação.', { speed: 15, fontSize: '3vw' })
+        EventBus.$emit('changeTab', '/vitabox/warnings')
+        this.$modal.show('procedure', data)
+      }
     },
     informationVita: function(data) {
       if (EventBus.notificationList.length === 5) {
