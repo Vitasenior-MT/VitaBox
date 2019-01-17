@@ -29,6 +29,7 @@ export const EventBus = new Vue({
     notificationList: [],     // lista de todas as notificações
     listHistoryElements: [],
     warningList: [],          // lista de warnings
+    warningCurrent = -1,
     historyElements: ['views']
   },
   methods: {

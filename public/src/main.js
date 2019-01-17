@@ -92,6 +92,9 @@ export const app = new Vue({
           self.timeout = setTimeout(() => {
             self.$modal.show('alert', '')
             self.$socket.emit('ttsText', self.$t('modal.procedure.warnings'))
+            if (Object.keys(EventBus.warningList).length > 1) {
+              this.$modal.show('procedure', EventBus.warningList[Object.keys(EventBus.warningList)[++EventBus.warningCurrent]])
+            }
             // this.$modal.show('procedure', EventBus.warningList[data.warning_type])
             // self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
             // self.$t('modal.procedure.' + EventBus.warning_type + '.1') + self.$t('modal.procedure.' + EventBus.warning_type + '.2'))
@@ -103,11 +106,11 @@ export const app = new Vue({
     },
     vitaWarning: function(data) {
       EventBus.warningList[data.warning_type] = data
-      console.log('Data: ', EventBus.warningList.length)
-      console.log('Data: ', EventBus.warningList[0])
+      console.log('Data: ', Object.keys(EventBus.warningList).length)
       console.log('Data: ', EventBus.warningList)
       console.log('Data: ', data)
       if (!EventBus.warnings) {
+        EventBus.warningCurrent = Object.keys(EventBus.warningList).indexOf(data.warning_type)
         EventBus.notifications = false
         EventBus.wifi = false
         EventBus.settings = false
