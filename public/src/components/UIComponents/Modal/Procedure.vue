@@ -44,6 +44,7 @@ export default {
   methods: {
     beforeOpened(event) {
       this.verify[event.params.warning_type] = event.params.warning_type
+      console.log('Data: ', this.verify)
       if (this.verify[event.params.warning_type] === 'mono') {
         this.data = event.params.warning_type
       } else if (this.verify[event.params.warning_type] === 'diox') {
