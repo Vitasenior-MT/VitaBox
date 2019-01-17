@@ -105,6 +105,8 @@ export const app = new Vue({
       EventBus.warningList[data.warning_type] = data
       console.log('Data: ', EventBus.warningList.length)
       console.log('Data: ', EventBus.warningList[0])
+      console.log('Data: ', EventBus.warningList)
+      console.log('Data: ', data)
       if (!EventBus.warnings) {
         EventBus.notifications = false
         EventBus.wifi = false

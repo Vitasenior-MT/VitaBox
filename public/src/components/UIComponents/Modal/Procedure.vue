@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     beforeOpened(event) {
-      console.log('Data: ', event)
       this.dataAlert = {
         icon: '<img src="static/img/vitabox/alert3.svg" width="100" height="100">',
         titleCard: '<h2><b>Alerta</b></h2>',
