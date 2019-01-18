@@ -97,7 +97,10 @@ export const app = new Vue({
               if (warningCurrent > Object.keys(EventBus.warningList).length) {
                 EventBus.warningCurrent = 0;
               }
-              this.$modal.show('procedure', EventBus.warningList[Object.keys(EventBus.warningList)[++EventBus.warningCurrent]])
+              console.log(warningCurrent)
+              console.log(EventBus.warningList[Object.keys(EventBus.warningList)[EventBus.warningCurrent]])
+              // this.$modal.hide('procedure')
+              this.$modal.show('procedure', EventBus.warningList[Object.keys(EventBus.warningList)[EventBus.warningCurrent]])
             }
             // this.$modal.show('procedure', EventBus.warningList[data.warning_type])
             // self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
