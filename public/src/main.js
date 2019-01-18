@@ -100,7 +100,7 @@ export const app = new Vue({
               console.log(warningCurrent)
               console.log(EventBus.warningList[Object.keys(EventBus.warningList)[EventBus.warningCurrent]])
               // this.$modal.hide('procedure')
-              this.$modal.show('procedure', EventBus.warningList[Object.keys(EventBus.warningList)[EventBus.warningCurrent]])
+              EventBus.$emit('rotation', EventBus.warningList[Object.keys(EventBus.warningList)[EventBus.warningCurrent]])
             }
             // this.$modal.show('procedure', EventBus.warningList[data.warning_type])
             // self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
@@ -113,9 +113,6 @@ export const app = new Vue({
     },
     vitaWarning: function(data) {
       EventBus.warningList[data.warning_type] = data
-      console.log('Data: ', Object.keys(EventBus.warningList).length)
-      console.log('Data: ', EventBus.warningList)
-      console.log('Data: ', data)
       if (!EventBus.warnings) {
         EventBus.warningCurrent = Object.keys(EventBus.warningList).indexOf(data.warning_type)
         EventBus.notifications = false
