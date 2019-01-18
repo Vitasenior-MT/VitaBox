@@ -61,7 +61,6 @@ export default {
       })
     },
     beforeOpened(event) {
-      this.rotationEventsBus()
       console.log(event)
       this.dataAlert = {
         icon: '<img src="static/img/vitabox/alert3.svg" width="100" height="100">',
@@ -76,7 +75,10 @@ export default {
         })()
       }
     }
-  }
+  },
+  created() {
+    this.rotationEventsBus()
+  },
 }
 </script>
 <style>
