@@ -78,7 +78,7 @@ export default {
     }
   },
   created() {
-    this.rotationEventsBus()
+    // this.rotationEventsBus()
   }
 }
 </script>
