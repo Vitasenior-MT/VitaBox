@@ -13,6 +13,7 @@
   </modal>
 </template>
 <script>
+import { EventBus } from '../../../event-bus.js'
 import CardAlert from 'components/UIComponents/Cards/CardNotifiFarmacy.vue'
 export default {
   name: 'Procedure',
