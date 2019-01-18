@@ -306,7 +306,7 @@
       }
     },
     "procedure": {
-      "warnings": "Aviso!",
+      "warnings": "Sala Aviso!",
       "mono": {
         "0": "Monóxido de carbono muito alto.",
         "1": "Saia de casa.",
