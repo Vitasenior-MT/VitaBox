@@ -167,6 +167,7 @@ export const EventBus = new Vue({
       }
     },
     audioBasicMode: function(path, callback) {
+      EventBus.removeAudio()
       let self = this
       console.log(this.flg_sound && !callback)
       if (this.flg_sound && !callback) {
@@ -197,15 +198,13 @@ export const EventBus = new Vue({
         document.body.appendChild(audio)
       }
     },
-    removeAudio: function(type) {
-      if (type === 'off') {
-        let audio = document.getElementById('audioElem')
-        if (audio) {
-          audio.pause()
-          audio.currentTime = 0
-          audio.remove()
-          this.$socket.emit('ttsDelete')
-        }
+    removeAudio: function() {
+      let audio = document.getElementById('audioElem')
+      if (audio) {
+        audio.pause()
+        audio.currentTime = 0
+        audio.remove()
+        this.$socket.emit('ttsDelete')
       }
     },
     findOne: function(arr, obj) {
