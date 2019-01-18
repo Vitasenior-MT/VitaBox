@@ -171,7 +171,7 @@ export const EventBus = new Vue({
       let self = this
       console.log(this.flg_sound && !callback)
       if (this.flg_sound && !callback) {
-        let audio = document.createElement('audio')
+        let audio = document.createElement('video')
         audio.id = 'audioElem'
         audio.style.display = 'none'
         audio.src = path
@@ -185,7 +185,7 @@ export const EventBus = new Vue({
         };
         document.body.appendChild(audio)
       } else if (callback) {
-        let audio = document.createElement('audio')
+        let audio = document.createElement('video')
         audio.id = 'audioElem'
         audio.style.display = 'none'
         audio.src = path
