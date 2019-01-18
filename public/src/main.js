@@ -86,6 +86,7 @@ export const app = new Vue({
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
       }
+      console.log('sound passes allways here ', EventBus.warnings)
       if (EventBus.warnings) {
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
           self.$modal.hide('alert')

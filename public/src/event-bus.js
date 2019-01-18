@@ -168,6 +168,7 @@ export const EventBus = new Vue({
     },
     audioBasicMode: function(path, callback) {
       let self = this
+      console.log(this.flg_sound && !callback)
       if (this.flg_sound && !callback) {
         let audio = document.createElement('audio')
         audio.id = 'audioElem'
