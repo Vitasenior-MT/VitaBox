@@ -306,7 +306,12 @@
       }
     },
     "procedure": {
-      "warnings": "Sala Aviso!",
+      "warnings": {
+        "warning": "Sala Aviso!",
+        "division": "Perigo na divisão ",
+        "hight": "Níveis elevados. ",
+        "low": "Níveis baixos. "
+      },
       "mono": {
         "0": "Monóxido de carbono muito alto.",
         "1": "Saia de casa.",

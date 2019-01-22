@@ -86,7 +86,6 @@ export const app = new Vue({
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
       }
-      console.log('sound passes allways here ', EventBus.warnings)
       if (EventBus.warnings) {
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
           self.$modal.hide('alert')
@@ -95,18 +94,16 @@ export const app = new Vue({
             self.$socket.emit('ttsText', self.$t('modal.procedure.warnings'))
             if (Object.keys(EventBus.warningList).length > 1) {
               let warningCurrent = EventBus.warningCurrent++
-              if (warningCurrent > Object.keys(EventBus.warningList).length) {
+              if (warningCurrent > Object.keys(EventBus.warningList).length - 1) {
                 EventBus.warningCurrent = 0;
               }
               console.log(warningCurrent)
               console.log(EventBus.warningList[Object.keys(EventBus.warningList)[EventBus.warningCurrent]])
               this.$modal.hide('procedure')
               this.$modal.show('procedure', EventBus.warningList[Object.keys(EventBus.warningList)[EventBus.warningCurrent]])
-              // EventBus.$emit('rotation', EventBus.warningList[Object.keys(EventBus.warningList)[EventBus.warningCurrent]])
+              // self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
+              // self.$t('modal.procedure.' + EventBus.warning_type + '.1') + self.$t('modal.procedure.' + EventBus.warning_type + '.2'))
             }
-            // this.$modal.show('procedure', EventBus.warningList[data.warning_type])
-            // self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
-            // self.$t('modal.procedure.' + EventBus.warning_type + '.1') + self.$t('modal.procedure.' + EventBus.warning_type + '.2'))
           }, 5000)
         })
       } else {
