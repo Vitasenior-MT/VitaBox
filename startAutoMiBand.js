@@ -39,7 +39,7 @@ Main.prototype.execBleMiBand = function (pacientInfo) {
   var self = this;
   var args = {
     options: {
-      bandfitness_auth: pacientInfo.bandfitness_auth
+      bandfitness_auth: true // pacientInfo.bandfitness_auth verificar porque não grava
     },
     pacientId: pacientInfo.userId,
     action: pacientInfo.BoardmodelName,
