@@ -91,7 +91,7 @@ export const app = new Vue({
           self.$modal.hide('alert')
           self.timeout = setTimeout(() => {
             self.$modal.show('alert', '')
-            self.$socket.emit('ttsText', self.$t('modal.procedure.warnings'))
+            self.$socket.emit('ttsText', self.$t('modal.procedure.warnings.warning'))
             if (Object.keys(EventBus.warningList).length > 1) {
               let warningCurrent = EventBus.warningCurrent++
               if (warningCurrent > Object.keys(EventBus.warningList).length - 1) {
@@ -123,7 +123,7 @@ export const app = new Vue({
         this.$modal.hide('wifi-settings')
         this.$modal.hide('settings')
         this.$modal.show('alert', '')
-        this.$socket.emit('ttsText', this.$t('modal.procedure.warnings'))
+        this.$socket.emit('ttsText', this.$t('modal.procedure.warnings.warning'))
         this.$marqueemsg.show('Informação', 'Prima ok para desbloquear a aplicação.', { speed: 15, fontSize: '3vw' })
         EventBus.$emit('changeTab', '/vitabox/warnings')
         this.$modal.show('procedure', data)
