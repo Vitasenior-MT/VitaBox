@@ -67,8 +67,8 @@ export default {
         icon: '<img src="static/img/vitabox/alert3.svg" width="100" height="100">',
         titleCard: '<h2><b>Alerta</b></h2>',
         content: (_ => {
-          let txtHtml = "<b class='text-b-ajust'>" + self.$t('modal.procedure.warnings.') + event.params.location + ".</b><br>"
-          txtHtml += "<b class='text-b-ajust'>" + self.$t('modal.procedure.warnings.hight') + " <img src='static/img/vitabox/" + event.params.warning_type + ".svg' width='70' height='70'></b><br>"
+          let txtHtml = "<b class='text-b-ajust'>" + this.$t('modal.procedure.warnings.') + event.params.location + ".</b><br>"
+          txtHtml += "<b class='text-b-ajust'>" + this.$t('modal.procedure.warnings.hight') + " <img src='static/img/vitabox/" + event.params.warning_type + ".svg' width='70' height='70'></b><br>"
           for (let i = 1; i < 3; i++) {
             txtHtml += "<b class='text-b-ajust'>" + this.$t('modal.procedure.' + event.params.warning_type + '.' + i) + "</b><br>"
           }
