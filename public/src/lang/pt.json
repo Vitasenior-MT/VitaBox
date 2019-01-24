@@ -307,7 +307,7 @@
     },
     "procedure": {
       "warnings": {
-        "warning": "Aviso!",
+        "warning": "Aviso !",
         "division": "Perigo na divisão ",
         "hight": "Níveis elevados. ",
         "low": "Níveis baixos. "
