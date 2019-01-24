@@ -113,6 +113,7 @@ export const app = new Vue({
     vitaWarning: function(data) {
       EventBus.warningList[data.warning_type] = data
       if (!EventBus.warnings) {
+        console.log(data)
         EventBus.warningCurrent = Object.keys(EventBus.warningList).indexOf(data.warning_type)
         EventBus.notifications = false
         EventBus.wifi = false
