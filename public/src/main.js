@@ -111,7 +111,9 @@ export const app = new Vue({
       }
     },
     vitaWarning: function(data) {
-      EventBus.warningList[data.warning_type] = data
+      if (data.warning_type !== "temp" && data.warning_type !== "humi") {
+        EventBus.warningList[data.warning_type] = data
+      }
       if (!EventBus.warnings) {
         console.log(data)
         EventBus.warningCurrent = Object.keys(EventBus.warningList).indexOf(data.warning_type)
