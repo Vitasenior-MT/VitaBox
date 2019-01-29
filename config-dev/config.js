@@ -18,7 +18,7 @@ module.exports = {
     sec: 0,
     noData: {
       hour: 0,
-      min: 5,
+      min: 1,
       sec: 0
     }
   },
