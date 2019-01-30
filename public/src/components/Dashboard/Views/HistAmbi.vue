@@ -165,6 +165,10 @@ export default {
             let dataArray = response.data.data
             this.chartData = {
               data: {
+                thresholds: {
+                  min: 0,
+                  max: 0
+                },
                 labels: [],
                 datasets: []
               }
@@ -348,6 +352,10 @@ export default {
           this.sensorList.push({
             name: data[index].measure,
             type: data[index].sensortype,
+            threshold_min_acceptable: data[index].threshold_min_acceptable,
+            threshold_max_acceptable: data[index].threshold_max_acceptable,
+            threshold_min_possible: data[index].threshold_min_possible,
+            threshold_max_possible: data[index].threshold_max_possible,
             id: index
           })
         }

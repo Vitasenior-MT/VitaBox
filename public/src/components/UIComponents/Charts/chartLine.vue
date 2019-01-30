@@ -75,8 +75,8 @@ export default {
               id: "y-axis-0",
               type: 'linear',
               ticks: {
-                stepSize: 50,
-                maxTicksLimit: 3,
+                min: this.yTicks.min,           
+                max: this.yTicks.max,
                 fontSize: 18
               }
             }],
