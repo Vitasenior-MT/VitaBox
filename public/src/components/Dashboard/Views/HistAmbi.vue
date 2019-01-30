@@ -70,6 +70,7 @@ export default {
       posSensorSelected: -1,
       dataCharsExists: false,
       sensorList: [],
+      thresholdList: [],
       sensorType: '',
       location: '',
       hideShowItem: 0,
@@ -158,6 +159,14 @@ export default {
       this.$refs.loading.show()
       this.resetValues()
       this.location = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+       this.$http
+        .get('/api/sensor/getThresholds/' + this.sensorType + '/' + this.location)
+        .then(response => {
+          console.log(responce)
+        })
+        .catch(error => {
+          console.log(error)
+        })
       this.$http
         .get('/api/rawsensor/getdatalt/' + this.sensorType + '/' + this.location)
         .then(response => {
@@ -166,8 +175,8 @@ export default {
             this.chartData = {
               data: {
                 thresholds: {
-                  min: 0,
-                  max: 0
+                  min: this.thresholdList[this.sensorType + this.location].threshold_min_possible,
+                  max: this.thresholdList[this.sensorType + this.location].threshold_max_possible
                 },
                 labels: [],
                 datasets: []
@@ -352,10 +361,6 @@ export default {
           this.sensorList.push({
             name: data[index].measure,
             type: data[index].sensortype,
-            threshold_min_acceptable: data[index].threshold_min_acceptable,
-            threshold_max_acceptable: data[index].threshold_max_acceptable,
-            threshold_min_possible: data[index].threshold_min_possible,
-            threshold_max_possible: data[index].threshold_max_possible,
             id: index
           })
         }
