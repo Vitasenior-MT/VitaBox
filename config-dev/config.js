@@ -73,7 +73,7 @@ module.exports = {
     host: 'fd00::1'
   },
   websockets: {
-    host: 'http://192.168.161.197:8008'
+    host: 'http://192.168.161.197:8008/socketio'
   },
   ServerConfigs: {
     key: (function () {
