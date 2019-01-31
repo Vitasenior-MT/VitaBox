@@ -164,9 +164,11 @@ export default {
        this.$http
         .get('/api/sensor/getThresholds/' + this.location + '/' + this.sensorType)
         .then(response => {
-          console.log(responce)
+          console.log('???????????????????????')
+          console.log(responce.data)
         })
         .catch(error => {
+          console.log('EEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRROOOOOOOOOOOOOOOORRRRRRRRRRRRRR')
           console.log(error)
         })
       this.$http
