@@ -159,10 +159,10 @@ export default {
       this.$refs.loading.show()
       this.resetValues()
       this.location = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
-      console.log('location and  sensortype')
+      console.log('location and sensortype')
       console.log(this.sensorType, this.location)
        this.$http
-        .get('/api/sensor/getThresholds/' + this.sensorType + '/' + this.location)
+        .get('/api/sensor/getThresholds/' + this.location + '/' + this.sensorType)
         .then(response => {
           console.log(responce)
         })
