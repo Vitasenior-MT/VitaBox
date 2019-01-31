@@ -161,9 +161,8 @@ export default {
       this.location = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       console.log('location and sensortype')
       console.log(this.sensorType, this.location)
-       this.$http
-        .get('/api/sensor/getThresholds/' + this.location + '/' + this.sensorType)
-        .then(response => {
+       this.$http.get('/api/sensor/getThresholds/' + this.location + '/' + this.sensorType)
+       .then(response => {
           console.log('???????????????????????')
           console.log(responce.data)
         })
@@ -171,7 +170,7 @@ export default {
           console.log('EEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRROOOOOOOOOOOOOOOORRRRRRRRRRRRRR')
           console.log(error)
         })
-      this.$http
+      /*this.$http
         .get('/api/rawsensor/getdatalt/' + this.sensorType + '/' + this.location)
         .then(response => {
           if (response.data.status === true) {
@@ -237,7 +236,7 @@ export default {
         })
         .catch(error => {
           console.log(error)
-        })
+        })*/
     },
     /**
      * TODO: Limpa todas as variaveis que contenham valores que são apresentados na pagina
