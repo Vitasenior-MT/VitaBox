@@ -161,79 +161,77 @@ export default {
       this.location = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       console.log('location and sensortype')
       console.log(this.sensorType, this.location)
-       this.$http
-        .get('/api/sensor/getThresholds/' + this.location + '/' + this.sensorType)
-        .then(response => {
-          console.log('???????????????????????')
-          console.log(response.data)
-        })
-        .catch(error => {
-          console.log('EEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRROOOOOOOOOOOOOOOORRRRRRRRRRRRRR')
-          console.log(error)
-        })
       this.$http
-        .get('/api/rawsensor/getdatalt/' + this.sensorType + '/' + this.location)
-        .then(response => {
-          if (response.data.status === true) {
-            let dataArray = response.data.data
-            this.chartData = {
-              data: {
-                thresholds: {
-                  min: this.thresholdList[this.sensorType + this.location].min,
-                  max: this.thresholdList[this.sensorType + this.location].max
-                },
-                labels: [],
-                datasets: []
-              }
-            }
-            for (let index = 0; index < dataArray.length; index++) {
-              let color = EventBus.getRandomColor()
-              if (this.chartData.data.labels.length < dataArray[index].time.length) {
-                this.chartData.data.labels = (function() {
-                  let arrTime = [];
-                  for (let i = 0; i < dataArray[index].time.length; i++) {
-                    if (i === 0) {
-                      arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
-                    } else {
-                      if (EventBus.sameDay(dataArray[index].time[i - 1], dataArray[index].time[i])) {
-                        arrTime.push(EventBus.onlyTimeFormat(dataArray[index].time[i]))
-                      } else {
-                        arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
-                      }
-                    }
+        .get('/api/sensor/getThresholds/' + this.location + '/' + this.sensorType)
+        .then(sensorData => {
+          console.log(sensorData.data)
+          this.$http
+            .get('/api/rawsensor/getdatalt/' + this.sensorType + '/' + this.location)
+            .then(response => {
+              if (response.data.status === true) {
+                let dataArray = response.data.data
+                this.chartData = {
+                  data: {
+                    thresholds: {
+                      min: sensorData.data.threshold_min_possible,
+                      max: sensorData.data.threshold_max_possible
+                    },
+                    labels: [],
+                    datasets: []
                   }
-                  return arrTime
-                })()
+                }
+                for (let index = 0; index < dataArray.length; index++) {
+                  let color = EventBus.getRandomColor()
+                  if (this.chartData.data.labels.length < dataArray[index].time.length) {
+                    this.chartData.data.labels = (function() {
+                      let arrTime = [];
+                      for (let i = 0; i < dataArray[index].time.length; i++) {
+                        if (i === 0) {
+                          arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
+                        } else {
+                          if (EventBus.sameDay(dataArray[index].time[i - 1], dataArray[index].time[i])) {
+                            arrTime.push(EventBus.onlyTimeFormat(dataArray[index].time[i]))
+                          } else {
+                            arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
+                          }
+                        }
+                      }
+                      return arrTime
+                    })()
+                  }
+                  this.chartData.data.datasets.push({
+                    label: dataArray[index].location,
+                    borderColor: color,
+                    showInLegend: true,
+                    type: "line",
+                    yAxisID: "y-axis-0",
+                    pointBackgroundColor: color,
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    data: dataArray[index].value
+                  })
+                }
+                this.dataCharsExists = true
+                this.classEvent = 'control-remote'
+    
+                this.$refs.loading.hide()
+                this.$refs.DefaultView.hide()
+              } else {
+                this.posSensorSelected = -1
+                this.$refs.loading.hide()
+                this.$notifications.notify({
+                  message: '<h4>' + response.data.data + '</h4>',
+                  icon: 'ti-bell',
+                  horizontalAlign: 'right',
+                  verticalAlign: 'top',
+                  type: 'warning'
+                })
+                this.$refs.DefaultView.setMsg(this.msgSensor)
+                this.$refs.DefaultView.show()
               }
-              this.chartData.data.datasets.push({
-                label: dataArray[index].location,
-                borderColor: color,
-                showInLegend: true,
-                type: "line",
-                yAxisID: "y-axis-0",
-                pointBackgroundColor: color,
-                backgroundColor: 'rgba(0, 0, 0, 0)',
-                data: dataArray[index].value
-              })
-            }
-            this.dataCharsExists = true
-            this.classEvent = 'control-remote'
-
-            this.$refs.loading.hide()
-            this.$refs.DefaultView.hide()
-          } else {
-            this.posSensorSelected = -1
-            this.$refs.loading.hide()
-            this.$notifications.notify({
-              message: '<h4>' + response.data.data + '</h4>',
-              icon: 'ti-bell',
-              horizontalAlign: 'right',
-              verticalAlign: 'top',
-              type: 'warning'
             })
-            this.$refs.DefaultView.setMsg(this.msgSensor)
-            this.$refs.DefaultView.show()
-          }
+            .catch(error => {
+              console.log(error)
+            })
         })
         .catch(error => {
           console.log(error)
