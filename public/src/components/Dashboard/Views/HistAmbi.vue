@@ -161,10 +161,11 @@ export default {
       this.location = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       console.log('location and sensortype')
       console.log(this.sensorType, this.location)
-       this.$http.get('/api/sensor/getThresholds/' + this.location + '/' + this.sensorType)
+       this.$http
+       .get('/api/sensor/getThresholds/' + this.location + '/' + this.sensorType)
        .then(response => {
           console.log('???????????????????????')
-          console.log(responce.data)
+          console.log(response.data)
         })
         .catch(error => {
           console.log('EEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRROOOOOOOOOOOOOOOORRRRRRRRRRRRRR')
