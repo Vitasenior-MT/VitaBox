@@ -188,8 +188,9 @@ export default {
                     this.chartData.data.labels = (function() {
                       let arrTime = [];
                       for (let i = 0; i < dataArray[index].time.length; i++) {
-                        console.log('ThresholdMax: value')
+                        console.log('ThresholdMax: value ', sensorData.data.data[0].threshold_max_acceptable)
                         this.thresholdMax.push(sensorData.data.data[0].threshold_max_acceptable);
+                        console.log('ThresholdMax: value ', this.thresholdMax)
                         this.thresholdMin.push(sensorData.data.data[0].threshold_min_acceptable);
                         if (i === 0) {
                           arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
