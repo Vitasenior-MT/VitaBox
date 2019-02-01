@@ -218,7 +218,7 @@ export default {
                   console.log(this.chartData)
                   this.chartData.data.datasets.push({
                     label: 'Máximo',
-                    borderColor: color,
+                    borderColor: '#DD0808',
                     showInLegend: true,
                     type: "line",
                     yAxisID: "y-axis-0",
@@ -229,7 +229,7 @@ export default {
                   })
                   this.chartData.data.datasets.push({
                     label: 'Minimo',
-                    borderColor: color,
+                    borderColor: '#DD0808',
                     showInLegend: true,
                     type: "line",
                     yAxisID: "y-axis-0",
