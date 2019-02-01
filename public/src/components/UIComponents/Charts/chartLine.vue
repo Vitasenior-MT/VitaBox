@@ -94,11 +94,11 @@ export default {
     initGraphLine: function(_el) {
       var canvas = document.getElementById(_el)
       var ctx = canvas.getContext('2d')
+      console.log('chart line -------> ', this.dataChart.data.thresholds)
+      this.configChart.options.scales.yAxes.ticks.min = this.dataChart.data.thresholds.min
+      this.configChart.options.scales.yAxes.ticks.max = this.dataChart.data.thresholds.max
       if (this.defSecoundScale && this.defSecoundScale !== '' && this.defSecoundScale !== undefined) {
         this.configChart.options.scales.yAxes[0].id = "y-axis-1"
-        console.log('chart line -------> ', this.dataChart.data.thresholds)
-        this.configChart.options.scales.yAxes.ticks.min = this.dataChart.data.thresholds.min
-        this.configChart.options.scales.yAxes.ticks.max = this.dataChart.data.thresholds.max
         this.configChart.options.scales.yAxes.push(this.defSecoundScale)
       }
       this.configChart.data = {}
