@@ -216,7 +216,7 @@ export default {
                   })
                   console.log(this.chartData)
                   this.chartData.data.datasets.push({
-                    label: 'max',
+                    label: 'Máximo',
                     borderColor: color,
                     showInLegend: true,
                     type: "line",
@@ -225,16 +225,16 @@ export default {
                     backgroundColor: 'rgba(0, 0, 0, 0)',
                     data: this.thresholdMax
                   })
-                  /*this.chartData.data.datasets.push({
-                    label: 'min',
+                  this.chartData.data.datasets.push({
+                    label: 'Minimo',
                     borderColor: color,
                     showInLegend: true,
                     type: "line",
-                    yAxisID: "y-axis-2",
+                    yAxisID: "y-axis-0",
                     pointBackgroundColor: color,
                     backgroundColor: 'rgba(0, 0, 0, 0)',
                     data: this.thresholdMin
-                  })*/
+                  })
                 }
                 this.dataCharsExists = true
                 this.classEvent = 'control-remote'
