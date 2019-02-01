@@ -189,6 +189,7 @@ export default {
                       let arrTime = [];
                       for (let i = 0; i < dataArray[index].time.length; i++) {
                         console.log('ThresholdMax: value ', sensorData.data.data[0].threshold_max_acceptable)
+                        console.log('ThresholdMax: value ', this.thresholdMax)
                         this.thresholdMax.push(sensorData.data.data[0].threshold_max_acceptable);
                         console.log('ThresholdMax: value ', this.thresholdMax)
                         this.thresholdMin.push(sensorData.data.data[0].threshold_min_acceptable);
