@@ -214,17 +214,18 @@ export default {
                     backgroundColor: 'rgba(0, 0, 0, 0)',
                     data: dataArray[index].value
                   })
-                 /* this.chartData.data.datasets.push({
+                  console.log(this.chartData)
+                  this.chartData.data.datasets.push({
                     label: 'max',
                     borderColor: color,
                     showInLegend: true,
                     type: "line",
-                    yAxisID: "y-axis-1",
+                    yAxisID: "y-axis-0",
                     pointBackgroundColor: color,
                     backgroundColor: 'rgba(0, 0, 0, 0)',
                     data: this.thresholdMax
                   })
-                  this.chartData.data.datasets.push({
+                  /*this.chartData.data.datasets.push({
                     label: 'min',
                     borderColor: color,
                     showInLegend: true,
