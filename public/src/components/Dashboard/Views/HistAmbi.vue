@@ -173,8 +173,8 @@ export default {
                 this.chartData = {
                   data: {
                     thresholds: {
-                      min: sensorData.data[0].threshold_min_possible,
-                      max: sensorData.data[0].threshold_max_possible
+                      min: sensorData.data.data[0].threshold_min_possible,
+                      max: sensorData.data.data[0].threshold_max_possible
                     },
                     labels: [],
                     datasets: []
