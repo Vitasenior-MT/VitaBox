@@ -203,6 +203,7 @@ export default {
                       return arrTime
                     })()
                   }
+                  console.log(this.thresholdMax)
                   this.chartData.data.datasets.push({
                     label: dataArray[index].location,
                     borderColor: color,
@@ -218,7 +219,7 @@ export default {
                     borderColor: color,
                     showInLegend: true,
                     type: "line",
-                    yAxisID: "y-axis-0",
+                    yAxisID: "y-axis-1",
                     pointBackgroundColor: color,
                     backgroundColor: 'rgba(0, 0, 0, 0)',
                     data: this.thresholdMax
@@ -228,7 +229,7 @@ export default {
                     borderColor: color,
                     showInLegend: true,
                     type: "line",
-                    yAxisID: "y-axis-0",
+                    yAxisID: "y-axis-2",
                     pointBackgroundColor: color,
                     backgroundColor: 'rgba(0, 0, 0, 0)',
                     data: this.thresholdMin
