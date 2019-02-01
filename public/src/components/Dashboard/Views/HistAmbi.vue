@@ -212,7 +212,8 @@ export default {
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: color,
                     backgroundColor: 'rgba(0, 0, 0, 0)',
-                    data: dataArray[index].value
+                    data: dataArray[index].value,
+                    fontSize: 18
                   })
                   console.log(this.chartData)
                   this.chartData.data.datasets.push({
@@ -221,9 +222,10 @@ export default {
                     showInLegend: true,
                     type: "line",
                     yAxisID: "y-axis-0",
-                    pointBackgroundColor: color,
-                    backgroundColor: 'rgba(0, 0, 0, 0)',
-                    data: this.thresholdMax
+                    pointBackgroundColor: '#DD0808',
+                    backgroundColor: 'rgba(221, 8, 8, 0)',
+                    data: this.thresholdMax,
+                    fontSize: 5
                   })
                   this.chartData.data.datasets.push({
                     label: 'Minimo',
@@ -231,9 +233,10 @@ export default {
                     showInLegend: true,
                     type: "line",
                     yAxisID: "y-axis-0",
-                    pointBackgroundColor: color,
-                    backgroundColor: 'rgba(0, 0, 0, 0)',
-                    data: this.thresholdMin
+                    pointBackgroundColor: '#DD0808',
+                    backgroundColor: 'rgba(221, 8, 8, 0)',
+                    data: this.thresholdMin,
+                    fontSize: 5
                   })
                 }
                 this.dataCharsExists = true

@@ -78,7 +78,7 @@ export default {
                 suggestedMin: this.dataChart.data.thresholds.min,
                 max: this.dataChart.data.thresholds.max,
                 stepSize: this.dataChart.data.thresholds.max > 1000 ? 500 : 50,
-                fontSize: 18
+                fontSize: this.dataChart.data.fontSize
               }
             }],
             xAxes: [{
@@ -97,7 +97,6 @@ export default {
     initGraphLine: function(_el) {
       var canvas = document.getElementById(_el)
       var ctx = canvas.getContext('2d')
-      console.log('chart line -------> ', this.dataChart.data.thresholds)
       if (this.defSecoundScale && this.defSecoundScale !== '' && this.defSecoundScale !== undefined) {
         this.configChart.options.scales.yAxes[0].id = "y-axis-1"
         this.configChart.options.scales.yAxes.push(this.defSecoundScale)
