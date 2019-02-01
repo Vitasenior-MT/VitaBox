@@ -180,12 +180,15 @@ export default {
                     datasets: []
                   }
                 }
+                let max = [], min = [];
                 for (let index = 0; index < dataArray.length; index++) {
                   let color = EventBus.getRandomColor()
                   if (this.chartData.data.labels.length < dataArray[index].time.length) {
                     this.chartData.data.labels = (function() {
                       let arrTime = [];
                       for (let i = 0; i < dataArray[index].time.length; i++) {
+                        min.push(sensorData.data.data[0].threshold_max_acceptable);
+                        max.push(sensorData.data.data[0].threshold_min_acceptable);
                         if (i === 0) {
                           arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
                         } else {
@@ -217,7 +220,7 @@ export default {
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: color,
                     backgroundColor: 'rgba(0, 0, 0, 0)',
-                    data: sensorData.data.data[0].threshold_max_acceptable
+                    data: max
                   })
                   this.chartData.data.datasets.push({
                     label: 'min',
@@ -227,7 +230,7 @@ export default {
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: color,
                     backgroundColor: 'rgba(0, 0, 0, 0)',
-                    data: sensorData.data.data[0].threshold_min_acceptable
+                    data: min
                   })
                 }
                 this.dataCharsExists = true
