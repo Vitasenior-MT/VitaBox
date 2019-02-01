@@ -209,6 +209,26 @@ export default {
                     backgroundColor: 'rgba(0, 0, 0, 0)',
                     data: dataArray[index].value
                   })
+                  this.chartData.data.datasets.push({
+                    label: 'max',
+                    borderColor: color,
+                    showInLegend: true,
+                    type: "line",
+                    yAxisID: "y-axis-0",
+                    pointBackgroundColor: color,
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    data: sensorData.data.data[0].threshold_max_acceptable
+                  })
+                  this.chartData.data.datasets.push({
+                    label: 'min',
+                    borderColor: color,
+                    showInLegend: true,
+                    type: "line",
+                    yAxisID: "y-axis-0",
+                    pointBackgroundColor: color,
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    data: sensorData.data.data[0].threshold_min_acceptable
+                  })
                 }
                 this.dataCharsExists = true
                 this.classEvent = 'control-remote'
