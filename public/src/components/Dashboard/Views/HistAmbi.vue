@@ -214,7 +214,7 @@ export default {
                     backgroundColor: 'rgba(0, 0, 0, 0)',
                     data: dataArray[index].value
                   })
-                  this.chartData.data.datasets.push({
+                 /* this.chartData.data.datasets.push({
                     label: 'max',
                     borderColor: color,
                     showInLegend: true,
@@ -233,7 +233,7 @@ export default {
                     pointBackgroundColor: color,
                     backgroundColor: 'rgba(0, 0, 0, 0)',
                     data: this.thresholdMin
-                  })
+                  })*/
                 }
                 this.dataCharsExists = true
                 this.classEvent = 'control-remote'
