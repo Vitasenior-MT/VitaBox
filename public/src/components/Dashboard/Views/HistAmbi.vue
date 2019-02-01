@@ -188,6 +188,7 @@ export default {
                     this.chartData.data.labels = (function() {
                       let arrTime = [];
                       for (let i = 0; i < dataArray[index].time.length; i++) {
+                        console.log('ThresholdMax: value')
                         this.thresholdMax.push(sensorData.data.data[0].threshold_max_acceptable);
                         this.thresholdMin.push(sensorData.data.data[0].threshold_min_acceptable);
                         if (i === 0) {
@@ -203,6 +204,7 @@ export default {
                       return arrTime
                     })()
                   }
+                  console.log('ThresholdMax: FINAL ')
                   console.log(this.thresholdMax)
                   this.chartData.data.datasets.push({
                     label: dataArray[index].location,
