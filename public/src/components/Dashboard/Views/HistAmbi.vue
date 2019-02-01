@@ -212,7 +212,6 @@ export default {
                 }
                 this.dataCharsExists = true
                 this.classEvent = 'control-remote'
-    
                 this.$refs.loading.hide()
                 this.$refs.DefaultView.hide()
               } else {
