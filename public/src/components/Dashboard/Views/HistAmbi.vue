@@ -71,6 +71,8 @@ export default {
       dataCharsExists: false,
       sensorList: [],
       thresholdList: [],
+      max = [],
+      min = [],
       sensorType: '',
       location: '',
       hideShowItem: 0,
@@ -180,7 +182,6 @@ export default {
                     datasets: []
                   }
                 }
-                let max = [], min = [];
                 for (let index = 0; index < dataArray.length; index++) {
                   let color = EventBus.getRandomColor()
                   if (this.chartData.data.labels.length < dataArray[index].time.length) {
