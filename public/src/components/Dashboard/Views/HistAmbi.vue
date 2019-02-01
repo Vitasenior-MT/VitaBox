@@ -188,8 +188,8 @@ export default {
                     this.chartData.data.labels = (function() {
                       let arrTime = [];
                       for (let i = 0; i < dataArray[index].time.length; i++) {
-                        thresholdMax.push(sensorData.data.data[0].threshold_max_acceptable);
-                        thresholdMin.push(sensorData.data.data[0].threshold_min_acceptable);
+                        this.thresholdMax.push(sensorData.data.data[0].threshold_max_acceptable);
+                        this.thresholdMin.push(sensorData.data.data[0].threshold_min_acceptable);
                         if (i === 0) {
                           arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
                         } else {
@@ -221,7 +221,7 @@ export default {
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: color,
                     backgroundColor: 'rgba(0, 0, 0, 0)',
-                    data: thresholdMax
+                    data: this.thresholdMax
                   })
                   this.chartData.data.datasets.push({
                     label: 'min',
@@ -231,7 +231,7 @@ export default {
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: color,
                     backgroundColor: 'rgba(0, 0, 0, 0)',
-                    data: thresholdMin
+                    data: this.thresholdMin
                   })
                 }
                 this.dataCharsExists = true
