@@ -158,6 +158,7 @@ export default {
         })
     },
     getDataSensor() {
+      var self = this
       this.$refs.loading.show()
       this.resetValues()
       this.location = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
@@ -186,13 +187,13 @@ export default {
                   let color = EventBus.getRandomColor()
                   if (this.chartData.data.labels.length < dataArray[index].time.length) {
                     this.chartData.data.labels = (function() {
-                      let arrTime = [];
+                      let arrTime = []
                       for (let i = 0; i < dataArray[index].time.length; i++) {
                         console.log('ThresholdMax: value ', sensorData.data.data[0].threshold_max_acceptable)
-                        console.log('ThresholdMax: value ', this.thresholdMax)
-                        this.thresholdMax.push(sensorData.data.data[0].threshold_max_acceptable);
-                        console.log('ThresholdMax: value ', this.thresholdMax)
-                        this.thresholdMin.push(sensorData.data.data[0].threshold_min_acceptable);
+                        console.log('ThresholdMax: value ', self.thresholdMax)
+                        self.thresholdMax.push(sensorData.data.data[0].threshold_max_acceptable);
+                        console.log('ThresholdMax: value ', self.thresholdMax)
+                        self.thresholdMin.push(sensorData.data.data[0].threshold_min_acceptable);
                         if (i === 0) {
                           arrTime.push(EventBus.smallDateFormat(dataArray[index].time[i]))
                         } else {
