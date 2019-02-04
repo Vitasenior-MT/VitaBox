@@ -387,6 +387,7 @@ export default {
       .then(response => {
         let data = response.data.data
         for (var index in data) {
+          console.log(data[index])
           this.sensorList.push({
             name: data[index].location,
             type: data[index].location,
