@@ -331,7 +331,7 @@ export default {
                 // desloca a div para o inicio
                 document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
                 // limpa a lisa dos botões disponiveis para o user
-                self.btnLocation = []
+                self.sensorList = []
                 self.resetValues()
                 self.$refs.DefaultView.setMsg(self.msgSensor)
                 self.$refs.DefaultView.show()
