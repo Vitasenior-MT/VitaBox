@@ -383,6 +383,22 @@ export default {
   },
   beforeCreate() {
     this.$http
+      .get('/api/sensor/getListOfLocations')
+      .then(response => {
+        let data = response.data.data
+        for (var index in data) {
+          this.sensorList.push({
+            name: data[index].location,
+            type: data[index].location,
+            id: index
+          })
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    /*
+    this.$http
       .get('/api/sensor/getDistictAll')
       .then(response => {
         let data = response.data.data
@@ -397,6 +413,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
+      */
   },
   /**
    * TODO: Destroi o evento das teclas do comando para esta view
