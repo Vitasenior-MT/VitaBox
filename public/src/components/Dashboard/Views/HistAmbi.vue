@@ -122,7 +122,7 @@ export default {
               this.sensorList.push({
                 id: index,
                 type: dataArray[index].sensortype,
-                name: dataArray[index].location
+                name: dataArray[index].sensortype
               })
             }
             this.dataCharsExists = true
