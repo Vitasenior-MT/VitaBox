@@ -329,9 +329,9 @@ export default {
                 elem.focus()
                 elem.classList.add('btn-fill')
                 // desloca a div para o inicio
-                document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
+                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
                 // limpa a lisa dos botões disponiveis para o user
-                self.btnSensors = []
+                self.btnLocation = []
                 self.resetValues()
                 self.$refs.DefaultView.setMsg(self.msgSensor)
                 self.$refs.DefaultView.show()
