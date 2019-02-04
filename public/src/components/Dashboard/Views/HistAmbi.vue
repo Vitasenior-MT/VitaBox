@@ -1,18 +1,18 @@
 <template>
   <div class="row">
     <div class="row btnSensors">
-      <div class="col-md-2" v-for="sensor in sensorList"  :key='sensor.id'>
+      <div class="col-md-2" v-for="location in locationList"  :key='location.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button v-tooltip.bottom="$t('tooltips.ambienteHistory.sensor.title')" class="btn btn-block btn-info control-remote-sensors" type="button" :data-type="sensor.type" v-on:click="getAllDataSensor()">
-                <h5 class="text-div-wrap"><b class="fab fa-galactic-senate"></b> {{ sensor.name }}</h5>
+            <button class="btn btn-block btn-info control-remote-location" type="button" :data-type="location.location" v-on:click="getAllDataSensor()">
+                <h5 class="text-div-wrap"><b class="fab fa-galactic-senate"></b> {{ location.name }}</h5>
             </button>
           </div>
         </div>
       </div>
     </div>
     <div class="row btnLocation">
-      <div class="col-md-2" v-for="btn in btnLocation"  :key='btn.id'>
+      <div class="col-md-2" v-for="sensor in sensorList"  :key='sensor.id'>
         <div class="card clear-padding">
           <div class="content">
             <button
@@ -21,10 +21,10 @@
               type="button"
               :data-id="btn.id"
               :data-select="'false'"
-              :data-type="btn.type"
+              :data-type="sensor.type"
               v-on:click="getDataSensor()">
               <!-- <h2><b :class="btn.icon"></b></h2> -->
-              <h5>{{ btn.nome }}</h5>
+              <h5>{{ sensor.name }}</h5>
             </button>
           </div>
         </div>
@@ -66,10 +66,11 @@ export default {
       flg_once: false,
       msgSensor: 'histambi.msgSensor',
       msgExit: 'histambi.msgExit',
-      classEvent: 'control-remote-sensors',
+      classEvent: 'control-remote-location',
       posSensorSelected: -1,
       dataCharsExists: false,
       sensorList: [],
+      locationList: [],
       thresholdList: [],
       thresholdMax: [],
       thresholdMin: [],
@@ -109,18 +110,18 @@ export default {
     getAllDataSensor() {
       this.$refs.loading.show()
       this.resetValues()
-      this.sensorType = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+      this.location = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.location
       this.$http
-        .get('/api/rawsensor/getdata/' + this.sensorType)
+        .get('/api/rawsensor/getSensorDataByLocation/' + this.location)
         .then(response => {
           if (response.data.status === true) {
             this.posSensorSelected = EventBus.currentActiveRightComp
             let dataArray = response.data.data
             for (let index = 0; index < dataArray.length; index++) {
-              this.btnLocation.push({
+              this.sensorList.push({
                 id: index,
-                type: dataArray[index].location,
-                nome: dataArray[index].location
+                type: dataArray[index].sensortype,
+                name: dataArray[index].location
               })
             }
             this.dataCharsExists = true
@@ -161,9 +162,7 @@ export default {
       var self = this
       this.$refs.loading.show()
       this.resetValues()
-      this.location = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
-      console.log('location and sensortype')
-      console.log(this.sensorType, this.location)
+      this.sensorType = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       this.$http
         .get('/api/sensor/getThresholds/' + this.location + '/' + this.sensorType)
         .then(sensorData => {
@@ -316,7 +315,7 @@ export default {
             case 'exit':
               EventBus.removeAudio()
               // iniicializa a variavel para selecionar a lsta do user
-              self.classEvent = 'control-remote-sensors'
+              self.classEvent = 'control-remote-location'
               // se existir um user selecionado é porque se está na lista dos equipamentos
               if (self.posSensorSelected >= 0) {
                 // Constroi a lista com os elementos da class dos users
@@ -387,9 +386,9 @@ export default {
       .then(response => {
         let data = response.data.data
         for (var index in data) {
-          this.sensorList.push({
+          this.locationList.push({
             name: data[index],
-            type: data[index],
+            location: data[index],
             id: index
           })
         }
