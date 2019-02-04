@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="row btnSensors">
+    <div class="row btnLocation">
       <div class="col-md-2" v-for="location in locationList"  :key='location.id'>
         <div class="card clear-padding">
           <div class="content">
@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <div class="row btnLocation">
+    <div class="row btnSensors">
       <div class="col-md-2" v-for="sensor in sensorList"  :key='sensor.id'>
         <div class="card clear-padding">
           <div class="content">
@@ -19,7 +19,7 @@
               v-tooltip.bottom="$t('tooltips.ambienteHistory.history.title')"
               class="btn btn-block btn-success control-remote"
               type="button"
-              :data-id="btn.id"
+              :data-id="sensor.id"
               :data-select="'false'"
               :data-type="sensor.type"
               v-on:click="getDataSensor()">
@@ -307,7 +307,7 @@ export default {
                 }
               }, 300);
               if (self.posSensorSelected < 0) {
-                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
+                document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgExam)
                 self.$refs.DefaultView.show()
               }
@@ -331,7 +331,7 @@ export default {
                 // desloca a div para o inicio
                 document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
                 // limpa a lisa dos botões disponiveis para o user
-                self.btnLocation = []
+                self.btnSensors = []
                 self.resetValues()
                 self.$refs.DefaultView.setMsg(self.msgSensor)
                 self.$refs.DefaultView.show()
@@ -359,9 +359,9 @@ export default {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
               if (self.posSensorSelected >= 0) {
-                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
-              } else {
                 document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
+              } else {
+                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgSensor)
                 self.$refs.DefaultView.show()
               }
