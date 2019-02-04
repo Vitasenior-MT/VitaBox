@@ -75,6 +75,7 @@ export default {
               id: "y-axis-0",
               type: 'linear',
               ticks: {
+                beginAtZero: true,
                 suggestedMin: this.dataChart.data.thresholds.min,
                 max: this.dataChart.data.thresholds.max,
                 stepSize: this.dataChart.data.thresholds.max > 100 ? (this.dataChart.data.thresholds.max > 1000 ? 500 : 50) : 5,
