@@ -49,8 +49,8 @@ module.exports = {
     },
     waitingTimeTillNextWarning: {
       hour: 0,
-      min: 0,
-      sec: 50
+      min: 5,
+      sec: 0
     },
     waitingTimeTillCheckForCecIsAlive: {
       hour: 0,

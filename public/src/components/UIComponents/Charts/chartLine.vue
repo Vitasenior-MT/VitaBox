@@ -77,7 +77,7 @@ export default {
               ticks: {
                 suggestedMin: this.dataChart.data.thresholds.min,
                 max: this.dataChart.data.thresholds.max,
-                stepSize: this.dataChart.data.thresholds.max > 1000 ? 500 : 50,
+                stepSize: this.dataChart.data.thresholds.max > 100 ? (this.dataChart.data.thresholds.max > 1000 ? 500 : 50) : 5,
                 fontSize: this.dataChart.data.fontSize
               }
             }],
