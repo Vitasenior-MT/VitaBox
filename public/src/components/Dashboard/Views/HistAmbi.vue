@@ -179,12 +179,12 @@ export default {
                       min: sensorData.data.data[0].threshold_min_possible,
                       max: sensorData.data.data[0].threshold_max_possible
                     },
+                    fontSize: 18,
                     labels: [],
                     datasets: []
                   }
                 }
                 for (let index = 0; index < dataArray.length; index++) {
-                  let color = EventBus.getRandomColor()
                   if (this.chartData.data.labels.length < dataArray[index].time.length) {
                     this.chartData.data.labels = (function() {
                       let arrTime = []
@@ -206,14 +206,13 @@ export default {
                   }
                   this.chartData.data.datasets.push({
                     label: dataArray[index].location,
-                    borderColor: color,
+                    borderColor: '#7FBF3F',
                     showInLegend: true,
                     type: "line",
                     yAxisID: "y-axis-0",
-                    pointBackgroundColor: color,
-                    backgroundColor: 'rgba(0, 0, 0, 0)',
-                    data: dataArray[index].value,
-                    fontSize: 18
+                    pointBackgroundColor: '#7FBF3F',
+                    backgroundColor: 'rgba(127, 191, 63, 0)',
+                    data: dataArray[index].value
                   })
                   console.log(this.chartData)
                   this.chartData.data.datasets.push({
@@ -224,8 +223,7 @@ export default {
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: '#DD0808',
                     backgroundColor: 'rgba(221, 8, 8, 0)',
-                    data: this.thresholdMax,
-                    fontSize: 5
+                    data: this.thresholdMax
                   })
                   this.chartData.data.datasets.push({
                     label: 'Minimo',
@@ -235,8 +233,7 @@ export default {
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: '#DD0808',
                     backgroundColor: 'rgba(221, 8, 8, 0)',
-                    data: this.thresholdMin,
-                    fontSize: 5
+                    data: this.thresholdMin
                   })
                 }
                 this.dataCharsExists = true
