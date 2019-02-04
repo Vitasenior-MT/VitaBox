@@ -114,6 +114,7 @@ export default {
       this.$http
         .get('/api/rawsensor/getSensorDataByLocation/' + this.location)
         .then(response => {
+          console.log(response)
           if (response.data.status === true) {
             this.posSensorSelected = EventBus.currentActiveRightComp
             let dataArray = response.data.data
