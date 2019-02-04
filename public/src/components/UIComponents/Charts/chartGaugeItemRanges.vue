@@ -35,7 +35,7 @@ export default {
         formatNumber: true
       },
       sectors: [{
-        color: "#FF4500",
+        color: "#D80306",
         lo: this.chartminP,
         hi: (this.chartminA - 0.001)
       }, {
@@ -43,7 +43,7 @@ export default {
         lo: this.chartminA,
         hi: (this.chartmaxA - 0.001)
       }, {
-        color: "#FF4500",
+        color: "#D80306",
         lo: this.chartmaxA,
         hi: (this.chartmaxP)
       }]
