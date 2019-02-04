@@ -184,6 +184,8 @@ export default {
                     datasets: []
                   }
                 }
+                self.thresholdMax = [];
+                self.thresholdMin = [];
                 for (let index = 0; index < dataArray.length; index++) {
                   if (this.chartData.data.labels.length < dataArray[index].time.length) {
                     this.chartData.data.labels = (function() {
