@@ -4,7 +4,7 @@
       <div class="col-md-2" v-for="location in locationList"  :key='location.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button class="btn btn-block btn-info control-remote-location" type="button" :data-type="location.location" v-on:click="getAllDataSensor()">
+            <button class="btn btn-block btn-info control-remote-location" type="button" :data-location="location.name" v-on:click="getAllDataSensor()">
                 <h5 class="text-div-wrap"><b class="fab fa-galactic-senate"></b> {{ location.name }}</h5>
             </button>
           </div>
