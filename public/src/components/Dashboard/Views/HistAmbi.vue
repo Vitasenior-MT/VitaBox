@@ -385,14 +385,11 @@ export default {
     this.$http
       .get('/api/sensor/getListOfLocations')
       .then(response => {
-        console.log('response')
-        console.log(response)
         let data = response.data.data
         for (var index in data) {
-          console.log(data[index])
           this.sensorList.push({
-            name: data[index].location,
-            type: data[index].location,
+            name: data[index],
+            type: data[index],
             id: index
           })
         }
