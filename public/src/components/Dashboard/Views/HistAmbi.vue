@@ -212,7 +212,7 @@ export default {
                   }
                   this.chartData.data.datasets.push({
                     label: dataArray[index].location,
-                    // borderColor: 'rgba(0, 0, 0, 0)',
+                    borderColor: 'rgba(0, 0, 0, 0)',
                     showInLegend: false,
                     type: "line",
                     pointBackgroundColor: arrayColors,
