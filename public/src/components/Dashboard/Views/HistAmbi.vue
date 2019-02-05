@@ -174,8 +174,8 @@ export default {
               if (response.data.status === true) {
                 let dataArray = response.data.data
                 console.log('Array Data: ')
-                console.log(response.data.data)
-                let arrayColors = response.data.data.value.map(value => {
+                console.log(response.data.data[0].value)
+                let arrayColors = response.data.data[0].value.map(value => {
                   if (value > sensorData.data.data[0].threshold_max_acceptable || value < sensorData.data.data[0].threshold_min_acceptable) return "#FF0000";
                   else return "#00FF00";
                 })
