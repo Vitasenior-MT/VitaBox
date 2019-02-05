@@ -173,8 +173,9 @@ export default {
             .then(response => {
               if (response.data.status === true) {
                 let dataArray = response.data.data
-                let arrayColors=response.data.data.map(x=>{
-                  if(x.value>sensorData.data.data[0].threshold_max_acceptable || x.value<sensorData.data.data[0].threshold_min_acceptable) return "#FF0000";
+                let arrayColors = response.data.data.map(x => {
+                  console.log(x)
+                  if (x.value > sensorData.data.data[0].threshold_max_acceptable || x.value < sensorData.data.data[0].threshold_min_acceptable) return "#FF0000";
                   else return "#00FF00";
                 })
                 this.chartData = {
@@ -212,13 +213,13 @@ export default {
                   }
                   this.chartData.data.datasets.push({
                     label: dataArray[index].location,
-                    // borderColor: '#7FBF3F',
+                    borderColor: 'rgba(0, 0, 0, 0)',
                     // showInLegend: true,
                     type: "line",
                     // yAxisID: "y-axis-0",
                     pointBackgroundColor: arrayColors,
                     pointBorderColor: arrayColors,
-                    // backgroundColor: 'rgba(193, 193, 193, 0.48)',
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
                     // pointRadius: 0,
                     fill: true,
                     data: dataArray[index].value
