@@ -214,6 +214,8 @@ export default {
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: '#7FBF3F',
                     backgroundColor: 'rgba(127, 191, 63, 0)',
+                    pointRadius: 0,
+                    fill: true,
                     data: dataArray[index].value
                   })
                   console.log(this.chartData)
@@ -225,6 +227,8 @@ export default {
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: '#DD0808',
                     backgroundColor: 'rgba(221, 8, 8, 0)',
+                    pointRadius: 0,
+                    fill: false,
                     data: this.thresholdMax
                   })
                   this.chartData.data.datasets.push({
@@ -235,6 +239,8 @@ export default {
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: '#DD0808',
                     backgroundColor: 'rgba(221, 8, 8, 0)',
+                    pointRadius: 0,
+                    fill: false,
                     data: this.thresholdMin
                   })
                 }
