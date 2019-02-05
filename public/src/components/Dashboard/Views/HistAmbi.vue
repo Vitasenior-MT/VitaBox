@@ -173,6 +173,10 @@ export default {
             .then(response => {
               if (response.data.status === true) {
                 let dataArray = response.data.data
+                let arrayColors=response.data.data.map(x=>{
+                  if(x.value>sensorData.data.data[0].threshold_max_acceptable || x.value<sensorData.data.data[0].threshold_min_acceptable) return "#FF0000";
+                  else return "#00FF00";
+                })
                 this.chartData = {
                   data: {
                     thresholds: {
@@ -208,13 +212,14 @@ export default {
                   }
                   this.chartData.data.datasets.push({
                     label: dataArray[index].location,
-                    borderColor: '#7FBF3F',
-                    showInLegend: true,
+                    // borderColor: '#7FBF3F',
+                    // showInLegend: true,
                     type: "line",
-                    yAxisID: "y-axis-0",
-                    pointBackgroundColor: '#7FBF3F',
-                    backgroundColor: 'rgba(193, 193, 193, 0.48)',
-                    pointRadius: 0,
+                    // yAxisID: "y-axis-0",
+                    pointBackgroundColor: arrayColors,
+                    pointBorderColor: arrayColors,
+                    // backgroundColor: 'rgba(193, 193, 193, 0.48)',
+                    // pointRadius: 0,
                     fill: true,
                     data: dataArray[index].value
                   })
@@ -222,23 +227,23 @@ export default {
                   this.chartData.data.datasets.push({
                     label: 'Máximo',
                     borderColor: '#DD0808',
-                    showInLegend: true,
+                    // showInLegend: true,
                     type: "line",
-                    yAxisID: "y-axis-0",
-                    pointBackgroundColor: '#DD0808',
-                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    // yAxisID: "y-axis-0",
+                    // pointBackgroundColor: '#DD0808',
+                    // backgroundColor: 'rgba(0, 0, 0, 0)',
                     pointRadius: 0,
                     fill: false,
                     data: this.thresholdMax
                   })
                   this.chartData.data.datasets.push({
                     label: 'Minimo',
-                    borderColor: '#DD0808',
-                    showInLegend: true,
+                    borderColor: '#0808DD',
+                    // showInLegend: true,
                     type: "line",
-                    yAxisID: "y-axis-0",
-                    pointBackgroundColor: '#DD0808',
-                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    // yAxisID: "y-axis-0",
+                    // pointBackgroundColor: '#DD0808',
+                    // backgroundColor: 'rgba(0, 0, 0, 0)',
                     pointRadius: 0,
                     fill: false,
                     data: this.thresholdMin
