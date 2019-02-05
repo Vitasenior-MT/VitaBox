@@ -217,7 +217,7 @@ export default {
                     type: "line",
                     pointBackgroundColor: arrayColors,
                     pointBorderColor: arrayColors,
-                    // backgroundColor: 'rgba(0, 0, 0, 0)',
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
                     pointRadius: 0,
                     fill: true,
                     data: dataArray[index].value
