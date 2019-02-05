@@ -213,7 +213,7 @@ export default {
                     type: "line",
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: '#7FBF3F',
-                    backgroundColor: 'rgba(127, 191, 63, 0)',
+                    backgroundColor: 'rgba(127, 191, 63, 1)',
                     pointRadius: 0,
                     fill: true,
                     data: dataArray[index].value
@@ -226,7 +226,7 @@ export default {
                     type: "line",
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: '#DD0808',
-                    backgroundColor: 'rgba(221, 8, 8, 0)',
+                    backgroundColor: 'rgba(221, 8, 8, 1)',
                     pointRadius: 0,
                     fill: false,
                     data: this.thresholdMax
@@ -238,7 +238,7 @@ export default {
                     type: "line",
                     yAxisID: "y-axis-0",
                     pointBackgroundColor: '#DD0808',
-                    backgroundColor: 'rgba(221, 8, 8, 0)',
+                    backgroundColor: 'rgba(221, 8, 8, 1)',
                     pointRadius: 0,
                     fill: false,
                     data: this.thresholdMin
