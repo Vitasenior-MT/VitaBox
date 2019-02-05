@@ -26,7 +26,7 @@ export default {
             label: '',
             borderColor: '',
             pointBackgroundColor: '',
-            backgroundColor: 'rgba(0, 0, 0, 0)',
+            //backgroundColor: 'rgba(0, 0, 0, 0)',
             data: []
           }]
         },
