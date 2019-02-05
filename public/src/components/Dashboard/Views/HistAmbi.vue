@@ -173,10 +173,10 @@ export default {
             .then(response => {
               if (response.data.status === true) {
                 let dataArray = response.data.data
-                let arrayColors = response.data.data.map(x => {
+                let arrayColors = response.data.data.value.map(value => {
                   console.log('inside ')
-                  console.log(x)
-                  if (x.value > sensorData.data.data[0].threshold_max_acceptable || x.value < sensorData.data.data[0].threshold_min_acceptable) return "#FF0000";
+                  console.log(value)
+                  if (value > sensorData.data.data[0].threshold_max_acceptable || value < sensorData.data.data[0].threshold_min_acceptable) return "#FF0000";
                   else return "#00FF00";
                 })
                 this.chartData = {
