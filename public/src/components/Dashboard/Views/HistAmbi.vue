@@ -176,7 +176,7 @@ export default {
                 let arrayColors = dataArray[0].value.map(value => {
                   if (value > sensorData.data.data[0].threshold_max_acceptable || value < sensorData.data.data[0].threshold_min_acceptable) {
                     return "#FF0000"
-                  } 
+                  }
                   else {
                     return "#00FF00"
                   }
@@ -216,12 +216,14 @@ export default {
                   }
                   this.chartData.data.datasets.push({
                     label: dataArray[index].location,
-                    // borderColor: 'rgba(0, 0, 0, 0)',
-                    showInLegend: false,
+                    // borderColor: arrayColors,
+                    legend: {
+                      display: false
+                    },
                     type: "line",
                     pointBackgroundColor: arrayColors,
                     pointBorderColor: arrayColors,
-                    // backgroundColor: 'rgba(0, 0, 0, 0)',
+                    backgroundColor: 'rgba(0, 0, 0, 0.48)',
                     pointRadius: 0,
                     fill: true,
                     data: dataArray[index].value
