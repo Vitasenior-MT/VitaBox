@@ -16,7 +16,6 @@
         <div class="card clear-padding">
           <div class="content">
             <button
-              v-tooltip.bottom="$t('tooltips.ambienteHistory.history.title')"
               class="btn btn-block btn-success control-remote"
               type="button"
               :data-id="sensor.id"
@@ -167,7 +166,6 @@ export default {
       this.$http
         .get('/api/sensor/getThresholds/' + this.location + '/' + this.sensorType)
         .then(sensorData => {
-          console.log(sensorData.data)
           this.$http
             .get('/api/rawsensor/getdatalt/' + this.sensorType + '/' + this.location)
             .then(response => {
@@ -176,8 +174,7 @@ export default {
                 let arrayColors = dataArray[0].value.map(value => {
                   if (value > sensorData.data.data[0].threshold_max_acceptable || value < sensorData.data.data[0].threshold_min_acceptable) {
                     return "#FF0000"
-                  }
-                  else {
+                  } else {
                     return "#00FF00"
                   }
                 })
@@ -214,6 +211,8 @@ export default {
                       return arrTime
                     })()
                   }
+                  console.log('ArrayColors: ')
+                  console.log(arrayColors)
                   this.chartData.data.datasets.push({
                     label: dataArray[index].location,
                     // borderColor: arrayColors,
@@ -223,7 +222,7 @@ export default {
                     type: "line",
                     pointBackgroundColor: arrayColors,
                     pointBorderColor: arrayColors,
-                    backgroundColor: 'rgba(0, 0, 0, 0.48)',
+                    backgroundColor: 'rgba(0, 0, 0, 0.35)',
                     pointRadius: 0,
                     fill: true,
                     data: dataArray[index].value
