@@ -36,8 +36,8 @@ module.exports = {
     pressTimer: 500, // tempo ate aceitar a proxima tecla do comando em ms
     waitingTimeTillNextWarning: { // tempo de espera ate ao proximo aviso
       hour: 0,
-      min: 0,
-      sec: 50
+      min: 20,
+      sec: 0
     },
     waitingTimeTillCheckForCecIsAlive: { // tempo de espera para verificação da ligação do cec
       hour: 0,
