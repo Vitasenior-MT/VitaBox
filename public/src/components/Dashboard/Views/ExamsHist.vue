@@ -221,6 +221,7 @@ export default {
     bleGetHistoryExam() {
       this.$refs.DefaultView.setMsg(this.msgExam)
       this.$refs.DefaultView.show()
+      this.execProcess = true;
       this.$refs.loading.show()
       let dataTypeExam = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       let examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
@@ -433,7 +434,6 @@ export default {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
               }
               let typeSel = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
-              self.execProcess = true;
               if (!typeSel) {
                 self.$refs.DefaultView.setMsg(self.msgExam)
                 self.$refs.DefaultView.show()
@@ -506,7 +506,7 @@ export default {
         } else {
           if (cmd === 'exit') {
             self.$notifications.notify({
-              message: '<h4>' + data + '</h4>',
+              message: '<h4>' + 'data' + '</h4>',
               icon: 'ti-bell',
               horizontalAlign: 'right',
               verticalAlign: 'top',
