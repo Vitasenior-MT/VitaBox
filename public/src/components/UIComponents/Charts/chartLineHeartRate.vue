@@ -12,7 +12,7 @@ export default {
     'dataChartAvg',
     'nameLineA',
     'nameLineB',
-    'showLegend': true
+    'showLegend'
   ],
   data() {
     return {
