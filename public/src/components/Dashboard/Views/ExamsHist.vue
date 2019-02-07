@@ -512,8 +512,10 @@ export default {
               verticalAlign: 'top',
               type: 'warning'
             })
+            self.$refs.loading.hide()
+            self.$refs.DefaultView.setMsg(this.msgExam)
+            self.$refs.DefaultView.show()
             self.execProcess = false
-            EventBus.examEmExec = false
             self.resetValues()
           }
         }
