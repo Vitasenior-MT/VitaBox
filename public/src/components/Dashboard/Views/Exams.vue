@@ -349,7 +349,7 @@
                   :lineChartId="'chartLine-temp'"
                   :nameLineA="'Temperatura'"
                   :nameLineB="'Temperatura Corporal'"
-                  :showLegend="'false'"
+                  :showLegend="false"
                   :dataChart="this.databodytemperature.tempArr"
                   :dataChartAvg="this.databodytemperature.tempavg" >
                 </chart-line>
@@ -560,7 +560,7 @@
                   :lineChartId="'chartLine-1'"
                   :nameLineA="'Pulsação'"
                   :nameLineB="'Pulso Médio'"
-                  :showLegend="'true'"
+                  :showLegend="true"
                   :dataChart="this.dataBandFitness.heartrate.heartrateArr"
                   :dataChartAvg="this.dataBandFitness.heartrate.heartrateavg" >
                 </chart-line>
