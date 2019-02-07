@@ -230,6 +230,8 @@ export default {
       this.$http
         .get('/api/sensorsble/' + this.patientId + '-' + examMac + '/' + this.lastHistRecords)
         .then(response => {
+          console.log('Response Data: ')
+          console.log(response)
           if (response.data.status === true) {
             let dataIterat = response.data.data
             this.chartsLineAllData = {
