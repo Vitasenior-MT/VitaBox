@@ -1220,7 +1220,7 @@ export default {
               this.databodytemperature.tempCorp = resData.data[dataVal].value * 1
               this.databodytemperature.tempCorpName = resData.data[dataVal].measure
               this.databodytemperature.tempCorpShow = true
-              // this.databodytemperature.tempavg = resData.data[dataVal].value * 1
+              this.databodytemperature.tempavg = resData.data[dataVal].value * 1
               read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
               break;
             case "bodytemptest":
