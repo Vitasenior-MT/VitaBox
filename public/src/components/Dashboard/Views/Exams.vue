@@ -343,12 +343,13 @@
           <div class="col-md-12">
             <div class="card">
               <div class="content">
-                <h4 class="title"><b>Pulsação</b></h4>
+                <h4 class="title"><b>Temperatura Corporal</b></h4>
                 <chart-line
                   :id="'chartLine-temp'"
                   :lineChartId="'chartLine-temp'"
                   :nameLineA="'Temperatura'"
                   :nameLineB="'Temperatura Corporal'"
+                  :showLegend="'false'"
                   :dataChart="this.databodytemperature.tempArr"
                   :dataChartAvg="this.databodytemperature.tempavg" >
                 </chart-line>
@@ -559,6 +560,7 @@
                   :lineChartId="'chartLine-1'"
                   :nameLineA="'Pulsação'"
                   :nameLineB="'Pulso Médio'"
+                  :showLegend="'true'"
                   :dataChart="this.dataBandFitness.heartrate.heartrateArr"
                   :dataChartAvg="this.dataBandFitness.heartrate.heartrateavg" >
                 </chart-line>
@@ -1218,7 +1220,7 @@ export default {
               this.databodytemperature.tempCorp = resData.data[dataVal].value * 1
               this.databodytemperature.tempCorpName = resData.data[dataVal].measure
               this.databodytemperature.tempCorpShow = true
-              this.databodytemperature.tempavg = resData.data[dataVal].value * 1
+              // this.databodytemperature.tempavg = resData.data[dataVal].value * 1
               read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
               break;
             case "bodytemptest":

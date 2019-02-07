@@ -11,7 +11,8 @@ export default {
     'dataChart',
     'dataChartAvg',
     'nameLineA',
-    'nameLineB'
+    'nameLineB',
+    'showLegend': true
   ],
   data() {
     return {
@@ -42,7 +43,7 @@ export default {
           max: 150,
           legend: {
             position: 'right',
-            display: true,
+            display: this.showLegend,
             labels: {
               fontSize: 18,
               padding: 20
