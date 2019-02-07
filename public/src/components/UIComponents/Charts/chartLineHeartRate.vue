@@ -9,7 +9,9 @@ export default {
   props: [
     'lineChartId',
     'dataChart',
-    'dataChartAvg'
+    'dataChartAvg',
+    'nameLineA',
+    'nameLineB'
   ],
   data() {
     return {
@@ -21,13 +23,13 @@ export default {
         data: {
           labels: [],
           datasets: [{
-            label: 'Pulsação',
+            label: this.nameLineA,
             borderColor: '#CDD452',
             pointBackgroundColor: '#CDD452',
             backgroundColor: 'rgba(0, 0, 0, 0)',
             data: []
           }, {
-            label: 'Pulso Médio',
+            label: this.nameLineB,
             borderColor: '#f05a28',
             pointBackgroundColor: '#f05a28',
             backgroundColor: 'rgba(0, 0, 0, 0)',

@@ -339,6 +339,23 @@
             <h5>{{ $t('dictionary.press_ok') }}</h5>
           </div>
         </div>
+        <div class="row" v-show="databodytemperature.panelGraph">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="content">
+                <h4 class="title"><b>Pulsação</b></h4>
+                <chart-line
+                  :id="'chartLine-temp'"
+                  :lineChartId="'chartLine-temp'"
+                  :nameLineA="'Temperatura'"
+                  :nameLineB="'Temperatura Corporal'"
+                  :dataChart="this.databodytemperature.tempArr"
+                  :dataChartAvg="this.databodytemperature.tempavg" >
+                </chart-line>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row bodypulse clear-margin" v-show="examEvent == 'bodypulse'">
@@ -540,6 +557,8 @@
                 <chart-line
                   :id="'chartLine-1'"
                   :lineChartId="'chartLine-1'"
+                  :nameLineA="'Pulsação'"
+                  :nameLineB="'Pulso Médio'"
                   :dataChart="this.dataBandFitness.heartrate.heartrateArr"
                   :dataChartAvg="this.dataBandFitness.heartrate.heartrateavg" >
                 </chart-line>
@@ -756,6 +775,9 @@ export default {
       databodytemperature: {
         panelPrincipal: true,
         panelResults: false,
+        panelGraph: false,
+        tempArr: [],
+        tempavg: 0,
         battery: 0,
         batteryName: '',
         batteryShow: false,
@@ -1196,7 +1218,13 @@ export default {
               this.databodytemperature.tempCorp = resData.data[dataVal].value * 1
               this.databodytemperature.tempCorpName = resData.data[dataVal].measure
               this.databodytemperature.tempCorpShow = true
+              this.databodytemperature.tempavg = resData.data[dataVal].value * 1
               read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
+              break;
+            case "bodytemptest":
+              this.databodytemperature.panelPrincipal = false
+              this.databodytemperature.panelGraph = true
+              this.databodytemperature.tempArr.push(resData.data[dataVal].data)
               break;
             default:
               break;
@@ -1215,6 +1243,9 @@ export default {
         this.databodytemperature = {
           panelPrincipal: true,
           panelResults: false,
+          panelGraph: false,
+          tempArr: [],
+          tempavg: 0,
           battery: 0,
           batteryName: '',
           batteryShow: false,
@@ -1621,6 +1652,9 @@ export default {
       this.databodytemperature = {
         panelPrincipal: true,
         panelResults: false,
+        panelGraph: false,
+        tempArr: [],
+        tempavg: 0,
         battery: 0,
         batteryName: '',
         batteryShow: false,
