@@ -506,7 +506,7 @@ export default {
         } else {
           if (cmd === 'exit') {
             self.$notifications.notify({
-              message: '<h4>' + 'data' + '</h4>',
+              message: '<h4>' + self.$t('dictionary.canceledOperation') + '</h4>',
               icon: 'ti-bell',
               horizontalAlign: 'right',
               verticalAlign: 'top',
