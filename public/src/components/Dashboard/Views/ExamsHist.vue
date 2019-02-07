@@ -433,8 +433,8 @@ export default {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
               }
               let typeSel = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+              self.execProcess = true;
               if (!typeSel) {
-                self.execProcess = true;
                 self.$refs.DefaultView.setMsg(self.msgExam)
                 self.$refs.DefaultView.show()
               }
