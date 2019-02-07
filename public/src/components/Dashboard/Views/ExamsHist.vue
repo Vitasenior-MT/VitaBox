@@ -255,6 +255,8 @@ export default {
               let color = EventBus.getRandomColor()
               let laabeldataArr = this.getAllDataAndLabels(dataIterat[index].value)
               // console.log("dataTypeExam", dataTypeExam, dataIterat[index].measure)
+              console.log('Data Type Exam: ')
+              console.log(dataTypeExam)
               switch (dataTypeExam) {
                 case 'bloodpressure':
                   switch (dataIterat[index].tag) {
