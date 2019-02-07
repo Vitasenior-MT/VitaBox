@@ -51,7 +51,7 @@
         <card-chart-history-line :dataCharts="chartsLineAllData" ></card-chart-history-line>
       </div>
     </div>
-    <loading ref="loading"></loading>
+    <loading ref="loading" v-show="execProcess"></loading>
   </div>
 </template>
 <script>
@@ -74,6 +74,7 @@ export default {
       msgExam: 'diagnosisHistory.msgExam',
       msgExit: 'diagnosisHistory.msgExit',
       lastHistRecords: 10,
+      execProcess: false,
       dataCharsExists: false,
       chartsBarAllData: {},
       chartsLineAllData: {
@@ -433,6 +434,7 @@ export default {
               }
               let typeSel = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
               if (!typeSel) {
+                self.execProcess = true;
                 self.$refs.DefaultView.setMsg(self.msgExam)
                 self.$refs.DefaultView.show()
               }
@@ -500,6 +502,19 @@ export default {
               break
             default:
               break
+          }
+        } else {
+          if (cmd === 'exit') {
+            self.$notifications.notify({
+              message: '<h4>' + data + '</h4>',
+              icon: 'ti-bell',
+              horizontalAlign: 'right',
+              verticalAlign: 'top',
+              type: 'warning'
+            })
+            self.execProcess = false
+            EventBus.examEmExec = false
+            self.resetValues()
           }
         }
       })
