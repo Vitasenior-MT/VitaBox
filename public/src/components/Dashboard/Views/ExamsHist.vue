@@ -232,6 +232,7 @@ export default {
         .then(response => {
           console.log('Response Data: ')
           console.log(response)
+          console.log(response.data.data)
           if (response.data.status === true) {
             let dataIterat = response.data.data
             this.chartsLineAllData = {
@@ -343,6 +344,7 @@ export default {
                   }
                   break
                 case 'bodytemperature':
+                case 'bloodglucose':
                 case 'bodypulse':
                 case 'bodyscale':
                   countArrPos++
