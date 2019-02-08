@@ -230,9 +230,6 @@ export default {
       this.$http
         .get('/api/sensorsble/' + this.patientId + '-' + examMac + '/' + this.lastHistRecords)
         .then(response => {
-          console.log('Response Data: ')
-          console.log(response)
-          console.log(response.data.data)
           if (response.data.status === true) {
             let dataIterat = response.data.data
             this.chartsLineAllData = {
@@ -257,9 +254,6 @@ export default {
               let chartIDLabel = "y-axis-0"
               let color = EventBus.getRandomColor()
               let laabeldataArr = this.getAllDataAndLabels(dataIterat[index].value)
-              // console.log("dataTypeExam", dataTypeExam, dataIterat[index].measure)
-              console.log('Data Type Exam: ')
-              console.log(dataTypeExam)
               switch (dataTypeExam) {
                 case 'bloodpressure':
                   switch (dataIterat[index].tag) {
