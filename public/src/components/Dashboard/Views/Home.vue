@@ -144,7 +144,7 @@ export default {
         }
       })
       .catch(error => {
-        console.log(error)
+        console.log("Error getFarmacy - ", error)
         this.$notifications.notify({
           message: '<h4>Falha ao tentar adquirir as Farmácias de serviço.</h4>',
           icon: 'ti-bell',
@@ -187,7 +187,7 @@ export default {
         }
       })
       .catch(error => {
-        console.log(error)
+        console.log("Error getTempo - ", error)
         this.$notifications.notify({
           message: '<h4>Falha ao tentar adquirir o tempo.</h4>',
           icon: 'ti-bell',
@@ -269,9 +269,9 @@ export default {
     this.controlEventsBus()
     this.getFarmacy()
     this.getTempo()
-    console.log(EventBus.notificationList)
+    // console.log(EventBus.notificationList)
     this.items = EventBus.notificationList
-    console.log(this.items)
+    // console.log(this.items)
     this.timerID = setInterval(() => {
       this.updateTime()
     }, 1000)

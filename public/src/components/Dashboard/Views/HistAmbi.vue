@@ -34,15 +34,15 @@
     <div class="row show-charts-history clear-margin" v-if="dataCharsExists">
       <div class="col-md-12 btn btn-round btn-fill">
         <div class="card">
-          <div class="content">
-            <chart-line
-              :id="'lineChartID'"
+          <div class="content clear-padding">
+            <chartLineRange
+              :id="'lineChartID123'"
               :lineChartId="'lineChartID'"
               :chartTitle="''"
               :defSecoundScale="''"
               :dataChart="chartData"
               :callbackindex="hideShowItem" >
-            </chart-line>
+            </chartLineRange>
           </div>
         </div>
       </div>
@@ -52,14 +52,14 @@
 </template>
 <script>
 import { EventBus } from '../../../event-bus.js'
-import ChartLine from 'components/UIComponents/Charts/chartLine.vue'
+import ChartLineRange from 'components/UIComponents/Charts/chartLineRange.vue'
 import Loading from 'components/UIComponents/Forms/load.vue'
 import DefaultForm from 'components/UIComponents/Forms/defaultform.vue'
 export default {
   components: {
-    ChartLine,
     Loading,
-    DefaultForm
+    DefaultForm,
+    ChartLineRange
   },
   data() {
     return {
@@ -159,20 +159,20 @@ export default {
       this.resetValues()
       this.location = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       this.$http
-        .get('/api/rawsensor/getdatalt/' + this.sensorType + '/' + this.location)
+        .get('/api/rawsensor/getdataRawSensors/' + this.sensorType + '/' + this.location)
         .then(response => {
           if (response.data.status === true) {
             let dataArray = response.data.data
+
             this.chartData = {
-              data: {
-                labels: [],
-                datasets: []
-              }
+              labels: [],
+              datasets: [],
+              colorRange: '#3cb44b' // '#f7931d'
             }
             for (let index = 0; index < dataArray.length; index++) {
-              let color = EventBus.getRandomColor()
-              if (this.chartData.data.labels.length < dataArray[index].time.length) {
-                this.chartData.data.labels = (function() {
+              let color = "#000075" // EventBus.getRandomColor()
+              if (this.chartData.labels.length < dataArray[index].time.length) {
+                this.chartData.labels = (function() {
                   let arrTime = [];
                   for (let i = 0; i < dataArray[index].time.length; i++) {
                     if (i === 0) {
@@ -188,17 +188,22 @@ export default {
                   return arrTime
                 })()
               }
-              this.chartData.data.datasets.push({
+              this.chartData.datasets.push({
                 label: dataArray[index].location,
                 borderColor: color,
                 showInLegend: true,
-                type: "line",
                 yAxisID: "y-axis-0",
+                fill: false,
                 pointBackgroundColor: color,
                 backgroundColor: 'rgba(0, 0, 0, 0)',
                 data: dataArray[index].value
               })
+              this.chartData.yRangeBegin = dataArray[index].threshold_min_acceptable
+              this.chartData.yRangeEnd = dataArray[index].threshold_max_acceptable
+              this.chartData.max = Math.max.apply(null, dataArray[index].value)
+              this.chartData.min = Math.min.apply(null, dataArray[index].value)
             }
+
             this.dataCharsExists = true
             this.classEvent = 'control-remote'
 
@@ -260,8 +265,12 @@ export default {
               setTimeout(() => {
                 if (!self.flg_once) {
                   self.flg_once = true
-                  let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
-                  self.audioPlayer(datas)
+                  try {
+                    let datas = document.getElementsByClassName('control-remote btn-fill')[0].dataset
+                    self.audioPlayer(datas)
+                  } catch (e) {
+                    console.log("Error ", e.toString())
+                  }
                 }
               }, 300);
               if (self.posSensorSelected < 0) {
