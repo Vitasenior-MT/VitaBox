@@ -51,7 +51,7 @@
         <card-chart-history-line :dataCharts="chartsLineAllData" ></card-chart-history-line>
       </div>
     </div>
-    <loading ref="loading"></loading>
+    <loading ref="loading" v-show="execProcess"></loading>
   </div>
 </template>
 <script>
@@ -74,6 +74,7 @@ export default {
       msgExam: 'diagnosisHistory.msgExam',
       msgExit: 'diagnosisHistory.msgExit',
       lastHistRecords: 10,
+      execProcess: false,
       dataCharsExists: false,
       chartsBarAllData: {},
       chartsLineAllData: {
@@ -220,6 +221,7 @@ export default {
     bleGetHistoryExam() {
       this.$refs.DefaultView.setMsg(this.msgExam)
       this.$refs.DefaultView.show()
+      this.execProcess = true;
       this.$refs.loading.show()
       let dataTypeExam = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       let examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
@@ -252,7 +254,6 @@ export default {
               let chartIDLabel = "y-axis-0"
               let color = EventBus.getRandomColor()
               let laabeldataArr = this.getAllDataAndLabels(dataIterat[index].value)
-              // console.log("dataTypeExam", dataTypeExam, dataIterat[index].measure)
               switch (dataTypeExam) {
                 case 'bloodpressure':
                   switch (dataIterat[index].tag) {
@@ -337,6 +338,7 @@ export default {
                   }
                   break
                 case 'bodytemperature':
+                case 'bloodglucose':
                 case 'bodypulse':
                 case 'bodyscale':
                   countArrPos++
@@ -500,6 +502,21 @@ export default {
               break
             default:
               break
+          }
+        } else {
+          if (cmd === 'exit') {
+            self.$notifications.notify({
+              message: '<h4>' + self.$t('dictionary.canceledOperation') + '</h4>',
+              icon: 'ti-bell',
+              horizontalAlign: 'right',
+              verticalAlign: 'top',
+              type: 'warning'
+            })
+            self.$refs.loading.hide()
+            self.$refs.DefaultView.setMsg(this.msgExam)
+            self.$refs.DefaultView.show()
+            self.execProcess = false
+            self.resetValues()
           }
         }
       })
