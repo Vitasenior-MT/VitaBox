@@ -39,6 +39,11 @@ module.exports = {
       min: 20,
       sec: 0
     },
+    timeToNewAttempt: {
+      hour: 0,
+      min: 0,
+      sec: 10
+    },
     waitingTimeTillCheckForCecIsAlive: { // tempo de espera para verificação da ligação do cec
       hour: 0,
       min: 0,
