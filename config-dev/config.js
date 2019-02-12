@@ -50,6 +50,7 @@ module.exports = {
       sec: 0
     }
   },
+  execludeAmbientSensors: 'temp&&humi',
   ServerBoardWarningConfigs: {  // configuração do servidor de avisos dos sensores
     port: 10000,
     host: 'fd00::1'
