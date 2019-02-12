@@ -102,7 +102,7 @@ after_reboot(){
 	cd
 
 	print_status "Clone git repository VitaBox"
-	exec_cmd "git clone https://github.com/nelsonmpg/VitaBox"
+	exec_cmd "git clone https://github.com/Vitasenior-MT/VitaBox"
 
 	print_status "Install node models VitaBox"
 	exec_cmd "cd ${folderVitabox}/ && npm install || true"
