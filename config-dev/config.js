@@ -50,7 +50,7 @@ module.exports = {
       sec: 0
     }
   },
-  execludeAmbientSensors: 'temp&&humi',
+  execludeAmbientSensors: 'temp&&humi', // configuração da lista de exclusão dos avisos dos sensores ambientais na página da aplicação
   ServerBoardWarningConfigs: {  // configuração do servidor de avisos dos sensores
     port: 10000,
     host: 'fd00::1'
