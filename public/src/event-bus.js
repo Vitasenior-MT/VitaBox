@@ -28,6 +28,8 @@ export const EventBus = new Vue({
     wifi: false,
     notificationList: [],     // lista de todas as notificações
     listHistoryElements: [],
+    warningList: [],          // lista de warnings
+    warningCurrent: -1,
     historyElements: ['views']
   },
   methods: {
@@ -165,7 +167,9 @@ export const EventBus = new Vue({
       }
     },
     audioBasicMode: function(path, callback) {
+      EventBus.removeAudio()
       let self = this
+      console.log(this.flg_sound && !callback)
       if (this.flg_sound && !callback) {
         let audio = document.createElement('audio')
         audio.id = 'audioElem'
@@ -194,15 +198,13 @@ export const EventBus = new Vue({
         document.body.appendChild(audio)
       }
     },
-    removeAudio: function(type) {
-      if (type === 'off') {
-        let audio = document.getElementById('audioElem')
-        if (audio) {
-          audio.pause()
-          audio.currentTime = 0
-          audio.remove()
-          this.$socket.emit('ttsDelete')
-        }
+    removeAudio: function() {
+      let audio = document.getElementById('audioElem')
+      if (audio) {
+        audio.pause()
+        audio.currentTime = 0
+        audio.remove()
+        this.$socket.emit('ttsDelete')
       }
     },
     findOne: function(arr, obj) {

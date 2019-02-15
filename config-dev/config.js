@@ -32,11 +32,25 @@ module.exports = {
       sec: 0
     }
   },
-  TimersConfig: { // configurações de tempo
+  pingConfig: {
+    site: '1.1.1.1',
+    number: 5
+  },
+  TimersConfig: {
     pressTimer: 500, // tempo ate aceitar a proxima tecla do comando em ms
-    waitingTimeTillNextWarning: { // tempo de espera ate ao proximo aviso
+    wifiRetry: {
       hour: 0,
-      min: 20,
+      min: 1,
+      sec: 0
+    },
+    timeToNewAttempt: {
+      hour: 0,
+      min: 0,
+      sec: 10
+    },
+    waitingTimeTillNextWarning: {
+      hour: 0,
+      min: 5,
       sec: 0
     },
     waitingTimeTillCheckForCecIsAlive: { // tempo de espera para verificação da ligação do cec
@@ -75,7 +89,7 @@ module.exports = {
       try {
         return fs.readFileSync('.pass').toString().trim()
       } catch (e) {
-        errorLog.error(`Error file .PASS -> ${e.toString()}`)
+        errorLog.error(`Error file .pass -> ${e.toString()}`)
         return ""
       }
     })(),

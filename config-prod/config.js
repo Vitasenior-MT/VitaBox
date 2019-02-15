@@ -30,10 +30,24 @@ module.exports = {
       sec: 0
     }
   },
-  TimersConfig: { // configurações de tempo
-    pressTimer: 500, // tempo ate aceitar a proxima tecla do comando em ms
-    waitingTimeTillNextWarning: { // tempo de espera ate ao proximo aviso
-      hour: 1,
+  pressTimer: 500, // tempo ate aceitar a proxima tecla do comando em ms
+  pingConfig: {
+    site: '1.1.1.1',
+    number: 5
+  },
+  TimersConfig: {
+    wifiRetry: {
+      hour: 0,
+      min: 30,
+      sec: 0
+    },
+    timeToNewAttempt: {
+      hour: 0,
+      min: 0,
+      sec: 10
+    },
+    waitingTimeTillNextWarning: {
+      hour: 0,
       min: 0,
       sec: 0
     },

@@ -81,6 +81,20 @@ folderVitabox=${folderRoot}/VitaBox
 before_reboot(){
 	print_status "Install nodejs version 9."
 	exec_cmd "curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -"
+	
+	print_status "Change audio to 100% by default"
+	exec_cmd "sudo amixer set PCM 100%"
+
+	print_status "Prepare and install chromium 51"
+	exec_cmd "wget -qO - http://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add –"
+	exec_cmd "echo \"deb http://dl.bintray.com/kusti8/chromium-rpi jessie main\" | sudo tee -a /etc/apt/sources.list"
+	exec_cmd "sudo apt-get update"
+	exec_cmd "sudo apt-get remove chromium-browser"
+	exec_cmd "sudo apt-get remove chromium-codecs-ffmpeg-extra"
+	exec_cmd "sudo apt-get install -y chromium-codecs-ffmpeg-extra=51.0.2704.79-0ubuntu0.14.04.1.1121"
+	exec_cmd "sudo apt-get install -y chromium-browser=51.0.2704.79-0ubuntu0.14.04.1.1121"
+	exec_cmd "rm -rf /home/pi/.config/chromium/Default/Web Data"
+	exec_cmd "rm -rf /home/pi/.config/chromium/Default/Web Data-journal"
 
 	print_status "Change audio to 100% by default"
 	exec_cmd "sudo amixer set PCM 100%"
@@ -160,7 +174,6 @@ after_reboot(){
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && git submodule init"
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && git submodule update"
 	exec_cmd "cd ${folderRoot}/contiki-ng/ && make TARGET=zoul --directory examples/rpl-border-router/ savetarget || true"
-	exec_cmd "cd ${folderRoot}/contiki-ng/ && make --directory examples/rpl-border-router/ connect-router || true"
 	
 	exec_cmd "cp ${folderVitabox}/Scripts/borderRouter.txt ${folderVitabox}/Scripts/borderRouter.txt.service  || true"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/Scripts/borderRouter.txt.service  || true"
@@ -194,14 +207,14 @@ after_reboot(){
 	exec_cmd "cp ${folderVitabox}/Scripts/autorunband.txt ${folderVitabox}/ScriptsRun/autorunband.sh"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/autorunband.sh"
 	exec_cmd "sudo chmod 755 ${folderVitabox}/ScriptsRun/autorunband.sh"
-	exec_cmd "(crontab -l; echo '*/30 * * * * ${folderVitabox}/ScriptsRun/autorunband.sh') | crontab -"
+	exec_cmd "(sudo crontab -l; echo '*/30 * * * * ${folderVitabox}/ScriptsRun/autorunband.sh') | crontab -"
 
 	print_status "VitaBox - Check last GIT version and restart system."
 	exec_cmd "crontab -l | grep -v '${folderVitabox}/ScriptsRun/syncVitabox.sh'  | crontab -"
 	exec_cmd "cp ${folderVitabox}/Scripts/syncVitabox.txt ${folderVitabox}/ScriptsRun/syncVitabox.sh"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/syncVitabox.sh"
 	exec_cmd "sudo chmod 755 ${folderVitabox}/ScriptsRun/syncVitabox.sh"
-	exec_cmd "(crontab -l; echo '0 4 * * * ${folderVitabox}/ScriptsRun/syncVitabox.sh') | crontab -"
+	exec_cmd "(sudo crontab -l; echo '0 4 * * * ${folderVitabox}/ScriptsRun/syncVitabox.sh') | crontab -"
 
 	print_bold \
 	"                         VITASENIOR - VITABOX                         " "\
