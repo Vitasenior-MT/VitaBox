@@ -12,7 +12,7 @@ module.exports = {
     warningArraySize: 5,
     avgSize: 15
   },
-  postRate: { // configuração de envio de dados para a cloud
+  postRate: { // configuração de envio de dados para a cloud n
     hour: 0,
     min: 1,
     sec: 0,
