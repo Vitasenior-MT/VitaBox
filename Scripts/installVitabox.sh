@@ -115,6 +115,10 @@ after_reboot(){
 	exec_cmd "sudo rm -rf ${folderVitabox}"
 	cd
 
+	print_status "create the files for pass and key"
+	exec_cmd "touch  ${folderVitabox}/ .key || true"
+	exec_cmd "touch  ${folderVitabox}/ .pass || true"
+
 	print_status "Clone git repository VitaBox"
 	exec_cmd "git clone https://github.com/Vitasenior-MT/VitaBox"
 
