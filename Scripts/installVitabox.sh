@@ -82,8 +82,22 @@ before_reboot(){
 	print_status "Install nodejs version 9."
 	exec_cmd "curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -"
 
+	print_status "Change audio to 100% by default"
+	exec_cmd "sudo amixer set PCM 100%"
+
+	print_status "Prepare and install chromium 51"
+	exec_cmd "wget -qO - http://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add –"
+	exec_cmd "echo \"deb http://dl.bintray.com/kusti8/chromium-rpi jessie main\" | sudo tee -a /etc/apt/sources.list"
+	exec_cmd "sudo apt-get update"
+	exec_cmd "sudo apt-get remove chromium-browser"
+	exec_cmd "sudo apt-get remove chromium-codecs-ffmpeg-extra"
+	exec_cmd "sudo apt-get install -y chromium-codecs-ffmpeg-extra=51.0.2704.79-0ubuntu0.14.04.1.1121"
+	exec_cmd "sudo apt-get install -y chromium-browser=51.0.2704.79-0ubuntu0.14.04.1.1121"
+	exec_cmd "rm -rf /home/pi/.config/chromium/Default/Web Data"
+	exec_cmd "rm -rf /home/pi/.config/chromium/Default/Web Data-journal"
+
 	print_status "Install all aplications."
-	exec_cmd "sudo apt-get install -y chromium-browser cec-utils mongodb git unclutter bluetooth gcc-arm-none-eabi bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
+	exec_cmd "sudo apt-get install -y cec-utils mongodb git unclutter bluetooth gcc-arm-none-eabi bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
 	
 	print_bold \
 	"                         VITASENIOR - VITABOX                         " "\
