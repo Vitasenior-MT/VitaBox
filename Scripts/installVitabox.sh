@@ -93,8 +93,8 @@ before_reboot(){
 	exec_cmd "sudo apt-get remove chromium-codecs-ffmpeg-extra"
 	exec_cmd "sudo apt-get install -y chromium-codecs-ffmpeg-extra=51.0.2704.79-0ubuntu0.14.04.1.1121"
 	exec_cmd "sudo apt-get install -y chromium-browser=51.0.2704.79-0ubuntu0.14.04.1.1121"
-	exec_cmd "rm -rf /home/pi/.config/chromium/Default/Web Data"
-	exec_cmd "rm -rf /home/pi/.config/chromium/Default/Web Data-journal"
+	exec_cmd "rm -rf /home/pi/.config/chromium/Default/Web\ Data"
+	exec_cmd "rm -rf /home/pi/.config/chromium/Default/Web\ Data-journal"
 
 	print_status "Change audio to 100% by default"
 	exec_cmd "sudo amixer set PCM 100%"
@@ -130,8 +130,8 @@ after_reboot(){
 	cd
 
 	print_status "Create the files for pass and key"
-	exec_cmd "touch  ${folderVitabox}/ .key || true"
-	exec_cmd "touch  ${folderVitabox}/ .pass || true"
+	exec_cmd "sudo touch  ${folderVitabox}/ .key || true"
+	exec_cmd "sudo touch  ${folderVitabox}/ .pass || true"
 
 	print_status "Clone git repository VitaBox"
 	exec_cmd "git clone https://github.com/Vitasenior-MT/VitaBox"
