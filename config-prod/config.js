@@ -30,12 +30,12 @@ module.exports = {
       sec: 0
     }
   },
-  pressTimer: 500, // tempo ate aceitar a proxima tecla do comando em ms
   pingConfig: {
     site: '1.1.1.1',
     number: 5
   },
   TimersConfig: {
+    pressTimer: 500, // tempo ate aceitar a proxima tecla do comando em ms
     wifiRetry: {
       hour: 0,
       min: 30,
