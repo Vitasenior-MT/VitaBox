@@ -19,6 +19,7 @@ var Main = function () {
     port: config.serverHttp.port,
     mongodb: config.mongodb,
     TimersConfig: config.TimersConfig,
+    pingConfig: config.pingConfig,
     env_dev: (mode.toLowerCase() === 'dev' ? true : false),
   };
   // inicia p script e envia as configuracores

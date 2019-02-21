@@ -1,5 +1,6 @@
 {
   "dictionary": {
+    "canceledOperation": "Operação cancelada",
     "from": "De:",
     "to": "Para:",
     "message": "Mensagem:",
@@ -306,7 +307,12 @@
       }
     },
     "procedure": {
-      "warnings": "Aviso!",
+      "warnings": {
+        "warning": "Aviso!",
+        "division": "Perigo na divisão ",
+        "hight": "Níveis elevados. ",
+        "low": "Níveis baixos. "
+      },
       "mono": {
         "0": "Monóxido de carbono muito alto.",
         "1": "Saia de casa.",

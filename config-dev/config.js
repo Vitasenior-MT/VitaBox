@@ -3,7 +3,7 @@ var fs = require('fs'),
   errorLog = require('../lib/logger').errorlog;
 
 module.exports = {
-  coapConfigs: {
+  coapConfigs: { // configuração de pedidos dos valores aos sensores
     rate: {
       hour: 0,
       min: 1,
@@ -12,7 +12,7 @@ module.exports = {
     warningArraySize: 5,
     avgSize: 15
   },
-  postRate: {
+  postRate: { // configuração de envio de dados para a cloud
     hour: 0,
     min: 1,
     sec: 0,
@@ -22,7 +22,7 @@ module.exports = {
       sec: 0
     }
   },
-  ReconnectRate: {
+  ReconnectRate: { // configuração de tentativas de ligação á cloud
     hour: 0,
     min: 0,
     sec: 5,
@@ -32,35 +32,51 @@ module.exports = {
       sec: 0
     }
   },
+  pingConfig: {
+    site: '1.1.1.1',
+    number: 5
+  },
   TimersConfig: {
-    waitingTimeTillNextWarning: {
+    pressTimer: 500, // tempo ate aceitar a proxima tecla do comando em ms
+    wifiRetry: {
+      hour: 0,
+      min: 1,
+      sec: 0
+    },
+    timeToNewAttempt: {
       hour: 0,
       min: 0,
-      sec: 50
+      sec: 10
     },
-    waitingTimeTillCheckForCecIsAlive: {
+    waitingTimeTillNextWarning: {
+      hour: 0,
+      min: 5,
+      sec: 0
+    },
+    waitingTimeTillCheckForCecIsAlive: { // tempo de espera para verificação da ligação do cec
       hour: 0,
       min: 0,
       sec: 4
     },
-    deleteRate: {
+    deleteRate: { // tempo de eliminação dos registos fora de prazo
       hour: 0,
       min: 10,
       sec: 0
     }
   },
-  ServerBoardWarningConfigs: {
+  execludeAmbientSensors: 'temp&&humi', // configuração da lista de exclusão dos avisos dos sensores ambientais na página da aplicação
+  ServerBoardWarningConfigs: {  // configuração do servidor de avisos dos sensores
     port: 10000,
     host: 'fd00::1'
   },
-  ServerBoardRegisterConfigs: {
+  ServerBoardRegisterConfigs: { // configuração do servidor de registo dos sensores
     port: 10001,
     host: 'fd00::1'
   },
   websockets: {
     host: 'https://vitasenior-ws-test.eu-gb.mybluemix.net/socketio'
   },
-  ServerConfigs: {
+  ServerConfigs: { // configuração do servidor principal
     key: (function () {
       try {
         return fs.readFileSync('.key').toString().trim()
@@ -73,7 +89,7 @@ module.exports = {
       try {
         return fs.readFileSync('.pass').toString().trim()
       } catch (e) {
-        errorLog.error(`Error file .PASS -> ${e.toString()}`)
+        errorLog.error(`Error file .pass -> ${e.toString()}`)
         return ""
       }
     })(),
