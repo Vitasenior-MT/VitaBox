@@ -17,7 +17,7 @@
         <div class="col-md-12">
           <div class="dialog-content col-md-12">
             <div class="col-md-8" ><h2 class="dialog-c-title"><i class="fas fa-tasks"></i> &nbsp; {{$t('modal.settings.title')}}</h2></div>
-            <div class="col-md-4"><h2 class="dialog-c-title"><i class="fas fa-wifi"></i></h2></div>
+            <div class="col-md-4"><h2 class="dialog-c-title"><i class="fas fa-wifi WIFI"></i></h2></div>
             <div>
               <h4>{{$t('modal.settings.navigation.0')}}<i class="fas fa-arrows-alt"></i>{{$t('modal.settings.navigation.1')}}</h4>
             </div>
@@ -146,6 +146,16 @@ export default {
       .catch(error => {
         console.log('----> ', error)
       })
+    },
+    changeWiFiStatus(status) {
+      let wifiObj = document.getElementsByClassName('WIFI')
+      if (status) {
+        wifiObj.classList.add('green')
+        wifiObj.classList.remove('gray')
+      } else {
+        wifiObj.classList.remove('green')
+        wifiObj.classList.add('grey')
+      }
     },
     getSettings() {
       this.$http
@@ -294,6 +304,7 @@ export default {
     },
     beforeClosed(event) {
       this.saveItens()
+      this.changeWiFiStatus(true);
       window.removeEventListener('keyup', this.onKeyUp)
       this.params = {}
       this.$emit('before-closed', event)
@@ -319,4 +330,10 @@ export default {
 }
 </script>
 <style>
+.grey {
+  color: grey;
+}
+.green {
+  color: green;
+}
 </style>
