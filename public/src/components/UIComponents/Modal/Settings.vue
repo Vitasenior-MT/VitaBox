@@ -131,7 +131,6 @@ export default {
   mounted() {
     this.getGitLastUpdate()
     this.getSettings()
-    this.changeWiFiStatus(true)
   },
   methods: {
     getGitLastUpdate() {
@@ -185,6 +184,7 @@ export default {
         } else {
           console.log('Receive error', response)
         }
+        this.changeWiFiStatus(true)
       })
       .catch(error => {
         console.log('----> ', error)
