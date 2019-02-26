@@ -16,9 +16,9 @@
       <div class="row vue-settings">
         <div class="col-md-12">
           <div class="dialog-content">
-            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> &nbsp; {{$t('modal.settings.title')}}</h2>
+            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> &nbsp; {{$t('modal.settings.title')}}<i class="fas fa-wifi"></i></h2>
             <div>
-              <h4>{{$t('modal.settings.navigation.0')}}<i class="fas fa-arrows-alt"></i>{{$t('modal.settings.navigation.1')}}<i class="fas wifi"></i></h4>
+              <h4>{{$t('modal.settings.navigation.0')}}<i class="fas fa-arrows-alt"></i>{{$t('modal.settings.navigation.1')}}</h4>
             </div>
           </div>
           <div v-for="(item, i) in items" v-bind:key='item.key'>
