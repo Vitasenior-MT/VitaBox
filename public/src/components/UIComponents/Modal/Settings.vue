@@ -148,7 +148,7 @@ export default {
       })
     },
     changeWiFiStatus(status) {
-      let wifiObj = document.getElementsByClassName('WIFI')
+      let wifiObj = document.getElementsByClassName('WIFI')[0]
       if (status) {
         wifiObj.classList.add('green')
         wifiObj.classList.remove('gray')
