@@ -131,6 +131,7 @@ export default {
   mounted() {
     this.getGitLastUpdate()
     this.getSettings()
+    this.changeWiFiStatus(true)
   },
   methods: {
     getGitLastUpdate() {
@@ -286,7 +287,6 @@ export default {
       this.params = event.params || {}
       this.$emit('before-opened', event)
       this.controlEventsBus()
-      this.changeWiFiStatus(true);
       for (var index in this.items) {
         switch (this.items[index].type) {
           case 'mode':
