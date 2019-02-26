@@ -158,6 +158,7 @@ export default {
       }
     },
     getSettings() {
+      var self = this
       this.$http
       .get('/api/settings/get')
       .then(response => {
@@ -179,7 +180,7 @@ export default {
                 default:
                   break
               }
-              this.changeWiFiStatus(true)
+              self.changeWiFiStatus(true)
             }
           }
         } else {
@@ -267,7 +268,6 @@ export default {
             break
           case 'right': // tecla para a direita
           case 'left': // tecla para a esquerda
-            self.changeWiFiStatus(true)
             EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-shadow')
             EventBus.firstRightEvent = false
             break
