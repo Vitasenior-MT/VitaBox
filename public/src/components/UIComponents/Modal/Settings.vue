@@ -286,6 +286,7 @@ export default {
       this.params = event.params || {}
       this.$emit('before-opened', event)
       this.controlEventsBus()
+      this.changeWiFiStatus(true);
       for (var index in this.items) {
         switch (this.items[index].type) {
           case 'mode':
@@ -304,7 +305,6 @@ export default {
     },
     beforeClosed(event) {
       this.saveItens()
-      this.changeWiFiStatus(true);
       window.removeEventListener('keyup', this.onKeyUp)
       this.params = {}
       this.$emit('before-closed', event)
