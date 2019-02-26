@@ -267,8 +267,7 @@ export default {
             break
           case 'right': // tecla para a direita
           case 'left': // tecla para a esquerda
-            wifiObj.classList.add('green')
-            wifiObj.classList.remove('gray')
+            self.changeWiFiStatus(true)
             EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-shadow')
             EventBus.firstRightEvent = false
             break
