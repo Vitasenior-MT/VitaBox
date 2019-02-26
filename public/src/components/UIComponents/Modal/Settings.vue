@@ -158,7 +158,6 @@ export default {
       }
     },
     getSettings() {
-      var self = this
       this.$http
       .get('/api/settings/get')
       .then(response => {
@@ -180,7 +179,7 @@ export default {
                 default:
                   break
               }
-              self.changeWiFiStatus(true)
+              this.changeWiFiStatus(true)
             }
           }
         } else {
