@@ -131,7 +131,6 @@ export default {
   mounted() {
     this.getGitLastUpdate()
     this.getSettings()
-    this.changeWiFiStatus(true)
   },
   methods: {
     getGitLastUpdate() {
