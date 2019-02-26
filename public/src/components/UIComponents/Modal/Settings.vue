@@ -286,7 +286,9 @@ export default {
       this.params = event.params || {}
       this.$emit('before-opened', event)
       this.controlEventsBus()
-      this.changeWiFiStatus(true)
+      setTimeout(() => {
+        this.changeWiFiStatus(true)
+      }, 500);
       for (var index in this.items) {
         switch (this.items[index].type) {
           case 'mode':
