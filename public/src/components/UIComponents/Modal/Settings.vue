@@ -131,6 +131,7 @@ export default {
   mounted() {
     this.getGitLastUpdate()
     this.getSettings()
+    this.changeWiFiStatus(true)
   },
   methods: {
     getGitLastUpdate() {
@@ -179,7 +180,6 @@ export default {
                 default:
                   break
               }
-              this.changeWiFiStatus(true)
             }
           }
         } else {
