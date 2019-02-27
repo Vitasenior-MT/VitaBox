@@ -83,6 +83,7 @@ export const app = new Vue({
   sockets: {
     WIFI(value) {
       EventBus.wifiConnected = value
+      console.log('WIFI Status: ', value)
     },
     ttsPath(path) {
       var self = this
