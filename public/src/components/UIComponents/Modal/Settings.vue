@@ -158,11 +158,11 @@ export default {
     changeWiFiStatus(status) {
       let wifiObj = document.getElementsByClassName('WIFI')[0]
       if (status) {
-        wifiObj.classList.add('green')
-        wifiObj.classList.remove('gray')
+        wifiObj.classList.add('on')
+        wifiObj.classList.remove('off')
       } else {
-        wifiObj.classList.remove('green')
-        wifiObj.classList.add('grey')
+        wifiObj.classList.remove('on')
+        wifiObj.classList.add('off')
       }
     },
     getSettings() {
@@ -338,10 +338,10 @@ export default {
 }
 </script>
 <style>
-.grey {
-  color: grey;
-}
-.green {
+.on {
   color: green;
+}
+.off {
+  color: red;
 }
 </style>

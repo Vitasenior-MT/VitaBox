@@ -440,11 +440,11 @@
 
 
 
-.grey {
-  color: grey;
-}
-.green {
+.on {
   color: green;
+}
+.off {
+  color: red;
 }
 
 .resize-form-wifi {
@@ -12215,4 +12215,4 @@ textarea.form-control {
     font-size: 12px;
     padding: 20px 0 0; }
 
-/*# sourceMappingURL=app.5c20d042165a58278406eb87094ed017.css.map*/
+/*# sourceMappingURL=app.29d1ef00b671b61cb835196f27573cdb.css.map*/
