@@ -132,6 +132,14 @@ export default {
     this.getGitLastUpdate()
     this.getSettings()
   },
+  sockets: {
+    WIFI(value) {
+      console.log('WIFI Status: ', value)
+      setTimeout(() => {
+        this.changeWiFiStatus(value)
+      }, 500);
+    }
+  },
   methods: {
     getGitLastUpdate() {
       this.$http
@@ -278,15 +286,6 @@ export default {
             break
         }
       })
-    },
-    sockets: {
-      WIFI(value) {
-        //EventBus.wifiConnected = value
-        console.log('WIFI Status: ', value)
-        setTimeout(() => {
-          this.changeWiFiStatus(value)
-        }, 500);
-      }
     },
     beforeOpened(event) {
       EventBus.firstRightEvent = true
