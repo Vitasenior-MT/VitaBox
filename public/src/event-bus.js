@@ -30,6 +30,7 @@ export const EventBus = new Vue({
     listHistoryElements: [],
     warningList: [],          // lista de warnings
     warningCurrent: -1,
+    wifiConnected: false,
     historyElements: ['views']
   },
   methods: {

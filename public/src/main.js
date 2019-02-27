@@ -81,6 +81,9 @@ export const app = new Vue({
   beforeCreate() {
   },
   sockets: {
+    WIFI(value) {
+      EventBus.wifiConnected = value
+    },
     ttsPath(path) {
       var self = this
       if (document.getElementById('audioElem')) {
