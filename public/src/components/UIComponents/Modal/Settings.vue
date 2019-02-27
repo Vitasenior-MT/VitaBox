@@ -287,6 +287,7 @@ export default {
       this.$emit('before-opened', event)
       this.controlEventsBus()
       setTimeout(() => {
+        console.log(EventBus.wifiConnected)
         this.changeWiFiStatus(EventBus.wifiConnected)
       }, 500);
       for (var index in this.items) {
