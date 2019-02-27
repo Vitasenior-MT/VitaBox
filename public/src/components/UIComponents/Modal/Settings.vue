@@ -279,17 +279,23 @@ export default {
         }
       })
     },
+    sockets: {
+      WIFI(value) {
+        //EventBus.wifiConnected = value
+        console.log('WIFI Status: ', value)
+        setTimeout(() => {
+          this.changeWiFiStatus(value)
+        }, 500);
+      }
+    },
     beforeOpened(event) {
       EventBus.firstRightEvent = true
       EventBus.currentActiveRightComp = 0
       window.addEventListener('keyup', this.onKeyUp)
       this.params = event.params || {}
       this.$emit('before-opened', event)
+      this.$socket.emit('requestWifiStatus')
       this.controlEventsBus()
-      setTimeout(() => {
-        console.log(EventBus.wifiConnected)
-        this.changeWiFiStatus(EventBus.wifiConnected)
-      }, 500);
       for (var index in this.items) {
         switch (this.items[index].type) {
           case 'mode':
