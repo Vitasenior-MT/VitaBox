@@ -57,10 +57,12 @@ Main.prototype.execBleMiBand = function (pacientInfo) {
     if (data.proc === 'saveDataSensors') {
       rawsensorlib.insertManyData(data.dataSend);
     } else if (data.proc === 'saveAuthPatient') {
+      console.log('END? ', data.dataSend);
       patientslib.updateFlagAuthBandFit(data.dataSend);
     }
   });
   child.on('exit', function (data) {
+    console.log('here? ', args.pacientId);
     patientslib.updateFlagBandFit({ flag: false, user_id: args.pacientId });
     if (self.allPatientes.length > 0) {
       self.execBleMiBand(self.allPatientes.pop());
