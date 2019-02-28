@@ -30,7 +30,7 @@ Main.prototype.start = function () {
       } else {
         console.log("process End");
         process.exit(0);
-      }      
+      }
     })
   });
 }
@@ -52,6 +52,7 @@ Main.prototype.execBleMiBand = function (pacientInfo) {
   // inicia p script e envia as configuracores do ficheiro inicial
   var child = cp.fork('./lib/bleServer.js');
   child.send({ "serverdata": args });
+  patientslib.updateFlagBandFit({ flag: true, user_id: options.pacientId });
   child.on('message', function (data) {
     if (data.proc === 'saveDataSensors') {
       rawsensorlib.insertManyData(data.dataSend);
@@ -63,9 +64,10 @@ Main.prototype.execBleMiBand = function (pacientInfo) {
     if (self.allPatientes.length > 0) {
       self.execBleMiBand(self.allPatientes.pop());
     } else {
+      patientslib.updateFlagBandFit({ flag: false, user_id: args.pacientId });
       console.log("process End");
       process.exit(0);
-    }   
+    }
   })
 }
 

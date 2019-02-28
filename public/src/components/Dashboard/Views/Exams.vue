@@ -1673,6 +1673,15 @@ export default {
             // evento do 'OK'
             case 'ok_btn':
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
+              this.patientId = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.id
+              this.$http
+              .get('/api/patient/getFlagBandFit/' + this.patientId)
+              .then(response => {
+                console.log('------------> ', responce)
+              })
+              .catch(error => {
+                console.log(error)
+              })
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
               if (!self.flg_once) {
