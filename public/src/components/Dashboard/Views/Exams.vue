@@ -1683,6 +1683,7 @@ export default {
                 }, 300);
               }
               if (!self.posPatientSelected >= 0) {
+                console.log('aaaa ---- ??? ', document.getElementsByClassName('btnsExams')[0])
                 this.$http
                 .get('/api/patient/getFlagBandFit/' + this.patientId)
                 .then(response => {
