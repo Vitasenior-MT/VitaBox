@@ -52,7 +52,7 @@ Main.prototype.execBleMiBand = function (pacientInfo) {
   // inicia p script e envia as configuracores do ficheiro inicial
   var child = cp.fork('./lib/bleServer.js');
   child.send({ "serverdata": args });
-  patientslib.updateFlagBandFit({ flag: true, user_id: options.pacientId });
+  patientslib.updateFlagBandFit({ flag: true, user_id: args.pacientId });
   child.on('message', function (data) {
     if (data.proc === 'saveDataSensors') {
       rawsensorlib.insertManyData(data.dataSend);
