@@ -61,10 +61,10 @@ Main.prototype.execBleMiBand = function (pacientInfo) {
     }
   });
   child.on('exit', function (data) {
+    patientslib.updateFlagBandFit({ flag: false, user_id: args.pacientId });
     if (self.allPatientes.length > 0) {
       self.execBleMiBand(self.allPatientes.pop());
     } else {
-      patientslib.updateFlagBandFit({ flag: false, user_id: args.pacientId });
       console.log("process End");
       process.exit(0);
     }
