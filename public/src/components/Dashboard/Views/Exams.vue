@@ -1684,8 +1684,8 @@ export default {
               }
               if (!self.posPatientSelected >= 0) {
                 console.log('aaaa ---- ??? ', document.getElementsByClassName('btnsExams')[0])
-                this.$http
-                .get('/api/patient/getFlagBandFit/' + this.patientId)
+                self.$http
+                .get('/api/patient/getFlagBandFit/' + self.patientId)
                 .then(response => {
                   console.log('------------> ', response.data.data)
                   console.log('------------> ', response.data.data[0])
