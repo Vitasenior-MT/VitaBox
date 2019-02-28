@@ -1673,17 +1673,6 @@ export default {
             // evento do 'OK'
             case 'ok_btn':
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
-              this.patientId = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.id
-              this.$http
-              .get('/api/patient/getFlagBandFit/' + this.patientId)
-              .then(response => {
-                console.log('------------> ', response.data.data)
-                console.log('------------> ', response.data.data[0])
-                console.log('------------> ', response.data.data[0].flg_bandfitness)
-              })
-              .catch(error => {
-                console.log(error)
-              })
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
               if (!self.flg_once) {
@@ -1694,6 +1683,16 @@ export default {
                 }, 300);
               }
               if (!self.posPatientSelected >= 0) {
+                this.$http
+                .get('/api/patient/getFlagBandFit/' + this.patientId)
+                .then(response => {
+                  console.log('------------> ', response.data.data)
+                  console.log('------------> ', response.data.data[0])
+                  console.log('------------> ', response.data.data[0].flg_bandfitness)
+                })
+                .catch(error => {
+                  console.log(error)
+                })
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
               }
               break
