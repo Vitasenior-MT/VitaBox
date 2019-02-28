@@ -1677,9 +1677,9 @@ export default {
               this.$http
               .get('/api/patient/getFlagBandFit/' + this.patientId)
               .then(response => {
-                console.log('------------> ', response.data)
-                console.log('------------> ', response.data[0])
-                console.log('------------> ', response.data[0].flg_bandfitness)
+                console.log('------------> ', response.data.data)
+                console.log('------------> ', response.data.data[0])
+                console.log('------------> ', response.data.data[0].flg_bandfitness)
               })
               .catch(error => {
                 console.log(error)
