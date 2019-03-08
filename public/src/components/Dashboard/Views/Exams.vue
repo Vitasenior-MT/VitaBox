@@ -1676,27 +1676,27 @@ export default {
               self.$http
                 .get('/api/patient/getFlagBandFit/' + self.patientId)
                 .then(response => {
-                  if (document.getElementsByClassName('control-remote btn-fill')[0] && response.data.data[0].flg_bandfitness) {
+                  if (document.getElementsByClassName('control-remote btn-fill')[0] && !response.data.data[0].flg_bandfitness) {
+                    console.log('------------> desbloqueado')
+                    EventBus.elementControl[EventBus.currentActiveRightComp].click()
+                    self.$refs.DefaultView.hide()
+                    if (!self.flg_once) {
+                      self.flg_once = true
+                      setTimeout(() => {
+                        // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
+                        self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
+                      }, 300);
+                    }
+                    if (!self.posPatientSelected >= 0) {
+                      document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
+                    }
+                  } else {
+                    console.log('------------> bloqueado')
                   }
-                  console.log('------------> ', response.data.data[0].flg_bandfitness)
-                  console.log('------------> ', document.getElementsByClassName('control-remote btn-fill')[0])
-                  console.log('------------> ', document.getElementsByClassName('control-remote btn-fill')[0] && response.data.data[0].flg_bandfitness)
                 })
                 .catch(error => {
                   console.log(error)
                 })
-              EventBus.elementControl[EventBus.currentActiveRightComp].click()
-              self.$refs.DefaultView.hide()
-              if (!self.flg_once) {
-                self.flg_once = true
-                setTimeout(() => {
-                  // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
-                  self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
-                }, 300);
-              }
-              if (!self.posPatientSelected >= 0) {
-                document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
-              }
               break
             // evento para sair para a sidebar ou para a lista anterior
             case 'exit':
