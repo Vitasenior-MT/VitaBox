@@ -82,7 +82,7 @@ m.start();
 module.exports = Main;
 
 var validate = function (callback) {
-  settinglib.getFlagBandFit((data) => {
+  settinglib.getFlagBandFit(null, (data) => {
     if (!data.data) {
       settinglib.updateFlagBandFit({ flag: true }, () => {
         callback();
