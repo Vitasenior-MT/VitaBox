@@ -5,6 +5,7 @@ var cp = require('child_process'),
   connectDB = require('./lib/connectDB.js'),
   patientslib = require('./lib/patientslib.js'),
   rawsensorlib = require('./lib/rawsensorlib.js'),
+  settinglib = require('./lib/settinglib.js'),
   log = require('./lib/logger'),
   errorLog = log.errorlog,
   successlog = log.successlog,
@@ -28,8 +29,10 @@ Main.prototype.start = function () {
       if (self.allPatientes.length > 0) {
         self.execBleMiBand(self.allPatientes.pop());
       } else {
-        console.log("process End");
-        process.exit(0);
+        settinglib.updateFlagBandFit({ flag: false }, () => {
+          console.log("process End");
+          process.exit(0);
+        });
       }
     })
   });
@@ -50,29 +53,40 @@ Main.prototype.execBleMiBand = function (pacientInfo) {
     sensors: pacientInfo.Sensors
   };
   // inicia p script e envia as configuracores do ficheiro inicial
-  var child = cp.fork('./lib/bleServer.js');
-  child.send({ "serverdata": args });
-  patientslib.updateFlagBandFit({ flag: true, user_id: args.pacientId });
-  child.on('message', function (data) {
-    if (data.proc === 'saveDataSensors') {
-      rawsensorlib.insertManyData(data.dataSend);
-    } else if (data.proc === 'saveAuthPatient') {
-      patientslib.updateFlagAuthBandFit(data.dataSend);
-    }
+  validate(() => {
+    var child = cp.fork('./lib/bleServer.js');
+    child.send({ "serverdata": args });
+    child.on('message', function (data) {
+      if (data.proc === 'saveDataSensors') {
+        rawsensorlib.insertManyData(data.dataSend);
+      } else if (data.proc === 'saveAuthPatient') {
+        patientslib.updateFlagAuthBandFit(data.dataSend);
+      }
+    });
+    child.on('exit', function (data) {
+      if (self.allPatientes.length > 0) {
+        self.execBleMiBand(self.allPatientes.pop());
+      } else {
+        settinglib.updateFlagBandFit({ flag: false }, () => {
+          console.log("execBleMiBand process End");
+          process.exit(0);
+        });
+      }
+    })
   });
-  child.on('exit', function (data) {
-    if (self.allPatientes.length > 0) {
-      self.execBleMiBand(self.allPatientes.pop());
-    } else {
-      patientslib.updateFlagBandFit({ flag: false, user_id: args.pacientId }, () => {
-        console.log("process End");
-        process.exit(0);
-      });
-    }
-  })
 }
 
 var m = new Main();
 m.start();
 
 module.exports = Main;
+
+var validate = function (callback) {
+  settinglib.getFlagBandFit((data) => {
+    if (!data.data) {
+      settinglib.updateFlagBandFit({ flag: true }, () => {
+        callback();
+      });
+    }
+  });
+}
