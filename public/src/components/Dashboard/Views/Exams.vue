@@ -1676,9 +1676,11 @@ export default {
               self.$http
                 .get('/api/patient/getFlagBandFit/' + self.patientId)
                 .then(response => {
-                  if(document.getElementsByClassName('control-remote btn-fill')[0] && response.data.data[0].flg_bandfitness){
+                  if (document.getElementsByClassName('control-remote btn-fill')[0] && response.data.data[0].flg_bandfitness) {
                   }
                   console.log('------------> ', response.data.data[0].flg_bandfitness)
+                  console.log('------------> ', document.getElementsByClassName('control-remote btn-fill')[0])
+                  console.log('------------> ', document.getElementsByClassName('control-remote btn-fill')[0] && response.data.data[0].flg_bandfitness)
                 })
                 .catch(error => {
                   console.log(error)
