@@ -1478,6 +1478,7 @@ export default {
               }
             }
           } else {
+            console.log(response)
             this.$notifications.notify({
               message: '<h4>' + response.data.data + '</h4>',
               icon: 'ti-bell',
