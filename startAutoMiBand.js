@@ -89,6 +89,9 @@ var validate = function (callback) {
         console.log("execBleMiBand ", result);
         callback();
       });
+    } else {
+      console.log("BLE ocupado ", result);
+      process.exit(0);
     }
   });
 }
