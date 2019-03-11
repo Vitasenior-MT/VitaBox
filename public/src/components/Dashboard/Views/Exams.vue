@@ -1441,6 +1441,10 @@ export default {
           if (response.data.status === true) {
             document.getElementsByClassName(this.examEvent)[0].scrollIntoView(false)
             console.log(response)
+            if (response.data.flg_bandfitness) {
+              this.execProcess = false
+              EventBus.examEmExec = false
+            }
             this.$notifications.notify({
               message: '<h4>' + response.data.data + '</h4>',
               icon: 'ti-check',
