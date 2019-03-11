@@ -90,7 +90,7 @@ var validate = function (callback) {
         callback();
       });
     } else {
-      console.log("BLE ocupado ", result);
+      console.log("BLE ocupado ");
       process.exit(0);
     }
   });
