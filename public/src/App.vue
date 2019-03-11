@@ -9,6 +9,7 @@
     <v-procedure/>
     <v-alert/>
     <v-marquee-msg/>
+    <v-bleblocked/>
   </div>
 </template>
 
