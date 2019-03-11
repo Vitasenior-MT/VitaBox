@@ -84,7 +84,7 @@ module.exports = Main;
 var validate = function (callback) {
   settinglib.getFlagBandFit(null, (data) => {
     console.log("------ ", data);
-    if (!data.flg_bandfitness) {
+    if (!data[0].flg_bandfitness) {
       settinglib.updateFlagBandFit({ flag: true }, (result) => {
         console.log("execBleMiBand ", result);
         callback();
