@@ -679,8 +679,8 @@
   color: red;
   font-size: 45px;
 }
-.modelAlert {
-  height: 50% !important;
+.modelBLE {
+  height: 100% !important;
 }
 .size-100 {
   width: 100%;
@@ -12277,4 +12277,4 @@ textarea.form-control {
     font-size: 12px;
     padding: 20px 0 0; }
 
-/*# sourceMappingURL=app.8747da2dc10e4c8dffedac71660144a5.css.map*/
+/*# sourceMappingURL=app.9bca6864d18785c384b8e9f1a4ba86a1.css.map*/

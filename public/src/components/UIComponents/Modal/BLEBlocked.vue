@@ -7,7 +7,7 @@
     @before-close='beforeClosed'
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
-    <card-style class="modelAlert">
+    <card-style class="modelBLE">
       <div class='icon-big vue-alert-img' :class='`icon-${cardStyle.type}`' slot='header'></div>
     </card-style>
   </modal>
@@ -99,8 +99,8 @@ export default {
   font-size: 45px;
 }
 
-.modelAlert {
-  height: 50% !important;
+.modelBLE {
+  height: 100% !important;
 }
 
 .size-100 {
