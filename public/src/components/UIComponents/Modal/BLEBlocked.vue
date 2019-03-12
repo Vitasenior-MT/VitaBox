@@ -7,9 +7,13 @@
     @before-close='beforeClosed'
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
-    <card-style class="modelBLE">
-      <h4>{{cardStyle.type}}</h4>
-    </card-style>
+    <div class="background-opacity modelBLE">
+      <div class="content">
+        <div class="row">
+          <h4>{{cardStyle.type}}</h4>
+        </div>
+      </div>
+    </div>
   </modal>
 </template>
 <script>
