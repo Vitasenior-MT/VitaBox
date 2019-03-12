@@ -8,7 +8,7 @@
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
     <card-style class="modelBLE">
-      <div class='icon-big vue-alert-img' :class='`icon-${cardStyle.type}`' slot='header'></div>
+      <h4>{{cardStyle.type}}</h4>
     </card-style>
   </modal>
 </template>
