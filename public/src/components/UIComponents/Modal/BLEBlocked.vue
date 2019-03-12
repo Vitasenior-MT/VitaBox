@@ -1,6 +1,6 @@
 <template>
   <modal
-    name='alert'
+    name='bleblocked'
     :classes="['size-100', this.params.class]"
     :transition='transition'
     @before-open='beforeOpened'
