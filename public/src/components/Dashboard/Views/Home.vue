@@ -264,7 +264,7 @@ export default {
       this.$refs.ViewNotifivacoes.setMsg('dictionary.notifications')
       this.$refs.ViewNotifivacoes.show()
     }
-    this.$socket.emit('ttsText', '500 600 700 800 900 1217 2798')
+    this.$socket.emit('ttsText', '127 927 1217 2798')
   },
   created() {
     this.controlEventsBus()
