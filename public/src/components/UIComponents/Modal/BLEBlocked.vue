@@ -9,8 +9,8 @@
     @closed="$emit('closed', $event)">
     <div class="background-opacity modelBLE">
       <div class="content">
-        <div class="row">
-          <div class="col-xs-12"><h4>{{cardStyle.type}}</h4></div>
+        <div class="row font-setting">
+          <div class="col-xs-12 font-positioning"><h4>{{cardStyle.type}}</h4></div>
         </div>
       </div>
     </div>
