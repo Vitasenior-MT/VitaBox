@@ -264,15 +264,7 @@ export default {
       this.$refs.ViewNotifivacoes.setMsg('dictionary.notifications')
       this.$refs.ViewNotifivacoes.show()
     }
-    /*this.$socket.emit('ttsText', '111')
-    this.$socket.emit('ttsText', '112')
-    this.$socket.emit('ttsText', '113')
-    this.$socket.emit('ttsText', '114')
-    this.$socket.emit('ttsText', '115')
-    this.$socket.emit('ttsText', '116')
-    this.$socket.emit('ttsText', '118')
-    this.$socket.emit('ttsText', '119')*/
-    this.$socket.emit('ttsText', '117')
+    this.$socket.emit('ttsText', '217')
   },
   created() {
     this.controlEventsBus()
