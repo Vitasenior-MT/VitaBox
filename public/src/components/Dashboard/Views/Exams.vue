@@ -1442,7 +1442,7 @@ export default {
             document.getElementsByClassName(this.examEvent)[0].scrollIntoView(false)
             console.log(response)
             if (response.data.flg_bandfitness) {
-              this.$modal.show('bleblocked', 'HI')
+              this.$modal.show('bleblocked', 'Existe um dispositivo em uso')
               this.execProcess = false
               EventBus.examEmExec = false
             }
