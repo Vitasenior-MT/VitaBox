@@ -343,7 +343,7 @@ export default {
     this.$http
       .get('/api/sensor/getDistictAll')
       .then(response => {
-        let data = response.data.data
+        let data = response.data.data.sensors
         console.log('data: ')
         console.log(data)
         for (var index in data) {
