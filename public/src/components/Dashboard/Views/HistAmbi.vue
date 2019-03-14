@@ -344,6 +344,8 @@ export default {
       .get('/api/sensor/getDistictAll')
       .then(response => {
         let data = response.data.data
+        console.log('data: ')
+        console.log(data)
         for (var index in data) {
           this.sensorList.push({
             name: data[index].measure,
