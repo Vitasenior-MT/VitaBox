@@ -26,6 +26,7 @@ export const EventBus = new Vue({
     notifications: false,
     warnings: false,
     wifi: false,
+    bleblocked: false,
     notificationList: [],     // lista de todas as notificações
     listHistoryElements: [],
     warningList: [],          // lista de warnings
@@ -68,6 +69,16 @@ export const EventBus = new Vue({
               if (cmd === 'exit' && !this.examEmExec) {
                 this.wifi = false
                 this.$modal.hide('wifi-settings')
+                this.enterLastElementDefinitions()
+              }
+            }
+            break;
+          case 'bleblocked':
+            if (this.bleblocked) {
+              // this.$emit('move-components-wifi-modal', cmd)
+              if (cmd === 'exit' && !this.examEmExec) {
+                this.bleblocked = bleblocked
+                this.$modal.hide('bleblocked')
                 this.enterLastElementDefinitions()
               }
             }
@@ -137,6 +148,9 @@ export const EventBus = new Vue({
         return true
       }
       if (this.wifi) {
+        return true
+      }
+      if (this.bleblocked) {
         return true
       }
     },
