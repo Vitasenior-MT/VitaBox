@@ -74,10 +74,12 @@ export const EventBus = new Vue({
             }
             break;
           case 'bleblocked':
+            console.log('bleblocked: ', this.bleblocked)
             if (this.bleblocked) {
               // this.$emit('move-components-wifi-modal', cmd)
+              console.log(cmd)
               if (cmd === 'exit' && !this.examEmExec) {
-                this.bleblocked = bleblocked
+                this.bleblocked = false
                 this.$modal.hide('bleblocked')
                 this.enterLastElementDefinitions()
               }
