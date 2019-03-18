@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       cardStyle: {
-        type: 'warning',
+        type: this.$t('modal.bleblocked.message'),
         title: 'Aviso'
       },
       params: {}
@@ -56,7 +56,7 @@ export default {
 
 .font-positioning {
   font-size: 40px !important;
-  padding-left: 15%;
+  padding-left: 30% !important;
   background: rgba(255, 255, 255, 0.466);
 }
 .font-setting {

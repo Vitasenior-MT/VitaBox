@@ -332,6 +332,9 @@
         "1": "Saia de casa.",
         "2": ""
       }
+    },
+    "bleblocked": {
+      "message": "Dispositivo Ocupado!"
     }
   }
 }

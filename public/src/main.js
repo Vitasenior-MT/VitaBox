@@ -157,6 +157,7 @@ export const app = new Vue({
         this.$modal.hide('procedure')
       }
       if (type === 'notification') {
+        this.$modal.hide('bleblocked')
         EventBus.removeAudio('off')
         EventBus.notifications = false
       }
