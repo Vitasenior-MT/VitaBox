@@ -45,6 +45,7 @@ export const EventBus = new Vue({
             this.$marqueemsg.hide()
           }
         }
+        console.log('bleblocked??: ', v)
         switch (this.historyElements[this.historyElements.length - 1]) {
           case 'settings':
             if (this.settings) {
