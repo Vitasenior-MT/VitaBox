@@ -46,6 +46,29 @@ export default {
       },
       params: {}
     }
+  },
+  methods: {
+    controlEventsBus() {
+      var self = this
+      /**
+       * TODO: Monitorização dos eventos do controlo remoto
+       */
+      EventBus.$on('move-components-modal', function(cmd) {
+        EventBus.elementControl = document.getElementsByClassName('control-modal')
+        switch (cmd) {
+          case 'ok_btn':
+          case 'exit':
+            break
+          case 'right':
+          case 'left':
+          case 'up':
+          case 'down':
+            break
+          default:
+            break
+        }
+      })
+    }
   }
 }
 </script>
