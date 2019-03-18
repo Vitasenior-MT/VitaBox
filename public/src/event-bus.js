@@ -45,7 +45,6 @@ export const EventBus = new Vue({
             this.$marqueemsg.hide()
           }
         }
-        console.log('bleblocked??: ', this.historyElements[this.historyElements.length - 1])
         switch (this.historyElements[this.historyElements.length - 1]) {
           case 'settings':
             if (this.settings) {
@@ -75,10 +74,7 @@ export const EventBus = new Vue({
             }
             break;
           case 'bleblocked':
-            console.log('bleblocked: ', this.bleblocked)
             if (this.bleblocked) {
-              // this.$emit('move-components-wifi-modal', cmd)
-              console.log(cmd)
               if (cmd === 'exit' && !this.examEmExec) {
                 this.bleblocked = false
                 this.$modal.hide('bleblocked')
