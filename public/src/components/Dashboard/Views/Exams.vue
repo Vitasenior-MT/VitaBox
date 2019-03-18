@@ -1438,6 +1438,7 @@ export default {
             if (response.data.flg_bandfitness) {
               this.$modal.show('bleblocked', 'Existe um dispositivo em uso')
               EventBus.bleblocked = true
+              EventBus.enterNewElementDefinitions('bleblocked')
               this.execProcess = false
               EventBus.examEmExec = false
             }
