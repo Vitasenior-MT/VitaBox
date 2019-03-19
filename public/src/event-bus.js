@@ -75,7 +75,7 @@ export const EventBus = new Vue({
             break;
           case 'bleblocked':
             if (this.bleblocked) {
-              if (cmd === 'exit' && !this.examEmExec) {
+              if ((cmd === 'ok_btn' || cmd === 'exit') && !this.examEmExec) {
                 this.bleblocked = false
                 this.$modal.hide('bleblocked')
                 this.enterLastElementDefinitions()
