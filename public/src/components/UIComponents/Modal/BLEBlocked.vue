@@ -48,6 +48,9 @@ export default {
     }
   },
   methods: {
+    beforeOpened(event) {
+      this.$socket.emit('ttsText', this.$t('modal.bleblocked.text'))
+    }
   }
 }
 </script>

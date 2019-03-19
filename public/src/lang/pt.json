@@ -334,7 +334,8 @@
       }
     },
     "bleblocked": {
-      "message": "Aguarde!"
+      "message": "Aguarde!",
+      "text": "Aguarde que a bracelete está em uso."
     }
   }
 }
