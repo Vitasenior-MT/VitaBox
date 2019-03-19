@@ -107,6 +107,14 @@ export default {
           labels: {checked: this.$t('modal.settings.wifi.open'), unchecked: ''},
           color: {checked: '#f7931d', unchecked: '#f05a28'},
           values: ['Open', '']
+        },
+        {
+          title: this.$t('modal.settings.wifi.title'),
+          type: 'videocall',
+          default: true,
+          labels: {checked: this.$t('modal.settings.wifi.open'), unchecked: ''},
+          color: {checked: '#f7931d', unchecked: '#f05a28'},
+          values: ['Open', '']
         }
       ],
       params: {},
@@ -224,6 +232,7 @@ export default {
               this.items[i].default = !this.items[i].default
             }, 1000);
           }
+          break
         case 'videocall':
           if (toggle === false) {
             this.items[i].default = toggle
