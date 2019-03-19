@@ -141,9 +141,9 @@ export default {
     }
   },
   mounted() {
-    this.vitaboxAddress = "Something";
-    this.vitaboxId = "1df9dabd-b22d-4bb8-b205-548a42a88ba8";
-    this.vitaboxToken ="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFkZjlkYWJkLWIyMmQtNGJiOC1iMjA1LTU0OGE0MmE4OGJhOCIsInJvbGUiOiJWaXRhYm94IiwiaWF0IjoxNTUyNDA0NTk2LCJleHAiOjE1NTI0MzMzOTZ9.gV2i6BqdmVePGiR8XjL4MNIfa5EfLcHq0-rChh2xkS93J6pnrzcGQx8u20uLbi0naC8C_1okAvDN6aOqN8Mk6Tuz2xW3AWfFP7He533ll5lrEPaOPa9jyrNPq7_d3B1SvcR0-elWa92l3CQRx97WQzbwacs3becsPhw0LnAd9DP7J4UdcpgERT4xISrq01w0HGxN2ih3GtLTe5kSoAfa9vsVPmWZQbK-8dZTuYfC7Q1U_4N8iRI5s6TnSO4Wl1iENi_ysRZKQpmpf896MFDiMIR7o1_JcdQ-qVgVhH3MvRU0d83Q0oIYvWzjCKaq90GaQybdYuR2rpnPZ6QkribipA";
+    // this.vitaboxAddress = "Something";
+    // this.vitaboxId = "1df9dabd-b22d-4bb8-b205-548a42a88ba8";
+    // this.vitaboxToken ="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFkZjlkYWJkLWIyMmQtNGJiOC1iMjA1LTU0OGE0MmE4OGJhOCIsInJvbGUiOiJWaXRhYm94IiwiaWF0IjoxNTUyNDA0NTk2LCJleHAiOjE1NTI0MzMzOTZ9.gV2i6BqdmVePGiR8XjL4MNIfa5EfLcHq0-rChh2xkS93J6pnrzcGQx8u20uLbi0naC8C_1okAvDN6aOqN8Mk6Tuz2xW3AWfFP7He533ll5lrEPaOPa9jyrNPq7_d3B1SvcR0-elWa92l3CQRx97WQzbwacs3becsPhw0LnAd9DP7J4UdcpgERT4xISrq01w0HGxN2ih3GtLTe5kSoAfa9vsVPmWZQbK-8dZTuYfC7Q1U_4N8iRI5s6TnSO4Wl1iENi_ysRZKQpmpf896MFDiMIR7o1_JcdQ-qVgVhH3MvRU0d83Q0oIYvWzjCKaq90GaQybdYuR2rpnPZ6QkribipA";
     this.getPeers();
   },
   sockets: {
@@ -151,7 +151,21 @@ export default {
   methods: {
     getPeers() {
       this.$http
-        .get(
+      .get('/api/connectServer/getUsers')
+      .then(response => {
+        console.log(response.data.data)
+      })
+      .catch(error => {
+        console.log(error)
+        this.$notifications.notify({
+          message: '<h4>Falha ao tentar adquirir o tempo.</h4>',
+          icon: 'ti-bell',
+          horizontalAlign: 'right',
+          verticalAlign: 'top',
+          type: 'warning'
+        })
+      })
+      /* this.$http.get(
           "http://192.168.161.153:8080/vitabox/" + this.vitaboxId + "/user",
           { headers: { Authorization: this.vitaboxToken } }
         )
@@ -160,10 +174,9 @@ export default {
             res.data.doctors
           );
           this.inititatePeer();
-        })
-        .catch(err => {
+        }).catch(err => {
           console.log(err.data);
-        });
+        });*/
     },
     inititatePeer() {
       this.peer = Peer(this.vitaboxId, {
