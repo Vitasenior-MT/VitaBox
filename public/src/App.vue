@@ -10,6 +10,7 @@
     <v-alert/>
     <v-marquee-msg/>
     <v-bleblocked/>
+    <v-videocall/>
   </div>
 </template>
 

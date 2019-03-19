@@ -224,6 +224,16 @@ export default {
               this.items[i].default = !this.items[i].default
             }, 1000);
           }
+        case 'videocall':
+          if (toggle === false) {
+            this.items[i].default = toggle
+            EventBus.enterNewElementDefinitions('videocall')
+            // EventBus.wifi = true
+            this.$modal.show('videocall')
+            setTimeout(() => {
+              this.items[i].default = !this.items[i].default
+            }, 1000);
+          }
           break
         default:
           break
