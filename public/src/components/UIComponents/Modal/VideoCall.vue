@@ -464,28 +464,7 @@ export default {
       })
     },
     beforeOpened(event) {
-      EventBus.firstRightEvent = true
-      EventBus.currentActiveRightComp = 0
-      window.addEventListener('keyup', this.onKeyUp)
-      this.params = event.params || {}
-      this.$emit('before-opened', event)
-      this.$socket.emit('requestWifiStatus')
       this.controlEventsBus()
-      for (var index in this.items) {
-        switch (this.items[index].type) {
-          case 'mode':
-            this.items[index].default = EventBus.settingsData['mode'].default
-            break
-          case 'sound':
-            this.items[index].default = EventBus.settingsData['sound'].default
-            break
-          case 'language':
-            this.items[index].default = EventBus.settingsData['language'].default
-            break
-          default:
-            break
-        }
-      }
     },
     beforeClosed(event) {
       this.dataConnections.forEach(x => x.connection.close());
