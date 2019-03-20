@@ -12,82 +12,83 @@
     @before-close="beforeClosed"
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
-    <div>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</div>
-    <v-card>
-      <v-card-title class="headline grey lighten-2" primary-title>
-        <span>Video Call</span>
-      </v-card-title>
-      <v-card-text class="cameraBoard">
-        <div v-if="status!==4">
-          <p class="px-2 headline primary_d--text" style="height:32px">{{message}}</p>
-          <v-divider></v-divider>
-        </div>
+    <div class="background-opacity">
+      <v-card>
+        <v-card-title class="headline grey lighten-2" primary-title>
+          <span>Video Call</span>
+        </v-card-title>
+        <v-card-text class="cameraBoard">
+          <div v-if="status!==4">
+            <p class="px-2 headline primary_d--text" style="height:32px">{{message}}</p>
+            <v-divider></v-divider>
+          </div>
 
-        <div v-if="status===1">
-          <v-list two-line>
-            <v-list-tile v-for="item in dataConnections" :key="item.peer">
+          <div v-if="status===1">
+            <v-list two-line>
+              <v-list-tile v-for="item in dataConnections" :key="item.peer">
+                <v-list-tile-avatar>
+                  <v-icon small color="green">fas fa-bullseye</v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-content>{{ item.name }}</v-list-tile-content>
+                <v-list-tile-action>
+                  <v-btn fab dark small color="primary" @click="startConnection(item.connection)">
+                    <v-icon dark>fas fa-video</v-icon>
+                  </v-btn>
+                </v-list-tile-action>
+              </v-list-tile>
+            </v-list>
+            <v-list-tile v-for="item in offlineUsers" :key="item.id">
               <v-list-tile-avatar>
-                <v-icon small color="green">fas fa-bullseye</v-icon>
+                <v-icon small color="red">fas fa-bullseye</v-icon>
               </v-list-tile-avatar>
               <v-list-tile-content>{{ item.name }}</v-list-tile-content>
-              <v-list-tile-action>
-                <v-btn fab dark small color="primary" @click="startConnection(item.connection)">
-                  <v-icon dark>fas fa-video</v-icon>
-                </v-btn>
-              </v-list-tile-action>
             </v-list-tile>
-          </v-list>
-          <v-list-tile v-for="item in offlineUsers" :key="item.id">
-            <v-list-tile-avatar>
-              <v-icon small color="red">fas fa-bullseye</v-icon>
-            </v-list-tile-avatar>
-            <v-list-tile-content>{{ item.name }}</v-list-tile-content>
-          </v-list-tile>
-        </div>
-
-        <div v-if="status==2">
-          <div class="buttonsView">
-            <v-btn fab dark small color="error" @click="cancelConnection">
-              <v-icon dark>fas fa-video-slash</v-icon>
-            </v-btn>
           </div>
-        </div>
 
-        <div v-if="status==3">
-          <div class="buttonsView">
-            <v-btn fab dark small color="error" @click="rejectConnection">
-              <v-icon dark>fas fa-times</v-icon>
-            </v-btn>
-            <v-btn fab dark small color="success" @click="acceptConnection">
-              <v-icon dark>fas fa-check</v-icon>
-            </v-btn>
+          <div v-if="status==2">
+            <div class="buttonsView">
+              <v-btn fab dark small color="error" @click="cancelConnection">
+                <v-icon dark>fas fa-video-slash</v-icon>
+              </v-btn>
+            </div>
           </div>
-        </div>
 
-        <video class="invisible" ref="remoteVideo" autoplay playinline></video>
-        <video class="invisible" ref="localVideo" autoplay playsinline></video>
-
-        <div v-if="status==4">
-          <div class="buttonsView">
-            <v-btn fab dark small color="error" @click="stopConnection">
-              <v-icon dark>fas fa-video-slash</v-icon>
-            </v-btn>
+          <div v-if="status==3">
+            <div class="buttonsView">
+              <v-btn fab dark small color="error" @click="rejectConnection">
+                <v-icon dark>fas fa-times</v-icon>
+              </v-btn>
+              <v-btn fab dark small color="success" @click="acceptConnection">
+                <v-icon dark>fas fa-check</v-icon>
+              </v-btn>
+            </div>
           </div>
-        </div>
-      </v-card-text>
-      <v-dialog v-model="warningDialog" width="300px">
-        <v-card>
-          <v-card-title>
-            <h3>If you close you'll finish the call</h3>
-          </v-card-title>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn class="ash--text" flat @click="warningDialog=false">Cancel</v-btn>
-            <v-btn class="error" @click="closeWhileConnection">Finish</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-card>
+
+          <video class="invisible" ref="remoteVideo" autoplay playinline></video>
+          <video class="invisible" ref="localVideo" autoplay playsinline></video>
+
+          <div v-if="status==4">
+            <div class="buttonsView">
+              <v-btn fab dark small color="error" @click="stopConnection">
+                <v-icon dark>fas fa-video-slash</v-icon>
+              </v-btn>
+            </div>
+          </div>
+        </v-card-text>
+        <v-dialog v-model="warningDialog" width="300px">
+          <v-card>
+            <v-card-title>
+              <h3>If you close you'll finish the call</h3>
+            </v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn class="ash--text" flat @click="warningDialog=false">Cancel</v-btn>
+              <v-btn class="error" @click="closeWhileConnection">Finish</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-card>
+    </div>
   </modal>
 </template>
 <script>
