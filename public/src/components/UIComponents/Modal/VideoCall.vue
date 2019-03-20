@@ -12,7 +12,7 @@
     @before-close="beforeClosed"
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
-    <div class="">
+    <div class="background-opacity">
       <v-card>
         <v-card-title class="headline grey lighten-2" primary-title>
           <span>Video Call</span>
@@ -121,6 +121,9 @@ export default {
       peer: null,
       remotePeerID: null,
       mediaConnection: null,
+      host: null,
+      port: null,
+      secure: null,
       dataConnections: [],
       status: 0,
       message: "initializing...",
@@ -157,7 +160,16 @@ export default {
       this.$http
       .get('/api/connectServer/getUsers')
       .then(response => {
-        console.log(response.data.data)
+        console.log(response.data.data.data.responce)
+        let data = response.data.data.data
+        this.users = this.offlineUsers = data.responce.users.concat(
+            data.responce.doctors
+          )
+        this.vitaboxToken = data.token
+        this.host = data.host
+        this.port = data.port
+        this.secure = data.secure
+        this.vitaboxId = data.vitaboxId
       })
       .catch(error => {
         console.log(error)
@@ -183,17 +195,14 @@ export default {
         })*/
     },
     inititatePeer() {
-      /* this.peer = Peer(this.vitaboxId, {
+      this.peer = Peer(this.vitaboxId, {
         key: "8dnMsRvmGdz3fPG8RYO8muaUfQ2Iy1lE",
         token: this.vitaboxToken,
-        host:
-          process.env.NODE_ENV === "production"
-            ? "vitasenior-peer-test.eu-gb.mybluemix.net"
-            : "192.168.161.119",
-        port: process.env.NODE_ENV === "production" ? "443" : "8808",
-        secure: process.env.NODE_ENV === "production" ? true : false,
+        host: this.host,
+        port: this.port,
+        secure: this.secure,
         debug: 3
-      }) */
+      })
 
       this.listenPeerEvent()
     },
