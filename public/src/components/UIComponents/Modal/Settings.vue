@@ -237,7 +237,7 @@ export default {
           if (toggle === false) {
             this.items[i].default = toggle
             EventBus.enterNewElementDefinitions('videocall')
-            // EventBus.wifi = true
+            EventBus.videocall = true
             this.$modal.show('videocall')
             setTimeout(() => {
               this.items[i].default = !this.items[i].default

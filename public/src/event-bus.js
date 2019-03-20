@@ -26,6 +26,7 @@ export const EventBus = new Vue({
     notifications: false,
     warnings: false,
     wifi: false,
+    videocall: false,
     bleblocked: false,
     notificationList: [],     // lista de todas as notificações
     listHistoryElements: [],
@@ -73,10 +74,10 @@ export const EventBus = new Vue({
               }
             }
           case 'videocall':
-            if (this.wifi) {
+            if (this.videocall) {
               // this.$emit('move-components-wifi-modal', cmd)
               if (cmd === 'exit' && !this.examEmExec) {
-                this.wifi = false
+                this.videocall = false
                 this.$modal.hide('videocall')
                 this.enterLastElementDefinitions()
               }
@@ -156,6 +157,9 @@ export const EventBus = new Vue({
         return true
       }
       if (this.wifi) {
+        return true
+      }
+      if (this.videocall) {
         return true
       }
       if (this.bleblocked) {
