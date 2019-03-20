@@ -73,6 +73,7 @@ export const EventBus = new Vue({
                 this.enterLastElementDefinitions()
               }
             }
+            break;
           case 'videocall':
             if (this.videocall) {
               // this.$emit('move-components-wifi-modal', cmd)
