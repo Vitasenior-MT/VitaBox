@@ -13,40 +13,81 @@
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
     <div class="background-opacity">
-      <div class="row  vue-settings">
-        <div class="col-md-12 vue-height-out">
-          <div class="dialog-content">
-            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> &nbsp; {{$t('modal.wifisettings.title')}}</h2>
-            <div>
-              <h4>{{$t('modal.wifisettings.navigation.0')}} <i class="fas fa-arrows-alt"></i> {{$t('modal.wifisettings.navigation.1')}}</h4>
+      <v-card>
+        <v-card-title class="headline grey lighten-2" primary-title>
+          <span>Video Call</span>
+        </v-card-title>
+        <v-card-text class="cameraBoard">
+          <div v-if="status!==4">
+            <p class="px-2 headline primary_d--text" style="height:32px">{{message}}</p>
+            <v-divider></v-divider>
+          </div>
+
+          <div v-if="status===1">
+            <v-list two-line>
+              <v-list-tile v-for="item in dataConnections" :key="item.peer">
+                <v-list-tile-avatar>
+                  <v-icon small color="green">fas fa-bullseye</v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-content>{{ item.name }}</v-list-tile-content>
+                <v-list-tile-action>
+                  <v-btn fab dark small color="primary" @click="startConnection(item.connection)">
+                    <v-icon dark>fas fa-video</v-icon>
+                  </v-btn>
+                </v-list-tile-action>
+              </v-list-tile>
+            </v-list>
+            <v-list-tile v-for="item in offlineUsers" :key="item.id">
+              <v-list-tile-avatar>
+                <v-icon small color="red">fas fa-bullseye</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-content>{{ item.name }}</v-list-tile-content>
+            </v-list-tile>
+          </div>
+
+          <div v-if="status==2">
+            <div class="buttonsView">
+              <v-btn fab dark small color="error" @click="cancelConnection">
+                <v-icon dark>fas fa-video-slash</v-icon>
+              </v-btn>
             </div>
           </div>
-          <div v-show="!displayWifi" class="col-lg-12 btn btn-round btn-fill btn-block resize-form-wifi">
-            <div class="row">
-              <div class="col-md-12">
-                <h4 class="text-center">
-                  A carregar as redes WIFI disponiveis. Aguarde...
-                </h4>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <img src='static/img/logo_B.png' alt='' style="width:36%;">
-              </div>
+
+          <div v-if="status==3">
+            <div class="buttonsView">
+              <v-btn fab dark small color="error" @click="rejectConnection">
+                <v-icon dark>fas fa-times</v-icon>
+              </v-btn>
+              <v-btn fab dark small color="success" @click="acceptConnection">
+                <v-icon dark>fas fa-check</v-icon>
+              </v-btn>
             </div>
           </div>
-          <div v-show="displayWifi" class="col-lg-12 btn btn-round btn-fill btn-block resize-form-wifi">
-            <div class="col-lg-3 col-ajust" v-for="(item, i) in params" v-bind:key='item.key' v-show="ssid">
-              <show-ssid :data="params[i]" :data-ssid="params[i].ssid"></show-ssid>
+
+          <video class="invisible" ref="remoteVideo" autoplay playinline></video>
+          <video class="invisible" ref="localVideo" autoplay playsinline></video>
+
+          <div v-if="status==4">
+            <div class="buttonsView">
+              <v-btn fab dark small color="error" @click="stopConnection">
+                <v-icon dark>fas fa-video-slash</v-icon>
+              </v-btn>
             </div>
-            <h3 v-show="!ssid">{{$t('modal.wifisettings.password')}}</h3>
-            <input class="input-font-color-black" type="password" v-model="password" v-show="!ssid" ref="psswrd">
           </div>
-          <div class="col-md-12">
-            <h4>{{$t('modal.wifisettings.exit.0')}} <br>{{$t('modal.wifisettings.exit.1')}}</h4>
-          </div>
-        </div>
-      </div>
+        </v-card-text>
+        <v-dialog v-model="warningDialog" width="300px">
+          <v-card>
+            <v-card-title>
+              <h3>If you close you'll finish the call</h3>
+            </v-card-title>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn class="ash--text" flat @click="warningDialog=false">Cancel</v-btn>
+              <v-btn class="error" @click="closeWhileConnection">Finish</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-card>
     </div>
   </modal>
 </template>
