@@ -12,6 +12,7 @@
     @before-close="beforeClosed"
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
+    <div>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</div>
     <v-card>
       <v-card-title class="headline grey lighten-2" primary-title>
         <span>Video Call</span>
@@ -246,8 +247,7 @@ export default {
               x.connection.send({ type: "accept" })
             }
           })
-        }
-        else {
+        } else {
           this.dataConnections.forEach(x => {
             if (x.peer === this.remotePeerID) {
               x.connection.send({
