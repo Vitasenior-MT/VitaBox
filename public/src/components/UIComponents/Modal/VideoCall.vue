@@ -1,9 +1,9 @@
 <template>
   <modal
     name="videocall"
-    height="auto"
     :classes="['v--modal', 'vue-dialog', this.params.class]"
     :width="width"
+    :height="width"
     :pivot-y="0.3"
     :adaptive="true"
     :clickToClose="clickToClose"
