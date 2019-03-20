@@ -12,7 +12,7 @@
     @before-close="beforeClosed"
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
-    <div class="background-opacity">
+    <div class="">
       <v-card>
         <v-card-title class="headline grey lighten-2" primary-title>
           <span>Video Call</span>
