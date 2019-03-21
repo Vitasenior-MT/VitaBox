@@ -160,10 +160,10 @@ export default {
       this.$http
       .get('/api/connectServer/getUsers')
       .then(response => {
-        console.log(response.data.data.data.responce)
-        let data = response.data.data.data
-        this.users = this.offlineUsers = data.responce.users.concat(
-            data.responce.doctors
+        console.log(response.data)
+        let data = response.data
+        this.users = this.offlineUsers = data.data.users.concat(
+            data.data.doctors
           )
         this.vitaboxToken = data.token
         this.host = data.host
