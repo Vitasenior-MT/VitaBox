@@ -160,8 +160,8 @@ export default {
       this.$http
       .get('/api/connectServer/getUsers')
       .then(response => {
-        console.log(response.data)
-        let data = response.data
+        console.log(response.data.data)
+        let data = response.data.data
         this.users = this.offlineUsers = data.data.users.concat(
             data.data.doctors
           )
