@@ -185,8 +185,8 @@ export default {
       this.peer = Peer(this.vitaboxId, {
         key: "8dnMsRvmGdz3fPG8RYO8muaUfQ2Iy1lE",
         token: this.vitaboxToken,
-        host: this.host,
-        port: this.port,
+        host: this.peerserver,
+        port: this.peerport,
         secure: this.secure,
         debug: 3
       })
