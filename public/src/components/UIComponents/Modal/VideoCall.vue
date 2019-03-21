@@ -123,6 +123,8 @@ export default {
       mediaConnection: null,
       host: null,
       port: null,
+      peerport: null,
+      peerserver: null,
       secure: null,
       dataConnections: [],
       status: 0,
@@ -168,6 +170,8 @@ export default {
         this.port = data.port
         this.secure = data.secure
         this.vitaboxId = data.vitaboxId
+        this.peerport = data.peerport
+        this.peerserver = data.peerserver
         this.inititatePeer()
       })
       .catch(error => {
