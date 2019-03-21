@@ -150,8 +150,6 @@ export default {
     }
   },
   mounted() {
-    this.vitaboxAddress = "Something"
-    this.getPeers()
   },
   sockets: {
   },
@@ -474,6 +472,8 @@ export default {
     },
     beforeOpened(event) {
       this.controlEventsBus()
+      this.vitaboxAddress = "Something"
+      this.getPeers()
     },
     beforeClosed(event) {
       this.dataConnections.forEach(x => x.connection.close())
