@@ -91,9 +91,17 @@ export const app = new Vue({
           self.$modal.hide('alert')
           self.timeout = setTimeout(() => {
             self.$modal.show('alert', '')
-            self.$socket.emit('ttsText', self.$t('modal.procedure.warnings'))
-            // self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
-            // self.$t('modal.procedure.' + EventBus.warning_type + '.1') + self.$t('modal.procedure.' + EventBus.warning_type + '.2'))
+            self.$socket.emit('ttsText', self.$t('modal.procedure.warnings.warning'))
+            if (Object.keys(EventBus.warningList).length > 1) {
+              let warningCurrent = EventBus.warningCurrent++
+              if (warningCurrent > Object.keys(EventBus.warningList).length - 1) {
+                EventBus.warningCurrent = 0;
+              }
+              this.$modal.hide('procedure')
+              this.$modal.show('procedure', EventBus.warningList[Object.keys(EventBus.warningList)[EventBus.warningCurrent]])
+              // self.$socket.emit('ttsText', self.$t('modal.procedure.' + EventBus.warning_type + '.0') +
+              // self.$t('modal.procedure.' + EventBus.warning_type + '.1') + self.$t('modal.procedure.' + EventBus.warning_type + '.2'))
+            }
           }, 5000)
         })
       } else {
@@ -101,20 +109,24 @@ export const app = new Vue({
       }
     },
     vitaWarning: function(data) {
-      EventBus.warning_type = data.warning_type
-      EventBus.warnings = true
-      EventBus.notifications = false
-      EventBus.wifi = false
-      EventBus.settings = false
-      this.$modal.hide('wifi-settings')
-      this.$modal.hide('settings')
-      this.$modal.show('alert', '')
-      // this.$socket.emit('ttsText', this.$t('modal.procedure.' + EventBus.warning_type + '.0') +
-      // this.$t('modal.procedure.' + EventBus.warning_type + '.1') + this.$t('modal.procedure.' + EventBus.warning_type + '.2'))
-      this.$socket.emit('ttsText', this.$t('modal.procedure.warnings'))
-      this.$marqueemsg.show('Informação', 'Prima ok para desbloquear a aplicação.', { speed: 15, fontSize: '3vw' })
-      EventBus.$emit('changeTab', '/vitabox/warnings')
-      this.$modal.show('procedure', data)
+      if (!EventBus.warnings) {
+        console.log(data)
+        EventBus.warningCurrent = Object.keys(EventBus.warningList).indexOf(data.warning_type)
+        EventBus.notifications = false
+        EventBus.wifi = false
+        EventBus.settings = false
+        EventBus.bleblocked = false
+        EventBus.warnings = true
+
+        this.$modal.hide('wifi-settings')
+        this.$modal.hide('settings')
+        this.$modal.hide('bleblocked')
+        this.$modal.show('alert', '')
+        this.$socket.emit('ttsText', this.$t('modal.procedure.warnings.warning'))
+        this.$marqueemsg.show('Informação', 'Prima ok para desbloquear a aplicação.', { speed: 15, fontSize: '3vw' })
+        EventBus.$emit('changeTab', '/vitabox/warnings')
+        this.$modal.show('procedure', data)
+      }
     },
     informationVita: function(data) {
       if (EventBus.notificationList.length === 5) {

@@ -26,8 +26,13 @@ export const EventBus = new Vue({
     notifications: false,
     warnings: false,
     wifi: false,
+    videocall: false,
+    bleblocked: false,
     notificationList: [],     // lista de todas as notificações
     listHistoryElements: [],
+    warningList: [],          // lista de warnings
+    warningCurrent: -1,
+    wifiConnected: false,
     historyElements: ['views']
   },
   methods: {
@@ -65,6 +70,25 @@ export const EventBus = new Vue({
               if (cmd === 'exit' && !this.examEmExec) {
                 this.wifi = false
                 this.$modal.hide('wifi-settings')
+                this.enterLastElementDefinitions()
+              }
+            }
+            break;
+          case 'videocall':
+            if (this.videocall) {
+              // this.$emit('move-components-wifi-modal', cmd)
+              if (cmd === 'exit' && !this.examEmExec) {
+                this.videocall = false
+                this.$modal.hide('videocall')
+                this.enterLastElementDefinitions()
+              }
+            }
+            break;
+          case 'bleblocked':
+            if (this.bleblocked) {
+              if ((cmd === 'ok_btn' || cmd === 'exit') && !this.examEmExec) {
+                this.bleblocked = false
+                this.$modal.hide('bleblocked')
                 this.enterLastElementDefinitions()
               }
             }
@@ -136,6 +160,12 @@ export const EventBus = new Vue({
       if (this.wifi) {
         return true
       }
+      if (this.videocall) {
+        return true
+      }
+      if (this.bleblocked) {
+        return true
+      }
     },
     rotation() {
       if (this.flgStartRotation) {
@@ -165,7 +195,9 @@ export const EventBus = new Vue({
       }
     },
     audioBasicMode: function(path, callback) {
+      EventBus.removeAudio()
       let self = this
+      console.log(this.flg_sound && !callback)
       if (this.flg_sound && !callback) {
         let audio = document.createElement('audio')
         audio.id = 'audioElem'
@@ -194,15 +226,13 @@ export const EventBus = new Vue({
         document.body.appendChild(audio)
       }
     },
-    removeAudio: function(type) {
-      if (type === 'off') {
-        let audio = document.getElementById('audioElem')
-        if (audio) {
-          audio.pause()
-          audio.currentTime = 0
-          audio.remove()
-          this.$socket.emit('ttsDelete')
-        }
+    removeAudio: function() {
+      let audio = document.getElementById('audioElem')
+      if (audio) {
+        audio.pause()
+        audio.currentTime = 0
+        audio.remove()
+        this.$socket.emit('ttsDelete')
       }
     },
     findOne: function(arr, obj) {

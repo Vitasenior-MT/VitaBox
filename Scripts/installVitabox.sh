@@ -81,9 +81,23 @@ folderVitabox=${folderRoot}/VitaBox
 before_reboot(){
 	print_status "Install nodejs version 9."
 	exec_cmd "curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -"
+	
+	print_status "Change audio to 100% by default"
+	exec_cmd "sudo amixer set PCM 100%"
+
+	print_status "Prepare and install chromium 51"
+	exec_cmd "wget -qO - http://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add"
+	exec_cmd "echo \"deb http://dl.bintray.com/kusti8/chromium-rpi jessie main\" | sudo tee -a /etc/apt/sources.list"
+	exec_cmd "sudo apt-get update"
+	exec_cmd "sudo apt-get remove -y chromium-browser"
+	exec_cmd "sudo apt-get remove -y chromium-codecs-ffmpeg-extra"
+	exec_cmd "sudo apt-get install -y chromium-codecs-ffmpeg-extra=51.0.2704.79-0ubuntu0.14.04.1.1121"
+	exec_cmd "sudo apt-get install -y chromium-browser=51.0.2704.79-0ubuntu0.14.04.1.1121"
+	exec_cmd "rm -rf /home/pi/.config/chromium/Default/Web\ Data"
+	exec_cmd "rm -rf /home/pi/.config/chromium/Default/Web\ Data-journal"
 
 	print_status "Install all aplications."
-	exec_cmd "sudo apt-get install -y chromium-browser cec-utils mongodb git unclutter bluetooth gcc-arm-none-eabi bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
+	exec_cmd "sudo apt-get install -y cec-utils mongodb git unclutter bluetooth gcc-arm-none-eabi bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
 	
 	print_bold \
 	"                         VITASENIOR - VITABOX                         " "\
@@ -101,8 +115,12 @@ after_reboot(){
 	exec_cmd "sudo rm -rf ${folderVitabox}"
 	cd
 
+	print_status "Create the files for pass and key"
+	exec_cmd "sudo touch  ${folderVitabox}/ .key || true"
+	exec_cmd "sudo touch  ${folderVitabox}/ .pass || true"
+
 	print_status "Clone git repository VitaBox"
-	exec_cmd "git clone https://github.com/nelsonmpg/VitaBox"
+	exec_cmd "git clone https://github.com/Vitasenior-MT/VitaBox"
 
 	print_status "Install node models VitaBox"
 	exec_cmd "cd ${folderVitabox}/ && npm install || true"
@@ -175,14 +193,14 @@ after_reboot(){
 	exec_cmd "cp ${folderVitabox}/Scripts/autorunband.txt ${folderVitabox}/ScriptsRun/autorunband.sh"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/autorunband.sh"
 	exec_cmd "sudo chmod 755 ${folderVitabox}/ScriptsRun/autorunband.sh"
-	exec_cmd "(sudo crontab -l; echo '*/30 * * * * ${folderVitabox}/ScriptsRun/autorunband.sh') | crontab -"
+	exec_cmd "(sudo crontab -l; echo '*/30 * * * * ${folderVitabox}/ScriptsRun/autorunband.sh') | sudo crontab -"
 
 	print_status "VitaBox - Check last GIT version and restart system."
 	exec_cmd "crontab -l | grep -v '${folderVitabox}/ScriptsRun/syncVitabox.sh'  | crontab -"
 	exec_cmd "cp ${folderVitabox}/Scripts/syncVitabox.txt ${folderVitabox}/ScriptsRun/syncVitabox.sh"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/syncVitabox.sh"
 	exec_cmd "sudo chmod 755 ${folderVitabox}/ScriptsRun/syncVitabox.sh"
-	exec_cmd "(sudo crontab -l; echo '0 4 * * * ${folderVitabox}/ScriptsRun/syncVitabox.sh') | crontab -"
+	exec_cmd "(sudo crontab -l; echo '0 4 * * * ${folderVitabox}/ScriptsRun/syncVitabox.sh') | sudo crontab -"
 
 	print_bold \
 	"                         VITASENIOR - VITABOX                         " "\

@@ -202,19 +202,18 @@
       },
       "bloodglucose": {
         "fig": {
-          "0": "1º Acione o sistema na TV.",
-          "1": "2º Coloque a fita no equipamento.",
-          "2": "3º Pique o dedo e coloque uma gota de sangue na fita.",
-          "3": "4º Aguarde.",
-          "4": "5º Depois de aparecerem os resultados pode retirar a fita."
+          "0": "Acione o sistema na TV.",
+          "1": "Coloque a fita no equipamento.",
+          "2": "Pique o dedo e coloque uma gota de sangue na fita.",
+          "3": "Aguarde.",
+          "4": "Depois de aparecerem os resultados pode retirar a fita."
         },
         "title": "Modo de Utilização",
         "audioDescription":{
           "0": "Glicemia.",
           "1": "Pressione ok. .",
-          "2": "Acione o sistema na TV.",
-          "3": "Coloque a fita no equipamento.",
-          "4": "Pique o dedo e coloque uma gota de sangue na fita."
+          "2": "Coloque a fita no equipamento.",
+          "3": "Pique o dedo e coloque uma gota de sangue na fita."
         }
       }
     }
@@ -307,7 +306,12 @@
       }
     },
     "procedure": {
-      "warnings": "Aviso!",
+      "warnings": {
+        "warning": "Aviso!",
+        "division": "Perigo na divisão ",
+        "hight": "Níveis elevados. ",
+        "low": "Níveis baixos. "
+      },
       "mono": {
         "0": "Monóxido de carbono muito alto.",
         "1": "Saia de casa.",
@@ -328,6 +332,10 @@
         "1": "Saia de casa.",
         "2": ""
       }
+    },
+    "bleblocked": {
+      "message": "Aguarde!",
+      "text": "Aguarde. bracelete em uso."
     }
   }
 }

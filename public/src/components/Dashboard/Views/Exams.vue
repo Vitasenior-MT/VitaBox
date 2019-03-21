@@ -561,12 +561,6 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-1">
-                        <figure>
-                          <img src='static/img/cmd.png' alt="" class="img-fit">
-                          <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.0') }}</figcaption>
-                        </figure>
-                      </div>
                       <div class="col-md-3">
                         <figure>
                           <img src='static/img/glucometer3.png' alt="" class="img-fit">
@@ -579,7 +573,7 @@
                           <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.2') }}</figcaption>
                         </figure>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-3">
                         <figure>
                           <img src='static/img/logo_B.png' alt="" class="img-fit">
                           <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.3') }}</figcaption>
@@ -1440,6 +1434,14 @@ export default {
         .then(response => {
           if (response.data.status === true) {
             document.getElementsByClassName(this.examEvent)[0].scrollIntoView(false)
+            console.log(response)
+            if (response.data.flg_bandfitness) {
+              this.$modal.show('bleblocked', 'Existe um dispositivo em uso')
+              EventBus.bleblocked = true
+              EventBus.enterNewElementDefinitions('bleblocked')
+              this.execProcess = false
+              EventBus.examEmExec = false
+            }
             this.$notifications.notify({
               message: '<h4>' + response.data.data + '</h4>',
               icon: 'ti-check',

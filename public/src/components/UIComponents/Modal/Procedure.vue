@@ -13,6 +13,7 @@
   </modal>
 </template>
 <script>
+import { EventBus } from '../../../event-bus.js'
 import CardAlert from 'components/UIComponents/Cards/CardNotifiFarmacy.vue'
 export default {
   name: 'Procedure',
@@ -42,30 +43,42 @@ export default {
     }
   },
   methods: {
+    rotationEventsBus() {
+      var self = this
+      EventBus.$on('rotation', function(data) {
+        console.log(data)
+        this.dataAlert = {
+          icon: '<img src="static/img/vitabox/alert3.svg" width="100" height="100">',
+          titleCard: '<h2><b>Alerta</b></h2>',
+          content: (_ => {
+            let txtHtml = "<b class='text-b-ajust'>" + self.$t('modal.procedure.warnings.division') + data.location + ".</b><br>"
+            txtHtml += "<b class='text-b-ajust'>" + self.$t('modal.procedure.warnings.hight') + " <img src='static/img/vitabox/" + data.warning_type + ".svg' width='70' height='70'></b><br>"
+            for (let i = 1; i < 3; i++) {
+              txtHtml += "<b class='text-b-ajust'>" + self.$t('modal.procedure.' + data.warning_type + '.' + i) + "</b><br>"
+            }
+            return txtHtml
+          })()
+        }
+      })
+    },
     beforeOpened(event) {
-      this.verify[event.params.warning_type] = event.params.warning_type
-      if (this.verify[event.params.warning_type] === 'mono') {
-        this.data = event.params.warning_type
-      } else if (this.verify[event.params.warning_type] === 'diox') {
-        this.data = event.params.warning_type
-      } else if (this.verify[event.params.warning_type] === 'temp') {
-        this.data = event.params.warning_type
-      } else if (this.verify[event.params.warning_type] === 'humi') {
-        this.data = event.params.warning_type
-      }
+      console.log(event)
       this.dataAlert = {
         icon: '<img src="static/img/vitabox/alert3.svg" width="100" height="100">',
         titleCard: '<h2><b>Alerta</b></h2>',
         content: (_ => {
-          let txtHtml = "<b class='text-b-ajust'>Perigo na divisão " + event.params.location + ".</b><br>"
-          txtHtml += "<b class='text-b-ajust'>Niveis elevados. <img src='static/img/vitabox/" + this.data + ".svg' width='70' height='70'></b><br>"
+          let txtHtml = "<b class='text-b-ajust'>" + this.$t('modal.procedure.warnings.division') + event.params.location + ".</b><br>"
+          txtHtml += "<b class='text-b-ajust'>" + this.$t('modal.procedure.warnings.hight') + " <img src='static/img/vitabox/" + event.params.warning_type + ".svg' width='70' height='70'></b><br>"
           for (let i = 1; i < 3; i++) {
-            txtHtml += "<b class='text-b-ajust'>" + this.$t('modal.procedure.' + this.data + '.' + i) + "</b><br>"
+            txtHtml += "<b class='text-b-ajust'>" + this.$t('modal.procedure.' + event.params.warning_type + '.' + i) + "</b><br>"
           }
           return txtHtml
         })()
       }
     }
+  },
+  created() {
+    // this.rotationEventsBus()
   }
 }
 </script>

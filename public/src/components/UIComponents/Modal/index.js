@@ -6,6 +6,8 @@ import Settings from './Settings.vue'
 import WifiSettings from './WifiSettings.vue'
 import Notifications from './Notifications.vue'
 import Welcome from './Welcome.vue'
+import BleBlocked from './BLEBlocked.vue'
+import VideoCall from './VideoCall.vue'
 
 const defaultComponentName = 'modal'
 
@@ -49,6 +51,8 @@ const Plugin = {
     Vue.component('v-wifi-settings', WifiSettings)
     Vue.component('v-notifications', Notifications)
     Vue.component('v-welcome', Welcome)
+    Vue.component('v-bleblocked', BleBlocked)
+    Vue.component('v-videocall', VideoCall)
     /**
      * Registration of <Dialog/> component
      */
