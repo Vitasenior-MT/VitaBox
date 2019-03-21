@@ -95,7 +95,7 @@ module.exports = {
       }
     })(),
     port: 8080,
-    host: '192.168.161.94'
+    host: '192.168.161.153'
   },
   serverHttp: {
     port: 8080
