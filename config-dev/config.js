@@ -96,7 +96,7 @@ module.exports = {
     })(),
     port: 8080,
     host: '192.168.161.153',
-    peerserver: '192.168.161.119',
+    peerhost: '192.168.161.119',
     peerport: 8808,
   },
   serverHttp: {
