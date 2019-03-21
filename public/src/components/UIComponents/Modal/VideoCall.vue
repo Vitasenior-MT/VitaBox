@@ -160,9 +160,7 @@ export default {
       .then(response => {
         console.log(response.data.data)
         let data = response.data.data
-        this.users = this.offlineUsers = data.data.users.concat(
-            data.data.doctors
-          )
+        this.users = this.offlineUsers = data.data.users.concat(data.data.doctors)
         this.vitaboxToken = data.token
         this.host = data.host
         this.port = data.port
