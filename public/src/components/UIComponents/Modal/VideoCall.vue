@@ -124,7 +124,7 @@ export default {
       host: null,
       port: null,
       peerport: null,
-      peerserver: null,
+      peerhost: null,
       secure: null,
       dataConnections: [],
       status: 0,
@@ -171,7 +171,7 @@ export default {
         this.secure = data.secure
         this.vitaboxId = data.vitaboxId
         this.peerport = data.peerport
-        this.peerserver = data.peerserver
+        this.peerhost = data.peerhost
         this.inititatePeer()
       })
       .catch(error => {
@@ -189,7 +189,7 @@ export default {
       this.peer = Peer(this.vitaboxId, {
         key: "8dnMsRvmGdz3fPG8RYO8muaUfQ2Iy1lE",
         token: this.vitaboxToken,
-        host: this.peerserver,
+        host: this.peerhost,
         port: this.peerport,
         secure: this.secure,
         debug: 3
