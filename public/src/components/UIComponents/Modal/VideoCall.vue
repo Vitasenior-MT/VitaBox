@@ -13,81 +13,77 @@
     @opened="$emit('opened', $event)"
     @closed="$emit('closed', $event)">
     <div class="background-opacity">
-      <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>
-          <span>Video Call</span>
-        </v-card-title>
-        <v-card-text class="cameraBoard">
-          <div v-if="status!==4">
-            <p class="px-2 headline primary_d--text" style="height:32px">{{message}}</p>
-            <v-divider></v-divider>
-          </div>
-
-          <div v-if="status===1">
-            <v-list two-line>
-              <v-list-tile v-for="item in dataConnections" :key="item.peer">
-                <v-list-tile-avatar>
-                  <v-icon small color="green">fas fa-bullseye</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-content>{{ item.name }}</v-list-tile-content>
-                <v-list-tile-action>
-                  <v-btn fab dark small color="primary" @click="startConnection(item.connection)">
-                    <v-icon dark>fas fa-video</v-icon>
-                  </v-btn>
-                </v-list-tile-action>
-              </v-list-tile>
-            </v-list>
-            <v-list-tile v-for="item in offlineUsers" :key="item.id">
-              <v-list-tile-avatar>
-                <v-icon small color="red">fas fa-bullseye</v-icon>
-              </v-list-tile-avatar>
-              <v-list-tile-content>{{ item.name }}</v-list-tile-content>
-            </v-list-tile>
-          </div>
-
-          <div v-if="status==2">
-            <div class="buttonsView">
-              <v-btn fab dark small color="error" @click="cancelConnection">
-                <v-icon dark>fas fa-video-slash</v-icon>
-              </v-btn>
+      <div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3>Utilizadores</h3>
+    </div>
+    <div class="panel-body cameraBoard" style="text-align:left;">
+      <div v-if="status!==4">
+        <p class="headline">{{message}}</p>
+        <hr>
+      </div>
+      <div v-if="status===1">
+        <div class="list-group" style="padding:0 10px;">
+          <a class="list-group-item" v-for="item in dataConnections" :key="item.peer"
+            @click="startConnection(item.connection)">
+            <div>
+              <span class="fas fa-bullseye" style="color: #4caf50; padding-right:10px;" aria-hidden="true"> </span>
+              {{ item.name }} </div>
+          </a>
+          <li class="list-group-item" v-for="item in offlineUsers" :key="item.id">
+            <div>
+              <i class="fas fa-bullseye" style="color: #f44336; padding-right:10px;" aria-hidden="true"></i>
+              {{ item.name }} </div>
+          </li>
+        </div>
+      </div>
+      <div v-if="status==2">
+        <div class="buttonsView">
+          <button type="button" class="mybtn" @click="cancelConnection" style="background-color: #f44336;">
+            <div>
+              <span class="fas fa-video-slash" style="font-size: 18px;" aria-hidden="true"></span>
             </div>
-          </div>
-
-          <div v-if="status==3">
-            <div class="buttonsView">
-              <v-btn fab dark small color="error" @click="rejectConnection">
-                <v-icon dark>fas fa-times</v-icon>
-              </v-btn>
-              <v-btn fab dark small color="success" @click="acceptConnection">
-                <v-icon dark>fas fa-check</v-icon>
-              </v-btn>
+          </button>
+        </div>
+      </div>
+      <div v-if="status==3">
+        <div class="buttonsView">
+          <button type="button" class="mybtn" @click="rejectConnection" style="background-color: #f44336;">
+            <div>
+              <span class="fas fa-times" style="font-size: 18px;" aria-hidden="true"></span>
             </div>
-          </div>
-
-          <video class="invisible" ref="remoteVideo" autoplay playinline></video>
-          <video class="invisible" ref="localVideo" autoplay playsinline></video>
-
-          <div v-if="status==4">
-            <div class="buttonsView">
-              <v-btn fab dark small color="error" @click="stopConnection">
-                <v-icon dark>fas fa-video-slash</v-icon>
-              </v-btn>
+          </button>
+          <button type="button" class="mybtn" @click="acceptConnection" style="background-color: #4caf50;">
+            <div>
+              <span class="fas fa-check" style="font-size: 18px;" aria-hidden="true"></span>
             </div>
-          </div>
-        </v-card-text>
-        <v-dialog v-model="warningDialog" width="300px">
-          <v-card>
-            <v-card-title>
-              <h3>If you close you'll finish the call</h3>
-            </v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn class="ash--text" flat @click="warningDialog=false">Cancel</v-btn>
-              <v-btn class="error" @click="closeWhileConnection">Finish</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-card>
+          </button>
+        </div>
+      </div>
+      <video class="invisible" ref="remoteVideo" autoplay playinline></video>
+      <video class="invisible" ref="localVideo" autoplay playsinline></video>
+      <div v-if="status==4">
+        <div class="buttonsView">
+          <button type="button" class="mybtn" @click="stopConnection" style="background-color: #212121;">
+            <div>
+              <span class="fas fa-video-slash" style="font-size: 18px;" aria-hidden="true"></span>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div v-if="warningDialog" class="panel panel-danger">
+        <div class="panel-heading">
+          <h3>If you close you'll finish the call</h3>
+        </div>
+        <div class="panel-body" style="text-align: right;">
+          <button type="button" class="btn btn-default" @click="warningDialog=false">Cancel</button>
+          <button type="button" class="btn btn-danger" @click="closeWhileConnection">Finish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
   </modal>
 </template>
@@ -123,6 +119,8 @@ export default {
       mediaConnection: null,
       host: null,
       port: null,
+      peerport: null,
+      peerhost: null,
       secure: null,
       dataConnections: [],
       status: 0,
@@ -148,8 +146,6 @@ export default {
     }
   },
   mounted() {
-    this.vitaboxAddress = "Something"
-    this.getPeers()
   },
   sockets: {
   },
@@ -158,16 +154,16 @@ export default {
       this.$http
       .get('/api/connectServer/getUsers')
       .then(response => {
-        console.log(response.data.data.data.responce)
-        let data = response.data.data.data
-        this.users = this.offlineUsers = data.responce.users.concat(
-            data.responce.doctors
-          )
+        console.log(response.data.data)
+        let data = response.data.data
+        this.users = this.offlineUsers = data.data.users.concat(data.data.doctors)
         this.vitaboxToken = data.token
         this.host = data.host
         this.port = data.port
         this.secure = data.secure
         this.vitaboxId = data.vitaboxId
+        this.peerport = data.peerport
+        this.peerhost = data.peerhost
         this.inititatePeer()
       })
       .catch(error => {
@@ -185,8 +181,8 @@ export default {
       this.peer = Peer(this.vitaboxId, {
         key: "8dnMsRvmGdz3fPG8RYO8muaUfQ2Iy1lE",
         token: this.vitaboxToken,
-        host: this.host,
-        port: this.port,
+        host: this.peerhost,
+        port: this.peerport,
         secure: this.secure,
         debug: 3
       })
@@ -430,20 +426,18 @@ export default {
       /**
        * TODO: Monitorização dos eventos do controlo remoto
        */
-      EventBus.$on('move-components-modal', function(cmd) {
-        EventBus.elementControl = document.getElementsByClassName('control-modal')
+      EventBus.$on('move-components-videocall-modal', function(cmd) {
+        EventBus.elementControl = document.getElementsByClassName('control-modal-videocall')
         // console.log(cmd, EventBus.elementControl)
         switch (cmd) {
           // evento do 'OK'
           case 'ok_btn':
             try {
-              let elem = EventBus.elementControl[EventBus.currentActiveRightComp].dataset
+              /* let elem = EventBus.elementControl[EventBus.currentActiveRightComp].dataset
               // console.log('Teste btn - ', self.items[elem.itempos].default, self.items[elem.itempos], elem.itempos)
               // @change="updateItem($event.value, items[i], i)"
               if (elem.itempos < self.items.length) {
                 self.updateItem(!self.items[elem.itempos].default, self.items[elem.itempos], elem.itempos)
-              } /* else {
-                self.open()
               } */
             } catch (e) {
               console.log('error btn ok change.')
@@ -451,7 +445,6 @@ export default {
             break
           // evento para sair para a sidebar  para a lista anterior
           case 'exit':
-            // this.$modal.hide('settings')
             break
           case 'right': // tecla para a direita
           case 'left': // tecla para a esquerda
@@ -470,6 +463,8 @@ export default {
     },
     beforeOpened(event) {
       this.controlEventsBus()
+      this.vitaboxAddress = "Something"
+      this.getPeers()
     },
     beforeClosed(event) {
       this.dataConnections.forEach(x => x.connection.close())
@@ -548,5 +543,54 @@ video {
   position: absolute;
   bottom: 7%;
   right: 5%;
+}
+
+.headline {
+ font-size: 24px !important;
+ line-height: 32px !important;
+ font-weight: 400;
+ letter-spacing: normal !important;
+ font-family: Roboto, sans-serif !important;
+ padding: 0 8px;
+ height: 32px;
+}
+.mybtn {
+ color: #fff;
+ box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+   0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+ height: 40px;
+ width: 40px;
+ border-radius: 50%;
+ font-size: 13px;
+ align-items: center;
+ display: inline-flex;
+ flex: 0 0 auto;
+ font-size: 14px;
+ justify-content: center;
+ margin: 6px 8px;
+ outline: 0;
+ text-transform: uppercase;
+ text-decoration: none;
+ transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1), color 1ms;
+ position: relative;
+ vertical-align: middle;
+}
+.mybtn:hover {
+ opacity: 0.88;
+}
+.mybtn div {
+ flex: 1 1 auto;
+ margin: 0;
+ height: 100%;
+ align-items: center;
+ border-radius: inherit;
+ color: inherit;
+ display: flex;
+ flex: 1 0 auto;
+ justify-content: center;
+ position: relative;
+ transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+ white-space: nowrap;
+ width: inherit;
 }
 </style>
