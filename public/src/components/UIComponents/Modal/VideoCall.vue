@@ -385,7 +385,6 @@ export default {
         })
         return 1
       } catch (e) {
-        console.log('error ->>>>>',e)
         return 0
       }
     },
