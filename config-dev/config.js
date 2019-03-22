@@ -94,6 +94,8 @@ module.exports = {
         return ""
       }
     })(),
+    peerhost: '192.168.161.119',
+    peerport: 8808,
     port: 443,
     host: 'vitasenior-api-test.eu-gb.mybluemix.net'
   },
