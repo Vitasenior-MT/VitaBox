@@ -1240,7 +1240,8 @@ export default {
               this.dataPressArt[resData.data[dataVal].tag] = resData.data[dataVal].value * 1
               this.dataPressArt[resData.data[dataVal].tag + 'Name'] = resData.data[dataVal].measure
               this.dataPressArt[resData.data[dataVal].tag + 'Show'] = true
-              read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
+              read += resData.data[dataVal].to_read + ', ' + parseInt(resData.data[dataVal].value) + ' . '
+              console.log(read);
               console.log(read);
               break;
             default:
