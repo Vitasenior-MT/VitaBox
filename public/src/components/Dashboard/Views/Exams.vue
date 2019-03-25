@@ -1242,13 +1242,12 @@ export default {
               this.dataPressArt[resData.data[dataVal].tag + 'Show'] = true
               read += resData.data[dataVal].to_read + ', ' + parseInt(resData.data[dataVal].value) + ' . '
               console.log(read);
-              console.log(read);
               break;
             default:
               break;
           }
         }
-        EventBus.soundTTS('1, 2, 50')
+        EventBus.soundTTS(read)
       } else {
         // console.log('Receive error', data)
         this.$notifications.notify({
