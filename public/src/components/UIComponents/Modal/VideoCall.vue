@@ -377,12 +377,12 @@ export default {
       try {
         this.streamToSend = await navigator.mediaDevices.getUserMedia({
           audio: true,
-          video: { facingMode: "user" }
+          video: false // video: { facingMode: "user" }
         })
-        this.streamToShow = await navigator.mediaDevices.getUserMedia({
+        /* this.streamToShow = await navigator.mediaDevices.getUserMedia({
           audio: false,
           video: { facingMode: "user" }
-        })
+        }) */
         return 1
       } catch (e) {
         return 0
