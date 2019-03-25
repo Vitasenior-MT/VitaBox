@@ -1248,7 +1248,7 @@ export default {
               break;
           }
         }
-        EventBus.soundTTS(read)
+        EventBus.soundTTS('1, 2, 50')
       } else {
         // console.log('Receive error', data)
         this.$notifications.notify({
