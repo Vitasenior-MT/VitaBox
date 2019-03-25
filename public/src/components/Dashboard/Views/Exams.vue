@@ -1241,6 +1241,7 @@ export default {
               this.dataPressArt[resData.data[dataVal].tag + 'Name'] = resData.data[dataVal].measure
               this.dataPressArt[resData.data[dataVal].tag + 'Show'] = true
               read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
+              console.log(read);
               break;
             default:
               break;
