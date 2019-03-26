@@ -14,76 +14,76 @@
     @closed="$emit('closed', $event)">
     <div class="background-opacity">
       <div>
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3>Utilizadores</h3>
-    </div>
-    <div class="panel-body cameraBoard" style="text-align:left;">
-      <div v-if="status!==4">
-        <p class="headline">{{message}}</p>
-        <hr>
-      </div>
-      <div v-if="status===1">
-        <div class="list-group" style="padding:0 10px;">
-          <a class="list-group-item" v-for="item in dataConnections" :key="item.peer"
-            @click="startConnection(item.connection)">
-            <div>
-              <span class="fas fa-bullseye" style="color: #4caf50; padding-right:10px;" aria-hidden="true"> </span>
-              {{ item.name }} </div>
-          </a>
-          <li class="list-group-item" v-for="item in offlineUsers" :key="item.id">
-            <div>
-              <i class="fas fa-bullseye" style="color: #f44336; padding-right:10px;" aria-hidden="true"></i>
-              {{ item.name }} </div>
-          </li>
-        </div>
-      </div>
-      <div v-if="status==2">
-        <div class="buttonsView">
-          <button type="button" class="mybtn" @click="cancelConnection" style="background-color: #f44336;">
-            <div>
-              <span class="fas fa-video-slash" style="font-size: 18px;" aria-hidden="true"></span>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3>Utilizadores</h3>
+          </div>
+          <div class="panel-body cameraBoard" style="text-align:left;">
+            <div v-if="status!==4">
+              <p class="headline">{{message}}</p>
+              <hr>
             </div>
-          </button>
-        </div>
-      </div>
-      <div v-if="status==3">
-        <div class="buttonsView">
-          <button type="button" class="mybtn" @click="rejectConnection" style="background-color: #f44336;">
-            <div>
-              <span class="fas fa-times" style="font-size: 18px;" aria-hidden="true"></span>
+            <div v-if="status===1">
+              <div class="list-group" style="padding:0 10px;">
+                <a class="list-group-item" v-for="item in dataConnections" :key="item.peer"
+                  @click="startConnection(item.connection)">
+                  <div>
+                    <span class="fas fa-bullseye" style="color: #4caf50; padding-right:10px;" aria-hidden="true"> </span>
+                    {{ item.name }} </div>
+                </a>
+                <li class="list-group-item" v-for="item in offlineUsers" :key="item.id">
+                  <div>
+                    <i class="fas fa-bullseye" style="color: #f44336; padding-right:10px;" aria-hidden="true"></i>
+                    {{ item.name }} </div>
+                </li>
+              </div>
             </div>
-          </button>
-          <button type="button" class="mybtn" @click="acceptConnection" style="background-color: #4caf50;">
-            <div>
-              <span class="fas fa-check" style="font-size: 18px;" aria-hidden="true"></span>
+            <div v-if="status==2">
+              <div class="buttonsView">
+                <button type="button" class="mybtn" @click="cancelConnection" style="background-color: #f44336;">
+                  <div>
+                    <span class="fas fa-video-slash" style="font-size: 18px;" aria-hidden="true"></span>
+                  </div>
+                </button>
+              </div>
             </div>
-          </button>
-        </div>
-      </div>
-      <video class="invisible" ref="remoteVideo" autoplay playinline></video>
-      <video class="invisible" ref="localVideo" autoplay playsinline></video>
-      <div v-if="status==4">
-        <div class="buttonsView">
-          <button type="button" class="mybtn" @click="stopConnection" style="background-color: #212121;">
-            <div>
-              <span class="fas fa-video-slash" style="font-size: 18px;" aria-hidden="true"></span>
+            <div v-if="status==3">
+              <div class="buttonsView">
+                <button type="button" class="mybtn" @click="rejectConnection" style="background-color: #f44336;">
+                  <div>
+                    <span class="fas fa-times" style="font-size: 18px;" aria-hidden="true"></span>
+                  </div>
+                </button>
+                <button type="button" class="mybtn" @click="acceptConnection" style="background-color: #4caf50;">
+                  <div>
+                    <span class="fas fa-check" style="font-size: 18px;" aria-hidden="true"></span>
+                  </div>
+                </button>
+              </div>
             </div>
-          </button>
+            <video class="invisible" ref="remoteVideo" autoplay playinline></video>
+            <video class="invisible" ref="localVideo" autoplay playsinline></video>
+            <div v-if="status==4">
+              <div class="buttonsView">
+                <button type="button" class="mybtn" @click="stopConnection" style="background-color: #212121;">
+                  <div>
+                    <span class="fas fa-video-slash" style="font-size: 18px;" aria-hidden="true"></span>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div v-if="warningDialog" class="panel panel-danger">
+              <div class="panel-heading">
+                <h3>If you close you'll finish the call</h3>
+              </div>
+              <div class="panel-body" style="text-align: right;">
+                <button type="button" class="btn btn-default" @click="warningDialog=false">Cancel</button>
+                <button type="button" class="btn btn-danger" @click="closeWhileConnection">Finish</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div v-if="warningDialog" class="panel panel-danger">
-        <div class="panel-heading">
-          <h3>If you close you'll finish the call</h3>
-        </div>
-        <div class="panel-body" style="text-align: right;">
-          <button type="button" class="btn btn-default" @click="warningDialog=false">Cancel</button>
-          <button type="button" class="btn btn-danger" @click="closeWhileConnection">Finish</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
     </div>
   </modal>
 </template>
@@ -375,14 +375,12 @@ export default {
     },
     async startCamera() {
       try {
-        this.streamToSend = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-          video: false // video: { facingMode: "user" }
-        })
-        /* this.streamToShow = await navigator.mediaDevices.getUserMedia({
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
+        this.streamToSend = await navigator.getUserMedia({ audio: true, video: true })
+        this.streamToShow = await navigator.mediaDevices.getUserMedia({
           audio: false,
           video: { facingMode: "user" }
-        }) */
+        })
         return 1
       } catch (e) {
         return 0

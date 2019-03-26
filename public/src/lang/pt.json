@@ -69,31 +69,31 @@
   },
   "tooltips": {
     "diagnosis": {
-      "user":{
+      "user": {
         "title": "Pressione em [OK] para selecionar o utilizador.",
         "text": ""
       },
-      "exam":{
+      "exam": {
         "title": "Pressione em [OK] para selecionar o exame.",
         "text": ""
       }
     },
     "diagnosisHistory": {
-      "user":{
+      "user": {
         "title": "Pressione em [OK] para selecionar o utilizador.",
         "text": ""
       },
-      "history":{
+      "history": {
         "title": "Pressione em [OK] para visualizar o histórico.",
         "text": ""
       }
     },
     "ambienteHistory": {
-      "sensor":{
+      "sensor": {
         "title": "Pressione em [OK] para selecionar o sensor.",
         "text": ""
       },
-      "history":{
+      "history": {
         "title": "Pressione em [OK] para mostrar / esconder o histórico do sensor.",
         "text": ""
       }
@@ -119,7 +119,7 @@
           "1": "Pressionar no botão do aparelho."
         },
         "title": "Modo de Utilização",
-        "audioDescription":{
+        "audioDescription": {
           "0": "Temperatura.",
           "1": "Pressione ok. .",
           "2": "Colocar o aparelho conforme a imagem.",
@@ -148,7 +148,7 @@
           "1": "Pressionar no botão do aparelho."
         },
         "title": "Modo de Utilização",
-        "audioDescription":{
+        "audioDescription": {
           "0": "Oxímetro.",
           "1": "Pressione ok. .",
           "2": "Colocar o aparelho conforme a imagem.",
@@ -172,7 +172,7 @@
           "0": "Suba para cima do aparelho."
         },
         "title": "Modo de Utilização",
-        "audioDescription":{
+        "audioDescription": {
           "0": "Peso.",
           "1": "Pressione ok. .",
           "2": "Suba para cima do aparelho."
@@ -193,7 +193,7 @@
           "1": "Pressionar no botão do aparelho."
         },
         "title": "Modo de Utilização",
-        "audioDescription":{
+        "audioDescription": {
           "0": "pressão arterial.",
           "1": "Pressione ok. .",
           "2": "Colocar o aparelho conforme a imagem.",
@@ -209,7 +209,7 @@
           "4": "Depois de aparecerem os resultados pode retirar a fita."
         },
         "title": "Modo de Utilização",
-        "audioDescription":{
+        "audioDescription": {
           "0": "Glicemia.",
           "1": "Pressione ok. .",
           "2": "Coloque a fita no equipamento.",
@@ -298,6 +298,10 @@
       },
       "wifi": {
         "title": "WIFI",
+        "open": "Abrir"
+      },
+      "videocall": {
+        "title": "Configurações",
         "open": "Abrir"
       },
       "exit": {

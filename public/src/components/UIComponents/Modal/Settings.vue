@@ -109,10 +109,10 @@ export default {
           values: ['Open', '']
         },
         {
-          title: this.$t('modal.settings.wifi.title'),
+          title: this.$t('modal.settings.videocall.title'),
           type: 'videocall',
           default: true,
-          labels: {checked: this.$t('modal.settings.wifi.open'), unchecked: ''},
+          labels: {checked: this.$t('modal.settings.videocall.open'), unchecked: ''},
           color: {checked: '#f7931d', unchecked: '#f05a28'},
           values: ['Open', '']
         }
