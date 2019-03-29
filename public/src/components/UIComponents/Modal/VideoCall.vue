@@ -390,7 +390,7 @@ export default {
       function(err) {
         console.log("O seguinte erro ocorreu: " + err);
       }
-    ).then(handleSuccess)
+    )
 
       var handleSuccess = function (stream) {  
           console.log('------------------> ', stream)
