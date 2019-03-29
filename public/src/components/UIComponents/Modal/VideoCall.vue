@@ -381,7 +381,7 @@ export default {
       // this.streamToSend = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
       // this.streamToShow = await navigator.mediaDevices.getUserMedia({ audio: false, video: true})
       navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
-      navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(handleSuccess)
+      navigator.getUserMedia({ audio: true, video: false }).then(handleSuccess)
 
       var handleSuccess = function (stream) {  
           console.log('------------------> ', stream)
