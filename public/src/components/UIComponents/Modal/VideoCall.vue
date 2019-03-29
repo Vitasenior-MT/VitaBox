@@ -378,9 +378,9 @@ export default {
       console.log('***********************************')
       console.log(navigator.mediaDevices)
       console.log(navigator.mediaDevices.getUserMedia)
+      this.streamToSend = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      this.streamToShow = await navigator.mediaDevices.getUserMedia({ audio: false, video: true})
       try {
-        this.streamToSend = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-        this.streamToShow = await navigator.mediaDevices.getUserMedia({ audio: false, video: true})
         console.log('***********************************')
         console.log(this.streamToSend)
         console.log(this.streamToShow)
