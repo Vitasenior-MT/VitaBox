@@ -274,6 +274,7 @@ export default {
     },
     listenDataConnection(dataConnection, user) {
       dataConnection.on("data", data => {
+        console.log('connetion ------> ', data)
         switch (data.type) {
           case "call":
             if (this.status === 1) {
