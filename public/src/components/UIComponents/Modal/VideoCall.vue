@@ -381,7 +381,16 @@ export default {
       // this.streamToSend = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
       // this.streamToShow = await navigator.mediaDevices.getUserMedia({ audio: false, video: true})
       navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
-      navigator.getUserMedia({ audio: true, video: false }).then(handleSuccess)
+      navigator.getUserMedia({ audio: true, video: false },
+      function(localMediaStream) {
+       console.log(localMediaStream)
+      },
+
+      // callbackErro
+      function(err) {
+        console.log("O seguinte erro ocorreu: " + err);
+      }
+    ).then(handleSuccess)
 
       var handleSuccess = function (stream) {  
           console.log('------------------> ', stream)
