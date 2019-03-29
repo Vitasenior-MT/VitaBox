@@ -380,10 +380,10 @@ export default {
       console.log(navigator.mediaDevices.getUserMedia)
       // this.streamToSend = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
       // this.streamToShow = await navigator.mediaDevices.getUserMedia({ audio: false, video: true})
-      navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess)
+      navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(handleSuccess)
 
       var handleSuccess = function (stream) {  
-          console.log(stream)
+          console.log('------------------> ', stream)
       }
       try {
         console.log('***********************************')
