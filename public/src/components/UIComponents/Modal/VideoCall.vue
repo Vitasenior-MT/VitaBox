@@ -376,11 +376,8 @@ export default {
     async startCamera() {
       try {
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
-        this.streamToSend = await navigator.getUserMedia({ audio: true, video: true })
-        this.streamToShow = await navigator.mediaDevices.getUserMedia({
-          audio: false,
-          video: { facingMode: "user" }
-        })
+        this.streamToSend = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+        this.streamToShow = await navigator.mediaDevices.getUserMedia({ audio: false, video: true})
         return 1
       } catch (e) {
         return 0
