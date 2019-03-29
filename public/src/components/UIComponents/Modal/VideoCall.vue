@@ -374,6 +374,8 @@ export default {
       this.message = "Call finished"
     },
     async startCamera() {
+      console.log('***********************************')
+      console.log(navigator.getUserMedia)
       try {
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
         this.streamToSend = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
