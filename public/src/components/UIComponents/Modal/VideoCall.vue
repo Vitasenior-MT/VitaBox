@@ -375,9 +375,8 @@ export default {
     },
     async startCamera() {
       console.log('***********************************')
-      console.log(navigator.getUserMedia)
+      console.log(navigator.mediaDevices)
       try {
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
         this.streamToSend = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
         this.streamToShow = await navigator.mediaDevices.getUserMedia({ audio: false, video: true})
         console.log('***********************************')
