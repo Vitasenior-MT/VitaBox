@@ -392,8 +392,9 @@ export default {
           console.log("O seguinte erro ocorreu: " + err);
         }
       )
-      this.streamToShow = await navigator.getUserMedia({ audio: false, video: true },
+      await navigator.getUserMedia({ audio: false, video: true },
         function(localMediaStream) {
+        this.streamToShow = localMediaStream
         console.log(localMediaStream)
         },
 
