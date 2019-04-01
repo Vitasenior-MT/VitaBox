@@ -191,6 +191,7 @@ export default {
     },
     listenPeerEvent() {
       this.peer.on("call", mediaConnection => {
+         console.log('Call done cmon')
         if (this.status === 2 && this.remotePeerID === mediaConnection.peer) {
           this.mediaConnection = mediaConnection
           this.mediaConnection.answer(this.streamToSend)
