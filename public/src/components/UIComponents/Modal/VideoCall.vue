@@ -399,9 +399,9 @@ export default {
             setTimeout(() => {
               console.log('******localMediaStream*********')
               console.log(localMediaStream)
-              console.log(self.streamToSend)
+              console.log(this.streamToSend)
               console.log(self.streamToShow)
-            }, 5000);
+            }, 10000);
           },
           // callbackError
           err => {
