@@ -190,20 +190,21 @@ export default {
       this.listenPeerEvent()
     },
     listenPeerEvent() {
+      var self = this
       this.peer.on("call", mediaConnection => {
          console.log('Call done cmon')
-        if (this.status === 2 && this.remotePeerID === mediaConnection.peer) {
-          this.mediaConnection = mediaConnection
-          this.mediaConnection.answer(this.streamToSend)
-          this.status = 4
-          this.message = ""
-          this.listenMediaConnection()
+        if (self.status === 2 && self.remotePeerID === mediaConnection.peer) {
+          self.mediaConnection = mediaConnection
+          self.mediaConnection.answer(self.streamToSend)
+          self.status = 4
+          self.message = ""
+          self.listenMediaConnection()
           setTimeout(() => {
-            console.log(this.streamToSend)
-            console.log(this.streamToShow)
+            console.log(self.streamToSend)
+            console.log(self.streamToShow)
           }, 1000);
         } else {
-          this.dataConnections.forEach(x => {
+          self.dataConnections.forEach(x => {
             if (x.peer === mediaConnection.peer) {
               x.connection.send({ type: "unauthorized" })
             }
