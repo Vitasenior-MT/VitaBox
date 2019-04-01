@@ -396,10 +396,12 @@ export default {
           err => {console.log("Error: " + err)})
         this.streamToShow = await navigator.getUserMedia({ audio: false, video: true },
           localMediaStream => {
-            console.log('******localMediaStream*********')
-            console.log(localMediaStream)
-            console.log(self.streamToSend)
-            console.log(self.streamToShow)
+            setTimeout(() => {
+              console.log('******localMediaStream*********')
+              console.log(localMediaStream)
+              console.log(self.streamToSend)
+              console.log(self.streamToShow)
+            }, 5000);
           },
           // callbackError
           err => {
