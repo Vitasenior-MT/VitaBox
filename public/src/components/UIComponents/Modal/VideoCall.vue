@@ -192,7 +192,6 @@ export default {
     listenPeerEvent() {
       var self = this
       this.peer.on("call", mediaConnection => {
-         console.log('Call done cmon')
         if (self.status === 2 && self.remotePeerID === mediaConnection.peer) {
           self.mediaConnection = mediaConnection
           self.mediaConnection.answer(self.streamToSend)
@@ -238,7 +237,6 @@ export default {
       this.status = 2
       this.message = "waiting..."
       this.startCamera(success => {
-        console.log('aaaaaaaaaaaaaa ', success)
         if (success) {
           this.dataConnections.forEach(x => {
             if (x.peer === this.remotePeerID) {
@@ -277,7 +275,6 @@ export default {
     },
     listenDataConnection(dataConnection, user) {
       dataConnection.on("data", data => {
-        console.log('connetion ------> ', data)
         switch (data.type) {
           case "call":
             if (this.status === 1) {
@@ -291,9 +288,8 @@ export default {
             break
           case "accept":
             this.startCamera(success => {
+              console.log('-----------------------> ', success)
               if (success) {
-                console.log(this.streamToSend)
-                console.log(this.streamToShow)
                 this.stopCallSound()
                 this.mediaConnection = this.peer.call(
                   this.remotePeerID,
@@ -380,26 +376,21 @@ export default {
       this.message = "Call finished"
     },
     async startCamera(callback) {
-      console.log('***********************************')
       var self = this
       navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
       try {
         this.streamToSend = await navigator.getUserMedia({ audio: true, video: true },
           localMediaStream => {
             self.streamToSend = localMediaStream
-            console.log(localMediaStream)
           },
           // callbackError
           err => {console.log("Error: " + err)})
         this.streamToShow = await navigator.getUserMedia({ audio: false, video: true },
           localMediaStream => {
             self.streamToShow = localMediaStream
-            console.log(localMediaStream)
           },
           // callbackError
-          err => {
-            console.log("Error: " + err)
-          })
+          err => {console.log("Error: " + err)})
         callback(true)
       } catch (e) {
         callback(false)
