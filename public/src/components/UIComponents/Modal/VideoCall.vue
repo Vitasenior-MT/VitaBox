@@ -388,17 +388,23 @@ export default {
         // callbackError
         err => {console.log("Error: " + err)})
       this.streamToShow = await navigator.getUserMedia({ audio: false, video: true },
-        localMediaStream => {console.log(localMediaStream)},
+        localMediaStream => {
+          console.log(localMediaStream)
+          return 1
+        },
         // callbackError
-        err => {console.log("Error: " + err)})
-      try {
+        err => {
+          console.log("Error: " + err)
+          return 0
+          })
+      /* try {
         console.log('--***************--********************--')
         // console.log(this.streamToSend)
         // console.log(this.streamToShow)
         return 1
       } catch (e) {
         return 0
-      }
+      } */
     },
     stopCamera() {
       if (this.streamToSend) {
