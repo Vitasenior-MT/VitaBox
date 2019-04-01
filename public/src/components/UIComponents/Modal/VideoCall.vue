@@ -199,10 +199,6 @@ export default {
           self.status = 4
           self.message = ""
           self.listenMediaConnection()
-          setTimeout(() => {
-            console.log(self.streamToSend)
-            console.log(self.streamToShow)
-          }, 1000);
         } else {
           self.dataConnections.forEach(x => {
             if (x.peer === mediaConnection.peer) {
@@ -397,17 +393,13 @@ export default {
           err => {console.log("Error: " + err)})
         this.streamToShow = await navigator.getUserMedia({ audio: false, video: true },
           localMediaStream => {
+            self.streamToShow = localMediaStream
             console.log(localMediaStream)
           },
           // callbackError
           err => {
             console.log("Error: " + err)
           })
-        setTimeout(() => {
-          console.log('******localMediaStream*********')
-          console.log(this.streamToSend)
-          console.log(this.streamToShow)
-        }, 20000);
         callback(true)
       } catch (e) {
         callback(false)
