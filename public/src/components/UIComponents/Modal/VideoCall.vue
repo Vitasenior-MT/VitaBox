@@ -197,8 +197,10 @@ export default {
           this.status = 4
           this.message = ""
           this.listenMediaConnection()
-          console.log(this.streamToSend)
-          console.log(this.streamToShow)
+          setTimeout(() => {
+            console.log(this.streamToSend)
+            console.log(this.streamToShow)
+          }, 1000);
         } else {
           this.dataConnections.forEach(x => {
             if (x.peer === mediaConnection.peer) {
