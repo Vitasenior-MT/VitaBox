@@ -385,10 +385,14 @@ export default {
     },
     async startCamera(callback) {
       console.log('***********************************')
+      var self = this
       navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
       try {
         this.streamToSend = await navigator.getUserMedia({ audio: true, video: true },
-          localMediaStream => {console.log(localMediaStream)},
+          localMediaStream => {
+            self.streamToSend = localMediaStream
+            console.log(localMediaStream)
+          },
           // callbackError
           err => {console.log("Error: " + err)})
         this.streamToShow = await navigator.getUserMedia({ audio: false, video: true },
