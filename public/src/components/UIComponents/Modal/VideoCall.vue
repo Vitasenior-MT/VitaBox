@@ -197,6 +197,8 @@ export default {
           this.status = 4
           this.message = ""
           this.listenMediaConnection()
+          console.log(this.streamToSend)
+          console.log(this.streamToShow)
         } else {
           this.dataConnections.forEach(x => {
             if (x.peer === mediaConnection.peer) {
@@ -377,8 +379,6 @@ export default {
     async startCamera() {
       console.log('***********************************')
       console.log(navigator.mediaDevices)
-      // this.streamToSend = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-      // this.streamToShow = await navigator.mediaDevices.getUserMedia({ audio: false, video: true})
       navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
       console.log(navigator.getUserMedia)
       this.streamToSend = await navigator.getUserMedia({ audio: true, video: true },
@@ -389,10 +389,6 @@ export default {
         localMediaStream => {console.log(localMediaStream)},
         // callbackError
         err => {console.log("Error: " + err)})
-
-      var handleSuccess = function (stream) {  
-          console.log('------------------> ', stream)
-      }
       try {
         console.log('--***************--********************--')
         // console.log(this.streamToSend)
