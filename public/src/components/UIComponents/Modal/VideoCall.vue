@@ -386,11 +386,11 @@ export default {
       console.log(navigator.mediaDevices)
       navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
       console.log(navigator.getUserMedia)
-      this.streamToSend = await navigator.getUserMedia({ audio: true, video: true },
+      this.streamToSend = navigator.getUserMedia({ audio: true, video: true },
         localMediaStream => {console.log(localMediaStream)},
         // callbackError
         err => {console.log("Error: " + err)})
-      this.streamToShow = await navigator.getUserMedia({ audio: false, video: true },
+      this.streamToShow = navigator.getUserMedia({ audio: false, video: true },
         localMediaStream => {
           console.log(localMediaStream)
           callback(true)
