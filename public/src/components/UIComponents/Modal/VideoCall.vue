@@ -290,7 +290,7 @@ export default {
             }
             break
           case "accept":
-            this.startCamera().then(success => {
+            this.startCamera(success => {
               if (success) {
                 console.log(this.streamToSend)
                 console.log(this.streamToShow)
