@@ -391,10 +391,11 @@ export default {
         this.streamToShow = await navigator.getUserMedia({ audio: false, video: true },
           localMediaStream => {
             self.streamToShow = localMediaStream
+            callback(true)
           },
           // callbackError
           err => {console.log("Error: " + err)})
-        callback(true)
+        //callback(true)
       } catch (e) {
         callback(false)
       }
