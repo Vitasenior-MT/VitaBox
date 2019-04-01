@@ -274,6 +274,7 @@ export default {
       this.message = ""
     },
     listenDataConnection(dataConnection, user) {
+      var self = this
       dataConnection.on("data", data => {
         switch (data.type) {
           case "call":
@@ -290,11 +291,11 @@ export default {
             this.startCamera(success => {
               console.log('-----------------------> ', success)
               if (success) {
-                console.log(this.streamToSend)
+                console.log(self.streamToSend)
                 this.stopCallSound()
                 this.mediaConnection = this.peer.call(
                   this.remotePeerID,
-                  this.streamToSend
+                  self.streamToSend
                 )
                 this.status = 4
                 this.message = ""
