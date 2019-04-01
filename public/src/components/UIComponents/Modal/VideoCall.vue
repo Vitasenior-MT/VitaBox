@@ -386,6 +386,7 @@ export default {
     async startCamera(callback) {
       console.log('***********************************')
       console.log(navigator.mediaDevices)
+      var self = this
       navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
       console.log(navigator.getUserMedia)
       try {
@@ -397,8 +398,8 @@ export default {
           localMediaStream => {
             console.log('******localMediaStream*********')
             console.log(localMediaStream)
-            console.log(this.streamToSend)
-            console.log(this.streamToShow)
+            console.log(self.streamToSend)
+            console.log(self.streamToShow)
           },
           // callbackError
           err => {
@@ -406,7 +407,7 @@ export default {
             })
         callback(true)
       } catch (e) {
-         callback(false)
+        callback(false)
       }
       /* try {
         console.log('--***************--********************--')
