@@ -385,10 +385,7 @@ export default {
     },
     async startCamera(callback) {
       console.log('***********************************')
-      console.log(navigator.mediaDevices)
-      var self = this
       navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
-      console.log(navigator.getUserMedia)
       try {
         this.streamToSend = await navigator.getUserMedia({ audio: true, video: true },
           localMediaStream => {console.log(localMediaStream)},
@@ -396,29 +393,21 @@ export default {
           err => {console.log("Error: " + err)})
         this.streamToShow = await navigator.getUserMedia({ audio: false, video: true },
           localMediaStream => {
-            setTimeout(() => {
-              console.log('******localMediaStream*********')
-              console.log(localMediaStream)
-              console.log(this.streamToSend)
-              console.log(self.streamToShow)
-            }, 10000);
-          },
+            },
           // callbackError
           err => {
             console.log("Error: " + err)
             })
+        setTimeout(() => {
+          console.log('******localMediaStream*********')
+          console.log(localMediaStream)
+          console.log(this.streamToSend)
+          console.log(this.streamToShow)
+        }, 20000);
         callback(true)
       } catch (e) {
         callback(false)
       }
-      /* try {
-        console.log('--***************--********************--')
-        // console.log(this.streamToSend)
-        // console.log(this.streamToShow)
-        return 1
-      } catch (e) {
-        return 0
-      } */
     },
     stopCamera() {
       if (this.streamToSend) {
