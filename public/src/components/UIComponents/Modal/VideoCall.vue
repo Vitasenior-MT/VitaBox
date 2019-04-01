@@ -238,6 +238,7 @@ export default {
       this.status = 2
       this.message = "waiting..."
       this.startCamera().then(success => {
+        console.log('aaaaaaaaaaaaaa ', success)
         if (success) {
           this.dataConnections.forEach(x => {
             if (x.peer === this.remotePeerID) {
