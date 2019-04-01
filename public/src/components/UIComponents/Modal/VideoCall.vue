@@ -290,6 +290,7 @@ export default {
             this.startCamera(success => {
               console.log('-----------------------> ', success)
               if (success) {
+                console.log(this.streamToSend)
                 this.stopCallSound()
                 this.mediaConnection = this.peer.call(
                   this.remotePeerID,
