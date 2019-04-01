@@ -237,7 +237,7 @@ export default {
       this.stopCallSound()
       this.status = 2
       this.message = "waiting..."
-      this.startCamera().then(success => {
+      this.startCamera(success => {
         console.log('aaaaaaaaaaaaaa ', success)
         if (success) {
           this.dataConnections.forEach(x => {
@@ -379,7 +379,7 @@ export default {
       this.status = 1
       this.message = "Call finished"
     },
-    async startCamera() {
+    async startCamera(callback) {
       console.log('***********************************')
       console.log(navigator.mediaDevices)
       navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
@@ -391,12 +391,12 @@ export default {
       this.streamToShow = await navigator.getUserMedia({ audio: false, video: true },
         localMediaStream => {
           console.log(localMediaStream)
-          return 1
+          callback(true)
         },
         // callbackError
         err => {
           console.log("Error: " + err)
-          return 0
+          callback(false)
           })
       /* try {
         console.log('--***************--********************--')
