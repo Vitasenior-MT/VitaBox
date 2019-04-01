@@ -377,6 +377,7 @@ export default {
     },
     async startCamera(callback) {
       var self = this
+      console.log('-----------------------> 123t127361786487124 ')
       navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
       try {
         this.streamToSend = await navigator.getUserMedia({ audio: true, video: true },
