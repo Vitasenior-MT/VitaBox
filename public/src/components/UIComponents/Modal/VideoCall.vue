@@ -362,6 +362,10 @@ export default {
         this.$refs.localVideo.srcObject = this.streamToShow
         this.$refs.remoteVideo.className = "remoteView"
         this.$refs.remoteVideo.srcObject = stream
+        this.$refs.remoteVideo.onloadedmetadata = function(e) {
+          console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+          e.play()
+        }
       })
       this.mediaConnection.on("close", () => {
         this.stopCamera()
@@ -381,21 +385,21 @@ export default {
     },
     async startCamera(callback) {
       var self = this
-      navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
+      navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
       try {
         this.streamToSend = await navigator.getUserMedia({ audio: true, video: true },
           localMediaStream => {
             self.streamToSend = localMediaStream
           },
           // callbackError
-          err => {console.log("Error: " + err)})
+          err => { console.log("Error: " + err) } )
         this.streamToShow = await navigator.getUserMedia({ audio: false, video: true },
           localMediaStream => {
             self.streamToShow = localMediaStream
             callback(true)
           },
           // callbackError
-          err => {console.log("Error: " + err)})
+          err => { console.log("Error: " + err) } )
       } catch (e) {
         callback(false)
       }
