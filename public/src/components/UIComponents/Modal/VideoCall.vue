@@ -61,8 +61,8 @@
                 </button>
               </div>
             </div>
-            <video class="invisible" ref="remoteVideo" autoplay playinline></video>
-            <video class="invisible" ref="localVideo" autoplay playsinline></video>
+            <video class="invisible" id="remoteVideo" autoplay playinline></video>
+            <video class="invisible" id="localVideo" autoplay playsinline></video>
             <div v-if="status==4">
               <div class="buttonsView">
                 <button type="button" class="mybtn" @click="stopConnection" style="background-color: #212121;">
@@ -359,15 +359,17 @@ export default {
         console.log(stream)
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
         window.stream = stream
-        this.$refs.localVideo.className = "localView"
-        this.$refs.localVideo.srcObject = this.streamToShow
-        this.$refs.remoteVideo.className = "remoteView"
+        let localView = document.getElementById("localView")
+        let remoteView = document.getElementById("remoteView")
+        localView.className = "localView"
+        localView.src = this.streamToShow
+        remoteView.className = "remoteView"
         if (window.URL) {
-          this.$refs.remoteVideo.srcObject = window.URL.createObjectURL(stream)
+          remoteView.src = window.URL.createObjectURL(stream)
         } else {
-          this.$refs.remoteVideo.srcObject = stream
+          remoteView.srcObject = stream
         }
-        this.$refs.remoteVideo.play()
+        remoteView.play()
       })
       this.mediaConnection.on("close", () => {
         this.stopCamera()
