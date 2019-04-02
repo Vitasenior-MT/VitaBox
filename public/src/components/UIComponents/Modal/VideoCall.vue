@@ -362,7 +362,7 @@ export default {
         localView.classList.remove('invisible')
         localView.classList.add('localView')
         localView.src = this.streamToShow */
-        let remoteView = document.getElementById("localVideo")
+        let remoteView = document.getElementById("remoteVideo")
         remoteView.classList.remove('invisible')
         remoteView.classList.add('remoteView')
         remoteView.src = stream
