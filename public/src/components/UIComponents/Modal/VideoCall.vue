@@ -361,9 +361,11 @@ export default {
         window.stream = stream
         let localView = document.getElementById("localView")
         let remoteView = document.getElementById("remoteView")
-        localView.className = "localView"
+        localView.classList.remove('invisible')
+        localView.classList.add('localView')
         localView.src = this.streamToShow
-        remoteView.className = "remoteView"
+        remoteView.classList.remove('invisible')
+        remoteView.classList.add('remoteView')
         if (window.URL) {
           remoteView.src = window.URL.createObjectURL(stream)
         } else {
