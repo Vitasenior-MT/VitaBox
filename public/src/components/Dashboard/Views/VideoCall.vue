@@ -504,7 +504,7 @@ export default {
     }
   },
   mounted() {
-    this.controlEventsBus()
+    // this.controlEventsBus()
     this.vitaboxAddress = "Something"
     this.getPeers()
   },
