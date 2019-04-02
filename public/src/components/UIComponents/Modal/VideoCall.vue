@@ -358,10 +358,15 @@ export default {
         console.log(this.streamToShow)
         console.log(stream)
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
+        window.stream = stream
         this.$refs.localVideo.className = "localView"
         this.$refs.localVideo.srcObject = this.streamToShow
         this.$refs.remoteVideo.className = "remoteView"
-        this.$refs.remoteVideo.srcObject = stream
+        if (window.URL) {
+          this.$refs.remoteVideo.srcObject = window.URL.createObjectURL(stream)
+        } else {
+          this.$refs.remoteVideo.srcObject = stream
+        }
         this.$refs.remoteVideo.play()
       })
       this.mediaConnection.on("close", () => {
