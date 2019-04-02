@@ -360,7 +360,7 @@ export default {
         this.$refs.localVideo.className = "localView"
         this.$refs.localVideo.srcObject = window.webkitURL.createObjectURL(this.streamToShow)
         this.$refs.remoteVideo.className = "remoteView"
-        this.$refs.remoteVideo.srcObject = window.webkitURL.createObjectURL(stream)
+        this.$refs.remoteVideo.srcObject = window.URL.createObjectURL(stream)
       })
       this.mediaConnection.on("close", () => {
         this.stopCamera()
