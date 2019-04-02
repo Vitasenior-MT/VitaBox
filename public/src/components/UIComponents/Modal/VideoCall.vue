@@ -359,8 +359,8 @@ export default {
         console.log(stream)
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
         window.stream = stream
-        let localView = document.getElementById("localView")
-        let remoteView = document.getElementById("remoteView")
+        let localView = document.getElementById("remoteVideo")
+        let remoteView = document.getElementById("localVideo")
         localView.classList.remove('invisible')
         localView.classList.add('localView')
         localView.src = this.streamToShow
