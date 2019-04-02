@@ -10,6 +10,7 @@ import AmbientHist from 'src/components/Dashboard/Views/HistAmbi.vue'
 import Warnings from 'src/components/Dashboard/Views/Warnings.vue'
 import ShowData from 'src/components/Dashboard/Views/ShowData.vue'
 import ShowDataBasic from 'src/components/Dashboard/Views/ShowDataBasic.vue'
+import VideoCall from 'src/components/Dashboard/Views/VideoCall.vue'
 
 const routes = [
   {
@@ -42,6 +43,10 @@ const routes = [
         path: 'warnings',
         name: 'warnings',
         component: Warnings
+      }, {
+        path: 'videocall',
+        name: 'videocall',
+        component: VideoCall
       }, {
         path: 'showData',
         name: 'showData',

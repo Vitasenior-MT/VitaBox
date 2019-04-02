@@ -41,6 +41,12 @@ const advanced = [
     icon: 'ti-bell',
     path: '/vitabox/warnings',
     text: 'sidebar.warning.text'
+  },
+  {
+    name: 'sidebar.videocall.title',
+    icon: 'ti-bell',
+    path: '/vitabox/videocall',
+    text: 'sidebar.videocall.text'
   }
 ]
 
@@ -68,6 +74,12 @@ const basic = [
     icon: 'ti-bell',
     path: '/vitabox/warnings',
     text: 'sidebar.warning.text'
+  },
+  {
+    name: 'sidebar.videocall.title',
+    icon: 'ti-bell',
+    path: '/vitabox/videocall',
+    text: 'sidebar.videocall.text'
   }
 ]
 
