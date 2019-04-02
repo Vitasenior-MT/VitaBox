@@ -62,6 +62,7 @@
               </div>
             </div>
             <video class="invisible" id="remoteVideo" autoplay playinline></video>
+            <video class="invisible" id="localVideo" autoplay playinline></video>
             <div v-if="status==4">
               <div class="buttonsView">
                 <button type="button" class="mybtn" @click="stopConnection" style="background-color: #212121;">
@@ -357,10 +358,15 @@ export default {
         console.log(stream)
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
         window.stream = stream
-        /* let localView = document.getElementById("localVideo")
+        let localView = document.getElementById("localVideo")
         localView.classList.remove('invisible')
-        localView.classList.add('localView')
-        localView.src = this.streamToShow */
+        localView.classList.add('remoteView')
+        localView.src = this.streamToShow
+        if(window.URL) {
+          localView.src = window.URL.createObjectURL(this.streamToShow)
+        } else {
+          localView.src = this.streamToShow
+        }
         let remoteView = document.getElementById("remoteVideo")
         remoteView.classList.remove('invisible')
         remoteView.classList.add('localView')
@@ -417,7 +423,11 @@ export default {
       let remoteView = document.getElementById("remoteVideo")
       remoteView.src = null
       remoteView.classList.add('invisible')
-      remoteView.classList.remove('localView')
+      remoteView.classList.remove('remoteView')
+      let localView = document.getElementById("localVideo")
+      localView.src = null
+      localView.classList.add('invisible')
+      localView.classList.remove('localView')
       /* if (this.$refs.remoteVideo.srcObject) {
         this.$refs.remoteVideo.srcObject = null
         this.$refs.remoteVideo.className = "invisible"
