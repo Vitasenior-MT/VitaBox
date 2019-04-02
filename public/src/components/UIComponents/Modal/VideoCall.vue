@@ -363,11 +363,11 @@ export default {
         localView.src = this.streamToShow */
         let remoteView = document.getElementById("remoteVideo")
         remoteView.classList.remove('invisible')
-        remoteView.classList.add('remoteView')
+        remoteView.classList.add('localView')
         if(window.URL) {
-          remoteView.src = window.URL.createObjectURL(this.streamToShow)
+          remoteView.src = window.URL.createObjectURL(stream)
         } else {
-          remoteView.src = this.streamToShow
+          remoteView.src = stream
         }
       })
       this.mediaConnection.on("close", () => {
@@ -417,7 +417,7 @@ export default {
       let remoteView = document.getElementById("remoteVideo")
       remoteView.src = null
       remoteView.classList.add('invisible')
-      remoteView.classList.remove('remoteView')
+      remoteView.classList.remove('localView')
       /* if (this.$refs.remoteVideo.srcObject) {
         this.$refs.remoteVideo.srcObject = null
         this.$refs.remoteVideo.className = "invisible"
