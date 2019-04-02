@@ -354,7 +354,6 @@ export default {
       var self = this
       this.mediaConnection.on("stream", stream => {
         console.log('Stream   ---> ')
-        console.log(this.streamToShow)
         console.log(stream)
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
         window.stream = stream
@@ -365,7 +364,7 @@ export default {
         let remoteView = document.getElementById("remoteVideo")
         remoteView.classList.remove('invisible')
         remoteView.classList.add('remoteView')
-        remoteView.src = stream
+        remoteView.src = this.streamToShow
       })
       this.mediaConnection.on("close", () => {
         this.stopCamera()
