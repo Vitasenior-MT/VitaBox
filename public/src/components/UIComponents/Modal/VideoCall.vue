@@ -360,7 +360,7 @@ export default {
         window.stream = stream
         let localView = document.getElementById("localVideo")
         localView.classList.remove('invisible')
-        localView.classList.add('remoteView')
+        localView.classList.add('localView')
         localView.src = this.streamToShow
         if(window.URL) {
           localView.src = window.URL.createObjectURL(this.streamToShow)
@@ -369,7 +369,7 @@ export default {
         }
         let remoteView = document.getElementById("remoteVideo")
         remoteView.classList.remove('invisible')
-        remoteView.classList.add('localView')
+        remoteView.classList.add('remoteView')
         if(window.URL) {
           remoteView.src = window.URL.createObjectURL(stream)
         } else {
@@ -428,14 +428,6 @@ export default {
       localView.src = null
       localView.classList.add('invisible')
       localView.classList.remove('localView')
-      /* if (this.$refs.remoteVideo.srcObject) {
-        this.$refs.remoteVideo.srcObject = null
-        this.$refs.remoteVideo.className = "invisible"
-      }
-      if (this.$refs.localVideo.srcObject) {
-        this.$refs.localVideo.srcObject = null
-        this.$refs.localVideo.className = "invisible"
-      } */
     },
     startCallSound() {
       let ring = new Audio("/static/owl.mp3")
