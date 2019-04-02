@@ -356,10 +356,9 @@ export default {
       this.mediaConnection.on("stream", stream => {
         console.log('Stream   ---> ')
         console.log(this.streamToShow)
-        console.log(self.streamToShow)
         console.log(stream)
         this.$refs.localVideo.className = "localView"
-        this.$refs.localVideo.srcObject = self.streamToShow
+        this.$refs.localVideo.srcObject = window.URL.createObjectURL(this.streamToShow)
         this.$refs.remoteVideo.className = "remoteView"
         this.$refs.remoteVideo.srcObject = stream
       })
