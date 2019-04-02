@@ -288,9 +288,7 @@ export default {
             break
           case "accept":
             this.startCamera(success => {
-              console.log('-----------------------> ', success)
               if (success) {
-                console.log(this.streamToSend)
                 this.stopCallSound()
                 this.mediaConnection = this.peer.call(
                   this.remotePeerID,
@@ -356,8 +354,10 @@ export default {
     listenMediaConnection() {
       var self = this
       this.mediaConnection.on("stream", stream => {
+        console.log('Stream   ---> ')
         console.log(this.streamToShow)
         console.log(self.streamToShow)
+        console.log(stream)
         this.$refs.localVideo.className = "localView"
         this.$refs.localVideo.srcObject = self.streamToShow
         this.$refs.remoteVideo.className = "remoteView"
@@ -381,13 +381,11 @@ export default {
     },
     async startCamera(callback) {
       var self = this
-      console.log('-----------------------> 123t127361786487124 ')
       navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
       try {
         this.streamToSend = await navigator.getUserMedia({ audio: true, video: true },
           localMediaStream => {
             self.streamToSend = localMediaStream
-            console.log('-----------------------> 123t127361786487124 ', localMediaStream)
           },
           // callbackError
           err => {console.log("Error: " + err)})
@@ -398,7 +396,6 @@ export default {
           },
           // callbackError
           err => {console.log("Error: " + err)})
-        //callback(true)
       } catch (e) {
         callback(false)
       }
