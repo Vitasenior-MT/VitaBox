@@ -83,7 +83,6 @@ export default {
   data() {
     return {
       params: {},
-      defaultButtons: [{ title: 'CLOSE' }],
       vitaboxId: null,
       vitaboxToken: null,
       vitaboxAddress: null,
@@ -505,12 +504,11 @@ export default {
     }
   },
   mounted() {
-    
-  },
-  created() {
     this.controlEventsBus()
     this.vitaboxAddress = "Something"
     this.getPeers()
+  },
+  created() {
   },
   beforeDestroy() {
     this.dataConnections.forEach(x => x.connection.close())
