@@ -62,7 +62,6 @@
               </div>
             </div>
             <video class="invisible" id="remoteVideo" autoplay playinline></video>
-            <video class="invisible" id="localVideo" autoplay playsinline></video>
             <div v-if="status==4">
               <div class="buttonsView">
                 <button type="button" class="mybtn" @click="stopConnection" style="background-color: #212121;">
@@ -359,19 +358,14 @@ export default {
         console.log(stream)
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
         window.stream = stream
-        let localView = document.getElementById("remoteVideo")
-        let remoteView = document.getElementById("localVideo")
+        /* let localView = document.getElementById("remoteVideo")
         localView.classList.remove('invisible')
         localView.classList.add('localView')
-        localView.src = this.streamToShow
+        localView.src = this.streamToShow */
+        let remoteView = document.getElementById("localVideo")
         remoteView.classList.remove('invisible')
         remoteView.classList.add('remoteView')
-        if (window.URL) {
-          remoteView.src = window.URL.createObjectURL(stream)
-        } else {
-          remoteView.srcObject = stream
-        }
-        remoteView.play()
+        remoteView.src = stream
       })
       this.mediaConnection.on("close", () => {
         this.stopCamera()
@@ -417,14 +411,18 @@ export default {
       if (this.streamToShow) {
         this.streamToShow.getTracks().forEach(track => track.stop())
       }
-      if (this.$refs.remoteVideo.srcObject) {
+      let remoteView = document.getElementById("remoteVideo")
+      remoteView.src = null
+      remoteView.classList.add('invisible')
+      remoteView.classList.remove('remoteView')
+      /* if (this.$refs.remoteVideo.srcObject) {
         this.$refs.remoteVideo.srcObject = null
         this.$refs.remoteVideo.className = "invisible"
       }
       if (this.$refs.localVideo.srcObject) {
         this.$refs.localVideo.srcObject = null
         this.$refs.localVideo.className = "invisible"
-      }
+      } */
     },
     startCallSound() {
       let ring = new Audio("/static/owl.mp3")
