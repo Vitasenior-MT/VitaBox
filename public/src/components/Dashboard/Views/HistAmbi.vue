@@ -117,8 +117,8 @@ export default {
             for (let index = 0; index < dataArray.length; index++) {
               this.btnLocation.push({
                 id: index,
-                type: dataArray[index].location,
-                nome: dataArray[index].location
+                type: dataArray[index].sensortype,
+                nome: dataArray[index].sensortype
               })
             }
             this.dataCharsExists = true
