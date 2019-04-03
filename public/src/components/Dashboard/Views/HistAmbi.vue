@@ -1,17 +1,17 @@
 <template>
   <div class="row">
-    <div class="row btnSensors">
+    <div class="row btnLocation">
       <div class="col-md-2" v-for="location in locationList"  :key='location.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button v-tooltip.bottom="$t('tooltips.ambienteHistory.sensor.title')" class="btn btn-block btn-info control-remote-sensors" type="button" :data-type="location.type" v-on:click="getAllDataSensor()">
+            <button v-tooltip.bottom="$t('tooltips.ambienteHistory.location.title')" class="btn btn-block btn-info control-remote-location" type="button" :data-type="location.type" v-on:click="getAllDataSensor()">
                 <h5 class="text-div-wrap"><b class="fab fa-galactic-senate"></b> {{ location.name }}</h5>
             </button>
           </div>
         </div>
       </div>
     </div>
-    <div class="row btnLocation">
+    <div class="row btnSensors">
       <div class="col-md-2" v-for="btn in btnLocation"  :key='btn.id'>
         <div class="card clear-padding">
           <div class="content">
@@ -66,7 +66,7 @@ export default {
       flg_once: false,
       msgSensor: 'histambi.msgSensor',
       msgExit: 'histambi.msgExit',
-      classEvent: 'control-remote-sensors',
+      classEvent: 'control-remote-location',
       posSensorSelected: -1,
       dataCharsExists: false,
       sensorList: [],
@@ -266,7 +266,7 @@ export default {
                 }
               }, 300);
               if (self.posSensorSelected < 0) {
-                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
+                document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgExam)
                 self.$refs.DefaultView.show()
               }
@@ -275,7 +275,7 @@ export default {
             case 'exit':
               EventBus.removeAudio()
               // iniicializa a variavel para selecionar a lsta do user
-              self.classEvent = 'control-remote-sensors'
+              self.classEvent = 'control-remote-location'
               // se existir um user selecionado é porque se está na lista dos equipamentos
               if (self.posSensorSelected >= 0) {
                 // Constroi a lista com os elementos da class dos users
@@ -288,7 +288,7 @@ export default {
                 elem.focus()
                 elem.classList.add('btn-fill')
                 // desloca a div para o inicio
-                document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
+                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
                 // limpa a lisa dos botões disponiveis para o user
                 self.btnLocation = []
                 self.resetValues()
@@ -318,9 +318,9 @@ export default {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
               if (self.posSensorSelected >= 0) {
-                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
-              } else {
                 document.getElementsByClassName('btnSensors')[0].scrollIntoView(false)
+              } else {
+                document.getElementsByClassName('btnLocation')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgSensor)
                 self.$refs.DefaultView.show()
               }

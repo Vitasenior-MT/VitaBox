@@ -89,8 +89,8 @@
       }
     },
     "ambienteHistory": {
-      "sensor": {
-        "title": "Pressione em [OK] para selecionar o sensor.",
+      "location": {
+        "title": "Pressione em [OK] para selecionar a divisão.",
         "text": ""
       },
       "history": {
