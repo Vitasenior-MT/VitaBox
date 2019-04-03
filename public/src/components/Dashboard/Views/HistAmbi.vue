@@ -4,7 +4,7 @@
       <div class="col-md-2" v-for="location in locationList"  :key='location.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button v-tooltip.bottom="$t('tooltips.ambienteHistory.sensor.title')" class="btn btn-block btn-info control-remote-sensors" type="button" :data-type="sensor.location" v-on:click="getAllDataSensor()">
+            <button v-tooltip.bottom="$t('tooltips.ambienteHistory.sensor.title')" class="btn btn-block btn-info control-remote-sensors" type="button" :data-type="location.location" v-on:click="getAllDataSensor()">
                 <h5 class="text-div-wrap"><b class="fab fa-galactic-senate"></b> {{ location.location }}</h5>
             </button>
           </div>
