@@ -346,7 +346,7 @@ export default {
         let data = response.data.data
         console.log('data: ')
         console.log(data)
-        for (var index in data) {
+        for (var index in data[0].sensors) {
           this.sensorList.push({
             name: data[index].measure,
             type: data[index].sensortype,
