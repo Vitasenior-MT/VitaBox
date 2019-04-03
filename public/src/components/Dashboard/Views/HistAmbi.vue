@@ -70,6 +70,7 @@ export default {
       posSensorSelected: -1,
       dataCharsExists: false,
       sensorList: [],
+      locationList: [],
       sensorType: '',
       location: '',
       hideShowItem: 0,
