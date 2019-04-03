@@ -356,7 +356,7 @@ export default {
         console.log(error)
       }) */
     this.$http
-      .get('/api/sensor/getDistictAll')
+      .get('/api/sensor/getDistictAllLocations')
       .then(response => {
         let data = response.data.data
         console.log('data: ')
