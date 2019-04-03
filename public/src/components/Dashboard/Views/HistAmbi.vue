@@ -1,11 +1,11 @@
 <template>
   <div class="row">
     <div class="row btnSensors">
-      <div class="col-md-2" v-for="sensor in sensorList"  :key='sensor.id'>
+      <div class="col-md-2" v-for="location in locationList"  :key='location.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button v-tooltip.bottom="$t('tooltips.ambienteHistory.sensor.title')" class="btn btn-block btn-info control-remote-sensors" type="button" :data-type="sensor.type" v-on:click="getAllDataSensor()">
-                <h5 class="text-div-wrap"><b class="fab fa-galactic-senate"></b> {{ sensor.name }}</h5>
+            <button v-tooltip.bottom="$t('tooltips.ambienteHistory.sensor.title')" class="btn btn-block btn-info control-remote-sensors" type="button" :data-type="sensor.location" v-on:click="getAllDataSensor()">
+                <h5 class="text-div-wrap"><b class="fab fa-galactic-senate"></b> {{ location.location }}</h5>
             </button>
           </div>
         </div>
@@ -362,11 +362,10 @@ export default {
         console.log('data: ')
         console.log(data)
         console.log(data[0])
-        console.log(data[0].sensors)
-        for (var index in data[0].sensors) {
-          this.sensorList.push({
-            name: data[index].measure,
-            type: data[index].sensortype,
+        console.log(data[0].locations)
+        for (var index in data[0].locations) {
+          this.locationList.push({
+            location: data[index].location,
             id: index
           })
         }
