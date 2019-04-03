@@ -107,9 +107,9 @@ export default {
     getAllDataSensor() {
       this.$refs.loading.show()
       this.resetValues()
-      this.sensorType = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+      this.location = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       this.$http
-        .get('/api/sensor/getSensorsWithLocation/' + this.sensorType)
+        .get('/api/sensor/getSensorsWithLocation/' + this.location)
         .then(response => {
           if (response.data.status === true) {
             this.posSensorSelected = EventBus.currentActiveRightComp
@@ -158,7 +158,7 @@ export default {
     getDataSensor() {
       this.$refs.loading.show()
       this.resetValues()
-      this.location = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
+      this.sensorType = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       this.$http
         .get('/api/rawsensor/getdatalt/' + this.sensorType + '/' + this.location)
         .then(response => {
