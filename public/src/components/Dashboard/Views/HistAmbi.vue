@@ -340,6 +340,21 @@ export default {
     this.$refs.DefaultView.show()
   },
   beforeCreate() {
+    /* this.$http
+      .get('/api/sensor/getListOfLocations')
+      .then(response => {
+        let data = response.data.data
+        for (var index in data) {
+          this.locationList.push({
+            name: data[index],
+            location: data[index],
+            id: index
+          })
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      }) */
     this.$http
       .get('/api/sensor/getDistictAll')
       .then(response => {
