@@ -365,11 +365,13 @@ export default {
         console.log(data[0])
         console.log(data[0].locations)
         for (var index in data[0].locations) {
+          console.log('-----')
           this.locationList.push({
             location: data[index].location,
             id: index
           })
         }
+        console.log(this.locationList)
       })
       .catch(error => {
         console.log(error)
