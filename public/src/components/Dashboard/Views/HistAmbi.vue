@@ -363,6 +363,8 @@ export default {
         console.log('data: ')
         console.log(data)
         for (var index in data[0].locations) {
+          console.log(data[0].locations[index])
+          console.log(data[0].locations[index].location)
           this.locationList.push({
             location: data[0].locations[index].location,
             id: index
