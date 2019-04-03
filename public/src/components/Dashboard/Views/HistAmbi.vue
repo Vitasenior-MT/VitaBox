@@ -4,8 +4,8 @@
       <div class="col-md-2" v-for="location in locationList"  :key='location.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button v-tooltip.bottom="$t('tooltips.ambienteHistory.sensor.title')" class="btn btn-block btn-info control-remote-sensors" type="button" :data-type="location.location" v-on:click="getAllDataSensor()">
-                <h5 class="text-div-wrap"><b class="fab fa-galactic-senate"></b> {{ location.location }}</h5>
+            <button v-tooltip.bottom="$t('tooltips.ambienteHistory.sensor.title')" class="btn btn-block btn-info control-remote-sensors" type="button" :data-type="location.type" v-on:click="getAllDataSensor()">
+                <h5 class="text-div-wrap"><b class="fab fa-galactic-senate"></b> {{ location.name }}</h5>
             </button>
           </div>
         </div>
@@ -109,7 +109,7 @@ export default {
       this.resetValues()
       this.sensorType = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
       this.$http
-        .get('/api/rawsensor/getdata/' + this.sensorType)
+        .get('/api/sensor/getSensorsWithLocation/' + this.sensorType)
         .then(response => {
           if (response.data.status === true) {
             this.posSensorSelected = EventBus.currentActiveRightComp
@@ -366,7 +366,8 @@ export default {
           console.log(data[0].locations[index])
           console.log(data[0].locations[index].location)
           this.locationList.push({
-            location: data[0].locations[index].location,
+            type: data[0].locations[index].location,
+            name: data[0].locations[index].location,
             id: index
           })
         }
