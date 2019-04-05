@@ -1735,7 +1735,7 @@ export default {
               }
               let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
-              if (EventBus.elementControl.length > 1 || moveFirstTime) {
+              if (moveFirstTime) {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
               if (self.posPatientSelected >= 0) {
