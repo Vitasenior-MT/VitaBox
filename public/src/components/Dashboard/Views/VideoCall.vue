@@ -4,16 +4,15 @@
     <div class="col-lg-12" style="padding: 0;">
       <div class="col-lg-12 btn btn-round btn-fill btn-block clear-margin">
         <div class="row">
-          butoes aqui
           <div class="buttonsView">
-            <button type="button" class="mybtn" @click="rejectConnection" style="background-color: #f44336;">
-              <div>
-                <span class="fas fa-times" style="font-size: 18px;" aria-hidden="true"></span>
-              </div>
-            </button>
             <button type="button" class="mybtn" @click="acceptConnection" style="background-color: #4caf50;">
               <div>
                 <span class="fas fa-check" style="font-size: 18px;" aria-hidden="true"></span>
+              </div>
+            </button>
+            <button type="button" class="mybtn" @click="rejectConnection" style="background-color: #f44336;">
+              <div>
+                <span class="fas fa-times" style="font-size: 18px;" aria-hidden="true"></span>
               </div>
             </button>
             <button type="button" class="mybtn" @click="cancelConnection" style="background-color: #f44336;">
@@ -21,19 +20,8 @@
                 <span class="fas fa-video-slash" style="font-size: 18px;" aria-hidden="true"></span>
               </div>
             </button>
-            <button type="button" class="mybtn" @click="rejectConnection" style="background-color: #f44336;">
-              <div>
-                <span class="fas fa-times" style="font-size: 18px;" aria-hidden="true"></span>
-              </div>
-            </button>
-            <button type="button" class="mybtn" @click="acceptConnection" style="background-color: #4caf50;">
-              <div>
-                <span class="fas fa-check" style="font-size: 18px;" aria-hidden="true"></span>
-              </div>
-            </button>
             <div v-if="status!==4">
               <p class="headline">{{message}}</p>
-              <hr>
             </div>
           </div>
         </div>
