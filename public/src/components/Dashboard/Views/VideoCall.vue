@@ -106,6 +106,7 @@
           </div>
         </div>
         <video class="invisible" id="remoteVideo" autoplay playinline></video>
+        <video class="invisible" id="localVideo" autoplay playinline></video>
       </div>
     </div>
   </div>
