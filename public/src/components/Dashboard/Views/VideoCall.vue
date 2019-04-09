@@ -32,18 +32,21 @@
       <div class="col-lg-12 btn btn-round btn-fill btn-block clear-margin">
         video aqui
         <div v-if="status===1">
-          <div class="list-group" style="padding:0 10px;">
-            <a class="list-group-item" v-for="item in dataConnections" :key="item.peer"
+          <div style="padding:0 10px;">
+            <a v-for="item in dataConnections" :key="item.peer"
               @click="startConnection(item.connection)">
               <div>
                 <span class="fas fa-bullseye" style="color: #4caf50; padding-right:10px;" aria-hidden="true"> </span>
                 {{ item.name }} </div>
             </a>
-            <li class="list-group-item" v-for="item in offlineUsers" :key="item.id">
-              <div>
+            <div v-for="item in offlineUsers" :key="item.id">
+              <div class="content">
                 <i class="fas fa-bullseye" style="color: #f44336; padding-right:10px;" aria-hidden="true"></i>
-                {{ item.name }} </div>
-            </li>
+                <button v-tooltip.bottom="$t('tooltips.diagnosis.user.title')" class="btn btn-block btn-info control-remote-patient" type="button" :data-name="item.name" v-on:click="bleGetListExam(this)">
+                    <h5 class="text-div-wrap"><b class="ti-user"> {{ item.name }}</b></h5>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <video class="invisible" id="remoteVideo" autoplay playinline></video>
