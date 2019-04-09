@@ -40,11 +40,13 @@
                 {{ item.name }} </div>
             </a>
             <div v-for="item in offlineUsers" :key="item.id">
-              <div class="content">
-                <i class="fas fa-bullseye" style="color: #f44336; padding-right:10px;" aria-hidden="true"></i>
-                <button v-tooltip.bottom="$t('tooltips.diagnosis.user.title')" class="btn btn-block btn-info control-remote-patient" type="button" :data-name="item.name" v-on:click="bleGetListExam(this)">
-                    <h5 class="text-div-wrap"><b class="ti-user"> {{ item.name }}</b></h5>
-                </button>
+              <div class="card clear-padding">
+                <div class="content">
+                  <i class="fas fa-bullseye" style="color: #f44336; padding-right:10px;" aria-hidden="true"></i>
+                  <button v-tooltip.bottom="$t('tooltips.diagnosis.user.title')" class="btn btn-block btn-info control-remote-patient" type="button" :data-name="item.name" v-on:click="bleGetListExam(this)">
+                      <h5 class="text-div-wrap"><b class="ti-user"> {{ item.name }}</b></h5>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
