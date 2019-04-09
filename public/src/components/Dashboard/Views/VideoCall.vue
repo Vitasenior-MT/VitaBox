@@ -5,21 +5,74 @@
       <div class="col-lg-12 btn btn-round btn-fill btn-block clear-margin">
         <div class="row">
           <div class="buttonsView">
-            <button disabled type="button" class="mybtn" @click="acceptConnection" style="background-color: #4caf50;">
-              <div>
-                <span class="fas fa-check" style="font-size: 18px;" aria-hidden="true"></span>
-              </div>
-            </button>
-            <button disabled type="button" class="mybtn" @click="rejectConnection" style="background-color: #f44336;">
-              <div>
-                <span class="fas fa-times" style="font-size: 18px;" aria-hidden="true"></span>
-              </div>
-            </button>
-            <button disabled type="button" class="mybtn" @click="cancelConnection" style="background-color: #f44336;">
-              <div>
-                <span class="fas fa-video-slash" style="font-size: 18px;" aria-hidden="true"></span>
-              </div>
-            </button>
+            <div v-if="status==1">
+              <button disabled type="button" class="mybtn disabledbtn">
+                <div>
+                  <span class="fas fa-check iconfontsize" aria-hidden="true"></span>
+                </div>
+              </button>
+              <button disabled type="button" class="mybtn disabledbtn">
+                <div>
+                  <span class="fas fa-times iconfontsize" aria-hidden="true"></span>
+                </div>
+              </button>
+              <button disabled type="button" class="mybtn disabledbtn">
+                <div>
+                  <span class="fas fa-video-slash iconfontsize" aria-hidden="true"></span>
+                </div>
+              </button>
+            </div>
+            <div v-if="status==2">
+              <button disabled type="button" class="mybtn disabledbtn">
+                <div>
+                  <span class="fas fa-check iconfontsize" aria-hidden="true"></span>
+                </div>
+              </button>
+              <button disabled type="button" class="mybtn disabledbtn">
+                <div>
+                  <span class="fas fa-times iconfontsize" aria-hidden="true"></span>
+                </div>
+              </button>
+              <button type="button" class="mybtn cancelConn" @click="cancelConnection">
+                <div>
+                  <span class="fas fa-video-slash iconfontsize" aria-hidden="true"></span>
+                </div>
+              </button>
+            </div>
+            <div v-if="status==3">
+              <button type="button" class="mybtn acceptConn" @click="acceptConnection">
+                <div>
+                  <span class="fas fa-check iconfontsize" aria-hidden="true"></span>
+                </div>
+              </button>
+              <button type="button" class="mybtn rejectConn" @click="rejectConnection">
+                <div>
+                  <span class="fas fa-times iconfontsize" aria-hidden="true"></span>
+                </div>
+              </button>
+              <button disabled type="button" class="mybtn disabledbtn">
+                <div>
+                  <span class="fas fa-video-slash iconfontsize" aria-hidden="true"></span>
+                </div>
+              </button>
+            </div>
+            <div v-if="status==4">
+              <button disabled type="button" class="mybtn disabledbtn">
+                <div>
+                  <span class="fas fa-check iconfontsize" aria-hidden="true"></span>
+                </div>
+              </button>
+              <button disabled type="button" class="mybtn disabledbtn">
+                <div>
+                  <span class="fas fa-times iconfontsize" aria-hidden="true"></span>
+                </div>
+              </button>
+              <button type="button" class="mybtn stopConn" @click="cancelConnection">
+                <div>
+                  <span class="fas fa-video-slash iconfontsize" aria-hidden="true"></span>
+                </div>
+              </button>
+            </div>
             <div v-if="status!==4">
               <p class="headline">{{message}}</p>
             </div>
@@ -601,5 +654,23 @@ video {
  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
  white-space: nowrap;
  width: inherit;
+}
+.disabledbtn {
+  background-color: #696662;
+}
+.stopConn {
+  background-color: #212121;
+}
+.cancelConn {
+  background-color: #f44336;
+}
+.acceptConn {
+  background-color: #4caf50;
+}
+.rejectConn {
+  background-color: #f44336;
+}
+.iconfontsize {
+  font-size: 18px;
 }
 </style>

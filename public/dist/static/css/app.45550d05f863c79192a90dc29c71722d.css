@@ -2992,6 +2992,24 @@ video {
  white-space: nowrap;
  width: inherit;
 }
+.disabledbtn {
+  background-color: #696662;
+}
+.stopConn {
+  background-color: #212121;
+}
+.cancelConn {
+  background-color: #f44336;
+}
+.acceptConn {
+  background-color: #4caf50;
+}
+.rejectConn {
+  background-color: #f44336;
+}
+.iconfontsize {
+  font-size: 18px;
+}
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -12853,4 +12871,4 @@ textarea.form-control {
     font-size: 12px;
     padding: 20px 0 0; }
 
-/*# sourceMappingURL=app.048d6da3537dd94bad0ac926c92e81bc.css.map*/
+/*# sourceMappingURL=app.45550d05f863c79192a90dc29c71722d.css.map*/
