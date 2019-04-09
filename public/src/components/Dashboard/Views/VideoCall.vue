@@ -1,5 +1,22 @@
 <template>
-  <div class="row">
+<div class="row">
+ <div class="row clear-margin">
+    <div class="col-lg-7" style="padding: 0;">
+      <div class="col-lg-12 btn btn-round btn-fill btn-block clear-margin">
+        <div class="row">
+          butoes aqui
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">&nbsp;</div>
+      </div>
+      <div class="col-lg-12 btn btn-round btn-fill btn-block clear-margin">
+        video aqui
+      </div>
+    </div>
+  </div>
+  
+  
    <div>
       <div class="panel panel-primary">
         <div class="panel-heading">
