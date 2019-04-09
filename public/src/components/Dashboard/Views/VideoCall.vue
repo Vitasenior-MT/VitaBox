@@ -30,19 +30,21 @@
         <div class="col-lg-12">&nbsp;</div>
       </div>
       <div class="col-lg-12 btn btn-round btn-fill btn-block clear-margin">
-        video aqui
         <div v-if="status===1">
           <div style="padding:0 10px;">
-            <a v-for="item in dataConnections" :key="item.peer"
-              @click="startConnection(item.connection)">
-              <div>
-                <span class="fas fa-bullseye" style="color: #4caf50; padding-right:10px;" aria-hidden="true"> </span>
-                {{ item.name }} </div>
-            </a>
+            <div v-for="item in dataConnections" :key="item.id">
+              <div class="card clear-padding">
+                <div class="content">
+                  <button class="btn btn-block btn-info control-remote-patient" type="button" :data-name="item.name" v-on:click="startConnection(item.connection)">
+                      <h5 class="text-div-wrap"><b class="ti-user"> {{ item.name }}</b></h5>
+                  </button>
+                </div>
+              </div>
+            </div>
             <div v-for="item in offlineUsers" :key="item.id">
               <div class="card clear-padding">
                 <div class="content">
-                  <button disabled v-tooltip.bottom="$t('tooltips.diagnosis.user.title')" class="btn btn-block btn-info control-remote-patient" type="button" :data-name="item.name" v-on:click="bleGetListExam(this)">
+                  <button disabled class="btn btn-block btn-info control-remote-patient" type="button" :data-name="item.name">
                       <h5 class="text-div-wrap"><b class="ti-user"> {{ item.name }}</b></h5>
                   </button>
                 </div>
