@@ -1,10 +1,22 @@
 <template>
 <div class="row">
  <div class="row clear-margin">
-    <div class="col-lg-7" style="padding: 0;">
+    <div class="col-lg-12" style="padding: 0;">
       <div class="col-lg-12 btn btn-round btn-fill btn-block clear-margin">
         <div class="row">
           butoes aqui
+          <div class="buttonsView">
+            <button type="button" class="mybtn" @click="rejectConnection" style="background-color: #f44336;">
+              <div>
+                <span class="fas fa-times" style="font-size: 18px;" aria-hidden="true"></span>
+              </div>
+            </button>
+            <button type="button" class="mybtn" @click="acceptConnection" style="background-color: #4caf50;">
+              <div>
+                <span class="fas fa-check" style="font-size: 18px;" aria-hidden="true"></span>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -12,6 +24,22 @@
       </div>
       <div class="col-lg-12 btn btn-round btn-fill btn-block clear-margin">
         video aqui
+        <div v-if="status===1">
+          <div class="list-group" style="padding:0 10px;">
+            <a class="list-group-item" v-for="item in dataConnections" :key="item.peer"
+              @click="startConnection(item.connection)">
+              <div>
+                <span class="fas fa-bullseye" style="color: #4caf50; padding-right:10px;" aria-hidden="true"> </span>
+                {{ item.name }} </div>
+            </a>
+            <li class="list-group-item" v-for="item in offlineUsers" :key="item.id">
+              <div>
+                <i class="fas fa-bullseye" style="color: #f44336; padding-right:10px;" aria-hidden="true"></i>
+                {{ item.name }} </div>
+            </li>
+          </div>
+        </div>
+        <video class="invisible" id="remoteVideo" autoplay playinline></video>
       </div>
     </div>
   </div>
