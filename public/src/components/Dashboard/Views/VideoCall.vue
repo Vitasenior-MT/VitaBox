@@ -106,7 +106,6 @@
           </div>
         </div>
         <video class="invisible" id="remoteVideo" autoplay playinline></video>
-        <video class="invisible" id="localVideo" autoplay playinline></video>
       </div>
     </div>
   </div>
@@ -125,7 +124,6 @@ export default {
       vitaboxToken: null,
       vitaboxAddress: null,
       streamToSend: null,
-      streamToShow: null,
       peer: null,
       remotePeerID: null,
       mediaConnection: null,
@@ -352,15 +350,6 @@ export default {
         console.log(stream)
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
         window.stream = stream
-        /* let localView = document.getElementById("localVideo")
-        localView.classList.remove('invisible')
-        localView.classList.add('localView')
-        localView.src = this.streamToShow
-        if(window.URL) {
-          localView.src = window.URL.createObjectURL(this.streamToShow)
-        } else {
-          localView.src = this.streamToShow
-        } */
         let remoteView = document.getElementById("remoteVideo")
         remoteView.classList.remove('invisible')
         remoteView.classList.add('remoteView')
@@ -393,16 +382,10 @@ export default {
         await navigator.getUserMedia({ audio: true, video: true },
           localMediaStream => {
             self.streamToSend = localMediaStream
-          },
-          // callbackError
-          err => { console.log("Error: " + err) })
-        /*this.streamToShow = await navigator.getUserMedia({ audio: true, video: true },
-          localMediaStream => {
-            self.streamToShow = localMediaStream
             callback(true)
           },
           // callbackError
-          err => { console.log("Error: " + err) })*/
+          err => { console.log("Error: " + err) })
       } catch (e) {
         callback(false)
       }
@@ -411,17 +394,10 @@ export default {
       if (this.streamToSend) {
         this.streamToSend.getTracks().forEach(track => track.stop())
       }
-      if (this.streamToShow) {
-        this.streamToShow.getTracks().forEach(track => track.stop())
-      }
       let remoteView = document.getElementById("remoteVideo")
       remoteView.src = null
       remoteView.classList.add('invisible')
       remoteView.classList.remove('remoteView')
-      /* let localView = document.getElementById("localVideo")
-      localView.src = null
-      localView.classList.add('invisible')
-      localView.classList.remove('localView') */
     },
     startCallSound() {
       let ring = new Audio("/static/owl.mp3")
@@ -590,15 +566,6 @@ video {
   width: 30%;
   top: 50%;
   left: 50%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.localView {
-  position: absolute;
-  max-width: 200px;
-  bottom: 5%;
-  left: 5%;
-  z-index: 2;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
