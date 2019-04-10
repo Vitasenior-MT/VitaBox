@@ -379,7 +379,10 @@ export default {
       var self = this
       navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
       try {
-        await navigator.getUserMedia({ audio: true, video: true },
+        await navigator.getUserMedia({ audio: {
+            sampleRate: 48000,
+            channelCount: 2
+          }, video: true },
           localMediaStream => {
             self.streamToSend = localMediaStream
             callback(true)
