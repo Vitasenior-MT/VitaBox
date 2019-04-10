@@ -65,6 +65,10 @@
     "showData": {
       "title": "Sensores Ambientais",
       "text": "Sensores Ambientais."
+    },
+    "videocall": {
+      "title": "Chamada",
+      "text": "Chamada."
     }
   },
   "tooltips": {
@@ -298,10 +302,6 @@
       },
       "wifi": {
         "title": "WIFI",
-        "open": "Abrir"
-      },
-      "videocall": {
-        "title": "Configurações",
         "open": "Abrir"
       },
       "exit": {
