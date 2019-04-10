@@ -67,7 +67,7 @@
                   <span class="fas fa-times iconfontsize" aria-hidden="true"></span>
                 </div>
               </button>
-              <button type="button" class="mybtn stopConn" @click="cancelConnection">
+              <button type="button" class="mybtn stopConn" @click="stopConnection">
                 <div>
                   <span class="fas fa-video-slash iconfontsize" aria-hidden="true"></span>
                 </div>
@@ -390,7 +390,7 @@ export default {
       var self = this
       navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
       try {
-        this.streamToSend = await navigator.getUserMedia({ audio: true, video: true },
+        await navigator.getUserMedia({ audio: true, video: true },
           localMediaStream => {
             self.streamToSend = localMediaStream
           },
