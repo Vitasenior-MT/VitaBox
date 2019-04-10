@@ -396,7 +396,7 @@ export default {
       let remoteView = document.getElementById("remoteVideo")
       remoteView.src = null
       remoteView.classList.add('invisible')
-      remoteView.classList.remove('remoteView')
+      remoteView.classList.remove('remoteView') 
     },
     startCallSound() {
       let ring = new Audio("/static/owl.mp3")
