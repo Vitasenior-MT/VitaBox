@@ -2922,6 +2922,14 @@ video {
   left: 50%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+.localView {
+  position: absolute;
+  max-width: 200px;
+  bottom: 5%;
+  left: 5%;
+  z-index: 2;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 .buttonsView {
   bottom: 7%;
   right: 5%;
@@ -12862,4 +12870,4 @@ textarea.form-control {
     font-size: 12px;
     padding: 20px 0 0; }
 
-/*# sourceMappingURL=app.379aae8038449bb0018df52169f312f2.css.map*/
+/*# sourceMappingURL=app.f750cb0f2d03f239dac467efd24781db.css.map*/
