@@ -2916,11 +2916,10 @@ video {
   height: 0;
 }
 .remoteView {
-  position: absolute;
   max-width: 100%;
+  width: 30%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .localView {
@@ -12871,4 +12870,4 @@ textarea.form-control {
     font-size: 12px;
     padding: 20px 0 0; }
 
-/*# sourceMappingURL=app.45550d05f863c79192a90dc29c71722d.css.map*/
+/*# sourceMappingURL=app.f750cb0f2d03f239dac467efd24781db.css.map*/

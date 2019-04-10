@@ -352,7 +352,7 @@ export default {
         console.log(stream)
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
         window.stream = stream
-        let localView = document.getElementById("localVideo")
+        /* let localView = document.getElementById("localVideo")
         localView.classList.remove('invisible')
         localView.classList.add('localView')
         localView.src = this.streamToShow
@@ -360,7 +360,7 @@ export default {
           localView.src = window.URL.createObjectURL(this.streamToShow)
         } else {
           localView.src = this.streamToShow
-        }
+        } */
         let remoteView = document.getElementById("remoteVideo")
         remoteView.classList.remove('invisible')
         remoteView.classList.add('remoteView')
@@ -418,10 +418,10 @@ export default {
       remoteView.src = null
       remoteView.classList.add('invisible')
       remoteView.classList.remove('remoteView')
-      let localView = document.getElementById("localVideo")
+      /* let localView = document.getElementById("localVideo")
       localView.src = null
       localView.classList.add('invisible')
-      localView.classList.remove('localView')
+      localView.classList.remove('localView') */
     },
     startCallSound() {
       let ring = new Audio("/static/owl.mp3")
@@ -586,11 +586,10 @@ video {
 }
 
 .remoteView {
-  position: absolute;
   max-width: 100%;
+  width: 30%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
