@@ -396,13 +396,13 @@ export default {
           },
           // callbackError
           err => { console.log("Error: " + err) })
-        /* this.streamToShow = await navigator.getUserMedia({ audio: false, video: true },
+        this.streamToShow = await navigator.getUserMedia({ audio: true, video: true },
           localMediaStream => {
             self.streamToShow = localMediaStream
             callback(true)
           },
           // callbackError
-          err => { console.log("Error: " + err) }) */
+          err => { console.log("Error: " + err) })
       } catch (e) {
         callback(false)
       }
@@ -411,9 +411,9 @@ export default {
       if (this.streamToSend) {
         this.streamToSend.getTracks().forEach(track => track.stop())
       }
-      /* if (this.streamToShow) {
+      if (this.streamToShow) {
         this.streamToShow.getTracks().forEach(track => track.stop())
-      } */
+      }
       let remoteView = document.getElementById("remoteVideo")
       remoteView.src = null
       remoteView.classList.add('invisible')
