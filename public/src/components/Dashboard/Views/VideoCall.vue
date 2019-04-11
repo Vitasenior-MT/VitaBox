@@ -343,38 +343,34 @@ export default {
       })
       console.log(this.dataConnections)
     },
+    audioProcessing(stream) {
+      let mediaStreamSource, compressor, filter, context = new (window.AudioContext || window.webkitAudioContext)()
+      compressor = context.createDynamicsCompressor()
+      compressor.threshold.value = -50
+      compressor.knee.value = 40
+      compressor.ratio.value = 12
+      compressor.reduction.value = -20
+      compressor.attack.value = 0
+      compressor.release.value = 0.25
+
+      filter = context.createBiquadFilter()
+      filter.Q.value = 8.30
+      filter.frequency.value = 355
+      filter.gain.value = 3.0
+      filter.type = 'bandpass'
+      filter.connect(compressor)
+
+
+      compressor.connect(context.destination)
+      filter.connect(context.destination)
+
+      mediaStreamSource = context.createMediaStreamSource( stream )
+      return mediaStreamSource.connect( filter )
+    },
     listenMediaConnection() {
       var self = this
-      let audioContext
-      if (typeof AudioContext === 'function') {
-        audioContext = new AudioContext()
-      } else if (typeof webkitAudioContext === 'function') {
-        audioContext = new webkitAudioContext() // eslint-disable-line new-cap
-      } else {
-        console.log('Sorry! Web Audio not supported.')
-      }
-
-      // create a filter node
-      var filterNode = audioContext.createBiquadFilter()
-      // see https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#BiquadFilterNode-section
-      filterNode.type = 'lowpass'
-      // cutoff frequency: for highpass, audio is attenuated below this frequency
-      filterNode.frequency.value = 440
-
-      // create a gain node (to change audio volume)
-      var gainNode = audioContext.createGain()
-      // default is 1 (no change); less than 1 means audio is attenuated
-      // and vice versa
-      gainNode.gain.value = 0.5
       this.mediaConnection.on("stream", stream => {
-
-
-        const mediaStreamSource = audioContext.createMediaStreamSource(stream)
-        mediaStreamSource.connect(filterNode)
-        filterNode.connect(gainNode)
-        // connect the gain node to the destination (i.e. play the sound)
-        gainNode.connect(audioContext.destination)
-
+        let newAudio = audioProcessing(stream)
         console.log('Stream   ---> ')
         console.log(stream)
         stream.getVideoTracks().map( data => {
@@ -384,14 +380,14 @@ export default {
         })
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
         console.log(`Using video device: ${stream.getAudioTracks()[0].label}`);
-        window.stream = gainNode
+        window.stream = newAudio
         let remoteView = document.getElementById("remoteVideo")
         remoteView.classList.remove('invisible')
         remoteView.classList.add('remoteView')
         if(window.URL) {
-          remoteView.src = window.URL.createObjectURL(gainNode)
+          remoteView.src = window.URL.createObjectURL(newAudio)
         } else {
-          remoteView.src = gainNode
+          remoteView.src = newAudio
         }
       })
       this.mediaConnection.on("close", () => {
