@@ -351,6 +351,7 @@ export default {
         stream.getVideoTracks().map( data => {
           console.log('video:')
           console.log(data)
+          data.stop()
         })
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
         console.log(`Using video device: ${stream.getAudioTracks()[0].label}`);
