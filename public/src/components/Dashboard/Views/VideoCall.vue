@@ -386,7 +386,11 @@ export default {
       try {
         await navigator.getUserMedia({ audio: {
             sampleRate: 48000,
-            channelCount: 2
+            sampleSize: 8,
+            channelCount: 1,
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true
           }, video: true },
           localMediaStream => {
             self.streamToSend = localMediaStream
