@@ -389,8 +389,6 @@ export default {
             sampleSize: 8,
             channelCount: 1,
             echoCancellation: true,
-            noiseSuppression: true,
-            autoGainControl: true
           }, video: true },
           localMediaStream => {
             self.streamToSend = localMediaStream
