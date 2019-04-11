@@ -13,7 +13,6 @@
         ppl by
         <a target="_blank">person nº1 </a>.
         Designed by <a target="_blank">person nº2</a>. -->
-      </div>
     </div>
   </footer>
 </template>

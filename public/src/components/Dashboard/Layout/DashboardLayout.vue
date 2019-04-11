@@ -7,7 +7,7 @@
       <img src="static/img/vitasenior-logo-cor-desc3.png" alt="">
     </div>
     <div class="img-help">
-      <img class="ajust-img" src="static/img/tv_remote3.png" alt="">
+      <img class="ajust-img" src="static/img/tv_remote4.png" alt="">
       <div v-show="showHelp" class="img-help-info green"><img style="width: 100%; height: auto;" src="static/img/id.svg" alt=""></div>
     </div>
     <div class="main-panel" id="app" style="background-color: #212120">
