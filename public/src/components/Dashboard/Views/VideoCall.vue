@@ -345,7 +345,36 @@ export default {
     },
     listenMediaConnection() {
       var self = this
+      let audioContext
+      if (typeof AudioContext === 'function') {
+        audioContext = new AudioContext()
+      } else if (typeof webkitAudioContext === 'function') {
+        audioContext = new webkitAudioContext() // eslint-disable-line new-cap
+      } else {
+        console.log('Sorry! Web Audio not supported.')
+      }
+
+      // create a filter node
+      var filterNode = audioContext.createBiquadFilter()
+      // see https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#BiquadFilterNode-section
+      filterNode.type = 'highpass'
+      // cutoff frequency: for highpass, audio is attenuated below this frequency
+      filterNode.frequency.value = 10000
+
+      // create a gain node (to change audio volume)
+      var gainNode = audioContext.createGain()
+      // default is 1 (no change); less than 1 means audio is attenuated
+      // and vice versa
+      gainNode.gain.value = 0.5
       this.mediaConnection.on("stream", stream => {
+
+
+        const mediaStreamSource = audioContext.createMediaStreamSource(stream)
+        mediaStreamSource.connect(filterNode)
+        filterNode.connect(gainNode)
+        // connect the gain node to the destination (i.e. play the sound)
+        gainNode.connect(audioContext.destination)
+
         console.log('Stream   ---> ')
         console.log(stream)
         stream.getVideoTracks().map( data => {
@@ -355,14 +384,14 @@ export default {
         })
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
         console.log(`Using video device: ${stream.getAudioTracks()[0].label}`);
-        window.stream = stream
+        window.stream = gainNode
         let remoteView = document.getElementById("remoteVideo")
         remoteView.classList.remove('invisible')
         remoteView.classList.add('remoteView')
         if(window.URL) {
-          remoteView.src = window.URL.createObjectURL(stream)
+          remoteView.src = window.URL.createObjectURL(gainNode)
         } else {
-          remoteView.src = stream
+          remoteView.src = gainNode
         }
       })
       this.mediaConnection.on("close", () => {
