@@ -348,7 +348,12 @@ export default {
       this.mediaConnection.on("stream", stream => {
         console.log('Stream   ---> ')
         console.log(stream)
+        stream.getVideoTracks().map( data => {
+          console.log('video:')
+          console.log(data)
+        })
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
+        console.log(`Using video device: ${stream.getAudioTracks()[0].label}`);
         window.stream = stream
         let remoteView = document.getElementById("remoteVideo")
         remoteView.classList.remove('invisible')
