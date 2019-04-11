@@ -343,51 +343,25 @@ export default {
       })
       console.log(this.dataConnections)
     },
-    audioProcessing(stream) {
-      let mediaStreamSource, compressor, filter, context = new (window.AudioContext || window.webkitAudioContext)()
-      compressor = context.createDynamicsCompressor()
-      compressor.threshold.value = -50
-      compressor.knee.value = 40
-      compressor.ratio.value = 12
-      compressor.reduction.value = -20
-      compressor.attack.value = 0
-      compressor.release.value = 0.25
-
-      filter = context.createBiquadFilter()
-      filter.Q.value = 8.30
-      filter.frequency.value = 355
-      filter.gain.value = 3.0
-      filter.type = 'bandpass'
-      filter.connect(compressor)
-
-
-      compressor.connect(context.destination)
-      filter.connect(context.destination)
-
-      mediaStreamSource = context.createMediaStreamSource( stream )
-      return mediaStreamSource.connect( filter )
-    },
     listenMediaConnection() {
       var self = this
       this.mediaConnection.on("stream", stream => {
-        let newAudio = audioProcessing(stream)
         console.log('Stream   ---> ')
         console.log(stream)
         stream.getVideoTracks().map( data => {
           console.log('video:')
           console.log(data)
-          data.stop()
         })
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
         console.log(`Using video device: ${stream.getAudioTracks()[0].label}`);
-        window.stream = newAudio
+        window.stream = stream
         let remoteView = document.getElementById("remoteVideo")
         remoteView.classList.remove('invisible')
         remoteView.classList.add('remoteView')
         if(window.URL) {
-          remoteView.src = window.URL.createObjectURL(newAudio)
+          remoteView.src = window.URL.createObjectURL(stream)
         } else {
-          remoteView.src = newAudio
+          remoteView.src = stream
         }
       })
       this.mediaConnection.on("close", () => {
