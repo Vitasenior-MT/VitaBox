@@ -357,9 +357,9 @@ export default {
       // create a filter node
       var filterNode = audioContext.createBiquadFilter()
       // see https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#BiquadFilterNode-section
-      filterNode.type = 'highpass'
+      filterNode.type = 'lowpass'
       // cutoff frequency: for highpass, audio is attenuated below this frequency
-      filterNode.frequency.value = 10000
+      filterNode.frequency.value = 440
 
       // create a gain node (to change audio volume)
       var gainNode = audioContext.createGain()
