@@ -405,7 +405,7 @@ export default {
       biquadFilter.connect(audioCtx.destination)
 
 
-      const mediaRecorder = new MediaRecorder(this.streamToSend)
+      /*const mediaRecorder = new MediaRecorder(this.streamToSend)
       mediaRecorder.start()
 
       const audioChunks = []
@@ -423,7 +423,7 @@ export default {
 
       setTimeout(() => {
         mediaRecorder.stop()
-      }, 3000)
+      }, 3000) */
       callback(true)
     },
     async startCamera(callback) {
