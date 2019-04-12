@@ -433,8 +433,7 @@ export default {
         await navigator.getUserMedia({ audio: true, video: true },
           localMediaStream => {
             self.streamToSend = localMediaStream
-            callback(true)
-            // self.AudioContextSettings(callback)
+            self.AudioContextSettings(callback)
           },
           // callbackError
           err => { console.log("Error: " + err) })
