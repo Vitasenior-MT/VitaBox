@@ -396,7 +396,7 @@ export default {
       var biquadFilter = audioCtx.createBiquadFilter()
       biquadFilter.type = "lowshelf"
       biquadFilter.frequency.value = 1000
-      biquadFilter.gain.value = 4
+      biquadFilter.gain.value = 0.2
 
       // connect the AudioBufferSourceNode to the gainNode
       // and the gainNode to the destination, so we can play the
