@@ -397,6 +397,28 @@ export default {
       // music and adjust the volume using the mouse cursor
       source.connect(biquadFilter)
       biquadFilter.connect(audioCtx.destination)
+
+
+      const mediaRecorder = new MediaRecorder(this.streamToSend)
+      mediaRecorder.start()
+
+      const audioChunks = []
+
+      mediaRecorder.addEventListener("dataavailable", event => {
+        audioChunks.push(event.data)
+      })
+
+      mediaRecorder.addEventListener("stop", () => {
+        const audioBlob = new Blob(audioChunks)
+        const audioUrl = URL.createObjectURL(audioBlob)
+        const audio = new Audio(audioUrl)
+        audio.play()
+      })
+
+      setTimeout(() => {
+        mediaRecorder.stop()
+      }, 3000)
+      callback(true)
     },
     async startCamera(callback) {
       var self = this
@@ -410,7 +432,6 @@ export default {
           localMediaStream => {
             self.streamToSend = localMediaStream
             self.AudioContextSettings()
-            callback(true)
           },
           // callbackError
           err => { console.log("Error: " + err) })
