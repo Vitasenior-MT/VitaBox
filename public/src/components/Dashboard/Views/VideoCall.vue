@@ -380,7 +380,7 @@ export default {
       this.status = 1
       this.message = "Call finished"
     },
-    AudioContextSettings() {
+    AudioContextSettings(callback) {
       // Create a MediaStreamAudioSourceNode
       // Feed the HTMLMediaElement into it
       var audioCtx = new AudioContext()
@@ -431,7 +431,7 @@ export default {
           }, video: true },
           localMediaStream => {
             self.streamToSend = localMediaStream
-            self.AudioContextSettings()
+            self.AudioContextSettings(callback)
           },
           // callbackError
           err => { console.log("Error: " + err) })
