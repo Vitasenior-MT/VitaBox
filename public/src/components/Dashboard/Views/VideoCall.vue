@@ -384,7 +384,7 @@ export default {
       // Create a MediaStreamAudioSourceNode
       // Feed the HTMLMediaElement into it
       var audioCtx = new AudioContext()
-      var source = audioCtx.createMediaStreamSource(self.streamToSend)
+      var source = audioCtx.createMediaStreamSource(this.streamToSend)
 
       // Create a biquadfilter
       var biquadFilter = audioCtx.createBiquadFilter()
