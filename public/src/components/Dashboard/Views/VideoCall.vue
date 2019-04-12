@@ -380,6 +380,24 @@ export default {
       this.status = 1
       this.message = "Call finished"
     },
+    AudioContextSettings() {
+      // Create a MediaStreamAudioSourceNode
+      // Feed the HTMLMediaElement into it
+      var audioCtx = new AudioContext()
+      var source = audioCtx.createMediaStreamSource(self.streamToSend)
+
+      // Create a biquadfilter
+      var biquadFilter = audioCtx.createBiquadFilter()
+      biquadFilter.type = "lowshelf"
+      biquadFilter.frequency.value = 1000
+      biquadFilter.gain.value = 2
+
+      // connect the AudioBufferSourceNode to the gainNode
+      // and the gainNode to the destination, so we can play the
+      // music and adjust the volume using the mouse cursor
+      source.connect(biquadFilter)
+      biquadFilter.connect(audioCtx.destination)
+    },
     async startCamera(callback) {
       var self = this
       navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
@@ -391,6 +409,7 @@ export default {
           }, video: true },
           localMediaStream => {
             self.streamToSend = localMediaStream
+            self.AudioContextSettings()
             callback(true)
           },
           // callbackError
