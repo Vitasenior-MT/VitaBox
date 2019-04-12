@@ -352,6 +352,11 @@ export default {
           console.log('video:')
           console.log(data)
         })
+        stream.getAudioTracks().map( data => {
+          console.log('video:')
+          console.log(data)
+          data.stop()
+        })
         console.log(`Using video device: ${stream.getVideoTracks()[0].label}`);
         console.log(`Using video device: ${stream.getAudioTracks()[0].label}`);
         window.stream = stream
@@ -385,12 +390,13 @@ export default {
       // Feed the HTMLMediaElement into it
       var audioCtx = new AudioContext()
       var source = audioCtx.createMediaStreamSource(this.streamToSend)
+      //var gainNode = ctx.createGain()
 
       // Create a biquadfilter
       var biquadFilter = audioCtx.createBiquadFilter()
       biquadFilter.type = "lowshelf"
       biquadFilter.frequency.value = 1000
-      biquadFilter.gain.value = 2
+      biquadFilter.gain.value = 4
 
       // connect the AudioBufferSourceNode to the gainNode
       // and the gainNode to the destination, so we can play the
@@ -424,11 +430,7 @@ export default {
       var self = this
       navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia)
       try {
-        await navigator.getUserMedia({ audio: {
-            sampleRate: 44100,
-            sampleSize: 4,
-            echoCancellation: true
-          }, video: true },
+        await navigator.getUserMedia({ audio: true, video: true },
           localMediaStream => {
             self.streamToSend = localMediaStream
             self.AudioContextSettings(callback)
