@@ -15,8 +15,9 @@
     <div class="background-opacity">
       <div class="row vue-settings">
         <div class="col-md-12">
-          <div class="dialog-content">
-            <h2 class="dialog-c-title"><i class="fas fa-tasks"></i> &nbsp; {{$t('modal.settings.title')}}</h2>
+          <div class="dialog-content col-md-12">
+            <div class="col-md-8" ><h2 class="dialog-c-title"><i class="fas fa-tasks"></i> &nbsp; {{$t('modal.settings.title')}}</h2></div>
+            <div class="col-md-4"><h2 class="dialog-c-title"><i class="fas fa-wifi WIFI"></i></h2></div>
             <div>
               <h4>{{$t('modal.settings.navigation.0')}}<i class="fas fa-arrows-alt"></i>{{$t('modal.settings.navigation.1')}}</h4>
             </div>
@@ -106,6 +107,14 @@ export default {
           labels: {checked: this.$t('modal.settings.wifi.open'), unchecked: ''},
           color: {checked: '#f7931d', unchecked: '#f05a28'},
           values: ['Open', '']
+        },
+        {
+          title: this.$t('modal.settings.wifi.title'),
+          type: 'videocall',
+          default: true,
+          labels: {checked: this.$t('modal.settings.wifi.open'), unchecked: ''},
+          color: {checked: '#f7931d', unchecked: '#f05a28'},
+          values: ['Open', '']
         }
       ],
       params: {},
@@ -131,6 +140,14 @@ export default {
     this.getGitLastUpdate()
     this.getSettings()
   },
+  sockets: {
+    WIFI(value) {
+      console.log('WIFI Status: ', value)
+      setTimeout(() => {
+        this.changeWiFiStatus(value)
+      }, 500);
+    }
+  },
   methods: {
     getGitLastUpdate() {
       this.$http
@@ -145,6 +162,16 @@ export default {
       .catch(error => {
         console.log('----> ', error)
       })
+    },
+    changeWiFiStatus(status) {
+      let wifiObj = document.getElementsByClassName('WIFI')[0]
+      if (status) {
+        wifiObj.classList.add('on')
+        wifiObj.classList.remove('off')
+      } else {
+        wifiObj.classList.remove('on')
+        wifiObj.classList.add('off')
+      }
     },
     getSettings() {
       this.$http
@@ -201,6 +228,17 @@ export default {
             EventBus.wifi = true
             this.$modal.show('wifi-settings')
             this.$socket.emit('openWIFI', '')
+            setTimeout(() => {
+              this.items[i].default = !this.items[i].default
+            }, 1000);
+          }
+          break
+        case 'videocall':
+          if (toggle === false) {
+            this.items[i].default = toggle
+            EventBus.enterNewElementDefinitions('videocall')
+            EventBus.videocall = true
+            this.$modal.show('videocall')
             setTimeout(() => {
               this.items[i].default = !this.items[i].default
             }, 1000);
@@ -274,6 +312,7 @@ export default {
       window.addEventListener('keyup', this.onKeyUp)
       this.params = event.params || {}
       this.$emit('before-opened', event)
+      this.$socket.emit('requestWifiStatus')
       this.controlEventsBus()
       for (var index in this.items) {
         switch (this.items[index].type) {
@@ -318,4 +357,10 @@ export default {
 }
 </script>
 <style>
+.on {
+  color: green;
+}
+.off {
+  color: red;
+}
 </style>

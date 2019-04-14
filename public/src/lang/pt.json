@@ -332,6 +332,10 @@
         "1": "Saia de casa.",
         "2": ""
       }
+    },
+    "bleblocked": {
+      "message": "Aguarde!",
+      "text": "Aguarde. bracelete em uso."
     }
   }
 }

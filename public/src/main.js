@@ -115,10 +115,12 @@ export const app = new Vue({
         EventBus.notifications = false
         EventBus.wifi = false
         EventBus.settings = false
+        EventBus.bleblocked = false
         EventBus.warnings = true
 
         this.$modal.hide('wifi-settings')
         this.$modal.hide('settings')
+        this.$modal.hide('bleblocked')
         this.$modal.show('alert', '')
         this.$socket.emit('ttsText', this.$t('modal.procedure.warnings.warning'))
         this.$marqueemsg.show('Informação', 'Prima ok para desbloquear a aplicação.', { speed: 15, fontSize: '3vw' })

@@ -67,7 +67,8 @@ module.exports = {
   execludeAmbientSensors: 'temp&&humi', // configuração da lista de exclusão dos avisos dos sensores ambientais na página da aplicação
   ServerBoardWarningConfigs: {  // configuração do servidor de avisos dos sensores
     port: 10000,
-    host: 'fd00::1'
+    host: 'fd00::1',
+    sendingHost: 8002
   },
   ServerBoardRegisterConfigs: { // configuração do servidor de registo dos sensores
     port: 10001,
@@ -94,10 +95,12 @@ module.exports = {
       }
     })(),
     port: 8080,
-    host: '192.168.161.94'
+    host: '192.168.161.153',
+    peerhost: '192.168.161.119',
+    peerport: 8808,
   },
   serverHttp: {
     port: 8080
   },
-  mongodb: 'mongodb://localhost:27017/VitaBoxDev2'
+  mongodb: 'mongodb://localhost:27017/VitaBoxDev3'
 }
