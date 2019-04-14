@@ -30,13 +30,12 @@ module.exports = {
       sec: 0
     }
   },
-  TimersConfig: { // configurações de tempo
+  pingConfig: {
+    site: '1.1.1.1',
+    number: 5
+  },
+  TimersConfig: {
     pressTimer: 500, // tempo ate aceitar a proxima tecla do comando em ms
-    waitingTimeTillNextWarning: { // tempo de espera ate ao proximo aviso
-      hour: 1,
-      min: 0,
-      sec: 0
-    },
     wifiRetry: {
       hour: 0,
       min: 30,
@@ -46,6 +45,11 @@ module.exports = {
       hour: 0,
       min: 0,
       sec: 10
+    },
+    waitingTimeTillNextWarning: {
+      hour: 0,
+      min: 0,
+      sec: 0
     },
     waitingTimeTillCheckForCecIsAlive: { // tempo de espera para verificação da ligação do cec
       hour: 0,

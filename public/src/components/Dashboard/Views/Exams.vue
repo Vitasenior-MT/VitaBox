@@ -561,12 +561,6 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-1">
-                        <figure>
-                          <img src='static/img/cmd.png' alt="" class="img-fit">
-                          <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.0') }}</figcaption>
-                        </figure>
-                      </div>
                       <div class="col-md-3">
                         <figure>
                           <img src='static/img/glucometer3.png' alt="" class="img-fit">
@@ -579,7 +573,7 @@
                           <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.2') }}</figcaption>
                         </figure>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-3">
                         <figure>
                           <img src='static/img/logo_B.png' alt="" class="img-fit">
                           <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.3') }}</figcaption>
