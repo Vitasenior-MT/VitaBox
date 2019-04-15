@@ -403,7 +403,7 @@ export default {
       // music and adjust the volume using the mouse cursor
       source.connect(biquadFilter)
       biquadFilter.connect(audioCtx.destination)
-      this.streamToSend = source
+      // this.streamToSend = source
       callback(true)
     },
     async startCamera(callback) {
