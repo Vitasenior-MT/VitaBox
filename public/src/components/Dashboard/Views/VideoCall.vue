@@ -401,9 +401,9 @@ export default {
       // connect the AudioBufferSourceNode to the gainNode
       // and the gainNode to the destination, so we can play the
       // music and adjust the volume using the mouse cursor
-      this.streamToSend = biquadFilter
-      // source.connect(biquadFilter)
-      // biquadFilter.connect(audioCtx.destination)
+      source.connect(biquadFilter)
+      biquadFilter.connect(audioCtx.destination)
+      this.streamToSend = source
       callback(true)
     },
     async startCamera(callback) {
