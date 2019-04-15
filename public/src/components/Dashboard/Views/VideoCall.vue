@@ -396,34 +396,14 @@ export default {
       var biquadFilter = audioCtx.createBiquadFilter()
       biquadFilter.type = "lowshelf"
       biquadFilter.frequency.value = 1000
-      biquadFilter.gain.value = 0.2
+      biquadFilter.gain = 1
 
       // connect the AudioBufferSourceNode to the gainNode
       // and the gainNode to the destination, so we can play the
       // music and adjust the volume using the mouse cursor
-      source.connect(biquadFilter)
-      biquadFilter.connect(audioCtx.destination)
-
-
-      /*const mediaRecorder = new MediaRecorder(this.streamToSend)
-      mediaRecorder.start()
-
-      const audioChunks = []
-
-      mediaRecorder.addEventListener("dataavailable", event => {
-        audioChunks.push(event.data)
-      })
-
-      mediaRecorder.addEventListener("stop", () => {
-        const audioBlob = new Blob(audioChunks)
-        const audioUrl = URL.createObjectURL(audioBlob)
-        const audio = new Audio(audioUrl)
-        audio.play()
-      })
-
-      setTimeout(() => {
-        mediaRecorder.stop()
-      }, 3000) */
+      this.streamToSend = biquadFilter
+      // source.connect(biquadFilter)
+      // biquadFilter.connect(audioCtx.destination)
       callback(true)
     },
     async startCamera(callback) {
