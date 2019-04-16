@@ -13,5 +13,5 @@ find ${rootFolder}/logs/ -name bandfit_*_stderr.log | grep -v ${rootFolder}/logs
 # border router
 find ${rootFolder}/logs/ -name borderRouter_*_stdout.log | grep -v ${rootFolder}/logs/borderRouter_${today}_stdout.log | grep -v ${rootFolder}/logs/borderRouter_${yesterday}_stdout.log | xargs rm
 find ${rootFolder}/logs/ -name borderRouter_*_stderr.log | grep -v ${rootFolder}/logs/borderRouter_${today}_stderr.log | grep -v ${rootFolder}/logs/borderRouter_${yesterday}_stderr.log | xargs rm
-# enviromentData
-find ${rootFolder}/logs/ -name enviromentData.*.log | grep -v ${rootFolder}/logs/enviromentData.${today}.log | grep -v ${rootFolder}/logs/enviromentData.${yesterday}.log | xargs rm
+# environmentData
+find ${rootFolder}/logs/ -name environmentData.*.log | grep -v ${rootFolder}/logs/environmentData.${today}.log | grep -v ${rootFolder}/logs/environmentData.${yesterday}.log | xargs rm
