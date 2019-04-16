@@ -16,4 +16,4 @@ find ${rootFolder}/logs/ -name borderRouter_*_stderr.log | grep -v ${rootFolder}
 # environmentData
 find ${rootFolder}/logs/ -name environmentData.*.log | grep -v ${rootFolder}/logs/environmentData.${today}.log | grep -v ${rootFolder}/logs/environmentData.${yesterday}.log | xargs rm
 # logs from the SO
-sudo find /var/log/ -type f -regex '.*\.[0-9]+\.gz$' -delete
+find /var/log/ -type f -regex '.*\.[0-9]+\.gz$' -delete
