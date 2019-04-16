@@ -101,8 +101,8 @@ before_reboot(){
 	
 	print_status "Remove unused software."
 	exec_cmd "sudo apt-get purge -y libreoffice wolfram-engine sonic-pi scratch"
-	exec_cmd "sudo apt-get clean"
-	exec_cmd "sudo apt-get autoremove"
+	exec_cmd "sudo apt-get clean -y"
+	exec_cmd "sudo apt-get autoremove -y"
 
 	print_bold \
 	"                         VITASENIOR - VITABOX                         " "\
