@@ -207,7 +207,7 @@ after_reboot(){
 	exec_cmd "cp ${folderVitabox}/Scripts/logManager.txt ${folderVitabox}/ScriptsRun/logManager.sh"
 	exec_cmd "sed -i 's#FOLDERVITABOX#${folderVitabox}#g' ${folderVitabox}/ScriptsRun/logManager.sh"
 	exec_cmd "sudo chmod 755 ${folderVitabox}/ScriptsRun/logManager.sh"
-	exec_cmd "(sudo crontab -l; echo '*/1 * * * * ${folderVitabox}/ScriptsRun/logManager.sh') | sudo crontab -"
+	exec_cmd "(sudo crontab -l; echo '0 5 * * * ${folderVitabox}/ScriptsRun/logManager.sh') | sudo crontab -"
 
 	print_bold \
 	"                         VITASENIOR - VITABOX                         " "\
