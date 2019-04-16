@@ -1,0 +1,17 @@
+#!/bin/bash
+
+rootFolder="FOLDERVITABOX"
+today=`date '+%Y-%m-%d'`
+yesterday=`date --date="1 day ago" '+%Y-%m-%d'`
+# access
+find ${rootFolder}/logs/ -name access.*.log | grep -v ${rootFolder}/logs/access.${today}.log | grep -v ${rootFolder}/logs/access.${yesterday}.log | xargs rm
+# error
+find ${rootFolder}/logs/ -name error.*.log | grep -v ${rootFolder}/logs/error.${today}.log | grep -v ${rootFolder}/logs/error.${yesterday}.log | xargs rm
+# bandfit
+find ${rootFolder}/logs/ -name bandfit_*_stdout.log | grep -v ${rootFolder}/logs/bandfit_${today}_stdout.log | grep -v ${rootFolder}/logs/bandfit_${yesterday}_stdout.log | xargs rm
+find ${rootFolder}/logs/ -name bandfit_*_stderr.log | grep -v ${rootFolder}/logs/bandfit_${today}_stderr.log | grep -v ${rootFolder}/logs/bandfit_${yesterday}_stderr.log | xargs rm
+# border router
+find ${rootFolder}/logs/ -name borderRouter_*_stdout.log | grep -v ${rootFolder}/logs/borderRouter_${today}_stdout.log | grep -v ${rootFolder}/logs/borderRouter_${yesterday}_stdout.log | xargs rm
+find ${rootFolder}/logs/ -name borderRouter_*_stderr.log | grep -v ${rootFolder}/logs/borderRouter_${today}_stderr.log | grep -v ${rootFolder}/logs/borderRouter_${yesterday}_stderr.log | xargs rm
+# enviromentData
+find ${rootFolder}/logs/ -name enviromentData.*.log | grep -v ${rootFolder}/logs/enviromentData.${today}.log | grep -v ${rootFolder}/logs/enviromentData.${yesterday}.log | xargs rm
