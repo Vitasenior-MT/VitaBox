@@ -1,19 +1,20 @@
 #!/bin/bash
 
 rootFolder="FOLDERVITABOX"
-today=`date '+%Y-%m-%d'`
-yesterday=`date --date="1 day ago" '+%Y-%m-%d'`
-# access
-find ${rootFolder}/logs/ -name access.*.log | grep -v ${rootFolder}/logs/access.${today}.log | grep -v ${rootFolder}/logs/access.${yesterday}.log | xargs rm
-# error
-find ${rootFolder}/logs/ -name error.*.log | grep -v ${rootFolder}/logs/error.${today}.log | grep -v ${rootFolder}/logs/error.${yesterday}.log | xargs rm
-# bandfit
-find ${rootFolder}/logs/ -name bandfit_*_stdout.log | grep -v ${rootFolder}/logs/bandfit_${today}_stdout.log | grep -v ${rootFolder}/logs/bandfit_${yesterday}_stdout.log | xargs rm
-find ${rootFolder}/logs/ -name bandfit_*_stderr.log | grep -v ${rootFolder}/logs/bandfit_${today}_stderr.log | grep -v ${rootFolder}/logs/bandfit_${yesterday}_stderr.log | xargs rm
-# border router
-find ${rootFolder}/logs/ -name borderRouter_*_stdout.log | grep -v ${rootFolder}/logs/borderRouter_${today}_stdout.log | grep -v ${rootFolder}/logs/borderRouter_${yesterday}_stdout.log | xargs rm
-find ${rootFolder}/logs/ -name borderRouter_*_stderr.log | grep -v ${rootFolder}/logs/borderRouter_${today}_stderr.log | grep -v ${rootFolder}/logs/borderRouter_${yesterday}_stderr.log | xargs rm
-# environmentData
-find ${rootFolder}/logs/ -name environmentData.*.log | grep -v ${rootFolder}/logs/environmentData.${today}.log | grep -v ${rootFolder}/logs/environmentData.${yesterday}.log | xargs rm
+declare -a files=(${rootFolder}'/logs/access.DATA.log' ${rootFolder}'/logs/error.DATA.log' ${rootFolder}'/logs/bandfit_DATA_stdout.log' ${rootFolder}'/logs/bandfit_DATA_stderr.log' ${rootFolder}'/logs/borderRouter_DATA_stdout.log' ${rootFolder}'/logs/borderRouter_DATA_stderr.log' ${rootFolder}'/logs/environmentData.DATA.log')
+declare -a type=('access.*.log' 'error.*.log' 'bandfit_*_stdout.log' 'bandfit_*_stderr.log' 'borderRouter_*_stdout.log' 'borderRouter_*_stderr.log' 'environmentData.*.log')
+for ((i=1; i<"${#files[@]}"+1; i++));
+do
+  cmd='find '${rootFolder}'/logs/ -name '${type[$i-1]}
+  for j in {0..1}
+  do
+    data=`date --date=${j}" day ago" '+%Y-%m-%d'`
+    echo ${files[$i-1]}  
+    cmd=$cmd' ! -path '${files[$i-1]}
+    cmd=${cmd//DATA/$data}
+  done
+  cmd=$cmd' | xargs rm'
+  echo $cmd 
+done
 # logs from the SO
 find /var/log/ -type f -regex '.*\.[0-9]+\.gz$' -delete
