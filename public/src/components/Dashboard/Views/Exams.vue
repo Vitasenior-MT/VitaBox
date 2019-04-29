@@ -43,19 +43,19 @@
                       <div class="col-md-4">
                         <figure>
                           <img src='static/img/tvremoteok.png' alt="" class="img-fit">
-                          <figcaption>{{ $t('tooltips.diagnosis.exam.title') }}</figcaption>
+                          <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
                         </figure>
                       </div>
                       <div class="col-md-4">
                         <figure>
                           <img src='static/img/bloodpressure.png' alt="" class="img-fit">
-                          <figcaption>{{ $t('diagnosis.user.bloodpressure.fig.0') }}</figcaption>
+                          <h6>{{ $t('diagnosis.user.bloodpressure.fig.0') }}</h6>
                         </figure>
                       </div>
                       <div class="col-md-4">
                         <figure>
                           <img src='static/img/bloodpressure.gif' alt="" class="img-fit">
-                          <figcaption>{{ $t('diagnosis.user.bloodpressure.fig.1') }}</figcaption>
+                          <h6>{{ $t('diagnosis.user.bloodpressure.fig.1') }}</h6>
                         </figure>
                       </div>
                     </div>
