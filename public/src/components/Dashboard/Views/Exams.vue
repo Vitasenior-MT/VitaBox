@@ -42,7 +42,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <figure>
-                          <img src='static/img/tvremoteok.png' alt="" class="img-fit">
+                          <img src='static/img/tvremoteok.png' alt="" width="200" height="300" class="img-fit">
                           <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
                         </figure>
                       </div>
