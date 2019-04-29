@@ -4,7 +4,7 @@
       <div class="col-md-3" v-for="patient in patientsList"  :key='patient.id'>
         <div class="card clear-padding">
           <div class="content">
-            <button v-tooltip.bottom="$t('tooltips.diagnosis.user.title')" class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
+            <button class="btn btn-block btn-info control-remote-patient" type="button" :data-id="patient.id" v-on:click="bleGetListExam(this)">
                 <h5 class="text-div-wrap"><b class="ti-user"> {{ patient.name }}</b></h5>
             </button>
           </div>
@@ -43,10 +43,15 @@
                       <div class="col-md-4">
                         <figure>
                           <img src='static/img/bloodpressure.png' alt="" class="img-fit">
+                          <figcaption>{{ $t('tooltips.diagnosis.exam.title') }}</figcaption>
+                        </figure>
+                      </div>
+                      <div class="col-md-4">
+                        <figure>
+                          <img src='static/img/bloodpressure.png' alt="" class="img-fit">
                           <figcaption>{{ $t('diagnosis.user.bloodpressure.fig.0') }}</figcaption>
                         </figure>
                       </div>
-                      <div class="col-md-4">&nbsp;</div>
                       <div class="col-md-4">
                         <figure>
                           <img src='static/img/bloodpressure.gif' alt="" class="img-fit">
