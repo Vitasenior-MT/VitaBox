@@ -1889,7 +1889,7 @@ export default {
 body {
   overflow-x: hidden;
 }
-.img-fit {
+.img-fit2 {
   width: auto;
   height: 250px;
 }
