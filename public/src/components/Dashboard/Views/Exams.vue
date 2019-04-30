@@ -41,10 +41,10 @@
                   <h4>
                     <div class="row">
                       <div class="col-md-4">
-                        <figure>
+                        <div>
                           <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
                           <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
-                        </figure>
+                        </div>
                       </div>
                       <div class="col-md-4">
                         <figure>
