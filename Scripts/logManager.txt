@@ -1,9 +1,9 @@
 #!/bin/bash
 
 rootFolder="FOLDERVITABOX"
-declare -a files=(${rootFolder}'/logs/access.DATA.log' ${rootFolder}'/logs/error.DATA.log' ${rootFolder}'/logs/bandfit_DATA_stdout.log' ${rootFolder}'/logs/bandfit_DATA_stderr.log' ${rootFolder}'/logs/borderRouter_DATA_stdout.log' ${rootFolder}'/logs/borderRouter_DATA_stderr.log' ${rootFolder}'/logs/environmentData.DATA.log')
-declare -a type=('access.*.log' 'error.*.log' 'bandfit_*_stdout.log' 'bandfit_*_stderr.log' 'borderRouter_*_stdout.log' 'borderRouter_*_stderr.log' 'environmentData.*.log')
-for ((i=1; i<"${#files[@]}"+1; i++));
+declare -a files=(${rootFolder}'/logs/access.DATA.log' ${rootFolder}'/logs/error.DATA.log' ${rootFolder}'/logs/bandfit_DATA_stdout.log' ${rootFolder}'/logs/bandfit_DATA_stderr.log' ${rootFolder}'/logs/borderRouter_DATA_stdout.log' ${rootFolder}'/logs/borderRouter_DATA_stderr.log' ${rootFolder}'/logs/environmentData.DATA.log' ${rootFolder}'/logs/syncVitabox.DATA.log')
+declare -a type=('access.*.log' 'error.*.log' 'bandfit_*_stdout.log' 'bandfit_*_stderr.log' 'borderRouter_*_stdout.log' 'borderRouter_*_stderr.log' 'environmentData.*.log' 'syncVitabox.*.log')
+for ((i=0; i<"${#files[@]}"; i++));
 do
   cmd='find '${rootFolder}'/logs/ -name '${type[$i-1]}
   for j in {0..1}
@@ -14,7 +14,8 @@ do
     cmd=${cmd//DATA/$data}
   done
   cmd=$cmd' | xargs rm'
-  echo $cmd 
+  echo $cmd
+  eval $cmd
 done
 # logs from the SO
 find /var/log/ -type f -regex '.*\.[0-9]+\.gz$' -delete
