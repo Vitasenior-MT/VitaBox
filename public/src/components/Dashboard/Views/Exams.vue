@@ -577,34 +577,22 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <figure>
                           <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
                           <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <figure>
                           <img src='static/img/glucometer3.png' alt="" class="img-fit2">
                           <h6 class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.1') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <figure>
                           <img src='static/img/glucometer2.jpg' alt="" class="img-fit2">
                           <h6 class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.2') }}</h6>
-                        </figure>
-                      </div>
-                      <div class="col-md-3">
-                        <figure>
-                          <img src='static/img/logo_B.png' alt="" class="img-fit2">
-                          <h6 class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.3') }}</h6>
-                        </figure>
-                      </div>
-                      <div class="col-md-3">
-                        <figure>
-                          <img src='static/img/glucometer3.png' alt="" class="img-fit2">
-                          <h6 class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.4') }}</h6>
                         </figure>
                       </div>
                     </div>
