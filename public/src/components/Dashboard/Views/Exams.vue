@@ -135,9 +135,14 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-4">&nbsp;</div>
                       <div class="col-md-4">
-                        <img src='static/img/bodyscale.png' alt="" class="img-fit">
+                        <figure>
+                          <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
+                          <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
+                        </figure>
+                      </div>
+                      <div class="col-md-4">
+                        <img src='static/img/bodyscale.png' alt="" class="img-fit2">
                         <figcaption>{{ $t('diagnosis.user.bodyscale.fig.0') }}</figcaption>
                       </div>
                     </div>
