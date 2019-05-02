@@ -143,7 +143,7 @@
                       </div>
                       <div class="col-md-4">
                         <img src='static/img/bodyscale.png' alt="" class="img-fit2">
-                        <figcaption>{{ $t('diagnosis.user.bodyscale.fig.0') }}</figcaption>
+                        <h6>{{ $t('diagnosis.user.bodyscale.fig.0') }}</h6>
                       </div>
                     </div>
                   </h4>
@@ -364,15 +364,21 @@
                     <div class="row">
                       <div class="col-md-4">
                         <figure>
-                          <img src='static/img/pulse.png' alt="" class="img-fit">
-                          <figcaption>{{ $t('diagnosis.user.bodypulse.fig.0') }}</figcaption>
+                          <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
+                          <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
+                        </figure>
+                      </div>
+                      <div class="col-md-4">
+                        <figure>
+                          <img src='static/img/pulse.png' alt="" class="img-fit2">
+                          <h6>{{ $t('diagnosis.user.bodypulse.fig.0') }}</h6>
                         </figure>
                       </div>
                       <div class="col-md-4">&nbsp;</div>
                       <div class="col-md-4">
                         <figure>
-                          <img src='static/img/pulse.gif' alt="" class="img-fit">
-                          <figcaption>{{ $t('diagnosis.user.bodypulse.fig.1') }}</figcaption>
+                          <img src='static/img/pulse.gif' alt="" class="img-fit2">
+                          <h6>{{ $t('diagnosis.user.bodypulse.fig.1') }}</h6>
                         </figure>
                       </div>
                     </div>
@@ -573,26 +579,32 @@
                     <div class="row">
                       <div class="col-md-3">
                         <figure>
-                          <img src='static/img/glucometer3.png' alt="" class="img-fit">
-                          <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.1') }}</figcaption>
+                          <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
+                          <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
                         </figure>
                       </div>
                       <div class="col-md-3">
                         <figure>
-                          <img src='static/img/glucometer2.jpg' alt="" class="img-fit">
-                          <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.2') }}</figcaption>
+                          <img src='static/img/glucometer3.png' alt="" class="img-fit2">
+                          <h6 class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.1') }}</h6>
                         </figure>
                       </div>
                       <div class="col-md-3">
                         <figure>
-                          <img src='static/img/logo_B.png' alt="" class="img-fit">
-                          <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.3') }}</figcaption>
+                          <img src='static/img/glucometer2.jpg' alt="" class="img-fit2">
+                          <h6 class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.2') }}</h6>
                         </figure>
                       </div>
                       <div class="col-md-3">
                         <figure>
-                          <img src='static/img/glucometer3.png' alt="" class="img-fit">
-                          <figcaption class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.4') }}</figcaption>
+                          <img src='static/img/logo_B.png' alt="" class="img-fit2">
+                          <h6 class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.3') }}</h6>
+                        </figure>
+                      </div>
+                      <div class="col-md-3">
+                        <figure>
+                          <img src='static/img/glucometer3.png' alt="" class="img-fit2">
+                          <h6 class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.4') }}</h6>
                         </figure>
                       </div>
                     </div>
@@ -1745,8 +1757,8 @@ export default {
               }
               let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
+              self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               if (moveFirstTime) {
-                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
               if (self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
