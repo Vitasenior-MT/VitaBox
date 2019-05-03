@@ -39,19 +39,19 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-4 img1">
                         <figure>
                           <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
                           <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4 img2">
                         <figure>
                           <img src='static/img/bloodpressure.png' alt="" class="img-fit2">
                           <h6>{{ $t('diagnosis.user.bloodpressure.fig.0') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4 img3">
                         <figure>
                           <img src='static/img/bloodpressure.gif' alt="" class="img-fit2">
                           <h6>{{ $t('diagnosis.user.bloodpressure.fig.1') }}</h6>
@@ -691,6 +691,7 @@ export default {
       posPatientSelected: -1,
       patientsList: [],
       patientId: '',
+      index: 0,
       btnExams: [],
       // definição do ojecto para medir a pressão arterial
       dataPressArt: {
@@ -894,6 +895,9 @@ export default {
   },
   sockets: {
     audioPlayer(data) {
+      EventBus.soundTTS(data)
+    },
+    ttsPathSteps(data) {
       EventBus.soundTTS(data)
     },
     bloodglucoseFim: function(data) {
@@ -1341,8 +1345,8 @@ export default {
     }
   },
   methods: {
-    audioPlayer(dataset) {
-      let i = 0
+    audioPlayer(dataset, index) {
+      /*let i = 0
       let text = ''
       if (dataset.type) {
         while (true) {
@@ -1357,7 +1361,32 @@ export default {
       } else {
         text = this.$t('dictionary.press_user')
       }
-      EventBus.soundTTS(text)
+      EventBus.soundTTSteps(text)*/
+      let text = ''
+      if (dataset.type) {
+        if (this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + index) {
+          text.substring(0, text.length - 1);
+          break;
+        } else {
+          text += this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index) + ' '
+        }
+        this.index++
+      } else {
+        text = this.$t('dictionary.press_user')
+      }
+      EventBus.soundTTSteps(text)
+    },
+    soundTTSteps: function(path) {
+      var self = this
+      if (document.getElementById('audioElem')) {
+        document.getElementById('audioElem').remove()
+      }
+      document.getElementsByClassName('img' + this.index).classList.add('img-border-selected')
+      EventBus.audioBasicMode('./static/.temp/' + path, () => {
+        console.log('audio end next')
+        document.getElementsByClassName('img' + this.index).classList.remove('img-border-selected')
+        this.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
+      })
     },
     bleGetListExam(btnPatient) {
       this.patientId = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.id
@@ -1896,6 +1925,10 @@ body {
 .img-fit2 {
   width: auto;
   height: 250px;
+}
+.img-border-selected {
+  border-style: solid;
+  border-color: black;
 }
 .text-div-wrap {
   white-space: pre-line;
