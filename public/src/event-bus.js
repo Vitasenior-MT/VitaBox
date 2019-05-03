@@ -194,9 +194,9 @@ export const EventBus = new Vue({
         this.$socket.emit('ttsText', text)
       }
     },
-    soundTTS: function(text) {
+    soundTTSteps: function(text) {
       if (this.flg_sound) {
-        this.$socket.emit('ttsTextPath', text)
+        this.$socket.emit('ttsTextSteps', text)
       }
     },
     audioBasicMode: function(path, callback) {
