@@ -903,6 +903,8 @@ export default {
         document.getElementById('audioElem').remove()
       }
       var data = document.getElementsByClassName('img' + self.index + 1)[0]
+      console.log('img' + self.index + 1)
+      console.log(data)
       if(data) {
         data.classList.add('img-border-selected')
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
