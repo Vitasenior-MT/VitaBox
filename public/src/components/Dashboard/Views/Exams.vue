@@ -1361,8 +1361,8 @@ export default {
     }
   },
   methods: {
-    audioPlayer(dataset, index) {
-      /*let i = 0
+    audioPlayer(dataset) {
+      let i = 0
       let text = ''
       if (dataset.type) {
         while (true) {
@@ -1377,7 +1377,9 @@ export default {
       } else {
         text = this.$t('dictionary.press_user')
       }
-      EventBus.soundTTSteps(text)*/
+      EventBus.soundTTSteps(text)
+    },
+    audioPlayer(dataset, index) {
       let text = ''
       if (dataset.type) {
         if (this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + index) {
@@ -1723,7 +1725,11 @@ export default {
                 self.flg_once = true
                 setTimeout(() => {
                   // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
-                  self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
+                  if(document.getElementsByClassName('img1')[0]){
+                    self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
+                  } else {
+                    self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+                  }
                 }, 300);
               }
               if (!self.posPatientSelected >= 0) {
@@ -1776,7 +1782,11 @@ export default {
               }
               let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
-              self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, self.index)
+              if(document.getElementsByClassName('img1')[0]){
+                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
+              } else {
+                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+              }
               if (moveFirstTime) {
               }
               if (self.posPatientSelected >= 0) {
