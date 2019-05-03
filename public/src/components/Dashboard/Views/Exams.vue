@@ -1366,7 +1366,6 @@ export default {
       if (dataset.type) {
         if (this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + index) {
           text.substring(0, text.length - 1);
-          break;
         } else {
           text += this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index) + ' '
         }
