@@ -1720,7 +1720,7 @@ export default {
             case 'ok_btn':
               self.index = 0
               if(document.getElementsByClassName('img-border-selected')[0]) {
-                document.getElementsByClassName('img-border-selected')[0].remove('img-border-selected')
+                document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
               }
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
@@ -1744,7 +1744,7 @@ export default {
             case 'exit':
               self.index = 0
               if(document.getElementsByClassName('img-border-selected')[0]) {
-                document.getElementsByClassName('img-border-selected')[0].remove('img-border-selected')
+                document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
               }
               EventBus.removeAudio()
               // iniicializa a variavel para selecionar a lsta do user
@@ -1787,7 +1787,7 @@ export default {
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               self.index = 0
               if(document.getElementsByClassName('img-border-selected')[0]) {
-                document.getElementsByClassName('img-border-selected')[0].remove('img-border-selected')
+                document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
               }
               if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
                 return EventBus.$emit('move-components', 'exit')
