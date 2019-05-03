@@ -902,10 +902,10 @@ export default {
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
       }
-      document.getElementsByClassName('img' + self.index + 1).classList.add('img-border-selected')
+      document.getElementsByClassName('img' + self.index + 1)[0].classList.add('img-border-selected')
       EventBus.audioBasicMode('./static/.temp/' + path, () => {
         console.log('audio end next')
-        document.getElementsByClassName('img' + self.index).classList.remove('img-border-selected')
+        document.getElementsByClassName('img' + self.index)[0].classList.remove('img-border-selected')
         self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
       })
     },
