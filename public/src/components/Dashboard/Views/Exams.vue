@@ -902,12 +902,17 @@ export default {
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
       }
-      document.getElementsByClassName('img' + self.index + 1)[0].classList.add('img-border-selected')
-      EventBus.audioBasicMode('./static/.temp/' + path, () => {
-        console.log('audio end next')
-        document.getElementsByClassName('img' + self.index)[0].classList.remove('img-border-selected')
-        self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
-      })
+      var data = document.getElementsByClassName('img' + self.index + 1)[0]
+      if(data) {
+        data.classList.add('img-border-selected')
+        EventBus.audioBasicMode('./static/.temp/' + path, () => {
+          console.log('audio end next')
+          data.classList.remove('img-border-selected')
+          self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
+        })
+      } else {
+        EventBus.audioBasicMode('./static/.temp/' + path,null)
+      }
     },
     bloodglucoseFim: function(data) {
       let resData = data
