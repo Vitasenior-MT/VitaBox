@@ -1375,7 +1375,7 @@ export default {
       }
       EventBus.soundTTSteps(text)
     },
-    soundTTSteps: function(path) {
+    ttsPathSteps: function(path) {
       var self = this
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
