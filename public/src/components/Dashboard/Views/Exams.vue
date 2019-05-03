@@ -902,7 +902,7 @@ export default {
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
       }
-      document.getElementsByClassName('img' + this.index).classList.add('img-border-selected')
+      document.getElementsByClassName('img' + this.index + 1).classList.add('img-border-selected')
       EventBus.audioBasicMode('./static/.temp/' + path, () => {
         console.log('audio end next')
         document.getElementsByClassName('img' + self.index).classList.remove('img-border-selected')
