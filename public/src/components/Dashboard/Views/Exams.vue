@@ -16,7 +16,6 @@
         <div class="card clear-padding">
           <div class="content">
             <button
-              v-tooltip.bottom="$t('tooltips.diagnosis.exam.title')"
               class="btn btn-block btn-success control-remote min-height"
               type="button"
               :data-type="btn.type"
