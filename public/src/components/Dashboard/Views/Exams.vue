@@ -1719,7 +1719,9 @@ export default {
             // evento do 'OK'
             case 'ok_btn':
               self.index = 0
-              document.getElementsByClassName('img-border-selected')[0].remove('img-border-selected')
+              if(document.getElementsByClassName('img-border-selected')[0]) {
+                document.getElementsByClassName('img-border-selected')[0].remove('img-border-selected')
+              }
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
@@ -1741,7 +1743,9 @@ export default {
             // evento para sair para a sidebar ou para a lista anterior
             case 'exit':
               self.index = 0
-              document.getElementsByClassName('img-border-selected')[0].remove('img-border-selected')
+              if(document.getElementsByClassName('img-border-selected')[0]) {
+                document.getElementsByClassName('img-border-selected')[0].remove('img-border-selected')
+              }
               EventBus.removeAudio()
               // iniicializa a variavel para selecionar a lsta do user
               self.classEvent = 'control-remote-patient'
@@ -1782,7 +1786,9 @@ export default {
             case 'left': // tecla para a esquerda
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               self.index = 0
-              document.getElementsByClassName('img-border-selected')[0].remove('img-border-selected')
+              if(document.getElementsByClassName('img-border-selected')[0]) {
+                document.getElementsByClassName('img-border-selected')[0].remove('img-border-selected')
+              }
               if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
                 return EventBus.$emit('move-components', 'exit')
               }
