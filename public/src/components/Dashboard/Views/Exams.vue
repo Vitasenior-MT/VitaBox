@@ -897,8 +897,17 @@ export default {
     audioPlayer(data) {
       EventBus.soundTTS(data)
     },
-    ttsPathSteps(data) {
-      EventBus.soundTTS(data)
+    ttsPathSteps: function(path) {
+      var self = this
+      if (document.getElementById('audioElem')) {
+        document.getElementById('audioElem').remove()
+      }
+      document.getElementsByClassName('img' + this.index).classList.add('img-border-selected')
+      EventBus.audioBasicMode('./static/.temp/' + path, () => {
+        console.log('audio end next')
+        document.getElementsByClassName('img' + self.index).classList.remove('img-border-selected')
+        self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
+      })
     },
     bloodglucoseFim: function(data) {
       let resData = data
@@ -1375,18 +1384,6 @@ export default {
       }
       EventBus.soundTTSteps(text)
     },
-    ttsPathSteps: function(path) {
-      var self = this
-      if (document.getElementById('audioElem')) {
-        document.getElementById('audioElem').remove()
-      }
-      document.getElementsByClassName('img' + this.index).classList.add('img-border-selected')
-      EventBus.audioBasicMode('./static/.temp/' + path, () => {
-        console.log('audio end next')
-        document.getElementsByClassName('img' + this.index).classList.remove('img-border-selected')
-        this.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
-      })
-    },
     bleGetListExam(btnPatient) {
       this.patientId = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.id
       this.posPatientSelected = EventBus.currentActiveRightComp
@@ -1719,7 +1716,7 @@ export default {
                 self.flg_once = true
                 setTimeout(() => {
                   // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
-                  self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
+                  self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
                 }, 300);
               }
               if (!self.posPatientSelected >= 0) {
@@ -1772,7 +1769,7 @@ export default {
               }
               let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
-              self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+              self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, self.index)
               if (moveFirstTime) {
               }
               if (self.posPatientSelected >= 0) {
