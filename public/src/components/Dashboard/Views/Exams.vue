@@ -904,23 +904,19 @@ export default {
       }
       var data = document.getElementsByClassName('img' + (self.index - 1))[0]
       console.log('img' + (self.index - 1))
-      if (document.getElementsByClassName('control-remote btn-fill')[0].dataset) {
-        if(data) {
-          data.classList.add('img-border-selected')
-          data.classList.remove('img-border')
-          EventBus.audioBasicMode('./static/.temp/' + path, () => {
-            console.log('audio end next')
-            data.classList.remove('img-border-selected')
-            data.classList.add('img-border')
-            self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
-          })
-        } else {
-          EventBus.audioBasicMode('./static/.temp/' + path, () => {
-            self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
-          })
-        }
+      if(data) {
+        data.classList.add('img-border-selected')
+        data.classList.remove('img-border')
+        EventBus.audioBasicMode('./static/.temp/' + path, () => {
+          console.log('audio end next')
+          data.classList.remove('img-border-selected')
+          data.classList.add('img-border')
+          self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
+        })
       } else {
-        EventBus.audioBasicMode('./static/.temp/' + path,null)
+        EventBus.audioBasicMode('./static/.temp/' + path, () => {
+          self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
+        })
       }
     },
     bloodglucoseFim: function(data) {
