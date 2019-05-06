@@ -906,12 +906,16 @@ export default {
       console.log('img' + (self.index + 1))
       console.log(data)
       if(data) {
-        data.classList.add('img-border-selected')
-        data.classList.remove('img-border')
+        if(self.index !== 0){
+          data.classList.add('img-border-selected')
+          data.classList.remove('img-border')
+        }
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
           console.log('audio end next')
-          data.classList.remove('img-border-selected')
-          data.classList.add('img-border')
+          if(self.index !== 0){
+            data.classList.remove('img-border-selected')
+            data.classList.add('img-border')
+          }
           self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
         })
       } else {
