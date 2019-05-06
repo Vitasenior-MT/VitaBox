@@ -902,7 +902,7 @@ export default {
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
       }
-      var data = document.getElementsByClassName('img' + self.index)[0]
+      var data = document.getElementsByClassName('img' + (self.index - 1))[0]
       console.log('img' + (self.index))
       if(data) {
         data.classList.add('img-border-selected')
