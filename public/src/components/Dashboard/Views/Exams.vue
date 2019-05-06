@@ -1962,7 +1962,7 @@ body {
 }
 .img-border {
   border-style: solid;
-  border-color: white;
+  border-color: rgba(0,0,0,0);
 }
 .text-div-wrap {
   white-space: pre-line;
