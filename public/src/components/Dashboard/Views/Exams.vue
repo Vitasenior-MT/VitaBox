@@ -907,7 +907,7 @@ export default {
       console.log(data)
       if(data) {
         data.classList.add('img-border-selected')
-        v.classList.remove('img-border')
+        data.classList.remove('img-border')
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
           console.log('audio end next')
           data.classList.remove('img-border-selected')
