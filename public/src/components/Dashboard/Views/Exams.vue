@@ -906,13 +906,13 @@ export default {
       console.log('img' + (self.index + 1))
       console.log(data)
       if(data) {
-        if(self.index !== 0){
+        if(self.index !== 1){
           data.classList.add('img-border-selected')
           data.classList.remove('img-border')
         }
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
           console.log('audio end next')
-          if(self.index !== 0){
+          if(self.index !== 1){
             data.classList.remove('img-border-selected')
             data.classList.add('img-border')
           }
