@@ -39,19 +39,19 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-4 img1">
+                      <div class="col-md-4 img1 img-border">
                         <figure>
                           <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
                           <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-4 img2">
+                      <div class="col-md-4 img2 img-border">
                         <figure>
                           <img src='static/img/bloodpressure.png' alt="" class="img-fit2">
                           <h6>{{ $t('diagnosis.user.bloodpressure.fig.0') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-4 img3">
+                      <div class="col-md-4 img3 img-border">
                         <figure>
                           <img src='static/img/bloodpressure.gif' alt="" class="img-fit2">
                           <h6>{{ $t('diagnosis.user.bloodpressure.fig.1') }}</h6>
@@ -907,9 +907,11 @@ export default {
       console.log(data)
       if(data) {
         data.classList.add('img-border-selected')
+        v.classList.remove('img-border')
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
           console.log('audio end next')
           data.classList.remove('img-border-selected')
+          data.classList.add('img-border')
           self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
         })
       } else {
@@ -1721,6 +1723,7 @@ export default {
               self.index = 0
               if(document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
+                document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
               }
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
@@ -1745,6 +1748,7 @@ export default {
               self.index = 0
               if(document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
+                document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
               }
               EventBus.removeAudio()
               // iniicializa a variavel para selecionar a lsta do user
@@ -1788,6 +1792,7 @@ export default {
               self.index = 0
               if(document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
+                document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
               }
               if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
                 return EventBus.$emit('move-components', 'exit')
@@ -1954,6 +1959,10 @@ body {
 .img-border-selected {
   border-style: solid;
   border-color: black;
+}
+.img-border {
+  border-style: solid;
+  border-color: white;
 }
 .text-div-wrap {
   white-space: pre-line;

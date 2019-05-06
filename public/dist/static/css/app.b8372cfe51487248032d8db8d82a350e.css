@@ -957,6 +957,10 @@ body {
   border-style: solid;
   border-color: black;
 }
+.img-border {
+  border-style: solid;
+  border-color: white;
+}
 .text-div-wrap {
   white-space: pre-line;
 }
@@ -12330,4 +12334,4 @@ textarea.form-control {
     font-size: 12px;
     padding: 20px 0 0; }
 
-/*# sourceMappingURL=app.9c94573b00638db6e8ee2ccc3d7aac22.css.map*/
+/*# sourceMappingURL=app.b8372cfe51487248032d8db8d82a350e.css.map*/
