@@ -1805,16 +1805,16 @@ export default {
               }
               let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
-              if (EventBus.elementControl.length > 1 || moveFirstTime) {
+              /*if (EventBus.elementControl.length > 1 || moveFirstTime) {
                 if (document.getElementsByClassName('control-remote btn-fill')[0]) {
                   self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
                 } else {
                   self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
                 }
+              }*/
+              if (EventBus.elementControl.length > 1 || moveFirstTime) {
+                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
-              // if (EventBus.elementControl.length > 1 || moveFirstTime) {
-                // self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-              // }
               if (self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
