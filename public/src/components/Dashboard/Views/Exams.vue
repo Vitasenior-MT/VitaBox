@@ -39,19 +39,19 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-4 img1 img-border">
+                      <div class="col-md-4 img1_bloodpressure img-border">
                         <figure>
                           <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
                           <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-4 img2 img-border">
+                      <div class="col-md-4 img2_bloodpressure img-border">
                         <figure>
                           <img src='static/img/bloodpressure.png' alt="" class="img-fit2">
                           <h6>{{ $t('diagnosis.user.bloodpressure.fig.0') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-4 img3 img-border">
+                      <div class="col-md-4 img3_bloodpressure img-border">
                         <figure>
                           <img src='static/img/bloodpressure.gif' alt="" class="img-fit2">
                           <h6>{{ $t('diagnosis.user.bloodpressure.fig.1') }}</h6>
@@ -134,13 +134,13 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-4 img1 img-border">
+                      <div class="col-md-4 img1_bodyscale img-border">
                         <figure>
                           <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
                           <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-4 img2 img-border">
+                      <div class="col-md-4 img2_bodyscale img-border">
                         <img src='static/img/bodyscale.png' alt="" class="img-fit2">
                         <h6>{{ $t('diagnosis.user.bodyscale.fig.0') }}</h6>
                       </div>
@@ -576,19 +576,19 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-4 img1 img-border">
+                      <div class="col-md-4 img1_bloodglucose img-border">
                         <figure>
                           <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
                           <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-4 img2 img-border">
+                      <div class="col-md-4 img2_bloodglucose img-border">
                         <figure>
                           <img src='static/img/glucometer3.png' alt="" class="img-fit2">
                           <h6 class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.1') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-4 img3 img-border">
+                      <div class="col-md-4 img3_bloodglucose img-border">
                         <figure>
                           <img src='static/img/glucometer2.jpg' alt="" class="img-fit2">
                           <h6 class="text-div-wrap">{{ $t('diagnosis.user.bloodglucose.fig.2') }}</h6>
@@ -904,6 +904,7 @@ export default {
       }
       var data = document.getElementsByClassName('img' + (self.index - 1))[0]
       console.log('img' + (self.index - 1))
+      console.log(data)
       if(data) {
         data.classList.add('img-border-selected')
         data.classList.remove('img-border')
