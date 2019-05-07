@@ -1752,7 +1752,7 @@ export default {
             // evento para sair para a sidebar ou para a lista anterior
             case 'exit':
               self.index = 0
-              if(document.getElementsByClassName('img-border-selected')[0]) {
+              if (document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
               }
@@ -1811,7 +1811,7 @@ export default {
               let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
               if (moveFirstTime) {
-                }
+              }
               if (self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
