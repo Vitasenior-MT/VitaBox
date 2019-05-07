@@ -1813,13 +1813,6 @@ export default {
                 return EventBus.$emit('move-components', 'exit')
               }
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
-              if (EventBus.elementControl.length > 1 || moveFirstTime) {
-                if (document.getElementsByClassName('control-remote btn-fill')[0]) {
-                  self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
-                } else {
-                  self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-                }
-              }
               if (document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
@@ -1832,6 +1825,13 @@ export default {
                 document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
+              }
+              if (EventBus.elementControl.length > 1 || moveFirstTime) {
+                if (document.getElementsByClassName('control-remote btn-fill')[0]) {
+                  self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
+                } else {
+                  self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+                }
               }
               break
             default:
