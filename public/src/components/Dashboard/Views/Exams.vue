@@ -929,6 +929,7 @@ export default {
             }
           } else {
             self.cancel = false
+            return
           }
         })
       }
@@ -1808,14 +1809,10 @@ export default {
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               self.index = 0
               self.cancel = false
-              if (document.getElementsByClassName('img-border-selected')[0]) {
-                document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
-                document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
-              }
+              let moveFirstTime = EventBus.firstRightEvent
               if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
                 return EventBus.$emit('move-components', 'exit')
               }
-              let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
               if (EventBus.elementControl.length > 1 || moveFirstTime) {
                 if (document.getElementsByClassName('control-remote btn-fill')[0]) {
@@ -1824,9 +1821,10 @@ export default {
                   self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
                 }
               }
-              /* if (EventBus.elementControl.length > 1 || moveFirstTime) {
-                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-              } */
+              if (document.getElementsByClassName('img-border-selected')[0]) {
+                document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
+                document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
+              }
               if (self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
