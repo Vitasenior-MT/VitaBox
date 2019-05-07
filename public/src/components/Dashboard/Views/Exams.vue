@@ -1805,11 +1805,11 @@ export default {
               }
               let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
-              if(document.getElementsByClassName('img1')[0]){
+              /*if(document.getElementsByClassName('img1')[0]){
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
               } else {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-              }
+              }*/
               if (moveFirstTime) {
               }
               if (self.posPatientSelected >= 0) {
