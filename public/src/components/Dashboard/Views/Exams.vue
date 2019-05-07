@@ -1796,11 +1796,6 @@ export default {
             case 'left': // tecla para a esquerda
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               self.index = 0
-              if (document.getElementsByClassName('control-remote btn-fill')[0]) {
-                self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
-              } else {
-                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-              }
               if (document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
@@ -1810,7 +1805,12 @@ export default {
               }
               let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
-              if (moveFirstTime) {
+              if (EventBus.elementControl.length > 1 || moveFirstTime) {
+                if (document.getElementsByClassName('control-remote btn-fill')[0]) {
+                  self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
+                } else {
+                  self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+                }
               }
               // if (EventBus.elementControl.length > 1 || moveFirstTime) {
                 // self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
