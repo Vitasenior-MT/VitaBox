@@ -914,12 +914,12 @@ export default {
           console.log('audio end next')
           data.classList.remove('img-border-selected')
           data.classList.add('img-border')
-          self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
+          self.audioPlayer2(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
         })
       } else {
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
           if (document.getElementsByClassName('control-remote btn-fill')[0]) {
-            self.audioPlayer(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
+            self.audioPlayer2(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
           }
         })
       }
@@ -1387,7 +1387,7 @@ export default {
       }
       EventBus.soundTTSteps(text)
     },
-    audioPlayer(dataset, index) {
+    audioPlayer2(dataset, index) {
       let text = ''
       if (dataset.type) {
         if (this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + index) {
@@ -1739,7 +1739,7 @@ export default {
                 setTimeout(() => {
                   // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
                   if (document.getElementsByClassName('control-remote btn-fill')[0]) {
-                    self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
+                    self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
                   } else {
                     self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
                   }
@@ -1796,6 +1796,11 @@ export default {
             case 'left': // tecla para a esquerda
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               self.index = 0
+              if (document.getElementsByClassName('control-remote btn-fill')[0]) {
+                self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
+              } else {
+                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+              }
               if (document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
@@ -1815,11 +1820,6 @@ export default {
                 document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
-              }
-              if (document.getElementsByClassName('control-remote btn-fill')[0]) {
-                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
-              } else {
-                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
               break
             default:
