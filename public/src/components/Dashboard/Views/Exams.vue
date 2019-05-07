@@ -1738,7 +1738,7 @@ export default {
                 self.flg_once = true
                 setTimeout(() => {
                   // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
-                  if(document.getElementsByClassName('img1')[0]){
+                  if (document.getElementsByClassName('img1_' + document.getElementsByClassName('control-remote btn-fill')[0].dataset.type)[0]) {
                     self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
                   } else {
                     self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
@@ -1805,7 +1805,7 @@ export default {
               }
               let moveFirstTime = EventBus.firstRightEvent
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
-              if(document.getElementsByClassName('img1')[0]){
+              if (document.getElementsByClassName('img1_' + document.getElementsByClassName('control-remote btn-fill')[0].dataset.type)[0]) {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
               } else {
                 self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
