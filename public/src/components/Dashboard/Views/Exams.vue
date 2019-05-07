@@ -1762,7 +1762,7 @@ export default {
             // evento para sair para a sidebar ou para a lista anterior
             case 'exit':
               self.index = 0
-              self.cancel = false
+              self.cancel = true
               if (document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
@@ -1807,6 +1807,7 @@ export default {
             case 'left': // tecla para a esquerda
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               self.index = 0
+              self.cancel = false
               if (document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
@@ -1818,7 +1819,6 @@ export default {
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
               if (EventBus.elementControl.length > 1 || moveFirstTime) {
                 if (document.getElementsByClassName('control-remote btn-fill')[0]) {
-                  self.cancel = true
                   self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
                 } else {
                   self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
