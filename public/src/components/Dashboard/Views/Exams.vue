@@ -692,6 +692,7 @@ export default {
       patientsList: [],
       patientId: '',
       index: 0,
+      cancel: false,
       btnExams: [],
       // definição do ojecto para medir a pressão arterial
       dataPressArt: {
@@ -912,14 +913,18 @@ export default {
         data.classList.remove('img-border')
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
           console.log('audio end next')
-          data.classList.remove('img-border-selected')
-          data.classList.add('img-border')
-          self.audioPlayer2(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
+          if (!self.cancel) {
+            data.classList.remove('img-border-selected')
+            data.classList.add('img-border')
+            self.audioPlayer2(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
+          }
         })
       } else {
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
           if (document.getElementsByClassName('control-remote btn-fill')[0]) {
-            self.audioPlayer2(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
+            if (!self.cancel) {
+              self.audioPlayer2(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
+            }
           }
         })
       }
@@ -1727,6 +1732,7 @@ export default {
             // evento do 'OK'
             case 'ok_btn':
               self.index = 0
+              self.cancel = false
               if (document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
@@ -1752,6 +1758,7 @@ export default {
             // evento para sair para a sidebar ou para a lista anterior
             case 'exit':
               self.index = 0
+              self.cancel = false
               if (document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
@@ -1796,6 +1803,7 @@ export default {
             case 'left': // tecla para a esquerda
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('on-shadow')
               self.index = 0
+              self.cancel = true
               if (document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
