@@ -924,12 +924,11 @@ export default {
       } else {
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
           if (document.getElementsByClassName('control-remote btn-fill')[0]) {
-            if (!self.cancel) {
-              self.audioPlayer2(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
+            if (self.cancel) {
+              self.cancel = false
+              return
             }
-          } else {
-            self.cancel = false
-            return
+            self.audioPlayer2(document.getElementsByClassName('control-remote btn-fill')[0].dataset, self.index)
           }
         })
       }
