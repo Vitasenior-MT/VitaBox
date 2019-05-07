@@ -1812,6 +1812,9 @@ export default {
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
               if (moveFirstTime) {
               }
+              // if (EventBus.elementControl.length > 1 || moveFirstTime) {
+                // self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+              // }
               if (self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
