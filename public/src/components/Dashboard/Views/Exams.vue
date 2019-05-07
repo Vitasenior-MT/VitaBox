@@ -902,10 +902,10 @@ export default {
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
       }
-      var data = document.getElementsByClassName('img' + (self.index - 1))[0]
-      console.log('img' + (self.index - 1))
       if (document.getElementsByClassName('control-remote btn-fill')[0]) {
-        console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
+        var data = document.getElementsByClassName('img' + (self.index - 1) + '_' + document.getElementsByClassName('control-remote btn-fill')[0].dataset.type)[0]
+        console.log('img' + (self.index - 1))
+        console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset.type)
       }
       if (data) {
         data.classList.add('img-border-selected')
