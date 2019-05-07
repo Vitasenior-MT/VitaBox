@@ -904,7 +904,9 @@ export default {
       }
       var data = document.getElementsByClassName('img' + (self.index - 1))[0]
       console.log('img' + (self.index - 1))
-      console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
+      if(document.getElementsByClassName('control-remote btn-fill')[0]){
+        console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
+      }
       if(data) {
         data.classList.add('img-border-selected')
         data.classList.remove('img-border')
