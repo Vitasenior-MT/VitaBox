@@ -6,7 +6,7 @@ module.exports = {
   coapConfigs: { // configuração de pedidos dos valores aos sensores
     rate: {
       hour: 0,
-      min: 1,
+      min: 15,
       sec: 0
     },
     warningArraySize: 5,
