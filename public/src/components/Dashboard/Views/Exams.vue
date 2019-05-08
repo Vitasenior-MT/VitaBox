@@ -1826,7 +1826,7 @@ export default {
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
               }
-              if (EventBus.elementControl.length > 1 || moveFirstTime) {
+              if (moveFirstTime) {
                 if (document.getElementsByClassName('control-remote btn-fill')[0]) {
                   self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
                 } else {
