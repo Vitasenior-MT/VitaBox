@@ -1821,6 +1821,8 @@ export default {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
                 self.examMac = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.addrmac
+                console.log(self.examEvent)
+                console.log(self.examMac)
               } else {
                 document.getElementsByClassName('btnUsers')[0].scrollIntoView(false)
                 self.$refs.DefaultView.setMsg(self.msgUser)
