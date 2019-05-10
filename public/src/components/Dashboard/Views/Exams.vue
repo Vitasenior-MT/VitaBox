@@ -1274,6 +1274,9 @@ export default {
     bleExecFimPress: function(data) {
       let resData = data
       let read = ''
+      let systolic = ''
+      let diastolic = ''
+      let pulse = ''
       if (resData.status === true) {
         for (let dataVal in resData.data) {
           switch (resData.data[dataVal].tag) {
@@ -1286,14 +1289,23 @@ export default {
               this.dataPressArt[resData.data[dataVal].tag] = resData.data[dataVal].value * 1
               this.dataPressArt[resData.data[dataVal].tag + 'Name'] = resData.data[dataVal].measure
               this.dataPressArt[resData.data[dataVal].tag + 'Show'] = true
-              read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
-              console.log(read);
+              if(resData.data[dataVal].tag === 'systolic'){
+                systolic = resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
+              }
+              if(resData.data[dataVal].tag === 'diastolic'){
+                diastolic = resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
+              }
+              if(resData.data[dataVal].tag === 'pulse'){
+                pulse = resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
+              }
+              // read += resData.data[dataVal].to_read + ', ' + resData.data[dataVal].value + ' . '
+              // console.log(read);
               break;
             default:
               break;
           }
         }
-        EventBus.soundTTS(read)
+        EventBus.soundTTS(systolic + diastolic + pulse)
       } else {
         // console.log('Receive error', data)
         this.$notifications.notify({
