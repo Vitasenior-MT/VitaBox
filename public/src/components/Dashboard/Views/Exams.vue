@@ -1813,8 +1813,8 @@ export default {
                 return EventBus.$emit('move-components', 'exit')
               }
               if (document.getElementsByClassName('img-border-selected')[0]) {
-                document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
+                document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
               }
               EventBus.moveLeftRightInElemts(cmd === 'left' ? -1 : 1, 'btn-fill')
               if (self.posPatientSelected >= 0) {
