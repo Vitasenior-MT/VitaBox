@@ -1817,6 +1817,7 @@ export default {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
               }
+              console.log(self.posPatientSelected)
               if (self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
                 self.examEvent = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.type
