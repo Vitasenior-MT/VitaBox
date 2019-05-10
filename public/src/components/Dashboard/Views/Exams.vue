@@ -1411,7 +1411,6 @@ export default {
       EventBus.soundTTSteps(text)
     },
     bleGetListExam(btnPatient) {
-      console.log('entrou???????????????????????????')
       this.patientId = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.id
       this.posPatientSelected = EventBus.currentActiveRightComp
       let self = this
@@ -1810,6 +1809,7 @@ export default {
               self.index = 0
               self.cancel = false
               let moveFirstTime = EventBus.firstRightEvent
+              console.log('???????????????????????????????????????????')
               if (cmd === 'left' && EventBus.currentActiveRightComp - 1 < 0) {
                 return EventBus.$emit('move-components', 'exit')
               }
@@ -1818,6 +1818,7 @@ export default {
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
               }
+              console.log('self.posPatientSelected')
               console.log(self.posPatientSelected)
               if (self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
