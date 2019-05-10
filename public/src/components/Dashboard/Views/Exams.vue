@@ -1411,6 +1411,7 @@ export default {
       EventBus.soundTTSteps(text)
     },
     bleGetListExam(btnPatient) {
+      console.log('entrou???????????????????????????')
       this.patientId = EventBus.elementControl[EventBus.currentActiveRightComp].dataset.id
       this.posPatientSelected = EventBus.currentActiveRightComp
       let self = this
