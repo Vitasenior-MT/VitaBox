@@ -1828,13 +1828,13 @@ export default {
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
               }
-              if (moveFirstTime) {
-                if (document.getElementsByClassName('control-remote btn-fill')[0]) {
-                  self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
-                } else {
-                  self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-                }
+              //if (moveFirstTime) {
+              if (document.getElementsByClassName('control-remote btn-fill')[0]) {
+                self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
+              } else {
+                self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
               }
+              //}
               break
             default:
               break
