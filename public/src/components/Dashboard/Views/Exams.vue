@@ -41,20 +41,20 @@
                     <div class="row">
                       <div class="col-md-4 img1_bloodpressure img-border">
                         <figure>
-                          <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
-                          <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
-                        </figure>
-                      </div>
-                      <div class="col-md-4 img2_bloodpressure img-border">
-                        <figure>
                           <img src='static/img/bloodpressure.png' alt="" class="img-fit2">
                           <h6>{{ $t('diagnosis.user.bloodpressure.fig.0') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-4 img3_bloodpressure img-border">
+                      <div class="col-md-4 img2_bloodpressure img-border">
                         <figure>
                           <img src='static/img/bloodpressure.gif' alt="" class="img-fit2">
                           <h6>{{ $t('diagnosis.user.bloodpressure.fig.1') }}</h6>
+                        </figure>
+                      </div>
+                      <div class="col-md-4 img3_bloodpressure img-border">
+                        <figure>
+                          <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
+                          <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
                         </figure>
                       </div>
                     </div>
@@ -1399,6 +1399,8 @@ export default {
     audioPlayer2(dataset, index) {
       let text = ''
       if (dataset.type) {
+        console.log('debug text: ')
+        console.log(this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + index)
         if (this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + index) {
           text.substring(0, text.length - 1);
         } else {

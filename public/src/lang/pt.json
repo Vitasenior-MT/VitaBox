@@ -173,23 +173,14 @@
       },
       "bodyscale": {
         "fig": {
-          "0": "Suba para cima do aparelho."
+          "0": "Suba para cima da balança."
         },
         "title": "Modo de Utilização",
         "audioDescription": {
           "0": "Peso.",
           "1": "Pressione ok. .",
-          "2": "Suba para cima do aparelho."
-        },
-        "0": "Coloque o equipamento numa superficie sólida, plana, de fácil acesso e livre de tapetes para que seja possivel efetuar uma correta medição.",
-        "1": {
-          "0": "No comando pressione em",
-          "1": "para iniciar."
-        },
-        "2": "Descalce-se e suba para a balança.",
-        "3": "O equipamento liga-se automaticamente.",
-        "4": "Quando o valor obtido estabilizar o mesmo irá piscar.",
-        "5": "Após a correta recolha dos dados o equipamento desliga-se automaticamente."
+          "2": "Suba para cima da balança."
+        }
       },
       "bloodpressure": {
         "fig": {
@@ -199,9 +190,9 @@
         "title": "Modo de Utilização",
         "audioDescription": {
           "0": "pressão arterial.",
-          "1": "Pressione ok. .",
-          "2": "Colocar o aparelho conforme a imagem.",
-          "3": "Pressionar no botão do aparelho."
+          "1": "Colocar o aparelho conforme a imagem.",
+          "2": "Pressionar no botão do aparelho até acender uma luz azul.",
+          "3": "Pressione ok. ."
         }
       },
       "bloodglucose": {
