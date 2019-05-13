@@ -149,14 +149,14 @@
       "bodypulse": {
         "fig": {
           "0": "Colocar o aparelho conforme a imagem.",
-          "1": "Pressionar no botão do aparelho."
+          "1": "Pressionar no botão do aparelho até aparecer uma luz azul."
         },
         "title": "Modo de Utilização",
         "audioDescription": {
           "0": "Oxímetro.",
           "1": "Pressione ok. .",
           "2": "Colocar o aparelho conforme a imagem.",
-          "3": "Pressionar no botão do aparelho."
+          "3": "Pressionar no botão do aparelho até aparecer uma luz azul."
         },
         "0": {
           "0": "No comando pressione em",
