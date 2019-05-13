@@ -361,20 +361,19 @@
                 <ol>
                   <h4>
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-4 img1_bodypulse img-border">
                         <figure>
                           <img src='static/img/tvremoteok.png' alt="" class="img-fit2">
                           <h6>{{ $t('tooltips.diagnosis.exam.title') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4 img2_bodypulse img-border">
                         <figure>
                           <img src='static/img/pulse.png' alt="" class="img-fit2">
                           <h6>{{ $t('diagnosis.user.bodypulse.fig.0') }}</h6>
                         </figure>
                       </div>
-                      <div class="col-md-4">&nbsp;</div>
-                      <div class="col-md-4">
+                      <div class="col-md-4 img3_bodypulse img-border">
                         <figure>
                           <img src='static/img/pulse.gif' alt="" class="img-fit2">
                           <h6>{{ $t('diagnosis.user.bodypulse.fig.1') }}</h6>
