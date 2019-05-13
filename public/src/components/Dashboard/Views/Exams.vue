@@ -48,7 +48,7 @@
                       <div class="col-md-4 img2_bloodpressure img-border">
                         <figure>
                           <img src='static/img/bloodpressure.gif' alt="" class="img-fit2">
-                          <h6>{{ $t('diagnosis.user.bloodpressure.fig.1') }}</h6>
+                          <h6 class="text-div-wrap">{{ $t('diagnosis.user.bloodpressure.fig.1') }}</h6>
                         </figure>
                       </div>
                       <div class="col-md-4 img3_bloodpressure img-border">
