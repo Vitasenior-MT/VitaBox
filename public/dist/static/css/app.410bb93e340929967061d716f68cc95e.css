@@ -952,7 +952,6 @@ body {
 .img-fit2 {
   width: auto;
   height: 250px;
-  object-fit: contain;
 }
 .img-border-selected {
   border-style: solid;
@@ -961,6 +960,7 @@ body {
 .img-border {
   border-style: solid;
   border-color: rgba(0,0,0,0);
+  object-fit: contain;
 }
 .text-div-wrap {
   white-space: pre-line;
@@ -12335,4 +12335,4 @@ textarea.form-control {
     font-size: 12px;
     padding: 20px 0 0; }
 
-/*# sourceMappingURL=app.e298ef8adab63f34fd65512c803bb727.css.map*/
+/*# sourceMappingURL=app.410bb93e340929967061d716f68cc95e.css.map*/

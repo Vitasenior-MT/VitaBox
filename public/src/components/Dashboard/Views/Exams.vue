@@ -1986,7 +1986,6 @@ body {
 .img-fit2 {
   width: auto;
   height: 250px;
-  object-fit: contain;
 }
 .img-border-selected {
   border-style: solid;
@@ -1995,6 +1994,7 @@ body {
 .img-border {
   border-style: solid;
   border-color: rgba(0,0,0,0);
+  object-fit: contain;
 }
 .text-div-wrap {
   white-space: pre-line;
