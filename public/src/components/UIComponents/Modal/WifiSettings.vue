@@ -136,6 +136,7 @@ export default {
                   } else {
                     self.saveItens(elem.dataset.ssid, null)
                   }
+                  self.ssid = true
                   EventBus.wifi = false
                   EventBus.$modal.hide('wifi-settings')
                   EventBus.enterLastElementDefinitions()
