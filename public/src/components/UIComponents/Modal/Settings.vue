@@ -218,7 +218,7 @@ export default {
             this.items[i].default = toggle
             EventBus.enterNewElementDefinitions('wifi-settings')
             EventBus.wifi = true
-            if (this.settings) {
+            if (EventBus.settings) {
               EventBus.settings = false
               EventBus.$modal.hide('settings')
               EventBus.enterLastElementDefinitions()
