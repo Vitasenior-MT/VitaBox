@@ -122,8 +122,6 @@ export default {
             // evento do 'OK'
             case 'ok_btn':
               let elem = EventBus.elementControl[EventBus.currentActiveRightComp]
-              console.log(elem.dataset.ssid)
-              console.log(self.password)
               if (elem.dataset.ssid) {
                 if (self.ssid) {
                   self.ssid = false
@@ -134,8 +132,10 @@ export default {
                   if (self.password) {
                     self.saveItens(elem.dataset.ssid, self.password)
                   } else {
-                    self.saveItens(elem.dataset.ssid, '')
+                    self.saveItens(elem.dataset.ssid, ' ')
                   }
+                  console.log(elem.dataset.ssid)
+                  console.log(self.password)
                   self.$modal.hide('wifi-settings')
                   EventBus.enterLastElementDefinitions()
                 }
