@@ -1984,6 +1984,8 @@ body {
   overflow-x: hidden;
 }
 .img-fit2 {
+  width: auto;
+  height: 250px;
   height: 100%;
   width: 100%;
   object-fit: contain
