@@ -51,22 +51,15 @@ export const EventBus = new Vue({
             if (this.settings) {
               this.$emit('move-components-modal', cmd)
               if (((/* cmd === 'settings' || */ cmd === 'exit') && !this.examEmExec)) {
-                // console.log('app settings')
-                if (this.settings) {
                   this.settings = false
                   this.$modal.hide('settings')
                   this.enterLastElementDefinitions()
-                } /* else {
-                  this.settings = true
-                  this.enterNewElementDefinitions('settings')
-                  this.$modal.show('settings')
-                } */
               }
             }
             break;
           case 'wifi-settings':
             if (this.wifi) {
-              this.$emit('move-components-wifi-modal', cmd)
+              // this.$emit('move-components-wifi-modal', cmd)
               if (cmd === 'exit' && !this.examEmExec) {
                 this.wifi = false
                 this.$modal.hide('wifi-settings')
