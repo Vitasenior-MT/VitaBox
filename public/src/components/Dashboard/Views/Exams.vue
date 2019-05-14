@@ -1986,6 +1986,7 @@ body {
 .img-fit2 {
   width: auto;
   height: 250px;
+  object-fit: contain;
 }
 .img-border-selected {
   border-style: solid;
