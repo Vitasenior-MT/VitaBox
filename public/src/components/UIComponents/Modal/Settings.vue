@@ -218,13 +218,11 @@ export default {
             this.items[i].default = toggle
             EventBus.enterNewElementDefinitions('wifi-settings')
             EventBus.wifi = true
-
-            this.saveItens()
-            window.removeEventListener('keyup', this.onKeyUp)
-            this.params = {}
-            this.$emit('before-closed', event)
-            EventBus.$off('move-components-modal')
-
+            if (this.settings) {
+              EventBus.settings = false
+              EventBus.$modal.hide('settings')
+              EventBus.enterLastElementDefinitions()
+            }
             this.$modal.show('wifi-settings')
             this.$socket.emit('openWIFI', '')
             setTimeout(() => {
