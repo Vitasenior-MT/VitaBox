@@ -136,7 +136,10 @@ export default {
                   }
                   console.log(elem.dataset.ssid)
                   console.log(self.password)
-                  self.$modal.hide('wifi-settings')
+                  // self.$modal.hide('wifi-settings')
+                  // EventBus.enterLastElementDefinitions()
+                  EventBus.wifi = false
+                  EventBus.$modal.hide('wifi-settings')
                   EventBus.enterLastElementDefinitions()
                 }
               }
