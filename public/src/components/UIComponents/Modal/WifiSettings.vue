@@ -105,6 +105,8 @@ export default {
   },
   methods: {
     saveItens(ssid, psswd) {
+      console.log(ssid)
+      console.log(psswd)
       this.$socket.emit('connectWifi', { ssid: ssid, psswd: psswd })
     },
     /**
@@ -134,10 +136,6 @@ export default {
                   } else {
                     self.saveItens(elem.dataset.ssid, ' ')
                   }
-                  console.log(elem.dataset.ssid)
-                  console.log(self.password)
-                  // self.$modal.hide('wifi-settings')
-                  // EventBus.enterLastElementDefinitions()
                   EventBus.wifi = false
                   EventBus.$modal.hide('wifi-settings')
                   EventBus.enterLastElementDefinitions()
