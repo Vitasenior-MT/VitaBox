@@ -1985,9 +1985,7 @@ body {
 }
 .img-fit2 {
   width: auto;
-  height: 250px;
-  height: 100%;
-  width: 100%;
+  height: 250px; 
   object-fit: contain
 }
 .img-border-selected {
