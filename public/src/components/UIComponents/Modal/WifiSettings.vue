@@ -134,7 +134,7 @@ export default {
                   if (self.password) {
                     self.saveItens(elem.dataset.ssid, self.password)
                   } else {
-                    self.saveItens(elem.dataset.ssid, ' ')
+                    self.saveItens(elem.dataset.ssid, null)
                   }
                   EventBus.wifi = false
                   EventBus.$modal.hide('wifi-settings')
