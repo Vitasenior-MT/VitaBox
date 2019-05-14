@@ -1986,7 +1986,10 @@ body {
 .img-fit2 {
   width: auto;
   height: 250px; 
-  object-fit: contain
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  display: block;
 }
 .img-border-selected {
   border-style: solid;
