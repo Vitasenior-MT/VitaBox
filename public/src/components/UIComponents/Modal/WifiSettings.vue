@@ -133,6 +133,10 @@ export default {
                     self.saveItens(elem.dataset.ssid, self.password)
                     self.$modal.hide('wifi-settings')
                     EventBus.enterLastElementDefinitions()
+                  } else {
+                    self.saveItens(elem.dataset.ssid, '')
+                    self.$modal.hide('wifi-settings')
+                    EventBus.enterLastElementDefinitions()
                   }
                 }
               }
