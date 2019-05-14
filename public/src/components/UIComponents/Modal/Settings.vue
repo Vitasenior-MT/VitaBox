@@ -215,14 +215,14 @@ export default {
           break
         case 'wifi':
           if (toggle === false) {
-            this.items[i].default = toggle
-            EventBus.enterNewElementDefinitions('wifi-settings')
-            EventBus.wifi = true
             if (EventBus.settings) {
               EventBus.settings = false
               EventBus.$modal.hide('settings')
               EventBus.enterLastElementDefinitions()
             }
+            this.items[i].default = toggle
+            EventBus.enterNewElementDefinitions('wifi-settings')
+            EventBus.wifi = true
             this.$modal.show('wifi-settings')
             this.$socket.emit('openWIFI', '')
             setTimeout(() => {
