@@ -99,6 +99,10 @@ before_reboot(){
 	print_status "Install all aplications."
 	exec_cmd "sudo apt-get install -y cec-utils mongodb git unclutter bluetooth gcc-arm-none-eabi bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
 	
+	print_status "Change timezone"
+	exec_cmd "sudo timedatectl set-timezone Europa/Lisboa"
+	exec_cmd "sudo timedatectl set-timezone Europe/Lisbon"
+
 	print_status "Remove unused software."
 	exec_cmd "sudo apt-get purge -y libreoffice wolfram-engine sonic-pi scratch"
 	exec_cmd "sudo apt-get clean -y"
