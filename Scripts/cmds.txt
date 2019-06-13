@@ -7,11 +7,3 @@ mongorestore --db VitaBoxDev2 --drop mongobackups/01-20-16/VitaBoxDev2/
 #check for disk space in raspbian
 df -Bm or df -h
 
-
-
-graficos 
-
-1- primeiro pergunta    media/desvio padrão
-2- exames               media/desvio padrão
-3- historicos           media/desvio padrão
-
