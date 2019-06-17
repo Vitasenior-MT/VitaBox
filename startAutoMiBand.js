@@ -85,6 +85,7 @@ var validate = function (callback) {
   settinglib.getFlagBandFit(null, (data) => {
     if (!data[0].flg_bandfitness) {
       settinglib.updateFlagBandFit({ flag: true }, (result) => {
+        settinglib.updateFlgDeviceType({ flag: true }, () => {});
         console.log("execBleMiBand ", result);
         callback();
       });
