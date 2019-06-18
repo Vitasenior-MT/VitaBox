@@ -896,7 +896,7 @@ export default {
   sockets: {
     responceBleBlock(data) {
       console.log( 'responceBleBlock: ' + data)
-      if (response.data.flg_bandfitness) {
+      if (data) {
         this.$modal.show('bleblocked', 'Existe um dispositivo em uso')
         EventBus.bleblocked = true
         EventBus.enterNewElementDefinitions('bleblocked')
@@ -904,7 +904,7 @@ export default {
         EventBus.examEmExec = false
       }
       this.$notifications.notify({
-        message: '<h4>' + response.data.data + '</h4>',
+        message: '<h4>' + 'BLE em uso.' + '</h4>',
         icon: 'ti-check',
         horizontalAlign: 'right',
         verticalAlign: 'top',
