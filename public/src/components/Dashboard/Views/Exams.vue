@@ -895,7 +895,7 @@ export default {
   },
   sockets: {
     responceBleBlock(data) {
-      console.log(data)
+      console.log( 'responceBleBlock: ' + data)
     },
     audioPlayer(data) {
       EventBus.soundTTS(data)
