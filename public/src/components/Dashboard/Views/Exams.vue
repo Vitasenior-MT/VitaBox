@@ -896,6 +896,20 @@ export default {
   sockets: {
     responceBleBlock(data) {
       console.log( 'responceBleBlock: ' + data)
+      if (response.data.flg_bandfitness) {
+        this.$modal.show('bleblocked', 'Existe um dispositivo em uso')
+        EventBus.bleblocked = true
+        EventBus.enterNewElementDefinitions('bleblocked')
+        this.execProcess = false
+        EventBus.examEmExec = false
+      }
+      this.$notifications.notify({
+        message: '<h4>' + response.data.data + '</h4>',
+        icon: 'ti-check',
+        horizontalAlign: 'right',
+        verticalAlign: 'top',
+        type: 'success'
+      })
     },
     audioPlayer(data) {
       EventBus.soundTTS(data)
@@ -1513,7 +1527,7 @@ export default {
           if (response.data.status === true) {
             document.getElementsByClassName(this.examEvent)[0].scrollIntoView(false)
             console.log(response)
-            if (response.data.flg_bandfitness) {
+            /*if (response.data.flg_bandfitness) {
               this.$modal.show('bleblocked', 'Existe um dispositivo em uso')
               EventBus.bleblocked = true
               EventBus.enterNewElementDefinitions('bleblocked')
@@ -1526,7 +1540,7 @@ export default {
               horizontalAlign: 'right',
               verticalAlign: 'top',
               type: 'success'
-            })
+            })*/
 
             for (let lastsnr in response.data.lastExec.dataSensor) {
               switch (response.data.lastExec.action) {
