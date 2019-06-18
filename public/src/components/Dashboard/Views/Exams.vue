@@ -894,6 +894,9 @@ export default {
     }
   },
   sockets: {
+    responceBleBlock(data) {
+      console.log(data)
+    },
     audioPlayer(data) {
       EventBus.soundTTS(data)
     },
@@ -1503,6 +1506,7 @@ export default {
       this.execProcess = true
       EventBus.examEmExec = true
       this.resetValues()
+      this.$socket.emit('checkBleBlock')
       this.$http
         .get('/api/ble/' + this.examEvent.toLowerCase() + '/' + this.patientId)
         .then(response => {
