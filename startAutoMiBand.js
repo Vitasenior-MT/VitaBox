@@ -27,12 +27,17 @@ Main.prototype.start = function () {
     patientslib.getAllPatientsIdMiBandDevice(function (patients) {
       self.allPatientes = patients;
       if (self.allPatientes.length > 0) {
-        self.execBleMiBand(self.allPatientes.pop());
-      } else {
-        settinglib.updateFlagBandFit({ flag: false }, () => {
-          console.log("process End");
-          process.exit(0);
+        settinglib.getFlgScreen(null, (data) => {
+          if (!data[0].flg_bandfitness) {
+            self.execBleMiBand(self.allPatientes.pop());
+          } else {
+            console.log("BLE ocupado ");
+            process.exit(0);
+          }
         });
+      } else {
+        console.log("process End");
+        process.exit(0);
       }
     })
   });
@@ -53,27 +58,24 @@ Main.prototype.execBleMiBand = function (pacientInfo) {
     sensors: pacientInfo.Sensors
   };
   // inicia p script e envia as configuracores do ficheiro inicial
-  validate(() => {
-    var child = cp.fork('./lib/bleServer.js');
-    child.send({ "serverdata": args });
-    child.on('message', function (data) {
-      if (data.proc === 'saveDataSensors') {
-        rawsensorlib.insertManyData(data.dataSend);
-      } else if (data.proc === 'saveAuthPatient') {
-        patientslib.updateFlagAuthBandFit(data.dataSend);
-      }
-    });
-    child.on('exit', function (data) {
-      if (self.allPatientes.length > 0) {
-        self.execBleMiBand(self.allPatientes.pop());
-      } else {
-        settinglib.updateFlagBandFit({ flag: false }, () => {
-          console.log("execBleMiBand process End");
-          process.exit(0);
-        });
-      }
-    })
+
+  var child = cp.fork('./lib/bleServer.js');
+  child.send({ "serverdata": args });
+  child.on('message', function (data) {
+    if (data.proc === 'saveDataSensors') {
+      rawsensorlib.insertManyData(data.dataSend);
+    } else if (data.proc === 'saveAuthPatient') {
+      patientslib.updateFlagAuthBandFit(data.dataSend);
+    }
   });
+  child.on('exit', function (data) {
+    if (self.allPatientes.length > 0) {
+      self.execBleMiBand(self.allPatientes.pop());
+    } else {
+      console.log("execBleMiBand process End");
+      process.exit(0);
+    }
+  })
 }
 
 var m = new Main();
@@ -85,7 +87,7 @@ var validate = function (callback) {
   settinglib.getFlagBandFit(null, (data) => {
     if (!data[0].flg_bandfitness) {
       settinglib.updateFlagBandFit({ flag: true }, (result) => {
-        settinglib.updateFlgDeviceType({ flag: true }, () => {});
+        settinglib.updateFlgDeviceType({ flag: true }, () => { });
         console.log("execBleMiBand ", result);
         callback();
       });

@@ -897,19 +897,18 @@ export default {
     responceBleBlock(data) {
       console.log( 'responceBleBlock: ' + data)
       if (data) {
+        this.$http
+        .get('/api/settings/updateFlgScreen/' + true)
+        .then(response => {})
+        .catch(error => {
+          console.log('----> ', error)
+        })
         this.$modal.show('bleblocked', 'Existe um dispositivo em uso')
         EventBus.bleblocked = true
         EventBus.enterNewElementDefinitions('bleblocked')
         this.execProcess = false
         EventBus.examEmExec = false
       }
-      this.$notifications.notify({
-        message: '<h4>' + 'BLE em uso.' + '</h4>',
-        icon: 'ti-check',
-        horizontalAlign: 'right',
-        verticalAlign: 'top',
-        type: 'success'
-      })
     },
     audioPlayer(data) {
       EventBus.soundTTS(data)
@@ -1518,6 +1517,12 @@ export default {
     },
     bleExecExam() {
       this.execProcess = true
+      this.$http
+        .get('/api/settings/updateFlgScreen/' + false)
+        .then(response => {})
+        .catch(error => {
+          console.log('----> ', error)
+        })
       EventBus.examEmExec = true
       this.resetValues()
       this.$socket.emit('checkBleBlock')
@@ -1527,20 +1532,6 @@ export default {
           if (response.data.status === true) {
             document.getElementsByClassName(this.examEvent)[0].scrollIntoView(false)
             console.log(response)
-            /*if (response.data.flg_bandfitness) {
-              this.$modal.show('bleblocked', 'Existe um dispositivo em uso')
-              EventBus.bleblocked = true
-              EventBus.enterNewElementDefinitions('bleblocked')
-              this.execProcess = false
-              EventBus.examEmExec = false
-            }
-            this.$notifications.notify({
-              message: '<h4>' + response.data.data + '</h4>',
-              icon: 'ti-check',
-              horizontalAlign: 'right',
-              verticalAlign: 'top',
-              type: 'success'
-            })*/
 
             for (let lastsnr in response.data.lastExec.dataSensor) {
               switch (response.data.lastExec.action) {
