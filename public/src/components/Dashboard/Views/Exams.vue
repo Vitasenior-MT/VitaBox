@@ -1768,14 +1768,12 @@ export default {
               self.$refs.DefaultView.hide()
               if (!self.flg_once) {
                 self.flg_once = true
-                setTimeout(() => {
-                  // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
-                  if (document.getElementsByClassName('control-remote btn-fill')[0]) {
-                    self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
-                  } else {
-                    self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-                  }
-                }, 300);
+                // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
+                if (document.getElementsByClassName('control-remote btn-fill')[0]) {
+                  self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
+                } else {
+                  self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+                }
               }
               if (!self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
