@@ -898,7 +898,7 @@ export default {
       console.log( 'responceBleBlock: ' + data)
       if (data) {
         this.$http
-        .get('/api/settings/updateFlgScreen/' + true)
+        .post('/api/settings/updateFlgScreen/' + true)
         .then(response => {})
         .catch(error => {
           console.log('----> ', error)
@@ -993,6 +993,12 @@ export default {
           lastbloodglucosetime: '---'
         }
       }
+      this.$http
+        .post('/api/settings/updateFlgScreen/' + false)
+        .then(response => {})
+        .catch(error => {
+          console.log('----> ', error)
+        })
     },
     /**
      * TODO: Recebe do socket toda a informação refente a bracelete
@@ -1175,6 +1181,12 @@ export default {
         this.execProcess = false
         EventBus.examEmExec = false
       }
+      this.$http
+        .post('/api/settings/updateFlgScreen/' + false)
+        .then(response => {})
+        .catch(error => {
+          console.log('----> ', error)
+        })
     },
     /**
      * TODO: Recebe do socket toda a informação referente ao pulsiometro
@@ -1227,6 +1239,12 @@ export default {
         this.execProcess = false
         EventBus.examEmExec = false
       }
+      this.$http
+        .post('/api/settings/updateFlgScreen/' + false)
+        .then(response => {})
+        .catch(error => {
+          console.log('----> ', error)
+        })
     },
     /**
      * TODO: Recebe do socket a informação da temperatura corporal
@@ -1354,6 +1372,12 @@ export default {
         this.execProcess = false
         EventBus.examEmExec = false
       }
+      this.$http
+        .post('/api/settings/updateFlgScreen/' + false)
+        .then(response => {})
+        .catch(error => {
+          console.log('----> ', error)
+        })
     },
     /**
      * TODO: Recebe do socket as mensagens
@@ -1768,12 +1792,14 @@ export default {
               self.$refs.DefaultView.hide()
               if (!self.flg_once) {
                 self.flg_once = true
-                // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
-                if (document.getElementsByClassName('control-remote btn-fill')[0]) {
-                  self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
-                } else {
-                  self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
-                }
+                setTimeout(() => {
+                  // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
+                  if (document.getElementsByClassName('control-remote btn-fill')[0]) {
+                    self.audioPlayer2(EventBus.elementControl[EventBus.currentActiveRightComp].dataset, 0)
+                  } else {
+                    self.audioPlayer(EventBus.elementControl[EventBus.currentActiveRightComp].dataset)
+                  }
+                }, 300);
               }
               if (!self.posPatientSelected >= 0) {
                 document.getElementsByClassName('btnsExams')[0].scrollIntoView(false)
@@ -1783,6 +1809,12 @@ export default {
             case 'exit':
               self.index = 0
               self.cancel = true
+              this.$http
+                .post('/api/settings/updateFlgScreen/' + false)
+                .then(response => {})
+                .catch(error => {
+                  console.log('----> ', error)
+                })
               if (document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
