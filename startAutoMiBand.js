@@ -28,7 +28,7 @@ Main.prototype.start = function () {
       self.allPatientes = patients;
       if (self.allPatientes.length > 0) {
         settinglib.getFlgScreen(null, (data) => {
-          if (!data[0].flg_bandfitness) {
+          if (!data[0].flg_screen) {
             self.execBleMiBand(self.allPatientes.pop());
           } else {
             console.log("BLE ocupado ");
@@ -82,18 +82,3 @@ var m = new Main();
 m.start();
 
 module.exports = Main;
-
-var validate = function (callback) {
-  settinglib.getFlagBandFit(null, (data) => {
-    if (!data[0].flg_bandfitness) {
-      settinglib.updateFlagBandFit({ flag: true }, (result) => {
-        settinglib.updateFlgDeviceType({ flag: true }, () => { });
-        console.log("execBleMiBand ", result);
-        callback();
-      });
-    } else {
-      console.log("BLE ocupado ");
-      process.exit(0);
-    }
-  });
-}
