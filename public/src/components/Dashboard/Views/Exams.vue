@@ -898,7 +898,7 @@ export default {
       console.log( 'responceBleBlock: ' + data)
       if (data) {
         this.$http
-        .post('/api/settings/updateFlgScreen/' + true)
+        .post('/api/settings/updateFlgScreen/', true)
         .then(response => {})
         .catch(error => {
           console.log('----> ', error)
