@@ -995,7 +995,7 @@ export default {
         }
       }
       this.$http
-        .post('/api/settings/updateFlgScreen/' + false)
+        .get('/api/settings/updateFlgScreen/' + false)
         .then(response => {})
         .catch(error => {
           console.log('----> ', error)
@@ -1183,7 +1183,7 @@ export default {
         EventBus.examEmExec = false
       }
       this.$http
-        .post('/api/settings/updateFlgScreen/' + false)
+        .get('/api/settings/updateFlgScreen/' + false)
         .then(response => {})
         .catch(error => {
           console.log('----> ', error)
@@ -1241,7 +1241,7 @@ export default {
         EventBus.examEmExec = false
       }
       this.$http
-        .post('/api/settings/updateFlgScreen/' + false)
+        .get('/api/settings/updateFlgScreen/' + false)
         .then(response => {})
         .catch(error => {
           console.log('----> ', error)
@@ -1374,7 +1374,7 @@ export default {
         EventBus.examEmExec = false
       }
       this.$http
-        .post('/api/settings/updateFlgScreen/' + false)
+        .get('/api/settings/updateFlgScreen/' + false)
         .then(response => {})
         .catch(error => {
           console.log('----> ', error)
@@ -1811,7 +1811,7 @@ export default {
               self.index = 0
               self.cancel = true
               this.$http
-                .post('/api/settings/updateFlgScreen/' + false)
+                .get('/api/settings/updateFlgScreen/' + false)
                 .then(response => {})
                 .catch(error => {
                   console.log('----> ', error)
