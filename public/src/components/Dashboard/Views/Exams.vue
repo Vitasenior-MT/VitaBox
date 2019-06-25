@@ -904,7 +904,7 @@ export default {
         EventBus.examEmExec = false
       } else {
         this.$http
-          .post('/api/settings/updateFlgScreen/' + true)
+          .get('/api/settings/updateFlgScreen/' + true)
           .then(response => {})
           .catch(error => {
             console.log('----> ', error)
