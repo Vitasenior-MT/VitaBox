@@ -897,17 +897,18 @@ export default {
     responceBleBlock(data) {
       console.log( 'responceBleBlock: ' + data)
       if (data) {
-        this.$http
-        .post('/api/settings/updateFlgScreen/', true)
-        .then(response => {})
-        .catch(error => {
-          console.log('----> ', error)
-        })
         this.$modal.show('bleblocked', 'Existe um dispositivo em uso')
         EventBus.bleblocked = true
         EventBus.enterNewElementDefinitions('bleblocked')
         this.execProcess = false
         EventBus.examEmExec = false
+      } else {
+        this.$http
+          .post('/api/settings/updateFlgScreen/' + true)
+          .then(response => {})
+          .catch(error => {
+            console.log('----> ', error)
+          })
       }
     },
     audioPlayer(data) {
