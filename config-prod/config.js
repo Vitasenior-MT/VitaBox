@@ -8,7 +8,9 @@ module.exports = {
       hour: 0,
       min: 15,
       sec: 0
-    }
+    },
+    warningArraySize: 5,
+    avgSize: 15
   },
   postRate: { // configuração de envio de dados para a cloud
     hour: 0,
@@ -38,7 +40,7 @@ module.exports = {
     pressTimer: 500, // tempo ate aceitar a proxima tecla do comando em ms
     wifiRetry: {
       hour: 0,
-      min: 30,
+      min: 5,
       sec: 0
     },
     timeToNewAttempt: {
@@ -48,7 +50,7 @@ module.exports = {
     },
     waitingTimeTillNextWarning: {
       hour: 0,
-      min: 0,
+      min: 5,
       sec: 0
     },
     waitingTimeTillCheckForCecIsAlive: { // tempo de espera para verificação da ligação do cec

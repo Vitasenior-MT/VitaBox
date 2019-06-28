@@ -6,7 +6,7 @@ module.exports = {
   coapConfigs: { // configuração de pedidos dos valores aos sensores
     rate: {
       hour: 0,
-      min: 1,
+      min: 15,
       sec: 0
     },
     warningArraySize: 5,
@@ -14,21 +14,21 @@ module.exports = {
   },
   postRate: { // configuração de envio de dados para a cloud
     hour: 0,
-    min: 1,
+    min: 5,
     sec: 0,
     noData: {
       hour: 0,
-      min: 5,
+      min: 15,
       sec: 0
     }
   },
   ReconnectRate: { // configuração de tentativas de ligação á cloud
     hour: 0,
-    min: 0,
-    sec: 5,
+    min: 1,
+    sec: 0,
     extra: {
       hour: 0,
-      min: 5,
+      min: 30,
       sec: 0
     }
   },
@@ -40,7 +40,7 @@ module.exports = {
     pressTimer: 500, // tempo ate aceitar a proxima tecla do comando em ms
     wifiRetry: {
       hour: 0,
-      min: 1,
+      min: 5,
       sec: 0
     },
     timeToNewAttempt: {
@@ -59,13 +59,13 @@ module.exports = {
       sec: 4
     },
     deleteRate: { // tempo de eliminação dos registos fora de prazo
-      hour: 0,
-      min: 10,
+      hour: 5,
+      min: 0,
       sec: 0
     }
   },
   execludeAmbientSensors: 'temp&&humi', // configuração da lista de exclusão dos avisos dos sensores ambientais na página da aplicação
-  ServerBoardWarningConfigs: {  // configuração do servidor de avisos dos sensores
+  ServerBoardWarningConfigs: {  // configuração do servidor de avisos dos sensores e do envio dos thresholds
     port: 10000,
     host: 'fd00::1',
     sendingHost: 8002
@@ -94,8 +94,8 @@ module.exports = {
         return ""
       }
     })(),
-    peerhost: 'vitasenior-peer-test.eu-gb.mybluemix.net',
-    peerport: 443,
+    peerhost: 'vitasenior-peer-test.eu-gb.mybluemix.net', // still testing
+    peerport: 443, // still testing
     port: 443,
     host: 'vitasenior-api-test.eu-gb.mybluemix.net'
   },
