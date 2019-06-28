@@ -1935,6 +1935,12 @@ export default {
             id: data[index].id
           })
         }
+        this.$http
+        .get('/api/settings/updateFlgScreen/' + false)
+        .then(response => {})
+        .catch(error => {
+          console.log('----> ', error)
+        })
       })
       .catch(error => {
         console.log(error)
@@ -1944,6 +1950,12 @@ export default {
    * TODO: Destroi o evento das teclas do comando para esta view
    */
   beforeDestroy() {
+    this.$http
+        .get('/api/settings/updateFlgScreen/' + false)
+        .then(response => {})
+        .catch(error => {
+          console.log('----> ', error)
+        })
     EventBus.$off('move-components')
   }
 }
