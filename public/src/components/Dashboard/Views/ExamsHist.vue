@@ -219,6 +219,7 @@ export default {
         })
     },
     bleGetHistoryExam() {
+      this.resetValues()
       this.$refs.DefaultView.setMsg(this.msgExam)
       this.$refs.DefaultView.show()
       this.execProcess = true;
