@@ -97,7 +97,7 @@ module.exports = {
     peerhost: 'vitasenior-peer-test.eu-gb.mybluemix.net', // still testing
     peerport: 443, // still testing
     port: 443,
-    host: 'vitasenior-mt.ipt.pt/api'
+    host: '193.137.5.220'
   },
   serverHttp: {
     port: 8080
