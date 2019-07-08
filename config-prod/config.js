@@ -75,7 +75,7 @@ module.exports = {
     host: 'fd00::1'
   },
   websockets: {
-    host: 'https://vitasenior-ws.eu-gb.mybluemix.net/socketio'
+    host: 'https://vitasenior-mt.ipt.pt/socketio'
   },
   ServerConfigs: { // configuração do servidor principal
     key: (function () {
@@ -95,7 +95,7 @@ module.exports = {
       }
     })(),
     port: 443,
-    host: 'vitasenior-mt.eu-gb.mybluemix.net'
+    host: 'vitasenior-mt.ipt.pt'
   },
   serverHttp: {
     port: 8080

@@ -75,7 +75,7 @@ module.exports = {
     host: 'fd00::1'
   },
   websockets: {
-    host: 'https://vitasenior-ws-test.eu-gb.mybluemix.net/socketio'
+    host: 'https://vitasenior-mt.ipt.pt/socketio'
   },
   ServerConfigs: { // configuração do servidor principal
     key: (function () {
@@ -97,10 +97,10 @@ module.exports = {
     peerhost: 'vitasenior-peer-test.eu-gb.mybluemix.net', // still testing
     peerport: 443, // still testing
     port: 443,
-    host: 'vitasenior-api-test.eu-gb.mybluemix.net'
+    host: 'vitasenior-mt.ipt.pt'
   },
   serverHttp: {
     port: 8080
   },
-  mongodb: 'mongodb://localhost:27017/VitaBoxDev3'
+  mongodb: 'mongodb://localhost:27017/VitaBoxDev2'
 }
