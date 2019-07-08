@@ -95,7 +95,7 @@ module.exports = {
       }
     })(),
     port: 443,
-    host: 'vitasenior-mt.ipt.pt/api'
+    host: 'vitasenior-mt.ipt.pt'
   },
   serverHttp: {
     port: 8080
