@@ -14,8 +14,8 @@ module.exports = {
   },
   postRate: { // configuração de envio de dados para a cloud
     hour: 0,
-    min: 0,
-    sec: 30,
+    min: 5,
+    sec: 0,
     noData: {
       hour: 0,
       min: 15,
