@@ -904,6 +904,7 @@ export default {
         this.execProcess = false
         EventBus.examEmExec = false
       } else {
+        this.updateFlgScreen = true
         this.$http
           .get('/api/settings/updateFlgScreen/' + true)
           .then(response => {})
