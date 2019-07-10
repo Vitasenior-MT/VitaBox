@@ -684,6 +684,7 @@ export default {
   data() {
     return {
       flg_once: false,
+      updateFlgScreen: false,
       msgUser: 'diagnosis.msgUser',
       msgExit: 'diagnosis.msgExit',
       classEvent: 'control-remote-patient',
@@ -1845,7 +1846,10 @@ export default {
                 self.resetValues()
                 self.$refs.DefaultView.setMsg(self.msgUser)
                 self.$refs.DefaultView.show()
-                self.flg_once = false
+                if (self.updateFlgScreen) {
+                  self.updateFlgScreen = false
+                  self.flg_once = false
+                }
               } else {
                 // remove o preenchimento
                 EventBus.elementControl[EventBus.currentActiveRightComp].classList.remove('btn-fill')
