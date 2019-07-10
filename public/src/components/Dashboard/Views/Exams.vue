@@ -1792,6 +1792,7 @@ export default {
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
               if (!self.flg_once) {
+                console.log('entrou aqui: audio ', self.flg_once)
                 self.flg_once = true
                 setTimeout(() => {
                   // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
