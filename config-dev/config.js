@@ -6,7 +6,7 @@ module.exports = {
   coapConfigs: { // configuração de pedidos dos valores aos sensores
     rate: {
       hour: 0,
-      min: 2,
+      min: 15,
       sec: 0
     },
     warningArraySize: 5,
@@ -14,12 +14,12 @@ module.exports = {
   },
   postRate: { // configuração de envio de dados para a cloud
     hour: 0,
-    min: 0,
-    sec: 30,
+    min: 5,
+    sec: 0,
     noData: {
       hour: 0,
-      min: 0,
-      sec: 30
+      min: 15,
+      sec: 0
     }
   },
   ReconnectRate: { // configuração de tentativas de ligação á cloud
