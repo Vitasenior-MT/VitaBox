@@ -1853,6 +1853,7 @@ export default {
                 self.$refs.DefaultView.setMsg(self.msgExit)
                 self.$refs.DefaultView.show()
                 EventBus.setSidebar()
+                self.flg_once = false
                 // console.log('if exit', cmd, EventBus.currentActiveRightComp)
               }
               break
