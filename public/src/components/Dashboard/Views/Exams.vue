@@ -919,20 +919,13 @@ export default {
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
       }
-      console.log(' ********************************************************************* init ')
-      console.log('img' + (self.index - 1))
-      console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset.type)
-      console.log(' ********************************************************************* End ')
       if (document.getElementsByClassName('control-remote btn-fill')[0]) {
         var data = document.getElementsByClassName('img' + (self.index - 1) + '_' + document.getElementsByClassName('control-remote btn-fill')[0].dataset.type)[0]
-        console.log('img' + (self.index - 1))
-        console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset.type)
       }
       if (data) {
         data.classList.add('img-border-selected')
         data.classList.remove('img-border')
         EventBus.audioBasicMode('./static/.temp/' + path, () => {
-          console.log('audio end next')
           if (!self.cancel) {
             data.classList.remove('img-border-selected')
             data.classList.add('img-border')
@@ -1785,7 +1778,7 @@ export default {
             // evento do 'OK'
             case 'ok_btn':
               self.index = 0
-              self.cancel = false
+              //self.cancel = false
               if (document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
@@ -1794,7 +1787,6 @@ export default {
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
               if (!self.flg_once) {
-                console.log('entrou aqui: audio ', self.flg_once)
                 self.flg_once = true
                 setTimeout(() => {
                   // console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset)
