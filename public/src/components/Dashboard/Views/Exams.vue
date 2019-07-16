@@ -919,6 +919,10 @@ export default {
       if (document.getElementById('audioElem')) {
         document.getElementById('audioElem').remove()
       }
+      console.log(' ********************************************************************* init ')
+      console.log('img' + (self.index - 1))
+      console.log(document.getElementsByClassName('control-remote btn-fill')[0].dataset.type)
+      console.log(' ********************************************************************* End ')
       if (document.getElementsByClassName('control-remote btn-fill')[0]) {
         var data = document.getElementsByClassName('img' + (self.index - 1) + '_' + document.getElementsByClassName('control-remote btn-fill')[0].dataset.type)[0]
         console.log('img' + (self.index - 1))
@@ -1451,11 +1455,6 @@ export default {
     audioPlayer2(dataset, index) {
       let text = ''
       if (dataset.type) {
-        console.log(' ********************************************************************* init ')
-        console.log('debug text: ')
-        console.log(this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index))
-        console.log(this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + index)
-        console.log(' ********************************************************************* end ')
         if (this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + index) {
           text.substring(0, text.length - 1);
         } else {
@@ -1794,7 +1793,7 @@ export default {
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
-              if (false) {
+              if (!self.flg_once) {
                 console.log('entrou aqui: audio ', self.flg_once)
                 self.flg_once = true
                 setTimeout(() => {
