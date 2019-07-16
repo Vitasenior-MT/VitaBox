@@ -1794,7 +1794,7 @@ export default {
               // EventBus.elementControl[EventBus.currentActiveRightComp].classList.add('on-shadow')
               EventBus.elementControl[EventBus.currentActiveRightComp].click()
               self.$refs.DefaultView.hide()
-              if (!self.flg_once) {
+              if (false) {
                 console.log('entrou aqui: audio ', self.flg_once)
                 self.flg_once = true
                 setTimeout(() => {
