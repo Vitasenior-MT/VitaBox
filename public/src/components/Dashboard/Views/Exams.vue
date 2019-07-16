@@ -1451,8 +1451,11 @@ export default {
     audioPlayer2(dataset, index) {
       let text = ''
       if (dataset.type) {
+        console.log(' ********************************************************************* init ')
         console.log('debug text: ')
+        console.log(this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index))
         console.log(this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + index)
+        console.log(' ********************************************************************* end ')
         if (this.$t('diagnosis.user.' + dataset.type + '.audioDescription.' + index) === 'diagnosis.user.' + dataset.type + '.audioDescription.' + index) {
           text.substring(0, text.length - 1);
         } else {
