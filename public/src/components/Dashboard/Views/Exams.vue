@@ -1777,8 +1777,7 @@ export default {
           switch (cmd) {
             // evento do 'OK'
             case 'ok_btn':
-              self.index = 0
-              //self.cancel = false
+              self.cancel = false
               if (document.getElementsByClassName('img-border-selected')[0]) {
                 document.getElementsByClassName('img-border-selected')[0].classList.add('img-border')
                 document.getElementsByClassName('img-border-selected')[0].classList.remove('img-border-selected')
