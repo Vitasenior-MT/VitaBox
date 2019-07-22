@@ -75,7 +75,7 @@ module.exports = {
     host: 'fd00::1'
   },
   websockets: {
-    host: 'https://vitasenior-mt.ipt.pt/socketio'
+    host: 'https://vitasenior-mt.ipt.pt/api/socketio'
   },
   ServerConfigs: { // configuração do servidor principal
     key: (function () {
