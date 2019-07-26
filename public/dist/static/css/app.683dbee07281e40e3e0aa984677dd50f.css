@@ -1444,6 +1444,9 @@ body {
 .table-tempo table tbody tr td div {
   font-size: 20px;
 }
+.breakword {
+  word-wrap: break-word;
+}
 
 .clear-margin {
   margin: 0 !important;
@@ -12338,4 +12341,4 @@ textarea.form-control {
     font-size: 12px;
     padding: 20px 0 0; }
 
-/*# sourceMappingURL=app.d6c2ced4905c7fb8d46916e38d029b6f.css.map*/
+/*# sourceMappingURL=app.683dbee07281e40e3e0aa984677dd50f.css.map*/

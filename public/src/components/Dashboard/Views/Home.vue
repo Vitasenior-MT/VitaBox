@@ -26,14 +26,14 @@
               <div class="numbers" slot="content">
                 <div v-show="item.type === 'notification'">
                   <div class="row">
-                    <p class="col-md-6">{{ $t('dictionary.from') }} {{ item.message.from }}</p>
-                    <p class="col-md-6" v-show="item.message.to">{{ $t('dictionary.to') }} {{ item.message.to }}</p>
+                    <p class="col-md-6 breakword">{{ $t('dictionary.from') }} {{ item.message.from }}</p>
+                    <p class="col-md-6 breakword" v-show="item.message.to">{{ $t('dictionary.to') }} {{ item.message.to }}</p>
                   </div>
                   <p>{{ $t('dictionary.message') }} {{ item.message.message }}</p>
                 </div>
                 <div class="row" v-show="item.type === 'schedule'">
-                  <p class="col-md-6"> {{ item.date }}</p>
-                  <p class="col-md-6">{{ $t('dictionary.message') }} {{ item.message.message }}</p>
+                  <p class="col-md-6 breakword"> {{ item.date }}</p>
+                  <p class="col-md-6 breakword">{{ $t('dictionary.message') }} {{ item.message.message }}</p>
                 </div>
               </div>
             </notification-card>
@@ -326,5 +326,8 @@ export default {
 }
 .table-tempo table tbody tr td div {
   font-size: 20px;
+}
+.breakword {
+  word-wrap: break-word;
 }
 </style>
