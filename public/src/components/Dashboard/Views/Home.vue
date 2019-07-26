@@ -29,7 +29,10 @@
                     <p class="col-md-6 breakword">{{ $t('dictionary.from') }} {{ item.message.from }}</p>
                     <p class="col-md-6 breakword" v-show="item.message.to">{{ $t('dictionary.to') }} {{ item.message.to }}</p>
                   </div>
-                  <p>{{ $t('dictionary.message') }} {{ item.message.message }}</p>
+                  <div class="row">
+                    <p class="breakword">{{ $t('dictionary.message') }} {{ item.message.message }}</p>
+                  </div>
+                  
                 </div>
                 <div class="row" v-show="item.type === 'schedule'">
                   <p class="col-md-6 breakword"> {{ item.date }}</p>
