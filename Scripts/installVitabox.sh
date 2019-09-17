@@ -100,7 +100,7 @@ before_reboot(){
 	exec_cmd "sudo apt-get install -y cec-utils mongodb git unclutter bluetooth gcc-arm-none-eabi bluez libbluetooth-dev libudev-dev ffmpeg frei0r-plugins dos2unix nodejs network-manager"
 	
 	print_status "Change timezone"
-	exec_cmd "sudo timedatectl set-timezone Europa/Lisboa"
+	#exec_cmd "sudo timedatectl set-timezone Europa/Lisboa"
 	exec_cmd "sudo timedatectl set-timezone Europe/Lisbon"
 
 	print_status "Remove unused software."
@@ -115,6 +115,7 @@ before_reboot(){
 }
 
 after_reboot(){
+	exec_cmd "sudo rm -f ${folderRoot}/.config/autostart/scriptcontinue.desktop"
 	print_status "Install npm global models."
 	exec_cmd "sudo npm install -g node-gyp || true"
 	exec_cmd "sudo npm install -g node-pre-gyp || true"
