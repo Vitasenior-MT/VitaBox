@@ -23,7 +23,7 @@
     "chartist": "^0.10.1",
     "fs": "0.0.1-security",
     "hoek": "^5.0.4",
-    "https-proxy-agent": "^2.2.1",
+    "https-proxy-agent": "^2.2.3",
     "vue": "^2.5.17",
     "vue-chartjs": "^3.4.0",
     "vue-clickaway": "^2.2.2",
