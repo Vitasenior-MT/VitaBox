@@ -18,7 +18,7 @@
     "@fortawesome/fontawesome-free-regular": "^5.0.13",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "babel-eslint": "^8.2.6",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "chart.js": "^2.7.3",
     "chartist": "^0.10.1",
     "fs": "0.0.1-security",
