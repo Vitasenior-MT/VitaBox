@@ -79,7 +79,7 @@
     "karma-webpack": "^2.0.13",
     "lolex": "^1.5.2",
     "mocha": "^5.2.0",
-    "nightwatch": "^0.9.21",
+    "nightwatch": "^2.3.9",
     "node-sass": "^4.9.4",
     "opn": "^4.0.2",
     "ora": "^1.1.0",
