@@ -25,7 +25,7 @@
     "event-stream": "3.3.4",
     "express": "^4.16.4",
     "htmlparser2": "^3.10.0",
-    "mongoose": "^4.13.17",
+    "mongoose": "^4.13.21",
     "noble": "^1.9.1",
     "play-sound": "^1.1.2",
     "request": "^2.88.0",
